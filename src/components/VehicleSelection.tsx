@@ -27,24 +27,7 @@ const vehicles: VehicleType[] = [
   },
   {
     name: "Van (up to 3.5t)",
-    icon: (
-      <svg 
-        width="32" 
-        height="32" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className="text-maxmove-500"
-      >
-        <path d="M3 12h14l4-8H7c-.8 0-1.6.3-2.1.9L3 12z"/>
-        <path d="M5 17a2 2 0 1 0 4 0 2 2 0 1 0-4 0zm12 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0z"/>
-        <path d="M16 17H9"/>
-        <path d="M21 12v5"/>
-      </svg>
-    ),
+    icon: <Truck className="h-8 w-8 text-maxmove-500" />,
     description: "Van delivery of multiple medium-large size items",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
@@ -73,25 +56,10 @@ const vehicles: VehicleType[] = [
   {
     name: "Towing Service",
     icon: (
-      <svg 
-        width="32" 
-        height="32" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className="text-maxmove-500"
-        style={{ transform: 'scaleX(-1)' }}
-      >
-        <path d="M4 12h10l6-8H10c-.8 0-1.6.3-2.1.9L4 12z"/>
-        <path d="M6 17a2 2 0 1 0 4 0 2 2 0 1 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 1 0-4 0z"/>
-        <path d="M14 17H8"/>
-        <path d="M20 12v5"/>
-        <path d="M8 5L3 12"/>
-        <path d="M12 5l-2 7"/>
-      </svg>
+      <div className="relative">
+        <Car className="h-8 w-8 text-maxmove-500" />
+        <Truck className="h-8 w-8 text-maxmove-500 absolute -right-4 top-0 transform -scale-x-100" />
+      </div>
     ),
     description: "Towing service for cars and motorcycles",
     dimensions: "4.8 x 2.1 x 1.8 Meter",
