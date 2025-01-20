@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import Navbar from "@/components/Navbar";
 
 const Drivers = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -72,15 +73,16 @@ const Drivers = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <Navbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {/* Left side - Banner */}
-          <section className="relative bg-maxmove-900 text-white p-8 rounded-lg">
+          <section className="relative bg-maxmove-900 text-white p-6 rounded-lg h-min">
             <div>
-              <h1 className="text-3xl font-bold mb-4">
+              <h1 className="text-2xl font-bold mb-2">
                 Drive With MaxMove
               </h1>
-              <p className="text-lg mb-4 text-gray-200">
+              <p className="text-base mb-2 text-gray-200">
                 Be your own boss, set your own schedule, and earn great money
               </p>
             </div>
@@ -88,8 +90,8 @@ const Drivers = () => {
 
           {/* Right side - Application Form */}
           <Card className="w-full">
-            <CardHeader>
-              <CardTitle>Start Driving</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-xl">Start Driving</CardTitle>
               <CardDescription>
                 Enter your details to begin the application process
               </CardDescription>
