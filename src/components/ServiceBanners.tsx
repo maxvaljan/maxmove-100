@@ -54,7 +54,7 @@ const ServiceBanners = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Move Now Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#F97316] to-[#FDBA74] p-6 transition-all hover:shadow-lg">
+        <div className="group relative overflow-hidden rounded-2xl bg-[#F97316] p-6 transition-all hover:shadow-lg">
           <Truck className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Move Now</h3>
           <p className="text-white/90 mb-6">
@@ -73,7 +73,7 @@ const ServiceBanners = () => {
         </div>
 
         {/* Business Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-maxmove-800 to-maxmove-600 p-6 transition-all hover:shadow-lg">
+        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-800 p-6 transition-all hover:shadow-lg">
           <Building2 className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Business</h3>
           <p className="text-white/90 mb-6">
@@ -92,7 +92,7 @@ const ServiceBanners = () => {
         </div>
 
         {/* Drivers Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0EA5E9] to-[#7DD3FC] p-6 transition-all hover:shadow-lg">
+        <div className="group relative overflow-hidden rounded-2xl bg-[#0EA5E9] p-6 transition-all hover:shadow-lg">
           <Users className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Drivers</h3>
           <p className="text-white/90 mb-6">
