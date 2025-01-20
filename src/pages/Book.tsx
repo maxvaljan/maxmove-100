@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface Stop {
   address: string;
@@ -192,13 +193,16 @@ const Book = () => {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full justify-start pl-10"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !date && "text-muted-foreground"
+                      )}
                     >
-                      <Calendar className="absolute left-3 h-4 w-4 text-maxmove-400" />
-                      {date ? format(date, 'PPP') : 'Today'}
+                      <Calendar className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : "Today"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
+                  <PopoverContent className="w-auto p-0">
                     <CalendarComponent
                       mode="single"
                       selected={date}
@@ -213,13 +217,16 @@ const Book = () => {
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full justify-start pl-10"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !selectedTime && "text-muted-foreground"
+                      )}
                     >
-                      <Clock className="absolute left-3 h-4 w-4 text-maxmove-400" />
-                      {selectedTime || 'Now'}
+                      <Clock className="mr-2 h-4 w-4" />
+                      {selectedTime || "Now"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-48" align="start">
+                  <PopoverContent className="w-48">
                     <div className="h-48 overflow-y-auto">
                       {generateTimeSlots().map((time) => (
                         <Button
