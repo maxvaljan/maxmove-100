@@ -76,28 +76,44 @@ const VehicleSelection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const sectionObserver = new IntersectionObserver(
       ([entry]) => {
-        // Only trigger when scrolled 15% deeper into the section
-        if (entry.intersectionRatio > 0.35) {
+        if (entry.isIntersecting) {
           setSectionVisible(true);
-          setContentVisible(true);
         } else {
           setSectionVisible(false);
+        }
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    const contentObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setContentVisible(true);
+        } else {
           setContentVisible(false);
         }
       },
       {
-        threshold: [0, 0.35], // Added higher threshold for deeper scroll trigger
-        rootMargin: "-15% 0px" // Offset trigger point by 15%
+        threshold: 0.5,
       }
     );
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+      sectionObserver.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    if (contentRef.current) {
+      contentObserver.observe(contentRef.current);
+    }
+
+    return () => {
+      sectionObserver.disconnect();
+      contentObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -110,7 +126,10 @@ const VehicleSelection = () => {
       }`}>
         Available Vehicles
       </h2>
-      <div className="space-y-4">
+      <div 
+        ref={contentRef}
+        className="space-y-4"
+      >
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
