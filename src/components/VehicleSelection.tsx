@@ -28,7 +28,7 @@ const vehicles: VehicleType[] = [
   },
   {
     name: "Van (up to 3.5t)",
-    icon: <Truck className="h-8 w-8 text-maxmove-500" />,
+    icon: <i className="fi fi-rs-van-fast text-3xl text-maxmove-500"></i>,
     description: "Van delivery of multiple medium-large size items",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
