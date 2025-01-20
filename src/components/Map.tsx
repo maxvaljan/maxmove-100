@@ -22,15 +22,11 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
           .from('api_keys')
           .select('key_value')
           .eq('key_name', 'mapbox_public_token')
-          .limit(1)
           .single();
 
         if (error) {
           console.error('Error fetching Mapbox token:', error);
-          if (error.code === '42501') {
-            console.error('Permission denied. Please check Supabase permissions.');
-          }
-          toast.error('Error loading map. Please try again later.');
+          toast.error('Error loading map');
           return;
         }
 
@@ -40,7 +36,8 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
           return;
         }
 
-        console.log('Mapbox token fetched successfully');
+        // Log the token to verify it's correct
+        console.log('Retrieved Mapbox token:', data.key_value);
         setMapboxToken(data.key_value);
       } catch (err) {
         console.error('Unexpected error fetching Mapbox token:', err);
@@ -55,16 +52,15 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
     if (!mapboxToken || !mapContainer.current) return;
 
     try {
-      console.log('Initializing map...');
+      console.log('Initializing map with token:', mapboxToken);
       mapboxgl.accessToken = mapboxToken;
       
-      // Cologne coordinates: longitude: 6.9578, latitude: 50.9367
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [6.9578, 50.9367], // Cologne, Germany
         zoom: 12,
-        attributionControl: false // Remove attribution control (includes Mapbox logo)
+        attributionControl: false
       });
 
       console.log('Map initialized successfully');
@@ -73,38 +69,32 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
       toast.error('Error loading map');
     }
 
-    // Cleanup
     return () => {
       map.current?.remove();
     };
   }, [mapboxToken]);
 
-  // Update markers when locations change
   useEffect(() => {
     if (!map.current) return;
 
     try {
-      // Remove existing markers
       const markers = document.getElementsByClassName('mapboxgl-marker');
       while (markers[0]) {
         markers[0].remove();
       }
 
-      // Add pickup marker
       if (pickupLocation) {
         new mapboxgl.Marker({ color: '#4CAF50' })
           .setLngLat(pickupLocation)
           .addTo(map.current);
       }
 
-      // Add dropoff marker
       if (dropoffLocation) {
         new mapboxgl.Marker({ color: '#F44336' })
           .setLngLat(dropoffLocation)
           .addTo(map.current);
       }
 
-      // Fit bounds to show both markers
       if (pickupLocation && dropoffLocation) {
         const bounds = new mapboxgl.LngLatBounds()
           .extend(pickupLocation)

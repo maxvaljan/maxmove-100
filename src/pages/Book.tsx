@@ -28,10 +28,8 @@ const Book = () => {
     { address: '', type: 'dropoff' }
   ]);
   
-  // Set default date to today
   const [date, setDate] = useState<Date>(startOfToday());
   
-  // Get current time rounded to next 30 minutes
   const now = new Date();
   const minutes = now.getMinutes();
   const roundedMinutes = Math.ceil(minutes / 30) * 30;
@@ -70,7 +68,7 @@ const Book = () => {
           return;
         }
 
-        console.log('Mapbox token fetched successfully');
+        console.log('Retrieved Mapbox token for geocoding:', data.key_value);
         setMapboxToken(data.key_value);
       } catch (err) {
         console.error('Error fetching Mapbox token:', err);
@@ -97,12 +95,15 @@ const Book = () => {
 
     try {
       console.log('Searching address:', query);
+      console.log('Using Mapbox token:', mapboxToken);
+      
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        console.error('Geocoding request failed:', response.status, response.statusText);
+        throw new Error(`Geocoding request failed: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
@@ -156,7 +157,6 @@ const Book = () => {
 
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
-        // Skip past times if it's today
         if (isToday(date)) {
           if (hour < adjustedHour || (hour === adjustedHour && minute < adjustedMinute)) {
             continue;
@@ -176,7 +176,6 @@ const Book = () => {
     }
     setDate(newDate);
     
-    // Reset time if it's now invalid for the new date
     if (isToday(newDate)) {
       const currentDate = new Date();
       const currentMinute = currentDate.getMinutes();
@@ -218,14 +217,12 @@ const Book = () => {
       
       <div className="container mx-auto px-4 pt-24 lg:pt-28">
         <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-200px)]">
-          {/* Form Section - Left Side */}
           <div className="w-full lg:w-[400px] flex-shrink-0 space-y-6">
             <h1 className="text-4xl font-bold text-maxmove-900">
               Book a Delivery
             </h1>
             
             <div className="space-y-4 bg-white p-6 rounded-xl shadow-sm">
-              {/* Stops */}
               <div className="space-y-4">
                 {stops.map((stop, index) => (
                   <div key={index} className="relative">
@@ -273,7 +270,6 @@ const Book = () => {
                 ))}
               </div>
 
-              {/* Add Stop Button */}
               <Button
                 variant="outline"
                 onClick={addStop}
@@ -284,7 +280,6 @@ const Book = () => {
               </Button>
 
               <div className="grid grid-cols-2 gap-4">
-                {/* Date Picker */}
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -309,7 +304,6 @@ const Book = () => {
                   </PopoverContent>
                 </Popover>
 
-                {/* Time Picker */}
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -346,7 +340,6 @@ const Book = () => {
             </div>
           </div>
 
-          {/* Map Section - Right Side */}
           <div className="flex-1 h-[500px] lg:h-auto">
             <Map
               pickupLocation={stops[0].coordinates}
