@@ -76,7 +76,7 @@ const ServiceBanners = () => {
           <Building2 className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Business</h3>
           <p className="text-white/90 mb-auto">
-            You need on-demand logistics, outsourcing, or want to partner with Maxmove?
+            On-demand logistics, outsourcing or partner with Maxmove?
           </p>
           <Button
             asChild
