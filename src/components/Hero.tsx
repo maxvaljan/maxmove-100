@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Package, Clock, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -21,8 +22,10 @@ const Hero = () => {
           <Button
             size="lg"
             className="bg-maxmove-800 hover:bg-maxmove-900 text-white group"
+            as={Link}
+            to="/book"
           >
-            Get Started
+            Move Now
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
           <Button
