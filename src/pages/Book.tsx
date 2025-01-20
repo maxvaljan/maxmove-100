@@ -11,6 +11,7 @@ import { de } from 'date-fns/locale';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import VehicleSelection from "@/components/VehicleSelection";
 
 interface Stop {
   address: string;
@@ -217,7 +218,7 @@ const Book = () => {
       <Navbar />
       
       <div className="container mx-auto px-4 pt-24 lg:pt-28">
-        <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-200px)]">
+        <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-[400px] flex-shrink-0 space-y-6">
             <h1 className="text-3xl font-bold text-maxmove-900">
               Move anything anywhere anytime with any vehicle
@@ -334,11 +335,9 @@ const Book = () => {
                   </PopoverContent>
                 </Popover>
               </div>
-
-              <Button className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white">
-                See prices
-              </Button>
             </div>
+
+            <VehicleSelection />
           </div>
 
           <div className="flex-1 h-[500px] lg:h-auto">
