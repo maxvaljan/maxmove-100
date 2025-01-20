@@ -58,11 +58,12 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
       console.log('Initializing map...');
       mapboxgl.accessToken = mapboxToken;
       
+      // Cologne coordinates: longitude: 6.9578, latitude: 50.9367
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [-74.5, 40], // Default center
-        zoom: 9
+        center: [6.9578, 50.9367], // Cologne, Germany
+        zoom: 12
       });
 
       // Add navigation controls
