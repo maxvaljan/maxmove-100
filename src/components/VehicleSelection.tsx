@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bike, Car, Truck, Snowflake } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import '@flaticon/flaticon-uicons/css/all/all.css';
 
 interface VehicleType {
   name: string;
@@ -55,17 +56,7 @@ const vehicles: VehicleType[] = [
   },
   {
     name: "Towing Service",
-    icon: (
-      <div className="relative flex items-center">
-        <Car className="h-6 w-6 text-maxmove-500" />
-        <div className="relative ml-1">
-          <Truck 
-            className="h-8 w-8 text-maxmove-500 transform -scale-x-100" 
-          />
-          <div className="absolute h-0.5 w-4 bg-maxmove-500 top-1/2 -left-3" />
-        </div>
-      </div>
-    ),
+    icon: <i className="fi fi-br-truck-tow text-3xl text-maxmove-500"></i>,
     description: "Towing service for cars and motorcycles",
     dimensions: "4.8 x 2.1 x 1.8 Meter",
     maxWeight: "Up to 2800 kg"
