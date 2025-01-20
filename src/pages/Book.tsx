@@ -10,13 +10,14 @@ const Book = () => {
   const [dropoff, setDropoff] = useState("");
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-gradient-to-b from-maxmove-50 to-white">
       <Navbar />
-      <div className="flex-1 flex lg:flex-row flex-col pt-16">
-        {/* Form Section */}
-        <div className="lg:w-[400px] p-6">
-          <div className="space-y-6">
-            <h1 className="text-4xl font-bold text-maxmove-900">
+      
+      <div className="flex-1 overflow-hidden">
+        <div className="h-full flex flex-col lg:flex-row gap-8 p-4 pt-20 lg:px-8">
+          {/* Form Section - Left Side */}
+          <div className="w-full lg:w-1/3 flex flex-col">
+            <h1 className="text-4xl font-bold text-maxmove-900 mb-6">
               Book a Delivery
             </h1>
             
@@ -67,11 +68,9 @@ const Book = () => {
               </Button>
             </div>
           </div>
-        </div>
 
-        {/* Map Section */}
-        <div className="flex-1 p-6 pt-0">
-          <div className="h-[600px] lg:h-[calc(100vh-6rem)] rounded-xl overflow-hidden">
+          {/* Map Section - Right Side */}
+          <div className="flex-1 h-full">
             <Map />
           </div>
         </div>
