@@ -76,43 +76,49 @@ const VehicleSelection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const sectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSectionVisible(true);
-        } else {
-          setSectionVisible(false);
-        }
-      },
-      {
-        threshold: 0.2,
-      }
-    );
+    const options = {
+      threshold: 0.2,
+      rootMargin: '0px',
+    };
 
-    const contentObserver = new IntersectionObserver(
-      ([entry]) => {
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        // Add a small delay to prevent rapid state changes
         if (entry.isIntersecting) {
-          setContentVisible(true);
+          requestAnimationFrame(() => {
+            if (entry.target === sectionRef.current) {
+              setSectionVisible(true);
+            } else if (entry.target === contentRef.current) {
+              setContentVisible(true);
+            }
+          });
         } else {
-          setContentVisible(false);
+          // Only hide content when it's completely out of view
+          if (entry.intersectionRatio === 0) {
+            requestAnimationFrame(() => {
+              if (entry.target === sectionRef.current) {
+                setSectionVisible(false);
+              } else if (entry.target === contentRef.current) {
+                setContentVisible(false);
+              }
+            });
+          }
         }
-      },
-      {
-        threshold: 0.5,
-      }
-    );
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
 
     if (sectionRef.current) {
-      sectionObserver.observe(sectionRef.current);
+      observer.observe(sectionRef.current);
     }
 
     if (contentRef.current) {
-      contentObserver.observe(contentRef.current);
+      observer.observe(contentRef.current);
     }
 
     return () => {
-      sectionObserver.disconnect();
-      contentObserver.disconnect();
+      observer.disconnect();
     };
   }, []);
 
@@ -121,7 +127,7 @@ const VehicleSelection = () => {
       ref={sectionRef}
       className="w-full space-y-4"
     >
-      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${
         isSectionVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
       }`}>
         Available Vehicles
@@ -133,18 +139,18 @@ const VehicleSelection = () => {
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
-            className={`transform transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden
+            className={`transform transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden will-change-transform
               ${isSectionVisible 
                 ? 'opacity-100 translate-y-0 scale-100 hover:shadow-lg hover:-translate-y-1 hover:bg-maxmove-50/50' 
                 : 'opacity-0 translate-y-8 scale-98'
               } ${isContentVisible ? 'p-4' : 'p-2'}`}
             style={{
               transitionDelay: `${index * 100}ms`,
-              transform: `perspective(1000px) ${!isSectionVisible ? 'rotateX(-5deg)' : 'rotateX(0deg)'}`
+              transform: `perspective(1000px) ${!isSectionVisible ? 'rotateX(-5deg)' : 'rotateX(0deg)'}`,
             }}
           >
             <div className="flex items-start gap-4">
-              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${
                 isSectionVisible ? 'scale-100 rotate-0 opacity-100' : 'scale-90 -rotate-12 opacity-0'
               } ${isContentVisible ? 'scale-100' : 'scale-95'}`}
                 style={{
@@ -154,7 +160,7 @@ const VehicleSelection = () => {
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${
                   isSectionVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                 } ${isContentVisible ? 'text-base' : 'text-sm'}`}
                   style={{
@@ -164,7 +170,7 @@ const VehicleSelection = () => {
                   {vehicle.name}
                 </h3>
                 <p 
-                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${
                     isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-2 max-h-0'
                   }`}
                   style={{ 
@@ -174,7 +180,7 @@ const VehicleSelection = () => {
                   {vehicle.description}
                 </p>
                 <div 
-                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${
                     isContentVisible ? 'opacity-100 translate-x-0 max-h-20' : 'opacity-0 translate-x-2 max-h-0'
                   }`}
                   style={{ 
