@@ -22,6 +22,7 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
           .from('api_keys')
           .select('key_value')
           .eq('key_name', 'mapbox_public_token')
+          .limit(1)
           .single();
 
         if (error) {
