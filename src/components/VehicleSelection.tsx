@@ -70,35 +70,41 @@ const vehicles: VehicleType[] = [
 ];
 
 const VehicleSelection = () => {
-  const [isSectionVisible, setSectionVisible] = useState(false);
-  const [isContentVisible, setContentVisible] = useState(false);
+  const [sectionVisibility, setSectionVisibility] = useState(0);
+  const [contentVisibility, setContentVisibility] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSectionVisible(true);
-        } else {
-          setSectionVisible(false);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const ratio = Math.min(Math.max(entry.intersectionRatio, 0), 1);
+            setSectionVisibility(ratio);
+          } else {
+            setSectionVisibility(0);
+          }
+        });
       },
       {
-        threshold: 0.2,
+        threshold: Array.from({ length: 21 }, (_, i) => i * 0.05), // Create thresholds from 0 to 1 in 0.05 steps
       }
     );
 
     const contentObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setContentVisible(true);
-        } else {
-          setContentVisible(false);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const ratio = Math.min(Math.max(entry.intersectionRatio, 0), 1);
+            setContentVisibility(ratio);
+          } else {
+            setContentVisibility(0);
+          }
+        });
       },
       {
-        threshold: 0.5,
+        threshold: Array.from({ length: 21 }, (_, i) => i * 0.05),
       }
     );
 
@@ -116,13 +122,18 @@ const VehicleSelection = () => {
     };
   }, []);
 
+  const getVisibilityClass = (index: number, threshold: number) => {
+    const visibilityRatio = contentVisibility - (index * 0.1);
+    return visibilityRatio > threshold;
+  };
+
   return (
     <div 
       ref={sectionRef}
       className="w-full space-y-4"
     >
-      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-700 ease-in-out ${
-        isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
+        sectionVisibility > 0.2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
         Available Vehicles
       </h2>
@@ -133,52 +144,37 @@ const VehicleSelection = () => {
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
-            className={`transform transition-all duration-700 ease-in-out overflow-hidden
-              ${isSectionVisible 
+            className={`transform transition-all duration-600 ease-in-out overflow-hidden
+              ${sectionVisibility > 0.2 
                 ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer' 
                 : 'opacity-0 translate-y-10'
-              } ${isContentVisible ? 'p-4' : 'p-2'}`}
-            style={{
-              transitionDelay: `${index * 150}ms`
-            }}
+              } ${getVisibilityClass(index, 0.5) ? 'p-4' : 'p-2'}`}
           >
             <div className="flex items-start gap-4">
-              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-700 ease-in-out ${
-                isSectionVisible ? 'scale-100' : 'scale-95'
-              } ${isContentVisible ? 'scale-100' : 'scale-90'}`}
-                style={{
-                  transitionDelay: `${index * 150 + 100}ms`
-                }}
+              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
+                sectionVisibility > 0.2 ? 'scale-100' : 'scale-95'
+              } ${getVisibilityClass(index, 0.5) ? 'scale-100' : 'scale-90'}`}
               >
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className={`font-semibold text-maxmove-900 transition-all duration-700 ease-in-out ${
-                  isSectionVisible ? 'opacity-100' : 'opacity-0'
-                } ${isContentVisible ? 'text-base' : 'text-sm'}`}
-                  style={{
-                    transitionDelay: `${index * 150 + 200}ms`
-                  }}
+                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
+                  sectionVisibility > 0.2 ? 'opacity-100' : 'opacity-0'
+                } ${getVisibilityClass(index, 0.5) ? 'text-base' : 'text-sm'}`}
                 >
                   {vehicle.name}
                 </h3>
                 <p 
-                  className={`text-sm text-maxmove-600 transition-all duration-700 ease-in-out ${
-                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
+                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-in-out ${
+                    getVisibilityClass(index, 0.6) ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
-                  style={{ 
-                    transitionDelay: `${index * 150 + 300}ms`
-                  }}
                 >
                   {vehicle.description}
                 </p>
                 <div 
-                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-700 ease-in-out ${
-                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
+                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-in-out ${
+                    getVisibilityClass(index, 0.7) ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
-                  style={{ 
-                    transitionDelay: `${index * 150 + 400}ms`
-                  }}
                 >
                   <span>📏 {vehicle.dimensions}</span>
                   <span>•</span>
