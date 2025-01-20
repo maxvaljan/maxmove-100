@@ -218,8 +218,8 @@ const Book = () => {
       <div className="container mx-auto px-4 pt-24 lg:pt-28">
         <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-200px)]">
           <div className="w-full lg:w-[400px] flex-shrink-0 space-y-6">
-            <h1 className="text-4xl font-bold text-maxmove-900">
-              Book a Delivery
+            <h1 className="text-3xl font-bold text-maxmove-900">
+              Move anything anywhere anytime with any vehicle
             </h1>
             
             <div className="space-y-4 bg-white p-6 rounded-xl shadow-sm">
