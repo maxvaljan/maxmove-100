@@ -31,7 +31,7 @@ const Book = () => {
   // Set default date to today
   const [date, setDate] = useState<Date>(startOfToday());
   
-  // Set default time to current time rounded to nearest 30 minutes
+  // Get current time rounded to next 30 minutes
   const now = new Date();
   const minutes = now.getMinutes();
   const roundedMinutes = Math.ceil(minutes / 30) * 30;
@@ -149,17 +149,16 @@ const Book = () => {
   const generateTimeSlots = () => {
     const slots = [];
     const currentDate = new Date();
-    const currentHour = currentDate.getHours();
     const currentMinute = currentDate.getMinutes();
-    const roundedCurrentMinute = Math.ceil(currentMinute / 30) * 30;
-    const adjustedCurrentHour = roundedCurrentMinute === 60 ? currentHour + 1 : currentHour;
-    const adjustedCurrentMinute = roundedCurrentMinute === 60 ? 0 : roundedCurrentMinute;
+    const roundedMinute = Math.ceil(currentMinute / 30) * 30;
+    const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
+    const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
 
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         // Skip past times if it's today
         if (isToday(date)) {
-          if (hour < adjustedCurrentHour || (hour === adjustedCurrentHour && minute < adjustedCurrentMinute)) {
+          if (hour < adjustedHour || (hour === adjustedHour && minute < adjustedMinute)) {
             continue;
           }
         }
@@ -180,11 +179,11 @@ const Book = () => {
     // Reset time if it's now invalid for the new date
     if (isToday(newDate)) {
       const currentDate = new Date();
-      const currentMinutes = currentDate.getMinutes();
-      const roundedMinutes = Math.ceil(currentMinutes / 30) * 30;
-      const adjustedHours = roundedMinutes === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
-      const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
-      const currentTime = `${adjustedHours.toString().padStart(2, '0')}:${adjustedMinutes.toString().padStart(2, '0')}`;
+      const currentMinute = currentDate.getMinutes();
+      const roundedMinute = Math.ceil(currentMinute / 30) * 30;
+      const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
+      const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
+      const currentTime = `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
       
       if (selectedTime < currentTime) {
         setSelectedTime(currentTime);
@@ -197,17 +196,20 @@ const Book = () => {
     return isToday(date) ? "Today" : format(date, "PPP");
   };
 
+  const getClosestAvailableTime = () => {
+    const currentDate = new Date();
+    const currentMinute = currentDate.getMinutes();
+    const roundedMinute = Math.ceil(currentMinute / 30) * 30;
+    const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
+    const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
+    return `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
+  };
+
   const getTimeDisplayText = () => {
     if (!selectedTime) return "Select time";
     
-    const currentDate = new Date();
-    const currentMinutes = currentDate.getMinutes();
-    const roundedMinutes = Math.ceil(currentMinutes / 30) * 30;
-    const adjustedHours = roundedMinutes === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
-    const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
-    const currentTime = `${adjustedHours.toString().padStart(2, '0')}:${adjustedMinutes.toString().padStart(2, '0')}`;
-    
-    return selectedTime === currentTime && isToday(date) ? "Now" : selectedTime;
+    const closestTime = getClosestAvailableTime();
+    return selectedTime === closestTime && isToday(date) ? "Now" : selectedTime;
   };
 
   return (
@@ -330,7 +332,7 @@ const Book = () => {
                           className="w-full justify-start"
                           onClick={() => setSelectedTime(time)}
                         >
-                          {time === defaultTime && isToday(date) ? "Now" : time}
+                          {time}
                         </Button>
                       ))}
                     </div>
