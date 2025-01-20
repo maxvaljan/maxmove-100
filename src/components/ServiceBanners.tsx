@@ -23,7 +23,7 @@ const ServiceBanners = () => {
   }, [titleNumber, titles]);
 
   return (
-    <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="flex justify-start items-center mb-12 pl-4">
         <h1 className="text-5xl md:text-7xl tracking-tighter font-bold flex items-center whitespace-nowrap">
           <span className="text-maxmove-600 mr-4">Move</span>
@@ -53,16 +53,16 @@ const ServiceBanners = () => {
         </h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Move Now Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-[#F97316] p-6 transition-all hover:shadow-lg">
+        {/* Move Banner */}
+        <div className="group relative overflow-hidden rounded-2xl bg-[#F97316] p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Truck className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Move</h3>
-          <p className="text-white/90 mb-6">
+          <p className="text-white/90 mb-auto">
             You need to move something?
           </p>
           <Button
             asChild
-            className="bg-white text-[#F97316] hover:bg-white/90 group"
+            className="bg-white text-[#F97316] hover:bg-white/90 group w-fit"
           >
             <Link to="/book">
               Book Now
@@ -72,15 +72,15 @@ const ServiceBanners = () => {
         </div>
 
         {/* Business Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-800 p-6 transition-all hover:shadow-lg">
+        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-800 p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Building2 className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Business</h3>
-          <p className="text-white/90 mb-6">
+          <p className="text-white/90 mb-auto">
             You need on-demand logistics, outsourcing, or want to partner with Maxmove?
           </p>
           <Button
             asChild
-            className="bg-white text-maxmove-800 hover:bg-white/90 group"
+            className="bg-white text-maxmove-800 hover:bg-white/90 group w-fit"
           >
             <Link to="/business">
               Learn More
@@ -89,16 +89,16 @@ const ServiceBanners = () => {
           </Button>
         </div>
 
-        {/* Drivers Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-[#0EA5E9] p-6 transition-all hover:shadow-lg">
+        {/* Driver Banner */}
+        <div className="group relative overflow-hidden rounded-2xl bg-[#0EA5E9] p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Users className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Driver</h3>
-          <p className="text-white/90 mb-6">
+          <p className="text-white/90 mb-auto">
             Become driver at Maxmove. Flexible and great earnings.
           </p>
           <Button
             asChild
-            className="bg-white text-[#0EA5E9] hover:bg-white/90 group"
+            className="bg-white text-[#0EA5E9] hover:bg-white/90 group w-fit"
           >
             <Link to="/drivers">
               Join Us
