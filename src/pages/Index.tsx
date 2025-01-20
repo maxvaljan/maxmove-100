@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ServiceBanners from "@/components/ServiceBanners";
 import AppDownload from "@/components/AppDownload";
-import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -9,7 +8,6 @@ const Index = () => {
       <Navbar />
       <ServiceBanners />
       <AppDownload />
-      <Footer />
     </div>
   );
 };
