@@ -81,15 +81,22 @@ const VehicleSelection = () => {
       <h2 className="text-xl font-semibold text-maxmove-900">Available Vehicles</h2>
       <div className="space-y-4">
         {vehicles.map((vehicle, index) => (
-          <Card key={index} className="p-4 hover:shadow-md transition-shadow cursor-pointer">
+          <Card 
+            key={index} 
+            className="p-4 hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
+          >
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 p-2 bg-maxmove-50 rounded-lg">
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className="font-semibold text-maxmove-900">{vehicle.name}</h3>
-                <p className="text-sm text-maxmove-600">{vehicle.description}</p>
-                <div className="flex items-center gap-2 text-sm text-maxmove-500">
+                <h3 className="font-semibold text-maxmove-900 animate-fade-in">{vehicle.name}</h3>
+                <p className="text-sm text-maxmove-600 animate-slide-up opacity-0" 
+                   style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}>
+                  {vehicle.description}
+                </p>
+                <div className="flex items-center gap-2 text-sm text-maxmove-500 animate-slide-up opacity-0"
+                     style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}>
                   <span>📏 {vehicle.dimensions}</span>
                   <span>•</span>
                   <span>⚖️ {vehicle.maxWeight}</span>
