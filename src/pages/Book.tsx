@@ -34,8 +34,10 @@ const Book = () => {
   // Set default time to current time rounded to nearest 30 minutes
   const now = new Date();
   const minutes = now.getMinutes();
-  const roundedMinutes = Math.ceil(minutes / 30) * 30;
+  const roundedMinutes = Math.floor(minutes / 30) * 30;
   now.setMinutes(roundedMinutes);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
   const defaultTime = `${now.getHours().toString().padStart(2, '0')}:${roundedMinutes.toString().padStart(2, '0')}`;
   const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
   
@@ -47,13 +49,26 @@ const Book = () => {
   useEffect(() => {
     const fetchMapboxToken = async () => {
       try {
+        console.log('Fetching Mapbox token...');
         const { data, error } = await supabase
           .from('api_keys')
           .select('key_value')
           .eq('key_name', 'mapbox_public_token')
           .single();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error fetching Mapbox token:', error);
+          toast.error('Error loading address suggestions');
+          return;
+        }
+
+        if (!data?.key_value) {
+          console.error('No Mapbox token found');
+          toast.error('Map configuration not found');
+          return;
+        }
+
+        console.log('Mapbox token fetched successfully');
         setMapboxToken(data.key_value);
       } catch (err) {
         console.error('Error fetching Mapbox token:', err);
@@ -79,18 +94,32 @@ const Book = () => {
     if (!query.trim() || !mapboxToken) return;
 
     try {
+      console.log('Searching address:', query);
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`
       );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
       const data = await response.json();
-      setSuggestions(data.features.map((feature: any) => ({
-        place_name: feature.place_name,
-        center: feature.center
-      })));
-      setActiveInput(index);
+      console.log('Address suggestions received:', data);
+
+      if (data.features && Array.isArray(data.features)) {
+        setSuggestions(data.features.map((feature: any) => ({
+          place_name: feature.place_name,
+          center: feature.center
+        })));
+        setActiveInput(index);
+      } else {
+        console.error('Invalid response format:', data);
+        setSuggestions([]);
+      }
     } catch (err) {
       console.error('Error fetching address suggestions:', err);
       toast.error('Error loading address suggestions');
+      setSuggestions([]);
     }
   };
 
@@ -117,21 +146,21 @@ const Book = () => {
 
   const generateTimeSlots = () => {
     const slots = [];
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentMinute = currentDate.getMinutes();
+    const roundedCurrentMinute = Math.floor(currentMinute / 30) * 30;
 
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
-        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-        
-        // If it's today, only show future times
+        // Skip past times if it's today
         if (isToday(date)) {
-          if (hour < currentHour || (hour === currentHour && minute <= currentMinute)) {
+          if (hour < currentHour || (hour === currentHour && minute < roundedCurrentMinute)) {
             continue;
           }
         }
         
+        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
         slots.push(timeString);
       }
     }
@@ -143,12 +172,16 @@ const Book = () => {
       return;
     }
     setDate(newDate);
-    // Clear time if it's now invalid for the new date
+    
+    // Reset time if it's now invalid for the new date
     if (isToday(newDate)) {
-      const now = new Date();
-      const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-      if (selectedTime && selectedTime <= currentTime) {
-        setSelectedTime(defaultTime);
+      const currentDate = new Date();
+      const currentMinutes = currentDate.getMinutes();
+      const roundedMinutes = Math.floor(currentMinutes / 30) * 30;
+      const currentTime = `${currentDate.getHours().toString().padStart(2, '0')}:${roundedMinutes.toString().padStart(2, '0')}`;
+      
+      if (selectedTime < currentTime) {
+        setSelectedTime(currentTime);
       }
     }
   };
@@ -159,10 +192,15 @@ const Book = () => {
   };
 
   const getTimeDisplayText = () => {
-    if (!selectedTime) return "Now";
-    const now = new Date();
-    const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-    return selectedTime === currentTime ? "Now" : selectedTime;
+    if (!selectedTime) return "Select time";
+    
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+    const currentMinute = currentDate.getMinutes();
+    const roundedCurrentMinute = Math.floor(currentMinute / 30) * 30;
+    const currentTime = `${currentHour.toString().padStart(2, '0')}:${roundedCurrentMinute.toString().padStart(2, '0')}`;
+    
+    return selectedTime === currentTime && isToday(date) ? "Now" : selectedTime;
   };
 
   return (
@@ -285,7 +323,7 @@ const Book = () => {
                           className="w-full justify-start"
                           onClick={() => setSelectedTime(time)}
                         >
-                          {time === defaultTime ? "Now" : time}
+                          {time === defaultTime && isToday(date) ? "Now" : time}
                         </Button>
                       ))}
                     </div>
