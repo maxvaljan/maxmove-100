@@ -19,15 +19,15 @@ const Hero = () => {
           professional fleet and dedicated drivers.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16 animate-slide-up">
-          <Button
-            size="lg"
-            className="bg-maxmove-800 hover:bg-maxmove-900 text-white group"
-            as={Link}
-            to="/book"
-          >
-            Move Now
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <Link to="/book">
+            <Button
+              size="lg"
+              className="bg-maxmove-800 hover:bg-maxmove-900 text-white group"
+            >
+              Move Now
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
           <Button
             size="lg"
             variant="outline"
