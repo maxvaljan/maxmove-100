@@ -27,7 +27,7 @@ const ServiceBanners = () => {
       <div className="flex justify-start items-center mb-12 pl-4">
         <h1 className="text-5xl md:text-7xl tracking-tighter font-bold flex items-center whitespace-nowrap">
           <span className="text-maxmove-600 mr-4">Move</span>
-          <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block min-w-[700px] translate-y-[0px]">
+          <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block min-w-[700px] translate-y-[4px]">
             {titles.map((title, index) => (
               <motion.span
                 key={index}
