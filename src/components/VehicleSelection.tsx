@@ -81,7 +81,8 @@ const VehicleSelection = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setSectionVisible(true);
-          sectionObserver.disconnect();
+        } else {
+          setSectionVisible(false);
         }
       },
       {
@@ -94,7 +95,8 @@ const VehicleSelection = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setContentVisible(true);
-          contentObserver.disconnect();
+        } else {
+          setContentVisible(false);
         }
       },
       {
@@ -135,9 +137,9 @@ const VehicleSelection = () => {
             key={index} 
             className={`transform transition-all duration-500 overflow-hidden
               ${isSectionVisible 
-                ? 'opacity-100 translate-y-0 p-4 hover:shadow-md cursor-pointer' 
-                : 'opacity-0 translate-y-10 p-2'
-              }`}
+                ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer' 
+                : 'opacity-0 translate-y-10'
+              } ${isContentVisible ? 'p-4' : 'p-2'}`}
             style={{
               transitionDelay: `${index * 100}ms`
             }}
@@ -145,18 +147,18 @@ const VehicleSelection = () => {
             <div className="flex items-start gap-4">
               <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-500 ${
                 isSectionVisible ? 'scale-100' : 'scale-95'
-              }`}>
+              } ${isContentVisible ? 'scale-100' : 'scale-90'}`}>
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
                 <h3 className={`font-semibold text-maxmove-900 transition-all duration-500 ${
                   isSectionVisible ? 'opacity-100' : 'opacity-0'
-                }`}>
+                } ${isContentVisible ? 'text-base' : 'text-sm'}`}>
                   {vehicle.name}
                 </h3>
                 <p 
                   className={`text-sm text-maxmove-600 transition-all duration-500 ${
-                    isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ transitionDelay: isContentVisible ? '200ms' : '0ms' }}
                 >
@@ -164,7 +166,7 @@ const VehicleSelection = () => {
                 </p>
                 <div 
                   className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-500 ${
-                    isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ transitionDelay: isContentVisible ? '400ms' : '0ms' }}
                 >
