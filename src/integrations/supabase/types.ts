@@ -79,30 +79,36 @@ export type Database = {
       }
       Driver: {
         Row: {
+          city: string | null
           created_at: string
           id: string
           latitude: number
           longitude: number
+          phone_number: string | null
           rating: number | null
           status: Database["public"]["Enums"]["DriverStatus"]
           vehicle_number: string
           vehicle_type: Database["public"]["Enums"]["VehicleType"]
         }
         Insert: {
+          city?: string | null
           created_at?: string
           id: string
           latitude: number
           longitude: number
+          phone_number?: string | null
           rating?: number | null
           status?: Database["public"]["Enums"]["DriverStatus"]
           vehicle_number: string
           vehicle_type: Database["public"]["Enums"]["VehicleType"]
         }
         Update: {
+          city?: string | null
           created_at?: string
           id?: string
           latitude?: number
           longitude?: number
+          phone_number?: string | null
           rating?: number | null
           status?: Database["public"]["Enums"]["DriverStatus"]
           vehicle_number?: string
@@ -260,6 +266,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      PhoneVerification: {
+        Row: {
+          attempts: number | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          phone_number: string
+          verification_code: string
+          verified: boolean | null
+        }
+        Insert: {
+          attempts?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          phone_number: string
+          verification_code: string
+          verified?: boolean | null
+        }
+        Update: {
+          attempts?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          phone_number?: string
+          verification_code?: string
+          verified?: boolean | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {

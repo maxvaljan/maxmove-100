@@ -1,26 +1,32 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Drivers from "./pages/Drivers";
+import DriverApplication from "./pages/DriverApplication";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Clock,
+  CreditCard,
+  Smartphone,
+  Shield,
+  Calendar,
+  MapPin,
+} from "lucide-react";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/drivers" element={<Drivers />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/drivers" element={<Drivers />} />
+        <Route path="/drivers/apply" element={<DriverApplication />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
