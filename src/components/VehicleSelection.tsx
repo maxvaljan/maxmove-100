@@ -28,7 +28,7 @@ const vehicles: VehicleType[] = [
   },
   {
     name: "Van (up to 3.5t)",
-    icon: <i className="fi fi-rr-van h-8 w-8 text-maxmove-500" style={{ fontSize: '32px' }}></i>,
+    icon: <i className="fi fi-rr-van text-maxmove-500" style={{ fontSize: '2rem' }}></i>,
     description: "Van delivery of multiple medium-large size items",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
@@ -56,7 +56,7 @@ const vehicles: VehicleType[] = [
   },
   {
     name: "Towing Service",
-    icon: <i className="fi fi-br-truck-tow h-8 w-8 text-maxmove-500" style={{ fontSize: '32px' }}></i>,
+    icon: <i className="fi fi-br-truck-tow text-maxmove-500" style={{ fontSize: '2rem' }}></i>,
     description: "Towing service for cars and motorcycles",
     dimensions: "4.8 x 2.1 x 1.8 Meter",
     maxWeight: "Up to 2800 kg"
