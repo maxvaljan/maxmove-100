@@ -25,9 +25,9 @@ function AnimatedHero() {
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-32 items-center justify-center flex-col">
           <div className="flex gap-4 flex-col">
-            <h1 className="text-5xl md:text-7xl max-w-3xl tracking-tighter text-center font-bold flex items-center justify-center gap-3">
+            <h1 className="text-5xl md:text-7xl tracking-tighter text-center font-bold flex items-center justify-center gap-3">
               <span className="text-maxmove-900">Move</span>
-              <span className="relative inline-block h-[1.2em] overflow-hidden text-maxmove-600">
+              <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block min-w-[300px]">
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
