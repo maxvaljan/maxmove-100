@@ -14,56 +14,56 @@ interface VehicleType {
 const vehicles: VehicleType[] = [
   {
     name: "Bike/Motorcycle",
-    icon: <Bike className="w-7 h-7 text-maxmove-500" />,
+    icon: <Bike className="w-8 h-8 text-maxmove-500" />,
     description: "Perfect for small goods, with a faster order pickup time",
     dimensions: "0.4 x 0.3 x 0.3 Meter",
     maxWeight: "Up to 8 kg"
   },
   {
     name: "Car",
-    icon: <Car className="w-7 h-7 text-maxmove-500" />,
+    icon: <Car className="w-8 h-8 text-maxmove-500" />,
     description: "Car delivery of medium size items",
     dimensions: "0.7 x 0.5 x 0.5 Meter",
     maxWeight: "Up to 20 kg"
   },
   {
-    name: "Van",
-    icon: <i className="fi fi-rr-van text-[28px] text-maxmove-500"></i>,
+    name: "Van (up to 3.5t)",
+    icon: <i className="fi fi-rr-van text-[32px] text-maxmove-500"></i>,
     description: "Van delivery of multiple medium-large size items",
     dimensions: "1.6 x 1.2 x 1 Meter",
-    maxWeight: "Up to 3.5t"
+    maxWeight: "Up to 400 kg"
   },
   {
-    name: "Light Truck",
-    icon: <Truck className="w-7 h-7 text-maxmove-500" />,
+    name: "Light Truck (3.5-7.5t)",
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Light truck for larger deliveries",
     dimensions: "2.3 x 1.2 x 1.2 Meter",
-    maxWeight: "3.5-7.5t"
+    maxWeight: "Up to 800 kg"
   },
   {
-    name: "Medium Truck",
-    icon: <Truck className="w-7 h-7 text-maxmove-500" />,
+    name: "Medium Truck (7.5-12t)",
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Medium truck for heavy deliveries",
     dimensions: "2.9 x 1.4 x 1.7 Meter",
-    maxWeight: "7.5-12t"
+    maxWeight: "Up to 1200 kg"
   },
   {
-    name: "Heavy Truck",
-    icon: <Truck className="w-7 h-7 text-maxmove-500" />,
+    name: "Heavy Truck (>12t)",
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Heavy truck for industrial equipment",
     dimensions: "7.5 x 2.4 x 2.3 Meter",
-    maxWeight: "Over 12t"
+    maxWeight: "Up to 5000 kg"
   },
   {
     name: "Towing Service",
-    icon: <i className="fi fi-br-truck-tow text-[28px] text-maxmove-500"></i>,
+    icon: <i className="fi fi-br-truck-tow text-[32px] text-maxmove-500"></i>,
     description: "Towing service for cars and motorcycles",
     dimensions: "4.8 x 2.1 x 1.8 Meter",
-    maxWeight: "Up to 2.8t"
+    maxWeight: "Up to 2800 kg"
   },
   {
     name: "Refrigerated Vehicle",
-    icon: <Snowflake className="w-7 h-7 text-maxmove-500" />,
+    icon: <Snowflake className="w-8 h-8 text-maxmove-500" />,
     description: "Temperature-controlled transport",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
@@ -120,16 +120,16 @@ const VehicleSelection = () => {
   return (
     <div 
       ref={sectionRef}
-      className="w-full space-y-3"
+      className="w-full space-y-4"
     >
-      <h2 className={`text-lg font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
+      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
         isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
         Available Vehicles
       </h2>
       <div 
         ref={contentRef}
-        className="space-y-3"
+        className="space-y-4"
       >
         {vehicles.map((vehicle, index) => (
           <Card 
@@ -138,13 +138,13 @@ const VehicleSelection = () => {
               ${isSectionVisible 
                 ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer scale-100' 
                 : 'opacity-0 translate-y-10 scale-95'
-              } ${isContentVisible ? 'p-3' : 'p-2'}`}
+              } ${isContentVisible ? 'p-4' : 'p-2'}`}
             style={{
               transitionDelay: `${index * 150}ms`
             }}
           >
-            <div className="flex items-start gap-3">
-              <div className={`flex items-center justify-center flex-shrink-0 w-12 h-12 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
+            <div className="flex items-start gap-4">
+              <div className={`flex items-center justify-center flex-shrink-0 w-14 h-14 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
                 isSectionVisible ? 'scale-100' : 'scale-95'
               } ${isContentVisible ? 'scale-100' : 'scale-90'}`}
                 style={{
@@ -156,7 +156,7 @@ const VehicleSelection = () => {
               <div className="flex-1 space-y-1">
                 <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
                   isSectionVisible ? 'opacity-100' : 'opacity-0'
-                } ${isContentVisible ? 'text-sm' : 'text-xs'}`}
+                } ${isContentVisible ? 'text-base' : 'text-sm'}`}
                   style={{
                     transitionDelay: `${index * 150 + 200}ms`
                   }}
@@ -164,7 +164,7 @@ const VehicleSelection = () => {
                   {vehicle.name}
                 </h3>
                 <p 
-                  className={`text-xs text-maxmove-600 transition-all duration-600 ease-in-out ${
+                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-in-out ${
                     isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ 
@@ -174,7 +174,7 @@ const VehicleSelection = () => {
                   {vehicle.description}
                 </p>
                 <div 
-                  className={`flex flex-col gap-1 text-xs text-maxmove-500 transition-all duration-600 ease-in-out ${
+                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-in-out ${
                     isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ 
@@ -182,6 +182,7 @@ const VehicleSelection = () => {
                   }}
                 >
                   <span>📏 {vehicle.dimensions}</span>
+                  <span>•</span>
                   <span>⚖️ {vehicle.maxWeight}</span>
                 </div>
               </div>
