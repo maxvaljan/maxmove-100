@@ -3,14 +3,15 @@ import { Badge } from "@/components/ui/badge";
 const AppDownload = () => {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50">
-      <h2 className="text-4xl font-bold text-center text-maxmove-900 mb-16">
-        Our Apps
-      </h2>
+      <div className="text-center mb-8">
+        <h2 className="text-4xl font-bold text-maxmove-900">Our Apps</h2>
+        <p className="mt-2 text-maxmove-600">Coming Soon</p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {/* Customer App */}
         <div className="bg-white p-8 rounded-2xl text-center shadow-sm">
           <h3 className="text-2xl font-bold text-maxmove-800 mb-6">
-            Our Customer App
+            User App
           </h3>
           <div className="relative inline-block">
             <img
@@ -18,9 +19,6 @@ const AppDownload = () => {
               alt="Maxmove Customer App"
               className="w-32 h-32 mx-auto mb-6 rounded-lg"
             />
-            <Badge className="absolute -top-2 -right-2 bg-maxmove-600">
-              Coming Soon
-            </Badge>
           </div>
           <div className="flex justify-center gap-4">
             <img
@@ -39,7 +37,7 @@ const AppDownload = () => {
         {/* Driver App */}
         <div className="bg-white p-8 rounded-2xl text-center shadow-sm">
           <h3 className="text-2xl font-bold text-maxmove-800 mb-6">
-            Our Driver App
+            Driver App
           </h3>
           <div className="relative inline-block">
             <img
@@ -47,9 +45,6 @@ const AppDownload = () => {
               alt="Maxmove Driver App"
               className="w-32 h-32 mx-auto mb-6 rounded-lg"
             />
-            <Badge className="absolute -top-2 -right-2 bg-maxmove-600">
-              Coming Soon
-            </Badge>
           </div>
           <div className="flex justify-center gap-4">
             <img
