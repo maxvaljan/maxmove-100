@@ -43,9 +43,9 @@ const AppDownload = () => {
           </h3>
           <div className="relative inline-block">
             <img
-              src="/placeholder.svg"
+              src="/lovable-uploads/abbdffc4-d880-4221-96b3-c26c250bc82a.png"
               alt="Maxmove Driver App"
-              className="w-32 h-32 mx-auto mb-6"
+              className="w-32 h-32 mx-auto mb-6 rounded-lg"
             />
             <Badge className="absolute -top-2 -right-2 bg-maxmove-600">
               Coming Soon
