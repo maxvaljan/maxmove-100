@@ -121,7 +121,7 @@ const VehicleSelection = () => {
       ref={sectionRef}
       className="w-full space-y-4"
     >
-      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-700 ease-in-out ${
+      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
         isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
         Available Vehicles
@@ -133,7 +133,7 @@ const VehicleSelection = () => {
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
-            className={`transform transition-all duration-700 ease-in-out overflow-hidden
+            className={`transform transition-all duration-600 ease-in-out overflow-hidden
               ${isSectionVisible 
                 ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer' 
                 : 'opacity-0 translate-y-10'
@@ -143,7 +143,7 @@ const VehicleSelection = () => {
             }}
           >
             <div className="flex items-start gap-4">
-              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-700 ease-in-out ${
+              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
                 isSectionVisible ? 'scale-100' : 'scale-95'
               } ${isContentVisible ? 'scale-100' : 'scale-90'}`}
                 style={{
@@ -153,7 +153,7 @@ const VehicleSelection = () => {
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className={`font-semibold text-maxmove-900 transition-all duration-700 ease-in-out ${
+                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
                   isSectionVisible ? 'opacity-100' : 'opacity-0'
                 } ${isContentVisible ? 'text-base' : 'text-sm'}`}
                   style={{
@@ -163,7 +163,7 @@ const VehicleSelection = () => {
                   {vehicle.name}
                 </h3>
                 <p 
-                  className={`text-sm text-maxmove-600 transition-all duration-700 ease-in-out ${
+                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-in-out ${
                     isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ 
@@ -173,7 +173,7 @@ const VehicleSelection = () => {
                   {vehicle.description}
                 </p>
                 <div 
-                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-700 ease-in-out ${
+                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-in-out ${
                     isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
                   }`}
                   style={{ 
