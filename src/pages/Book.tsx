@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Map from "@/components/Map";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format, isBefore, startOfToday, startOfTomorrow, parse, isToday } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,7 @@ const Book = () => {
     { address: '', type: 'pickup' },
     { address: '', type: 'dropoff' }
   ]);
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date>(startOfTomorrow());
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [activeInput, setActiveInput] = useState<number | null>(null);
@@ -107,13 +107,40 @@ const Book = () => {
 
   const generateTimeSlots = () => {
     const slots = [];
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        
+        // If it's today, only show future times
+        if (isToday(date)) {
+          if (hour < currentHour || (hour === currentHour && minute <= currentMinute)) {
+            continue;
+          }
+        }
+        
         slots.push(timeString);
       }
     }
     return slots;
+  };
+
+  const handleDateSelect = (newDate: Date | undefined) => {
+    if (!newDate || isBefore(newDate, startOfToday())) {
+      return;
+    }
+    setDate(newDate);
+    // Clear time if it's now invalid for the new date
+    if (isToday(newDate)) {
+      const now = new Date();
+      const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+      if (selectedTime && selectedTime <= currentTime) {
+        setSelectedTime('');
+      }
+    }
   };
 
   return (
@@ -199,14 +226,15 @@ const Book = () => {
                       )}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : "Today"}
+                      {date ? format(date, "PPP") : "Select date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
                     <CalendarComponent
                       mode="single"
                       selected={date}
-                      onSelect={setDate}
+                      onSelect={handleDateSelect}
+                      disabled={(date) => isBefore(date, startOfToday())}
                       initialFocus
                     />
                   </PopoverContent>
@@ -223,7 +251,7 @@ const Book = () => {
                       )}
                     >
                       <Clock className="mr-2 h-4 w-4" />
-                      {selectedTime || "Now"}
+                      {selectedTime || "Select time"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-48">
