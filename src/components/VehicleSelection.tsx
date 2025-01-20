@@ -70,12 +70,24 @@ const vehicles: VehicleType[] = [
 ];
 
 const VehicleSelection = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [isSectionVisible, setSectionVisible] = useState(false);
   const [isContentVisible, setContentVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Add a small delay before allowing animations to start
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const options = {
       threshold: 0.2,
       rootMargin: '0px',
@@ -83,7 +95,6 @@ const VehicleSelection = () => {
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        // Add a small delay to prevent rapid state changes
         if (entry.isIntersecting) {
           requestAnimationFrame(() => {
             if (entry.target === sectionRef.current) {
@@ -92,17 +103,14 @@ const VehicleSelection = () => {
               setContentVisible(true);
             }
           });
-        } else {
-          // Only hide content when it's completely out of view
-          if (entry.intersectionRatio === 0) {
-            requestAnimationFrame(() => {
-              if (entry.target === sectionRef.current) {
-                setSectionVisible(false);
-              } else if (entry.target === contentRef.current) {
-                setContentVisible(false);
-              }
-            });
-          }
+        } else if (entry.intersectionRatio === 0) {
+          requestAnimationFrame(() => {
+            if (entry.target === sectionRef.current) {
+              setSectionVisible(false);
+            } else if (entry.target === contentRef.current) {
+              setContentVisible(false);
+            }
+          });
         }
       });
     };
@@ -120,7 +128,20 @@ const VehicleSelection = () => {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [isMounted]);
+
+  if (!isMounted) {
+    return (
+      <div className="w-full space-y-4 opacity-0">
+        <h2 className="text-xl font-semibold text-maxmove-900">Available Vehicles</h2>
+        <div className="space-y-4">
+          {vehicles.map((_, index) => (
+            <Card key={index} className="p-4" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div 
