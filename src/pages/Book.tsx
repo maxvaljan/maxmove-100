@@ -10,13 +10,11 @@ const Book = () => {
   const [dropoff, setDropoff] = useState("");
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-maxmove-50 to-white">
+    <div className="h-screen flex flex-col bg-gradient-to-b from-maxmove-50 to-white">
       <Navbar />
       
-      {/* Main container with fixed height and padding */}
-      <div className="container mx-auto px-4 h-[calc(100vh-80px)] pt-20">
-        {/* Flex container for form and map */}
-        <div className="flex flex-col lg:flex-row gap-8 h-full">
+      <div className="flex-1 overflow-hidden">
+        <div className="h-full flex flex-col lg:flex-row gap-8 p-4 pt-20 lg:px-8">
           {/* Form Section - Left Side */}
           <div className="w-full lg:w-1/3 flex flex-col">
             <h1 className="text-4xl font-bold text-maxmove-900 mb-6">
@@ -72,7 +70,7 @@ const Book = () => {
           </div>
 
           {/* Map Section - Right Side */}
-          <div className="w-full lg:w-2/3 h-full">
+          <div className="flex-1 h-full">
             <Map />
           </div>
         </div>
