@@ -1,12 +1,54 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Truck, Building2, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 
 const ServiceBanners = () => {
+  const [titleNumber, setTitleNumber] = useState(0);
+  const titles = useMemo(
+    () => ["anything", "anytime", "anywhere", "with any vehicle"],
+    []
+  );
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (titleNumber === titles.length - 1) {
+        setTitleNumber(0);
+      } else {
+        setTitleNumber(titleNumber + 1);
+      }
+    }, 2000);
+    return () => clearTimeout(timeoutId);
+  }, [titleNumber, titles]);
+
   return (
     <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-bold text-maxmove-900 text-center mb-12">
-        Move Anything, Anytime, Anywhere
+      <h1 className="text-5xl md:text-7xl tracking-tighter text-center font-bold flex items-center justify-center gap-3 mb-12">
+        <span className="text-maxmove-900">Move</span>
+        <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block min-w-[300px]">
+          {titles.map((title, index) => (
+            <motion.span
+              key={index}
+              className="absolute left-0 right-0"
+              initial={{ opacity: 0, y: "-100" }}
+              transition={{ type: "spring", stiffness: 50 }}
+              animate={
+                titleNumber === index
+                  ? {
+                      y: 0,
+                      opacity: 1,
+                    }
+                  : {
+                      y: titleNumber > index ? -150 : 150,
+                      opacity: 0,
+                    }
+              }
+            >
+              {title}
+            </motion.span>
+          ))}
+        </span>
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Move Now Banner */}
