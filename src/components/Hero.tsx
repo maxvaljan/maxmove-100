@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Package, Clock, Shield } from "lucide-react";
-import ServiceBanners from "./ServiceBanners";
 
 const Hero = () => {
   return (
@@ -36,7 +35,7 @@ const Hero = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
                 icon: Package,
@@ -66,8 +65,6 @@ const Hero = () => {
               </div>
             ))}
           </div>
-
-          <ServiceBanners />
         </div>
       </div>
 
