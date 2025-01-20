@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Map from "@/components/Map";
 
 const Book = () => {
   const [pickup, setPickup] = useState("");
@@ -68,11 +69,8 @@ const Book = () => {
         </div>
 
         {/* Map Section - Right Side */}
-        <div className="w-full lg:w-2/3 bg-maxmove-100 rounded-xl h-[600px]">
-          {/* Map will be implemented here */}
-          <div className="w-full h-full rounded-xl bg-maxmove-100 flex items-center justify-center text-maxmove-400">
-            Map coming soon
-          </div>
+        <div className="w-full lg:w-2/3 h-[600px] rounded-xl overflow-hidden">
+          <Map />
         </div>
       </div>
     </div>
