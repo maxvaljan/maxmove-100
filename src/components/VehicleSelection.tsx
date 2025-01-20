@@ -135,8 +135,8 @@ const VehicleSelection = () => {
             key={index} 
             className={`transform transition-all duration-600 ease-in-out overflow-hidden
               ${isSectionVisible 
-                ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer' 
-                : 'opacity-0 translate-y-10'
+                ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer scale-100' 
+                : 'opacity-0 translate-y-10 scale-95'
               } ${isContentVisible ? 'p-4' : 'p-2'}`}
             style={{
               transitionDelay: `${index * 150}ms`
