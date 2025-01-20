@@ -54,7 +54,7 @@ const ServiceBanners = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Move Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-[#F97316] p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
+        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Truck className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Move</h3>
           <p className="text-white/90 mb-auto">
@@ -62,7 +62,7 @@ const ServiceBanners = () => {
           </p>
           <Button
             asChild
-            className="bg-white text-[#F97316] hover:bg-white/90 group w-fit"
+            className="bg-white text-maxmove-600 hover:bg-white/90 group w-fit"
           >
             <Link to="/book">
               Book Now
@@ -72,7 +72,7 @@ const ServiceBanners = () => {
         </div>
 
         {/* Business Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-800 p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
+        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Building2 className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Business</h3>
           <p className="text-white/90 mb-auto">
@@ -80,7 +80,7 @@ const ServiceBanners = () => {
           </p>
           <Button
             asChild
-            className="bg-white text-maxmove-800 hover:bg-white/90 group w-fit"
+            className="bg-white text-maxmove-600 hover:bg-white/90 group w-fit"
           >
             <Link to="/business">
               Learn More
@@ -90,7 +90,7 @@ const ServiceBanners = () => {
         </div>
 
         {/* Driver Banner */}
-        <div className="group relative overflow-hidden rounded-2xl bg-[#0EA5E9] p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
+        <div className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:shadow-lg h-[250px] flex flex-col">
           <Users className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Driver</h3>
           <p className="text-white/90 mb-auto">
@@ -98,7 +98,7 @@ const ServiceBanners = () => {
           </p>
           <Button
             asChild
-            className="bg-white text-[#0EA5E9] hover:bg-white/90 group w-fit"
+            className="bg-white text-maxmove-600 hover:bg-white/90 group w-fit"
           >
             <Link to="/drivers">
               Join Us
