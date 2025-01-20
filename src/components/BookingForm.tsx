@@ -1,4 +1,3 @@
-<lov-code>
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -132,4 +131,106 @@ const BookingForm = ({
                 onChange={(e) => onAddressChange(e.target.value, index)}
                 className="pl-10"
               />
-              <MapPin className="absolute left-3 top-1/2
+              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              {index > 0 && index < stops.length - 1 && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => onRemoveStop(index)}
+                  className="flex-shrink-0"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+            {activeInput === index && suggestions.length > 0 && (
+              <div
+                ref={suggestionsRef}
+                className="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg border border-gray-200"
+              >
+                {suggestions.map((suggestion, i) => (
+                  <div
+                    key={i}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => onSuggestionSelect(suggestion, index)}
+                  >
+                    {suggestion.place_name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {stops.length < 5 && (
+          <Button
+            variant="outline"
+            className="w-full flex items-center gap-2"
+            onClick={onAddStop}
+          >
+            <Plus className="h-4 w-4" />
+            Add stop
+          </Button>
+        )}
+
+        <div className="flex gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <Calendar className="mr-2 h-4 w-4" />
+                {getDateDisplayText()}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <CalendarComponent
+                mode="single"
+                selected={date}
+                onSelect={handleDateSelect}
+                disabled={(date) => isBefore(date, startOfToday())}
+              />
+            </PopoverContent>
+          </Popover>
+
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !selectedTime && "text-muted-foreground"
+                )}
+              >
+                <Clock className="mr-2 h-4 w-4" />
+                {getTimeDisplayText()}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-48">
+              <div className="space-y-2">
+                {generateTimeSlots().map((time) => (
+                  <div
+                    key={time}
+                    className={cn(
+                      "px-4 py-2 hover:bg-gray-100 cursor-pointer",
+                      selectedTime === time && "bg-gray-100"
+                    )}
+                    onClick={() => setSelectedTime(time)}
+                  >
+                    {time}
+                  </div>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BookingForm;
