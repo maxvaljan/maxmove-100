@@ -27,6 +27,9 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
 
         if (error) {
           console.error('Error fetching Mapbox token:', error);
+          if (error.code === '42501') {
+            console.error('Permission denied. Please check Supabase permissions.');
+          }
           toast.error('Error loading map. Please try again later.');
           return;
         }
