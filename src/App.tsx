@@ -5,6 +5,7 @@ import Index from "./pages/Index";
 import Book from "./pages/Book";
 import Business from "./pages/Business";
 import About from "./pages/About";
+import PersonalDelivery from "./pages/PersonalDelivery";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/drivers/apply" element={<DriverApplication />} />
         <Route path="/business" element={<Business />} />
         <Route path="/about" element={<About />} />
+        <Route path="/personal-delivery" element={<PersonalDelivery />} />
       </Routes>
     </Router>
   );
