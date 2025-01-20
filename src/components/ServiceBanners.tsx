@@ -56,10 +56,9 @@ const ServiceBanners = () => {
         {/* Move Now Banner */}
         <div className="group relative overflow-hidden rounded-2xl bg-[#F97316] p-6 transition-all hover:shadow-lg">
           <Truck className="h-12 w-12 text-white mb-4" />
-          <h3 className="text-2xl font-bold text-white mb-2">Move Now</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Move</h3>
           <p className="text-white/90 mb-6">
-            Instant delivery solutions for your immediate needs. Fast, reliable, and
-            secure.
+            You need to move something?
           </p>
           <Button
             asChild
@@ -77,8 +76,7 @@ const ServiceBanners = () => {
           <Building2 className="h-12 w-12 text-white mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Business</h3>
           <p className="text-white/90 mb-6">
-            Tailored logistics solutions for businesses. Scale your operations
-            across Europe.
+            You need on-demand logistics, outsourcing, or want to partner with Maxmove?
           </p>
           <Button
             asChild
@@ -94,10 +92,9 @@ const ServiceBanners = () => {
         {/* Drivers Banner */}
         <div className="group relative overflow-hidden rounded-2xl bg-[#0EA5E9] p-6 transition-all hover:shadow-lg">
           <Users className="h-12 w-12 text-white mb-4" />
-          <h3 className="text-2xl font-bold text-white mb-2">Drivers</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Driver</h3>
           <p className="text-white/90 mb-6">
-            Join our network of professional drivers. Flexible hours, great
-            earnings.
+            Become driver at Maxmove. Flexible and great earnings.
           </p>
           <Button
             asChild
