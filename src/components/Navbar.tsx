@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,7 +26,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
-            <span className="text-2xl font-bold text-maxmove-900">Maxmove</span>
+            <Link to="/" className="text-2xl font-bold text-maxmove-900">
+              Maxmove
+            </Link>
           </div>
 
           {/* Desktop Menu */}
