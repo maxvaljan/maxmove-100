@@ -72,89 +72,22 @@ const Drivers = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="flex flex-col lg:flex-row">
-        {/* Left side - Benefits Section */}
-        <div className="flex-1 p-8">
-          <section className="relative bg-maxmove-900 text-white py-24 rounded-lg mb-8">
-            <div className="text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Left side - Banner */}
+          <section className="relative bg-maxmove-900 text-white p-8 rounded-lg">
+            <div>
+              <h1 className="text-3xl font-bold mb-4">
                 Drive With MaxMove
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-200">
+              <p className="text-lg mb-4 text-gray-200">
                 Be your own boss, set your own schedule, and earn great money
               </p>
             </div>
           </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <Card>
-              <CardHeader>
-                <Clock className="w-12 h-12 text-maxmove-800 mb-4" />
-                <CardTitle>Flexible Hours</CardTitle>
-                <CardDescription>
-                  Work whenever you want. No minimum hours required.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CreditCard className="w-12 h-12 text-maxmove-800 mb-4" />
-                <CardTitle>Great Earnings</CardTitle>
-                <CardDescription>
-                  Earn competitive rates with bonuses and incentives.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <Smartphone className="w-12 h-12 text-maxmove-800 mb-4" />
-                <CardTitle>Easy to Use App</CardTitle>
-                <CardDescription>
-                  Simple, intuitive app for managing deliveries.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-
-          {/* Requirements Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="pt-6">
-                <Shield className="w-12 h-12 text-maxmove-800 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Valid License</h3>
-                <p className="text-gray-600">
-                  Must have a valid driver's license and clean driving record
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <Calendar className="w-12 h-12 text-maxmove-800 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Vehicle Age</h3>
-                <p className="text-gray-600">
-                  Vehicle must be less than 10 years old
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <MapPin className="w-12 h-12 text-maxmove-800 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Location</h3>
-                <p className="text-gray-600">
-                  Must be eligible to work in your operating area
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Right side - Application Form */}
-        <div className="w-full lg:w-1/3 p-8 bg-gray-50">
-          <Card>
+          {/* Right side - Application Form */}
+          <Card className="w-full">
             <CardHeader>
               <CardTitle>Start Driving</CardTitle>
               <CardDescription>
@@ -198,15 +131,77 @@ const Drivers = () => {
                   className="w-full bg-maxmove-800"
                   disabled={isLoading}
                 >
-                  {isLoading ? (
-                    "Sending..."
-                  ) : (
-                    "Get Verification Code"
-                  )}
+                  {isLoading ? "Sending..." : "Get Verification Code"}
                 </Button>
               </form>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Benefits Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <Card>
+              <CardHeader>
+                <Clock className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Flexible Hours</CardTitle>
+                <CardDescription>
+                  Work whenever you want. No minimum hours required.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CreditCard className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Great Earnings</CardTitle>
+                <CardDescription>
+                  Earn competitive rates with bonuses and incentives.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <Smartphone className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Easy to Use App</CardTitle>
+                <CardDescription>
+                  Simple, intuitive app for managing deliveries.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+        </div>
+
+        {/* Requirements Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <Card>
+              <CardContent className="pt-6">
+                <Shield className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Valid License</h3>
+                <p className="text-gray-600">
+                  Must have a valid driver's license and clean driving record
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="pt-6">
+                <Calendar className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Vehicle Age</h3>
+                <p className="text-gray-600">
+                  Vehicle must be less than 10 years old
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="pt-6">
+                <MapPin className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Location</h3>
+                <p className="text-gray-600">
+                  Must be eligible to work in your operating area
+                </p>
+              </CardContent>
+            </Card>
         </div>
       </div>
     </div>
