@@ -86,7 +86,8 @@ const VehicleSelection = () => {
         }
       },
       {
-        threshold: 0.2,
+        threshold: 0.7, // Increased from 0.2 to trigger later
+        rootMargin: '30% 0px -30% 0px' // This adds a margin to delay the trigger point
       }
     );
 
@@ -99,7 +100,8 @@ const VehicleSelection = () => {
         }
       },
       {
-        threshold: 0.5,
+        threshold: 0.7, // Increased from 0.5 to trigger later
+        rootMargin: '30% 0px -30% 0px' // This adds a margin to delay the trigger point
       }
     );
 
