@@ -70,15 +70,18 @@ const vehicles: VehicleType[] = [
 ];
 
 const VehicleSelection = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isSectionVisible, setSectionVisible] = useState(false);
+  const [isContentVisible, setContentVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Observer for the section title and initial card appearance
+    const sectionObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Stop observing once visible
+          setSectionVisible(true);
+          sectionObserver.disconnect();
         }
       },
       {
@@ -86,11 +89,31 @@ const VehicleSelection = () => {
       }
     );
 
+    // Observer for the card contents
+    const contentObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setContentVisible(true);
+          contentObserver.disconnect();
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the content is visible
+      }
+    );
+
     if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+      sectionObserver.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    if (contentRef.current) {
+      contentObserver.observe(contentRef.current);
+    }
+
+    return () => {
+      sectionObserver.disconnect();
+      contentObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -99,16 +122,19 @@ const VehicleSelection = () => {
       className="w-full space-y-4"
     >
       <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-500 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}>
         Available Vehicles
       </h2>
-      <div className="space-y-4">
+      <div 
+        ref={contentRef}
+        className="space-y-4"
+      >
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
             className={`transform transition-all duration-500 overflow-hidden
-              ${isVisible 
+              ${isSectionVisible 
                 ? 'opacity-100 translate-y-0 p-4 hover:shadow-md cursor-pointer' 
                 : 'opacity-0 translate-y-10 p-2'
               }`}
@@ -118,29 +144,29 @@ const VehicleSelection = () => {
           >
             <div className="flex items-start gap-4">
               <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-500 ${
-                isVisible ? 'scale-100' : 'scale-95'
+                isSectionVisible ? 'scale-100' : 'scale-95'
               }`}>
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
                 <h3 className={`font-semibold text-maxmove-900 transition-all duration-500 ${
-                  isVisible ? 'opacity-100' : 'opacity-0'
+                  isSectionVisible ? 'opacity-100' : 'opacity-0'
                 }`}>
                   {vehicle.name}
                 </h3>
                 <p 
                   className={`text-sm text-maxmove-600 transition-all duration-500 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
-                  style={{ transitionDelay: isVisible ? '200ms' : '0ms' }}
+                  style={{ transitionDelay: isContentVisible ? '200ms' : '0ms' }}
                 >
                   {vehicle.description}
                 </p>
                 <div 
                   className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-500 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    isContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
-                  style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
+                  style={{ transitionDelay: isContentVisible ? '400ms' : '0ms' }}
                 >
                   <span>📏 {vehicle.dimensions}</span>
                   <span>•</span>
