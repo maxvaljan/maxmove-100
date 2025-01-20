@@ -100,7 +100,7 @@ const VehicleSelection = () => {
       },
       {
         threshold: 0.1,
-        rootMargin: "-20% 0px 0px 0px"
+        rootMargin: "-20% 0px -20% 0px"
       }
     );
 
