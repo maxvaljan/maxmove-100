@@ -121,8 +121,8 @@ const VehicleSelection = () => {
       ref={sectionRef}
       className="w-full space-y-4"
     >
-      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
-        isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      <h2 className={`text-xl font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+        isSectionVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
       }`}>
         Available Vehicles
       </h2>
@@ -133,51 +133,52 @@ const VehicleSelection = () => {
         {vehicles.map((vehicle, index) => (
           <Card 
             key={index} 
-            className={`transform transition-all duration-600 ease-in-out overflow-hidden
+            className={`transform transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden
               ${isSectionVisible 
-                ? 'opacity-100 translate-y-0 hover:shadow-md cursor-pointer' 
-                : 'opacity-0 translate-y-10'
+                ? 'opacity-100 translate-y-0 scale-100 hover:shadow-lg hover:-translate-y-1 hover:bg-maxmove-50/50' 
+                : 'opacity-0 translate-y-8 scale-98'
               } ${isContentVisible ? 'p-4' : 'p-2'}`}
             style={{
-              transitionDelay: `${index * 150}ms`
+              transitionDelay: `${index * 100}ms`,
+              transform: `perspective(1000px) ${!isSectionVisible ? 'rotateX(-5deg)' : 'rotateX(0deg)'}`
             }}
           >
             <div className="flex items-start gap-4">
-              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
-                isSectionVisible ? 'scale-100' : 'scale-95'
-              } ${isContentVisible ? 'scale-100' : 'scale-90'}`}
+              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                isSectionVisible ? 'scale-100 rotate-0 opacity-100' : 'scale-90 -rotate-12 opacity-0'
+              } ${isContentVisible ? 'scale-100' : 'scale-95'}`}
                 style={{
-                  transitionDelay: `${index * 150 + 100}ms`
+                  transitionDelay: `${index * 100 + 100}ms`
                 }}
               >
                 {vehicle.icon}
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-in-out ${
-                  isSectionVisible ? 'opacity-100' : 'opacity-0'
+                <h3 className={`font-semibold text-maxmove-900 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  isSectionVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                 } ${isContentVisible ? 'text-base' : 'text-sm'}`}
                   style={{
-                    transitionDelay: `${index * 150 + 200}ms`
+                    transitionDelay: `${index * 100 + 200}ms`
                   }}
                 >
                   {vehicle.name}
                 </h3>
                 <p 
-                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-in-out ${
-                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
+                  className={`text-sm text-maxmove-600 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-2 max-h-0'
                   }`}
                   style={{ 
-                    transitionDelay: `${index * 150 + 300}ms`
+                    transitionDelay: `${index * 100 + 300}ms`
                   }}
                 >
                   {vehicle.description}
                 </p>
                 <div 
-                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-in-out ${
-                    isContentVisible ? 'opacity-100 translate-y-0 max-h-20' : 'opacity-0 translate-y-4 max-h-0'
+                  className={`flex items-center gap-2 text-sm text-maxmove-500 transition-all duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                    isContentVisible ? 'opacity-100 translate-x-0 max-h-20' : 'opacity-0 translate-x-2 max-h-0'
                   }`}
                   style={{ 
-                    transitionDelay: `${index * 150 + 400}ms`
+                    transitionDelay: `${index * 100 + 400}ms`
                   }}
                 >
                   <span>📏 {vehicle.dimensions}</span>
