@@ -31,7 +31,6 @@ const Book = () => {
   useEffect(() => {
     const fetchMapboxToken = async () => {
       try {
-        console.log('Fetching Mapbox token...');
         const { data, error } = await supabase
           .from('api_keys')
           .select('key_value')
@@ -50,7 +49,6 @@ const Book = () => {
           return;
         }
 
-        console.log('Retrieved Mapbox token for geocoding:', data.key_value);
         setMapboxToken(data.key_value);
       } catch (err) {
         console.error('Error fetching Mapbox token:', err);
@@ -76,21 +74,21 @@ const Book = () => {
     if (!query.trim() || !mapboxToken) return;
 
     try {
-      console.log('Searching address:', query);
-      console.log('Using Mapbox token:', mapboxToken);
-      
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
 
       if (!response.ok) {
-        console.error('Geocoding request failed:', response.status, response.statusText);
         throw new Error(`Geocoding request failed: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log('Address suggestions received:', data);
-
+      
       if (data.features && Array.isArray(data.features)) {
         setSuggestions(data.features.map((feature: any) => ({
           place_name: feature.place_name,
