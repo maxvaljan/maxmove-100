@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 function AnimatedHero() {
@@ -54,18 +52,6 @@ function AnimatedHero() {
                 ))}
               </span>
             </h1>
-
-            <p className="text-lg md:text-xl leading-relaxed tracking-tight text-maxmove-600 max-w-2xl text-center">
-              Fast, reliable, and secure delivery solutions for your immediate needs.
-              Book now and experience seamless logistics.
-            </p>
-          </div>
-          <div className="flex flex-row gap-3">
-            <Button asChild size="lg" className="gap-2 bg-maxmove-900 hover:bg-maxmove-800">
-              <Link to="/book">
-                Book Now <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
           </div>
         </div>
       </div>
