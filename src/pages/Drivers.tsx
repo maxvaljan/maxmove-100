@@ -14,8 +14,6 @@ import {
   Shield,
   Calendar,
   MapPin,
-  Check,
-  X,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -34,15 +32,23 @@ const Drivers = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  const generateVerificationCode = () => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // Insert into PhoneVerification table
+      const verificationCode = generateVerificationCode();
+      
       const { error } = await supabase
         .from("PhoneVerification")
-        .insert([{ phone_number: phoneNumber }]);
+        .insert({
+          phone_number: phoneNumber,
+          verification_code: verificationCode,
+        });
 
       if (error) throw error;
 
