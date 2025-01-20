@@ -80,7 +80,7 @@ const Drivers = () => {
           <section className="relative bg-maxmove-900 text-white p-6 rounded-lg h-min">
             <div>
               <h1 className="text-2xl font-bold mb-2">
-                Drive With MaxMove
+                Drive With Maxmove
               </h1>
               <p className="text-base mb-2 text-gray-200">
                 Be your own boss, set your own schedule, and earn great money
