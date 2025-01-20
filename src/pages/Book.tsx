@@ -34,11 +34,13 @@ const Book = () => {
   // Set default time to current time rounded to nearest 30 minutes
   const now = new Date();
   const minutes = now.getMinutes();
-  const roundedMinutes = Math.floor(minutes / 30) * 30;
-  now.setMinutes(roundedMinutes);
+  const roundedMinutes = Math.ceil(minutes / 30) * 30;
+  now.setMinutes(roundedMinutes === 60 ? 0 : roundedMinutes);
+  now.setHours(roundedMinutes === 60 ? now.getHours() + 1 : now.getHours());
   now.setSeconds(0);
   now.setMilliseconds(0);
-  const defaultTime = `${now.getHours().toString().padStart(2, '0')}:${roundedMinutes.toString().padStart(2, '0')}`;
+  
+  const defaultTime = format(now, 'HH:mm');
   const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
   
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -149,13 +151,15 @@ const Book = () => {
     const currentDate = new Date();
     const currentHour = currentDate.getHours();
     const currentMinute = currentDate.getMinutes();
-    const roundedCurrentMinute = Math.floor(currentMinute / 30) * 30;
+    const roundedCurrentMinute = Math.ceil(currentMinute / 30) * 30;
+    const adjustedCurrentHour = roundedCurrentMinute === 60 ? currentHour + 1 : currentHour;
+    const adjustedCurrentMinute = roundedCurrentMinute === 60 ? 0 : roundedCurrentMinute;
 
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         // Skip past times if it's today
         if (isToday(date)) {
-          if (hour < currentHour || (hour === currentHour && minute < roundedCurrentMinute)) {
+          if (hour < adjustedCurrentHour || (hour === adjustedCurrentHour && minute < adjustedCurrentMinute)) {
             continue;
           }
         }
@@ -177,8 +181,10 @@ const Book = () => {
     if (isToday(newDate)) {
       const currentDate = new Date();
       const currentMinutes = currentDate.getMinutes();
-      const roundedMinutes = Math.floor(currentMinutes / 30) * 30;
-      const currentTime = `${currentDate.getHours().toString().padStart(2, '0')}:${roundedMinutes.toString().padStart(2, '0')}`;
+      const roundedMinutes = Math.ceil(currentMinutes / 30) * 30;
+      const adjustedHours = roundedMinutes === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
+      const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
+      const currentTime = `${adjustedHours.toString().padStart(2, '0')}:${adjustedMinutes.toString().padStart(2, '0')}`;
       
       if (selectedTime < currentTime) {
         setSelectedTime(currentTime);
@@ -195,10 +201,11 @@ const Book = () => {
     if (!selectedTime) return "Select time";
     
     const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-    const currentMinute = currentDate.getMinutes();
-    const roundedCurrentMinute = Math.floor(currentMinute / 30) * 30;
-    const currentTime = `${currentHour.toString().padStart(2, '0')}:${roundedCurrentMinute.toString().padStart(2, '0')}`;
+    const currentMinutes = currentDate.getMinutes();
+    const roundedMinutes = Math.ceil(currentMinutes / 30) * 30;
+    const adjustedHours = roundedMinutes === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
+    const adjustedMinutes = roundedMinutes === 60 ? 0 : roundedMinutes;
+    const currentTime = `${adjustedHours.toString().padStart(2, '0')}:${adjustedMinutes.toString().padStart(2, '0')}`;
     
     return selectedTime === currentTime && isToday(date) ? "Now" : selectedTime;
   };
