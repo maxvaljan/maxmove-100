@@ -56,9 +56,14 @@ const vehicles: VehicleType[] = [
   {
     name: "Towing Service",
     icon: (
-      <div className="relative">
-        <Car className="h-8 w-8 text-maxmove-500" />
-        <Truck className="h-8 w-8 text-maxmove-500 absolute -right-4 top-0 transform -scale-x-100" />
+      <div className="relative flex items-center">
+        <Car className="h-6 w-6 text-maxmove-500" />
+        <div className="relative ml-1">
+          <Truck 
+            className="h-8 w-8 text-maxmove-500 transform -scale-x-100" 
+          />
+          <div className="absolute h-0.5 w-4 bg-maxmove-500 top-1/2 -left-3" />
+        </div>
       </div>
     ),
     description: "Towing service for cars and motorcycles",
