@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 const ServiceBanners = () => {
   return (
     <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <h1 className="text-4xl md:text-5xl font-bold text-maxmove-900 text-center mb-12">
+        Move Anything, Anytime, Anywhere
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Move Now Banner */}
         <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#F97316] to-[#FDBA74] p-6 transition-all hover:shadow-lg">
