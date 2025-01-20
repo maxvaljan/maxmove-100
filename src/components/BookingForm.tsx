@@ -120,7 +120,7 @@ const BookingForm = ({
   };
 
   return (
-    <div className="space-y-4 bg-white p-6 rounded-xl shadow-sm">
+    <div className="space-y-4 bg-transparent">
       <div className="space-y-4">
         {stops.map((stop, index) => (
           <div key={index} className="relative">
@@ -129,7 +129,7 @@ const BookingForm = ({
                 placeholder={stop.type === 'pickup' ? "Pickup location" : stop.type === 'dropoff' ? "Dropoff location" : "Stop location"}
                 value={stop.address}
                 onChange={(e) => onAddressChange(e.target.value, index)}
-                className="pl-10"
+                className="pl-10 bg-white border-0 shadow-none focus-visible:ring-1"
               />
               <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               {index > 0 && index < stops.length - 1 && (
@@ -146,12 +146,12 @@ const BookingForm = ({
             {activeInput === index && suggestions.length > 0 && (
               <div
                 ref={suggestionsRef}
-                className="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg border border-gray-200"
+                className="absolute z-10 mt-1 w-full bg-white rounded-md shadow-sm border-0"
               >
                 {suggestions.map((suggestion, i) => (
                   <div
                     key={i}
-                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="px-4 py-2 hover:bg-gray-50 cursor-pointer"
                     onClick={() => onSuggestionSelect(suggestion, index)}
                   >
                     {suggestion.place_name}
@@ -165,7 +165,7 @@ const BookingForm = ({
         {stops.length < 5 && (
           <Button
             variant="outline"
-            className="w-full flex items-center gap-2"
+            className="w-full flex items-center gap-2 border-0 bg-white shadow-none hover:bg-gray-50"
             onClick={onAddStop}
           >
             <Plus className="h-4 w-4" />
@@ -179,7 +179,7 @@ const BookingForm = ({
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal border-0 bg-white shadow-none hover:bg-gray-50",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -202,7 +202,7 @@ const BookingForm = ({
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
+                  "w-full justify-start text-left font-normal border-0 bg-white shadow-none hover:bg-gray-50",
                   !selectedTime && "text-muted-foreground"
                 )}
               >
@@ -216,8 +216,8 @@ const BookingForm = ({
                   <div
                     key={time}
                     className={cn(
-                      "px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                      selectedTime === time && "bg-gray-100"
+                      "px-4 py-2 hover:bg-gray-50 cursor-pointer",
+                      selectedTime === time && "bg-gray-50"
                     )}
                     onClick={() => setSelectedTime(time)}
                   >
