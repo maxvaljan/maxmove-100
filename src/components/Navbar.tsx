@@ -40,7 +40,7 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-maxmove-700 hover:text-maxmove-900 transition-colors inline-flex items-center">
+              <DropdownMenuTrigger className="text-maxmove-700 hover:text-maxmove-900 transition-colors inline-flex items-center w-[140px] justify-center">
                 How it Works <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -66,7 +66,7 @@ const Navbar = () => {
             </DropdownMenu>
             
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-maxmove-700 hover:text-maxmove-900 transition-colors inline-flex items-center">
+              <DropdownMenuTrigger className="text-maxmove-700 hover:text-maxmove-900 transition-colors inline-flex items-center w-[120px] justify-center">
                 Company <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
