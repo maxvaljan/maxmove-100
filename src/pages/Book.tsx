@@ -142,7 +142,7 @@ const Book = () => {
       
       <div className="container mx-auto px-4 pt-24 lg:pt-28">
         <div className="flex flex-col lg:flex-row gap-8">
-          <div className="w-full lg:w-[55%] flex-shrink-0 space-y-6">
+          <div className="w-full lg:w-[50%] flex-shrink-0 space-y-6">
             <h1 className="text-3xl font-bold text-maxmove-900">
               Move anything anywhere anytime with any vehicle
             </h1>
@@ -162,7 +162,7 @@ const Book = () => {
             <VehicleSelection />
           </div>
 
-          <div className="flex-1 lg:w-[40%] aspect-square">
+          <div className="sticky top-28 lg:w-[45%] aspect-square h-fit">
             <Map
               pickupLocation={stops[0].coordinates}
               dropoffLocation={stops[stops.length - 1].coordinates}
