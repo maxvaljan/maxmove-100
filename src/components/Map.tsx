@@ -63,11 +63,9 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [6.9578, 50.9367], // Cologne, Germany
-        zoom: 12
+        zoom: 12,
+        attributionControl: false // Remove attribution control (includes Mapbox logo)
       });
-
-      // Add navigation controls
-      map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
       console.log('Map initialized successfully');
     } catch (err) {
