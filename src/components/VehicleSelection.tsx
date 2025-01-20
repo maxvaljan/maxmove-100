@@ -86,7 +86,6 @@ const VehicleSelection = () => {
       },
       {
         threshold: 0.2,
-        rootMargin: "-22%" // Adjusted to trigger 22% deeper
       }
     );
 
@@ -99,8 +98,7 @@ const VehicleSelection = () => {
         }
       },
       {
-        threshold: 0.2,
-        rootMargin: "-22%" // Adjusted to trigger 22% deeper
+        threshold: 0.5,
       }
     );
 
