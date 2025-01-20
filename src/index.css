@@ -44,11 +44,13 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    overflow-y: scroll;
+    overflow-y: scroll; /* Always show scrollbar */
+    margin-right: 0 !important; /* Prevent margin adjustments */
   }
 }
 
 html {
   scroll-behavior: smooth;
-  overflow-y: scroll;
+  overflow-y: scroll; /* Always show scrollbar */
+  margin-right: 0 !important; /* Prevent margin adjustments */
 }
