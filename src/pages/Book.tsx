@@ -80,13 +80,26 @@ const Book = () => {
 
     try {
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&country=de&types=address`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
       const data = await response.json();
-      setSuggestions(data.features.map((feature: any) => ({
+      const simplifiedSuggestions = data.features.map((feature: any) => ({
         place_name: feature.place_name,
         center: feature.center
-      })));
+      }));
+      
+      setSuggestions(simplifiedSuggestions);
       setActiveInput(index);
     } catch (err) {
       console.error('Error fetching address suggestions:', err);
