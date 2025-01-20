@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Map from "@/components/Map";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format, isBefore, startOfToday, startOfTomorrow, parse, isToday } from "date-fns";
+import { format, isBefore, startOfToday, isToday } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -27,8 +27,18 @@ const Book = () => {
     { address: '', type: 'pickup' },
     { address: '', type: 'dropoff' }
   ]);
-  const [date, setDate] = useState<Date>(startOfTomorrow());
-  const [selectedTime, setSelectedTime] = useState<string>('');
+  
+  // Set default date to today
+  const [date, setDate] = useState<Date>(startOfToday());
+  
+  // Set default time to current time rounded to nearest 30 minutes
+  const now = new Date();
+  const minutes = now.getMinutes();
+  const roundedMinutes = Math.ceil(minutes / 30) * 30;
+  now.setMinutes(roundedMinutes);
+  const defaultTime = `${now.getHours().toString().padStart(2, '0')}:${roundedMinutes.toString().padStart(2, '0')}`;
+  const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
+  
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [activeInput, setActiveInput] = useState<number | null>(null);
   const [mapboxToken, setMapboxToken] = useState<string>('');
@@ -138,9 +148,21 @@ const Book = () => {
       const now = new Date();
       const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
       if (selectedTime && selectedTime <= currentTime) {
-        setSelectedTime('');
+        setSelectedTime(defaultTime);
       }
     }
+  };
+
+  const getDateDisplayText = () => {
+    if (!date) return "Select date";
+    return isToday(date) ? "Today" : format(date, "PPP");
+  };
+
+  const getTimeDisplayText = () => {
+    if (!selectedTime) return "Now";
+    const now = new Date();
+    const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    return selectedTime === currentTime ? "Now" : selectedTime;
   };
 
   return (
@@ -226,7 +248,7 @@ const Book = () => {
                       )}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : "Select date"}
+                      {getDateDisplayText()}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -251,7 +273,7 @@ const Book = () => {
                       )}
                     >
                       <Clock className="mr-2 h-4 w-4" />
-                      {selectedTime || "Select time"}
+                      {getTimeDisplayText()}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-48">
@@ -263,7 +285,7 @@ const Book = () => {
                           className="w-full justify-start"
                           onClick={() => setSelectedTime(time)}
                         >
-                          {time}
+                          {time === defaultTime ? "Now" : time}
                         </Button>
                       ))}
                     </div>
