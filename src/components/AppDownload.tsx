@@ -41,7 +41,7 @@ const AppDownload = () => {
           </h3>
           <div className="relative inline-block">
             <img
-              src="/lovable-uploads/2a11071b-9d90-44b4-ad6c-c7c6176bfcb2.png"
+              src="/lovable-uploads/abbdffc4-d880-4221-96b3-c26c250bc82a.png"
               alt="Maxmove Driver App"
               className="w-32 h-32 mx-auto mb-6 rounded-lg"
             />
