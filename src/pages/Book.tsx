@@ -1,16 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { MapPin, Calendar, Clock, Plus, Trash2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Map from "@/components/Map";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format, isBefore, startOfToday, isToday } from "date-fns";
-import { de } from 'date-fns/locale';
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import BookingForm from "@/components/BookingForm";
 import VehicleSelection from "@/components/VehicleSelection";
 
 interface Stop {
@@ -29,19 +22,6 @@ const Book = () => {
     { address: '', type: 'pickup' },
     { address: '', type: 'dropoff' }
   ]);
-  
-  const [date, setDate] = useState<Date>(startOfToday());
-  
-  const now = new Date();
-  const minutes = now.getMinutes();
-  const roundedMinutes = Math.ceil(minutes / 30) * 30;
-  now.setMinutes(roundedMinutes === 60 ? 0 : roundedMinutes);
-  now.setHours(roundedMinutes === 60 ? now.getHours() + 1 : now.getHours());
-  now.setSeconds(0);
-  now.setMilliseconds(0);
-  
-  const defaultTime = format(now, 'HH:mm');
-  const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
   
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [activeInput, setActiveInput] = useState<number | null>(null);
@@ -128,7 +108,14 @@ const Book = () => {
     }
   };
 
-  const selectSuggestion = (suggestion: Suggestion, index: number) => {
+  const handleAddressChange = (value: string, index: number) => {
+    const newStops = [...stops];
+    newStops[index] = { ...newStops[index], address: value };
+    setStops(newStops);
+    searchAddress(value, index);
+  };
+
+  const handleSuggestionSelect = (suggestion: Suggestion, index: number) => {
     const newStops = [...stops];
     newStops[index] = {
       ...newStops[index],
@@ -149,70 +136,6 @@ const Book = () => {
     setStops(stops.filter((_, i) => i !== index));
   };
 
-  const generateTimeSlots = () => {
-    const slots = [];
-    const currentDate = new Date();
-    const currentMinute = currentDate.getMinutes();
-    const roundedMinute = Math.ceil(currentMinute / 30) * 30;
-    const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
-    const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
-
-    for (let hour = 0; hour < 24; hour++) {
-      for (let minute = 0; minute < 60; minute += 30) {
-        if (isToday(date)) {
-          if (hour < adjustedHour || (hour === adjustedHour && minute < adjustedMinute)) {
-            continue;
-          }
-        }
-        
-        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-        slots.push(timeString);
-      }
-    }
-    return slots;
-  };
-
-  const handleDateSelect = (newDate: Date | undefined) => {
-    if (!newDate || isBefore(newDate, startOfToday())) {
-      return;
-    }
-    setDate(newDate);
-    
-    if (isToday(newDate)) {
-      const currentDate = new Date();
-      const currentMinute = currentDate.getMinutes();
-      const roundedMinute = Math.ceil(currentMinute / 30) * 30;
-      const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
-      const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
-      const currentTime = `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
-      
-      if (selectedTime < currentTime) {
-        setSelectedTime(currentTime);
-      }
-    }
-  };
-
-  const getDateDisplayText = () => {
-    if (!date) return "Select date";
-    return isToday(date) ? "Today" : format(date, "dd.MM.yyyy", { locale: de });
-  };
-
-  const getClosestAvailableTime = () => {
-    const currentDate = new Date();
-    const currentMinute = currentDate.getMinutes();
-    const roundedMinute = Math.ceil(currentMinute / 30) * 30;
-    const adjustedHour = roundedMinute === 60 ? currentDate.getHours() + 1 : currentDate.getHours();
-    const adjustedMinute = roundedMinute === 60 ? 0 : roundedMinute;
-    return `${adjustedHour.toString().padStart(2, '0')}:${adjustedMinute.toString().padStart(2, '0')}`;
-  };
-
-  const getTimeDisplayText = () => {
-    if (!selectedTime) return "Select time";
-    
-    const closestTime = getClosestAvailableTime();
-    return selectedTime === closestTime && isToday(date) ? "Now" : selectedTime;
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-maxmove-50 to-white">
       <Navbar />
@@ -224,118 +147,17 @@ const Book = () => {
               Move anything anywhere anytime with any vehicle
             </h1>
             
-            <div className="space-y-4 bg-white p-6 rounded-xl shadow-sm">
-              <div className="space-y-4">
-                {stops.map((stop, index) => (
-                  <div key={index} className="relative">
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder={stop.type === 'pickup' ? "Pickup location" : stop.type === 'dropoff' ? "Dropoff location" : "Stop location"}
-                        value={stop.address}
-                        onChange={(e) => {
-                          const newStops = [...stops];
-                          newStops[index] = { ...newStops[index], address: e.target.value };
-                          setStops(newStops);
-                          searchAddress(e.target.value, index);
-                        }}
-                        className="pl-10"
-                      />
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-maxmove-400" />
-                      {index !== 0 && index !== stops.length - 1 && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeStop(index)}
-                          className="flex-shrink-0"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                    {activeInput === index && suggestions.length > 0 && (
-                      <div
-                        ref={suggestionsRef}
-                        className="absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg max-h-60 overflow-auto"
-                      >
-                        {suggestions.map((suggestion, i) => (
-                          <button
-                            key={i}
-                            className="w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-                            onClick={() => selectSuggestion(suggestion, index)}
-                          >
-                            {suggestion.place_name}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              <Button
-                variant="outline"
-                onClick={addStop}
-                className="w-full flex items-center gap-2"
-              >
-                <Plus className="h-4 w-4" />
-                Add Stop
-              </Button>
-
-              <div className="grid grid-cols-2 gap-4">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <Calendar className="mr-2 h-4 w-4" />
-                      {getDateDisplayText()}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <CalendarComponent
-                      mode="single"
-                      selected={date}
-                      onSelect={handleDateSelect}
-                      disabled={(date) => isBefore(date, startOfToday())}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !selectedTime && "text-muted-foreground"
-                      )}
-                    >
-                      <Clock className="mr-2 h-4 w-4" />
-                      {getTimeDisplayText()}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-48">
-                    <div className="h-48 overflow-y-auto">
-                      {generateTimeSlots().map((time) => (
-                        <Button
-                          key={time}
-                          variant="ghost"
-                          className="w-full justify-start"
-                          onClick={() => setSelectedTime(time)}
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
+            <BookingForm
+              stops={stops}
+              setStops={setStops}
+              suggestions={suggestions}
+              activeInput={activeInput}
+              suggestionsRef={suggestionsRef}
+              onAddressChange={handleAddressChange}
+              onSuggestionSelect={handleSuggestionSelect}
+              onAddStop={addStop}
+              onRemoveStop={removeStop}
+            />
 
             <VehicleSelection />
           </div>
