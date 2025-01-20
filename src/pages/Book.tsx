@@ -13,6 +13,7 @@ const Book = () => {
       <Navbar />
       
       <div className="container mx-auto px-4 pt-24 lg:pt-28 flex flex-col lg:flex-row gap-8">
+        {/* Form Section - Left Side */}
         <div className="w-full lg:w-1/3 space-y-6">
           <h1 className="text-4xl font-bold text-maxmove-900">
             Book a Delivery
@@ -66,6 +67,7 @@ const Book = () => {
           </div>
         </div>
 
+        {/* Map Section - Right Side */}
         <div className="w-full lg:w-2/3 bg-maxmove-100 rounded-xl h-[600px]">
           {/* Map will be implemented here */}
           <div className="w-full h-full rounded-xl bg-maxmove-100 flex items-center justify-center text-maxmove-400">
