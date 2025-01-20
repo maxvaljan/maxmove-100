@@ -14,7 +14,7 @@ const Book = () => {
       <Navbar />
       <div className="flex-1 flex lg:flex-row flex-col pt-16">
         {/* Form Section */}
-        <div className="lg:w-1/3 p-6 overflow-y-auto">
+        <div className="lg:w-[400px] p-6">
           <div className="space-y-6">
             <h1 className="text-4xl font-bold text-maxmove-900">
               Book a Delivery
@@ -70,8 +70,8 @@ const Book = () => {
         </div>
 
         {/* Map Section */}
-        <div className="flex-1">
-          <div className="h-full min-h-[500px]">
+        <div className="flex-1 p-6 pt-0">
+          <div className="h-[600px] lg:h-[calc(100vh-6rem)] rounded-xl overflow-hidden">
             <Map />
           </div>
         </div>
