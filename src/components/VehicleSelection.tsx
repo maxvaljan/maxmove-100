@@ -14,56 +14,56 @@ interface VehicleType {
 const vehicles: VehicleType[] = [
   {
     name: "Bike/Motorcycle",
-    icon: <Bike className="h-8 w-8 text-maxmove-500" />,
+    icon: <Bike className="w-8 h-8 text-maxmove-500" />,
     description: "Perfect for small goods, with a faster order pickup time",
     dimensions: "0.4 x 0.3 x 0.3 Meter",
     maxWeight: "Up to 8 kg"
   },
   {
     name: "Car",
-    icon: <Car className="h-8 w-8 text-maxmove-500" />,
+    icon: <Car className="w-8 h-8 text-maxmove-500" />,
     description: "Car delivery of medium size items",
     dimensions: "0.7 x 0.5 x 0.5 Meter",
     maxWeight: "Up to 20 kg"
   },
   {
     name: "Van (up to 3.5t)",
-    icon: <i className="fi fi-rr-van text-3xl text-maxmove-500"></i>,
+    icon: <i className="fi fi-rr-van text-[32px] text-maxmove-500"></i>,
     description: "Van delivery of multiple medium-large size items",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
   },
   {
     name: "Light Truck (3.5-7.5t)",
-    icon: <Truck className="h-8 w-8 text-maxmove-500" />,
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Light truck for larger deliveries",
     dimensions: "2.3 x 1.2 x 1.2 Meter",
     maxWeight: "Up to 800 kg"
   },
   {
     name: "Medium Truck (7.5-12t)",
-    icon: <Truck className="h-10 w-10 text-maxmove-500" />,
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Medium truck for heavy deliveries",
     dimensions: "2.9 x 1.4 x 1.7 Meter",
     maxWeight: "Up to 1200 kg"
   },
   {
     name: "Heavy Truck (>12t)",
-    icon: <Truck className="h-12 w-12 text-maxmove-500" />,
+    icon: <Truck className="w-8 h-8 text-maxmove-500" />,
     description: "Heavy truck for industrial equipment",
     dimensions: "7.5 x 2.4 x 2.3 Meter",
     maxWeight: "Up to 5000 kg"
   },
   {
     name: "Towing Service",
-    icon: <i className="fi fi-br-truck-tow text-3xl text-maxmove-500"></i>,
+    icon: <i className="fi fi-br-truck-tow text-[32px] text-maxmove-500"></i>,
     description: "Towing service for cars and motorcycles",
     dimensions: "4.8 x 2.1 x 1.8 Meter",
     maxWeight: "Up to 2800 kg"
   },
   {
     name: "Refrigerated Vehicle",
-    icon: <Snowflake className="h-8 w-8 text-maxmove-500" />,
+    icon: <Snowflake className="w-8 h-8 text-maxmove-500" />,
     description: "Temperature-controlled transport",
     dimensions: "1.6 x 1.2 x 1 Meter",
     maxWeight: "Up to 400 kg"
@@ -144,7 +144,7 @@ const VehicleSelection = () => {
             }}
           >
             <div className="flex items-start gap-4">
-              <div className={`flex-shrink-0 p-2 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
+              <div className={`flex items-center justify-center flex-shrink-0 w-14 h-14 bg-maxmove-50 rounded-lg transition-all duration-600 ease-in-out ${
                 isSectionVisible ? 'scale-100' : 'scale-95'
               } ${isContentVisible ? 'scale-100' : 'scale-90'}`}
                 style={{
