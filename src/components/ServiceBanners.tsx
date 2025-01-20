@@ -56,7 +56,7 @@ const ServiceBanners = () => {
         {/* Move Banner */}
         <Link 
           to="/book" 
-          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-yellow-500 h-[250px] flex flex-col cursor-pointer"
+          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-white h-[250px] flex flex-col cursor-pointer"
         >
           <Truck className="h-12 w-12 text-white group-hover:text-maxmove-600 transition-colors mb-4" />
           <h3 className="text-2xl font-bold text-white group-hover:text-maxmove-600 transition-colors mb-2">Move</h3>
@@ -64,7 +64,7 @@ const ServiceBanners = () => {
             You need to move something?
           </p>
           <Button
-            className="bg-white text-maxmove-600 group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
+            className="bg-white text-maxmove-600 group-hover:bg-maxmove-600 group-hover:text-white hover:bg-maxmove-600/90 group w-fit pointer-events-none"
           >
             Book Now
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -74,7 +74,7 @@ const ServiceBanners = () => {
         {/* Business Banner */}
         <Link 
           to="/business" 
-          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-yellow-500 h-[250px] flex flex-col cursor-pointer"
+          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-white h-[250px] flex flex-col cursor-pointer"
         >
           <Building2 className="h-12 w-12 text-white group-hover:text-maxmove-600 transition-colors mb-4" />
           <h3 className="text-2xl font-bold text-white group-hover:text-maxmove-600 transition-colors mb-2">Business</h3>
@@ -82,7 +82,7 @@ const ServiceBanners = () => {
             On-demand logistics, outsourcing or partner with Maxmove?
           </p>
           <Button
-            className="bg-white text-maxmove-600 group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
+            className="bg-white text-maxmove-600 group-hover:bg-maxmove-600 group-hover:text-white hover:bg-maxmove-600/90 group w-fit pointer-events-none"
           >
             Learn More
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -92,7 +92,7 @@ const ServiceBanners = () => {
         {/* Driver Banner */}
         <Link 
           to="/drivers" 
-          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-yellow-500 h-[250px] flex flex-col cursor-pointer"
+          className="group relative overflow-hidden rounded-2xl bg-maxmove-600 p-5 transition-all hover:bg-white h-[250px] flex flex-col cursor-pointer"
         >
           <Users className="h-12 w-12 text-white group-hover:text-maxmove-600 transition-colors mb-4" />
           <h3 className="text-2xl font-bold text-white group-hover:text-maxmove-600 transition-colors mb-2">Driver</h3>
@@ -100,7 +100,7 @@ const ServiceBanners = () => {
             Become driver at Maxmove. Flexible and great earnings.
           </p>
           <Button
-            className="bg-white text-maxmove-600 group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
+            className="bg-white text-maxmove-600 group-hover:bg-maxmove-600 group-hover:text-white hover:bg-maxmove-600/90 group w-fit pointer-events-none"
           >
             Join Us
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
