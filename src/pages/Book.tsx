@@ -13,11 +13,13 @@ const Book = () => {
     <div className="min-h-screen bg-gradient-to-b from-maxmove-50 to-white">
       <Navbar />
       
-      <div className="container mx-auto px-4 pt-24 lg:pt-28">
-        <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-200px)]">
+      {/* Main container with fixed height and padding */}
+      <div className="container mx-auto px-4 h-[calc(100vh-80px)] pt-20">
+        {/* Flex container for form and map */}
+        <div className="flex flex-col lg:flex-row gap-8 h-full">
           {/* Form Section - Left Side */}
-          <div className="w-full lg:w-1/3 space-y-6">
-            <h1 className="text-4xl font-bold text-maxmove-900">
+          <div className="w-full lg:w-1/3 flex flex-col">
+            <h1 className="text-4xl font-bold text-maxmove-900 mb-6">
               Book a Delivery
             </h1>
             
