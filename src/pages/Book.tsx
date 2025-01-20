@@ -10,11 +10,11 @@ const Book = () => {
   const [dropoff, setDropoff] = useState("");
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 pt-16">
-        <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-8 p-6">
-          {/* Form Section */}
+      <div className="flex-1 flex lg:flex-row flex-col pt-16">
+        {/* Form Section */}
+        <div className="lg:w-1/3 p-6 overflow-y-auto">
           <div className="space-y-6">
             <h1 className="text-4xl font-bold text-maxmove-900">
               Book a Delivery
@@ -67,13 +67,15 @@ const Book = () => {
               </Button>
             </div>
           </div>
+        </div>
 
-          {/* Map Section - Takes up 2/3 of the space */}
-          <div className="lg:col-span-2 h-[500px] lg:h-full">
+        {/* Map Section */}
+        <div className="flex-1">
+          <div className="h-full min-h-[500px]">
             <Map />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };
