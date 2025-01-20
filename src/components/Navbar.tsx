@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Truck, Briefcase, User } from "lucide-react";
+import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   DropdownMenu,
@@ -64,12 +64,33 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link
-              to="/about"
-              className="text-maxmove-700 hover:text-maxmove-900 transition-colors"
-            >
-              About Us
-            </Link>
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-maxmove-700 hover:text-maxmove-900 transition-colors inline-flex items-center">
+                Company <ChevronDown className="ml-1 h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Link to="/about" className="flex items-center">
+                    <Building2 className="mr-2 h-4 w-4" />
+                    About Us
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/career" className="flex items-center">
+                    <GraduationCap className="mr-2 h-4 w-4" />
+                    Career
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/contact" className="flex items-center">
+                    <Contact className="mr-2 h-4 w-4" />
+                    Contact
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Button
               variant="default"
               className="bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
@@ -121,13 +142,28 @@ const Navbar = () => {
                   <User className="inline-block mr-2 h-4 w-4" />
                   Drivers
                 </Link>
+                <Link
+                  to="/about"
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                >
+                  <Building2 className="inline-block mr-2 h-4 w-4" />
+                  About Us
+                </Link>
+                <Link
+                  to="/career"
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                >
+                  <GraduationCap className="inline-block mr-2 h-4 w-4" />
+                  Career
+                </Link>
+                <Link
+                  to="/contact"
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                >
+                  <Contact className="inline-block mr-2 h-4 w-4" />
+                  Contact
+                </Link>
               </div>
-              <Link
-                to="/about"
-                className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-              >
-                About Us
-              </Link>
               <div className="px-3 py-2">
                 <Button className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors">
                   Sign In
