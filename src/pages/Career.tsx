@@ -48,10 +48,10 @@ const Career = () => {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="bg-maxmove-50 py-16 md:py-24">
+        <section className="bg-maxmove-50 py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-maxmove-900 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-maxmove-900">
                 Join Our Team
               </h1>
             </div>
@@ -59,7 +59,7 @@ const Career = () => {
         </section>
 
         {/* Job Listings Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-4">
               {jobListings.map((job) => (
