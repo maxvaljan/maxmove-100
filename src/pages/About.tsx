@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 const About = () => {
   return (
@@ -35,7 +35,7 @@ const About = () => {
               <ul className="space-y-4">
                 <li className="flex items-center text-maxmove-700">
                   <span className="w-32 font-semibold">Founded</span>
-                  <span>2024</span>
+                  <span>2025</span>
                 </li>
                 <li className="flex items-center text-maxmove-700">
                   <span className="w-32 font-semibold">Headquarters</span>
@@ -84,7 +84,7 @@ const About = () => {
       <section className="py-12 bg-maxmove-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-maxmove-900 text-center mb-12">Get in Touch</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-sm">
               <Mail className="h-8 w-8 text-maxmove-600 mb-4" />
               <h3 className="text-lg font-semibold text-maxmove-900 mb-2">Email Us</h3>
@@ -93,12 +93,7 @@ const About = () => {
             <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-sm">
               <Phone className="h-8 w-8 text-maxmove-600 mb-4" />
               <h3 className="text-lg font-semibold text-maxmove-900 mb-2">Call Us</h3>
-              <p className="text-maxmove-600 text-center">1-800-MAXMOVE</p>
-            </div>
-            <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-sm">
-              <MapPin className="h-8 w-8 text-maxmove-600 mb-4" />
-              <h3 className="text-lg font-semibold text-maxmove-900 mb-2">Visit Us</h3>
-              <p className="text-maxmove-600 text-center">123 Market Street<br />San Francisco, CA 94105</p>
+              <p className="text-maxmove-600 text-center">+491734224371</p>
             </div>
           </div>
         </div>
