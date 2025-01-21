@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 const ServiceBanners = () => {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
-    () => ["anything", "anytime", "anywhere", "with any vehicle"],
+    () => ["anything", "anytime", "anywhere"],
     []
   );
 
