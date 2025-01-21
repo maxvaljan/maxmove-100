@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +13,37 @@ import {
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [session, setSession] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      subscription.unsubscribe();
+    };
   }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
 
   return (
     <nav
@@ -91,12 +115,23 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button
-              variant="default"
-              className="bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
-            >
-              Sign In
-            </Button>
+            {session ? (
+              <Button
+                variant="default"
+                className="bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                className="bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
+                onClick={() => navigate("/signin")}
+              >
+                Sign In
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -165,9 +200,21 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="px-3 py-2">
-                <Button className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors">
-                  Sign In
-                </Button>
+                {session ? (
+                  <Button
+                    className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
+                    onClick={handleSignOut}
+                  >
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
+                    onClick={() => navigate("/signin")}
+                  >
+                    Sign In
+                  </Button>
+                )}
               </div>
             </div>
           </div>

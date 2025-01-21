@@ -10,6 +10,7 @@ import Career from "./pages/Career";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import CookiePolicy from "./pages/CookiePolicy";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Router>
   );

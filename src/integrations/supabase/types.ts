@@ -320,16 +320,19 @@ export type Database = {
           created_at: string
           id: string
           name: string | null
+          role: Database["public"]["Enums"]["user_role"]
         }
         Insert: {
           created_at?: string
           id?: string
           name?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
         }
         Update: {
           created_at?: string
           id?: string
           name?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: []
       }
@@ -390,6 +393,7 @@ export type Database = {
         | "cancelled"
       PaymentMethod: "card" | "cash" | "wallet" | "other"
       PaymentStatus: "pending" | "completed" | "failed"
+      user_role: "admin" | "driver" | "customer" | "business"
       UserType: "customer" | "driver" | "admin"
       VehicleType: "bike" | "car" | "van" | "truck"
     }
