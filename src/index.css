@@ -44,16 +44,10 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    overflow-y: scroll; /* Always show vertical scrollbar */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    width: 100%;
-    position: relative;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll; /* Always show scrollbar */
   }
 }
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden; /* Prevent horizontal scrolling at html level */
-  width: 100%;
 }
