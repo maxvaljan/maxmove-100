@@ -54,10 +54,6 @@ const Career = () => {
               <h1 className="text-4xl md:text-5xl font-bold text-maxmove-900 mb-6">
                 Join Our Team
               </h1>
-              <p className="text-xl text-maxmove-600 max-w-2xl mx-auto">
-                Help us revolutionize the delivery industry with innovative solutions. 
-                We're looking for passionate individuals to join our growing team.
-              </p>
             </div>
           </div>
         </section>
@@ -65,9 +61,6 @@ const Career = () => {
         {/* Job Listings Section */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-maxmove-900 mb-8">
-              Open Positions
-            </h2>
             <div className="grid gap-6">
               {jobListings.map((job) => (
                 <div
@@ -95,41 +88,6 @@ const Career = () => {
               >
                 max@maxmove.com
               </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Values Section */}
-        <section className="bg-maxmove-50 py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-maxmove-900 text-center mb-12">
-              Why Join Maxmove?
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-maxmove-900 mb-4">
-                  Innovation First
-                </h3>
-                <p className="text-maxmove-600">
-                  Work on cutting-edge technology and help shape the future of delivery services.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-maxmove-900 mb-4">
-                  Growth & Development
-                </h3>
-                <p className="text-maxmove-600">
-                  Continuous learning opportunities and career advancement paths for all team members.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold text-maxmove-900 mb-4">
-                  Great Culture
-                </h3>
-                <p className="text-maxmove-600">
-                  Join a diverse, inclusive team that values collaboration and work-life balance.
-                </p>
-              </div>
             </div>
           </div>
         </section>
