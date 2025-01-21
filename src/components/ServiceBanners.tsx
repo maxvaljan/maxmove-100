@@ -1,79 +1,111 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { ArrowRight, Truck, Building2, Users } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 
 const ServiceBanners = () => {
-  const navigate = useNavigate();
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const words = ["Anything", "Furniture", "Packages", "Documents"];
+  const [titleNumber, setTitleNumber] = useState(0);
+  const titles = useMemo(
+    () => ["anything", "anytime", "anywhere", "with any vehicle"],
+    []
+  );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+    const timeoutId = setTimeout(() => {
+      if (titleNumber === titles.length - 1) {
+        setTitleNumber(0);
+      } else {
+        setTitleNumber(titleNumber + 1);
+      }
     }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handlePreviewClick = () => {
-    // Open preview in new tab
-    window.open("/book", "_blank");
-  };
+    return () => clearTimeout(timeoutId);
+  }, [titleNumber, titles]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-maxmove-50 overflow-hidden">
-      <div className="absolute inset-0">
-        <img
-          src="/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png"
-          alt="Background"
-          className="w-full h-full object-cover opacity-10"
-        />
-      </div>
-
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-20 sm:pt-24 lg:pt-32">
-        <h1 className="text-4xl sm:text-6xl font-bold text-maxmove-900 mb-2">
-          Move
-          <span className="relative inline-block w-[160px] sm:w-[300px] h-[40px] sm:h-[65px] ml-3 overflow-hidden">
-            <AnimatePresence mode="wait">
+    <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="flex justify-start items-center mb-12 pl-4">
+        <h1 className="text-5xl md:text-7xl tracking-tighter font-bold flex items-center whitespace-nowrap">
+          <span className="text-maxmove-600 mr-4">Move</span>
+          <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block min-w-[700px] translate-y-[6px]">
+            {titles.map((title, index) => (
               <motion.span
-                key={words[currentWordIndex]}
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -50, opacity: 0 }}
-                transition={{
-                  y: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 }
-                }}
-                className="absolute inset-0 text-maxmove-600"
+                key={index}
+                className="absolute left-0 right-0 whitespace-nowrap"
+                initial={{ opacity: 0, y: "-100" }}
+                transition={{ type: "spring", stiffness: 50 }}
+                animate={
+                  titleNumber === index
+                    ? {
+                        y: 0,
+                        opacity: 1,
+                      }
+                    : {
+                        y: titleNumber > index ? -150 : 150,
+                        opacity: 0,
+                      }
+                }
               >
-                {words[currentWordIndex]}
+                {title}
               </motion.span>
-            </AnimatePresence>
+            ))}
           </span>
         </h1>
-
-        <p className="mt-6 text-xl sm:text-2xl text-maxmove-600 max-w-3xl mx-auto">
-          Fast and reliable delivery service for all your needs
-        </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Move Banner */}
+        <Link 
+          to="/book" 
+          className="group relative overflow-hidden rounded-2xl bg-white p-5 transition-all hover:bg-maxmove-600 h-[250px] flex flex-col cursor-pointer"
+        >
+          <Truck className="h-12 w-12 text-maxmove-600 group-hover:text-white transition-colors mb-4" />
+          <h3 className="text-2xl font-bold text-maxmove-600 group-hover:text-white transition-colors mb-2">Move</h3>
+          <p className="text-maxmove-600/90 group-hover:text-white transition-colors mb-auto">
+            You need to move something?
+          </p>
           <Button
-            onClick={() => navigate("/book")}
-            size="lg"
-            className="bg-maxmove-600 hover:bg-maxmove-700 text-white px-8"
+            className="bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
           >
             Book Now
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
+        </Link>
+
+        {/* Business Banner */}
+        <Link 
+          to="/business" 
+          className="group relative overflow-hidden rounded-2xl bg-white p-5 transition-all hover:bg-maxmove-600 h-[250px] flex flex-col cursor-pointer"
+        >
+          <Building2 className="h-12 w-12 text-maxmove-600 group-hover:text-white transition-colors mb-4" />
+          <h3 className="text-2xl font-bold text-maxmove-600 group-hover:text-white transition-colors mb-2">Business</h3>
+          <p className="text-maxmove-600/90 group-hover:text-white transition-colors mb-auto">
+            On-demand logistics, outsourcing or partner with Maxmove?
+          </p>
           <Button
-            onClick={handlePreviewClick}
-            size="lg"
-            variant="outline"
-            className="border-maxmove-600 text-maxmove-600 hover:bg-maxmove-50"
+            className="bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
           >
-            Preview
+            Learn More
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-        </div>
+        </Link>
+
+        {/* Driver Banner */}
+        <Link 
+          to="/drivers" 
+          className="group relative overflow-hidden rounded-2xl bg-white p-5 transition-all hover:bg-maxmove-600 h-[250px] flex flex-col cursor-pointer"
+        >
+          <Users className="h-12 w-12 text-maxmove-600 group-hover:text-white transition-colors mb-4" />
+          <h3 className="text-2xl font-bold text-maxmove-600 group-hover:text-white transition-colors mb-2">Driver</h3>
+          <p className="text-maxmove-600/90 group-hover:text-white transition-colors mb-auto">
+            Become driver at Maxmove. Flexible and great earnings.
+          </p>
+          <Button
+            className="bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit pointer-events-none"
+          >
+            Join Us
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
       </div>
     </section>
   );
