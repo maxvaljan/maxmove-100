@@ -69,20 +69,17 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/personal-delivery" className="flex items-center">
-                    <Truck className="mr-2 h-4 w-4" />
+                  <Link to="/personal-delivery">
                     Personal Delivery
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/business" className="flex items-center">
-                    <Briefcase className="mr-2 h-4 w-4" />
+                  <Link to="/business">
                     Business Solutions
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/drivers" className="flex items-center">
-                    <User className="mr-2 h-4 w-4" />
+                  <Link to="/drivers">
                     Drivers
                   </Link>
                 </DropdownMenuItem>
@@ -95,21 +92,13 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/about" className="flex items-center">
-                    <Building2 className="mr-2 h-4 w-4" />
+                  <Link to="/about">
                     About Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/career" className="flex items-center">
-                    <GraduationCap className="mr-2 h-4 w-4" />
-                    Career
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/contact" className="flex items-center">
-                    <Contact className="mr-2 h-4 w-4" />
-                    Contact
+                  <Link to="/career">
+                    Careers
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
