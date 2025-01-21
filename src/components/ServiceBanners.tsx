@@ -32,19 +32,15 @@ const ServiceBanners = () => {
               <motion.span
                 key={index}
                 className="absolute left-0 right-0 whitespace-nowrap"
-                initial={{ opacity: 0, y: "-100" }}
-                transition={{ type: "spring", stiffness: 50 }}
-                animate={
-                  titleNumber === index
-                    ? {
-                        y: 0,
-                        opacity: 1,
-                      }
-                    : {
-                        y: titleNumber > index ? -150 : 150,
-                        opacity: 0,
-                      }
-                }
+                initial={{ opacity: 0, y: 50 }}
+                animate={{
+                  opacity: titleNumber === index ? 1 : 0,
+                  y: titleNumber === index ? 0 : -50,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
               >
                 {title}
               </motion.span>
@@ -52,6 +48,7 @@ const ServiceBanners = () => {
           </span>
         </h1>
       </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Move Banner */}
         <Link 
