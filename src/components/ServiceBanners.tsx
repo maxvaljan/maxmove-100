@@ -27,19 +27,28 @@ const ServiceBanners = () => {
       <div className="flex justify-start items-center mb-12 pl-4">
         <h1 className="text-5xl md:text-7xl tracking-tighter font-bold flex items-center flex-wrap whitespace-nowrap">
           <span className="text-maxmove-600 mr-4">Move</span>
-          <span className="text-maxmove-600 relative h-[1.2em] overflow-hidden inline-block md:min-w-[700px] min-w-full translate-y-[6px]">
+          <span className="text-maxmove-600 relative h-[1.5em] md:h-[1.2em] overflow-hidden inline-block md:min-w-[700px] min-w-full translate-y-[6px]">
             {titles.map((title, index) => (
               <motion.span
                 key={index}
                 className="absolute left-0 right-0 whitespace-nowrap"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{
-                  opacity: titleNumber === index ? 1 : 0,
-                  y: titleNumber === index ? 0 : -50,
-                }}
-                transition={{
+                initial={{ opacity: 0, y: "100%" }}
+                animate={
+                  titleNumber === index
+                    ? {
+                        y: 0,
+                        opacity: 1,
+                      }
+                    : {
+                        y: titleNumber > index ? "-100%" : "100%",
+                        opacity: 0,
+                      }
+                }
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 50,
                   duration: 0.5,
-                  ease: "easeOut",
+                  opacity: { duration: 0.3 }
                 }}
               >
                 {title}
