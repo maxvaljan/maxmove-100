@@ -20,6 +20,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/personal-delivery" element={<PersonalDelivery />} />
         <Route path="/career" element={<Career />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
       </Routes>
     </Router>
   );
