@@ -1,58 +1,43 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Briefcase, GraduationCap } from "lucide-react";
-import { Link } from "react-router-dom";
 
 interface JobListing {
   id: string;
   title: string;
-  department: string;
-  location: string;
   type: string;
-  icon: JSX.Element;
+  location: string;
 }
 
 const jobListings: JobListing[] = [
   {
     id: "fullstack-dev",
     title: "Full Stack Developer",
-    department: "Engineering",
     location: "Berlin, Germany",
     type: "Full-time",
-    icon: <Briefcase className="h-6 w-6" />,
   },
   {
     id: "marketing-manager",
     title: "Marketing Manager",
-    department: "Marketing",
     location: "Berlin, Germany",
     type: "Full-time",
-    icon: <Briefcase className="h-6 w-6" />,
   },
   {
     id: "ios-dev",
     title: "iOS Developer",
-    department: "Engineering",
     location: "Berlin, Germany",
     type: "Full-time",
-    icon: <Briefcase className="h-6 w-6" />,
   },
   {
     id: "backend-dev",
     title: "Backend Developer",
-    department: "Engineering",
     location: "Berlin, Germany",
     type: "Full-time",
-    icon: <Briefcase className="h-6 w-6" />,
   },
   {
     id: "eng-intern",
     title: "Software Engineering Intern",
-    department: "Engineering",
     location: "Berlin, Germany",
     type: "Internship",
-    icon: <GraduationCap className="h-6 w-6" />,
   },
 ];
 
@@ -87,33 +72,29 @@ const Career = () => {
               {jobListings.map((job) => (
                 <div
                   key={job.id}
-                  className="bg-white rounded-lg shadow-sm border border-maxmove-100 p-6 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-lg shadow-sm border border-maxmove-100 p-6"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-4">
-                      <div className="p-2 bg-maxmove-50 rounded-lg">
-                        {job.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-maxmove-900">
-                          {job.title}
-                        </h3>
-                        <div className="mt-2 space-y-1">
-                          <p className="text-maxmove-600">
-                            {job.department} · {job.location}
-                          </p>
-                          <p className="text-maxmove-500">{job.type}</p>
-                        </div>
-                      </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-maxmove-900 mb-2">
+                      {job.title}
+                    </h3>
+                    <div className="space-y-1">
+                      <p className="text-maxmove-600">
+                        {job.location} · {job.type}
+                      </p>
                     </div>
-                    <Link to={`/career/${job.id}`}>
-                      <Button variant="outline" className="hover:bg-maxmove-50">
-                        View Details
-                      </Button>
-                    </Link>
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="mt-8 text-center text-maxmove-600">
+              To apply for any position, please send your application to{" "}
+              <a 
+                href="mailto:max@maxmove.com" 
+                className="text-maxmove-800 hover:underline"
+              >
+                max@maxmove.com
+              </a>
             </div>
           </div>
         </section>

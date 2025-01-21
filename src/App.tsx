@@ -7,7 +7,6 @@ import Business from "./pages/Business";
 import About from "./pages/About";
 import PersonalDelivery from "./pages/PersonalDelivery";
 import Career from "./pages/Career";
-import JobDetails from "./pages/JobDetails";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/personal-delivery" element={<PersonalDelivery />} />
         <Route path="/career" element={<Career />} />
-        <Route path="/career/:jobId" element={<JobDetails />} />
       </Routes>
     </Router>
   );
