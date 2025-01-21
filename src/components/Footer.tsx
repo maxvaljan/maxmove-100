@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Linkedin, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -14,10 +14,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
-                <Twitter className="h-5 w-5" />
+                <X className="h-5 w-5" />
               </a>
               <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
                 <Instagram className="h-5 w-5" />
@@ -92,15 +89,15 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4">Contact</h4>
             <ul className="space-y-2">
               <li className="text-maxmove-300">
-                Email: contact@maxmove.com
+                contact@maxmove.com
               </li>
               <li className="text-maxmove-300">
-                Phone: (555) 123-4567
+                +491734224371
               </li>
               <li className="text-maxmove-300">
-                Address: 123 Moving Street
+                Eulenbergstr.37
                 <br />
-                City, State 12345
+                51065 Köln, Deutschland
               </li>
             </ul>
           </div>
