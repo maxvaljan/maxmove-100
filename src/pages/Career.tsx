@@ -11,32 +11,32 @@ interface JobListing {
 const jobListings: JobListing[] = [
   {
     id: "fullstack-dev",
-    title: "Full Stack Developer",
-    location: "Berlin, Germany",
+    title: "Full-Stack Developer",
+    location: "Cologne, Germany / Remote",
     type: "Full-time",
   },
   {
     id: "marketing-manager",
     title: "Marketing Manager",
-    location: "Berlin, Germany",
+    location: "Cologne, Germany / Remote",
     type: "Full-time",
   },
   {
     id: "ios-dev",
     title: "iOS Developer",
-    location: "Berlin, Germany",
+    location: "Cologne, Germany / Remote",
     type: "Full-time",
   },
   {
     id: "backend-dev",
     title: "Backend Developer",
-    location: "Berlin, Germany",
+    location: "Cologne, Germany / Remote",
     type: "Full-time",
   },
   {
     id: "eng-intern",
     title: "Software Engineering Intern",
-    location: "Berlin, Germany",
+    location: "Cologne, Germany / Remote",
     type: "Internship",
   },
 ];
@@ -61,18 +61,18 @@ const Career = () => {
         {/* Job Listings Section */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-6">
+            <div className="grid gap-4">
               {jobListings.map((job) => (
                 <div
                   key={job.id}
-                  className="bg-white rounded-lg shadow-sm border border-maxmove-100 p-6"
+                  className="bg-white rounded-lg shadow-sm border border-maxmove-100 p-4"
                 >
                   <div>
-                    <h3 className="text-xl font-semibold text-maxmove-900 mb-2">
-                      {job.title}
-                    </h3>
-                    <div className="space-y-1">
-                      <p className="text-maxmove-600">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-maxmove-900">
+                        {job.title}
+                      </h3>
+                      <p className="text-sm text-maxmove-600">
                         {job.location} · {job.type}
                       </p>
                     </div>
@@ -81,7 +81,7 @@ const Career = () => {
               ))}
             </div>
             <div className="mt-8 text-center text-maxmove-600">
-              To apply for any position, please send your application to{" "}
+              Send your application to{" "}
               <a 
                 href="mailto:max@maxmove.com" 
                 className="text-maxmove-800 hover:underline"
