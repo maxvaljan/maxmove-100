@@ -4,6 +4,14 @@ const DeliveryFeatures = () => {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative">
+          <img
+            src="/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png"
+            alt="Maxmove delivery vehicles on the road"
+            className="rounded-2xl w-full object-cover shadow-lg"
+          />
+        </div>
+        
         <div className="space-y-8">
           <div className="space-y-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-maxmove-800">
