@@ -7,6 +7,9 @@ import Business from "./pages/Business";
 import About from "./pages/About";
 import PersonalDelivery from "./pages/PersonalDelivery";
 import Career from "./pages/Career";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import CookiePolicy from "./pages/CookiePolicy";
 
 function App() {
   return (
