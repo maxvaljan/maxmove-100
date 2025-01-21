@@ -3,8 +3,8 @@ import { DollarSign, Clock, Truck, Shield, MapPin } from "lucide-react";
 const DeliveryFeatures = () => {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="relative">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="flex items-start">
           <img
             src="/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png"
             alt="Maxmove delivery vehicles on the road"
