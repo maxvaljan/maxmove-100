@@ -23,7 +23,7 @@ const jobListings: JobListing[] = [
   },
   {
     id: "ios-dev",
-    title: "iOS Developer",
+    title: "IOS Developer",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
   },

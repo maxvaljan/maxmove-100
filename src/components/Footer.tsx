@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-maxmove-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Maxmove</h3>
@@ -38,18 +38,33 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="#services" className="text-maxmove-300 hover:text-white transition-colors">
-                  Services
-                </a>
+                <Link to="/personal-delivery" className="text-maxmove-300 hover:text-white transition-colors">
+                  Personal Delivery
+                </Link>
               </li>
               <li>
-                <a href="#vehicles" className="text-maxmove-300 hover:text-white transition-colors">
-                  Vehicles
-                </a>
+                <Link to="/business" className="text-maxmove-300 hover:text-white transition-colors">
+                  Business Solutions
+                </Link>
               </li>
               <li>
                 <Link to="/drivers" className="text-maxmove-300 hover:text-white transition-colors">
                   Become a Driver
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-maxmove-300 hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/career" className="text-maxmove-300 hover:text-white transition-colors">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link to="/legal" className="text-maxmove-300 hover:text-white transition-colors">
+                  Legal
                 </Link>
               </li>
             </ul>
@@ -71,22 +86,6 @@ const Footer = () => {
                 City, State 12345
               </li>
             </ul>
-          </div>
-
-          {/* Download Apps */}
-          <div>
-            <h4 className="font-semibold text-lg mb-4">Mobile Apps</h4>
-            <p className="text-maxmove-300 mb-4">
-              Download our apps to book moves on the go!
-            </p>
-            <div className="space-y-2">
-              <button className="w-full bg-maxmove-800 hover:bg-maxmove-700 text-white py-2 px-4 rounded transition-colors">
-                Customer App
-              </button>
-              <button className="w-full bg-maxmove-800 hover:bg-maxmove-700 text-white py-2 px-4 rounded transition-colors">
-                Driver App
-              </button>
-            </div>
           </div>
         </div>
 
