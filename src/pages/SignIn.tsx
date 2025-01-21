@@ -1,15 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { AuthError, AuthApiError } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -38,6 +40,14 @@ const SignIn = () => {
             description: "You have successfully signed in.",
           });
         }
+
+        // Handle authentication errors
+        if (event === "USER_UPDATED" && !session) {
+          const { error } = await supabase.auth.getSession();
+          if (error) {
+            setErrorMessage(getErrorMessage(error));
+          }
+        }
       }
     );
 
@@ -45,6 +55,23 @@ const SignIn = () => {
       subscription.unsubscribe();
     };
   }, [navigate, toast]);
+
+  const getErrorMessage = (error: AuthError) => {
+    if (error instanceof AuthApiError) {
+      switch (error.status) {
+        case 429:
+          return "Too many attempts. Please wait a few minutes before trying again.";
+        case 400:
+          if (error.message.includes("rate limit")) {
+            return "Too many attempts. Please wait a few minutes before trying again.";
+          }
+          return "Invalid credentials. Please check your email and password.";
+        default:
+          return error.message;
+      }
+    }
+    return "An unexpected error occurred. Please try again.";
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-maxmove-100 to-maxmove-200 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -57,6 +84,12 @@ const SignIn = () => {
             Sign in to your account to continue
           </p>
         </div>
+        
+        {errorMessage && (
+          <Alert variant="destructive">
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        )}
         
         <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
           <CardHeader>
