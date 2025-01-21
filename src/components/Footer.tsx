@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Maxmove</h3>
             <p className="text-maxmove-300">
-              Your trusted partner for reliable and efficient moving services.
+              Move anything, anytime, anywhere
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
