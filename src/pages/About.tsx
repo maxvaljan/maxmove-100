@@ -39,7 +39,7 @@ const About = () => {
                 </li>
                 <li className="flex items-center text-maxmove-700">
                   <span className="w-32 font-semibold">Headquarters</span>
-                  <span>San Francisco, CA</span>
+                  <span>Cologne, Germany</span>
                 </li>
                 <li className="flex items-center text-maxmove-700">
                   <span className="w-32 font-semibold">Coverage</span>
