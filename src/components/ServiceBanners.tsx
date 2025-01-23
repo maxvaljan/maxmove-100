@@ -33,18 +33,17 @@ const ServiceBanners = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
-          marginTop: "-80px"
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
-        <div className="flex flex-col items-center mb-20">
-          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
+      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] flex flex-col items-center">
+        <div className="flex flex-col items-center mb-20 w-full">
+          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center justify-center w-full">
             <span className="mr-4">Move</span>
-            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
+            <span className="relative inline-flex items-center justify-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
               {titles.map((title, index) => (
                 <motion.span
                   key={index}
@@ -68,10 +67,10 @@ const ServiceBanners = () => {
               ))}
             </span>
           </h1>
-          <p className="text-xl text-white/90 mb-12">On-demand delivery platform</p>
+          <p className="text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full">
           {/* Move Banner */}
           <Link 
             to="/book" 
