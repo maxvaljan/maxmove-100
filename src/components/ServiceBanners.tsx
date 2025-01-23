@@ -44,21 +44,24 @@ const ServiceBanners = () => {
           <div className="flex justify-center mb-4">
             <h1 className="text-5xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
               <span className="mr-4">Move</span>
-              <div className="relative h-[1.2em] w-[320px] overflow-hidden">
+              <div className="relative h-[1.2em] w-[330px] overflow-hidden">
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
                     className="absolute inset-0 flex items-center justify-start"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{
-                      opacity: titleNumber === index ? 1 : 0,
-                      y: titleNumber === index ? 0 : (titleNumber > index ? -50 : 50)
-                    }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 15
-                    }}
+                    initial={{ opacity: 0, y: "-100" }}
+                    transition={{ type: "spring", stiffness: 50 }}
+                    animate={
+                      titleNumber === index
+                        ? {
+                            y: 0,
+                            opacity: 1,
+                          }
+                        : {
+                            y: titleNumber > index ? -150 : 150,
+                            opacity: 0,
+                          }
+                    }
                   >
                     {title}
                   </motion.span>
