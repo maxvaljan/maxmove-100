@@ -87,17 +87,17 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/personal-delivery" className="w-full">
+                  <Link to="/personal-delivery">
                     Personal Delivery
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/business" className="w-full">
+                  <Link to="/business">
                     Business Solutions
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/drivers" className="w-full">
+                  <Link to="/drivers">
                     Drivers
                   </Link>
                 </DropdownMenuItem>
@@ -112,12 +112,12 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/about" className="w-full">
+                  <Link to="/about">
                     About Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/career" className="w-full">
+                  <Link to="/career">
                     Careers
                   </Link>
                 </DropdownMenuItem>
@@ -174,76 +174,64 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md animate-fade-in rounded-lg mt-2">
-            <div className="px-4 py-4 space-y-3">
-              <div className="space-y-3">
+          <div className="md:hidden bg-white/95 backdrop-blur-md animate-fade-in">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <div className="space-y-2">
                 <Link
                   to="/personal-delivery"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <Truck className="inline-block mr-2 h-4 w-4" />
                   Personal Delivery
                 </Link>
                 <Link
                   to="/business"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <Briefcase className="inline-block mr-2 h-4 w-4" />
                   Business Solutions
                 </Link>
                 <Link
                   to="/drivers"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <User className="inline-block mr-2 h-4 w-4" />
                   Drivers
                 </Link>
                 <Link
                   to="/about"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <Building2 className="inline-block mr-2 h-4 w-4" />
                   About Us
                 </Link>
                 <Link
                   to="/career"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <GraduationCap className="inline-block mr-2 h-4 w-4" />
                   Career
                 </Link>
                 <Link
                   to="/contact"
-                  className="flex items-center px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors rounded-lg hover:bg-gray-50"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
                 >
                   <Contact className="inline-block mr-2 h-4 w-4" />
                   Contact
                 </Link>
               </div>
-              <div className="pt-2">
+              <div className="px-3 py-2">
                 {session ? (
                   <Button
                     className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
-                    onClick={() => {
-                      handleSignOut();
-                      setIsMobileMenuOpen(false);
-                    }}
+                    onClick={handleSignOut}
                   >
                     Sign Out
                   </Button>
                 ) : (
                   <Button
                     className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white transition-colors"
-                    onClick={() => {
-                      navigate("/signin");
-                      setIsMobileMenuOpen(false);
-                    }}
+                    onClick={() => navigate("/signin")}
                   >
                     Sign In
                   </Button>
