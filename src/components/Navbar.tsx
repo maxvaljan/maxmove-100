@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   DropdownMenu,
@@ -15,6 +15,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [session, setSession] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,10 +47,17 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const getTextColor = () => {
+    if (isHomePage) {
+      return isScrolled ? "text-maxmove-700 hover:text-maxmove-900" : "text-white hover:text-white/80";
+    }
+    return "text-maxmove-700 hover:text-maxmove-900";
+  };
+
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || !isHomePage
           ? "bg-white/80 backdrop-blur-md shadow-md"
           : "bg-transparent"
       }`}
@@ -59,7 +68,9 @@ const Navbar = () => {
             <Link 
               to="/" 
               className={`text-2xl font-bold transition-colors ${
-                isScrolled ? "text-maxmove-900" : "text-white"
+                isHomePage 
+                  ? isScrolled ? "text-maxmove-900" : "text-white"
+                  : "text-maxmove-900"
               }`}
             >
               Maxmove
@@ -70,9 +81,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <DropdownMenu>
               <DropdownMenuTrigger 
-                className={`transition-colors inline-flex items-center w-[140px] justify-center ${
-                  isScrolled ? "text-maxmove-700 hover:text-maxmove-900" : "text-white hover:text-white/80"
-                }`}
+                className={`transition-colors inline-flex items-center w-[140px] justify-center ${getTextColor()}`}
               >
                 How it Works <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
@@ -97,9 +106,7 @@ const Navbar = () => {
             
             <DropdownMenu>
               <DropdownMenuTrigger 
-                className={`transition-colors inline-flex items-center w-[120px] justify-center ${
-                  isScrolled ? "text-maxmove-700 hover:text-maxmove-900" : "text-white hover:text-white/80"
-                }`}
+                className={`transition-colors inline-flex items-center w-[120px] justify-center ${getTextColor()}`}
               >
                 Company <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
@@ -121,9 +128,11 @@ const Navbar = () => {
               <Button
                 variant="default"
                 className={`transition-colors ${
-                  isScrolled 
-                    ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
-                    : "bg-white hover:bg-white/90 text-maxmove-900"
+                  isHomePage 
+                    ? isScrolled 
+                      ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
+                      : "bg-white hover:bg-white/90 text-maxmove-900"
+                    : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
                 }`}
                 onClick={handleSignOut}
               >
@@ -133,9 +142,11 @@ const Navbar = () => {
               <Button
                 variant="default"
                 className={`transition-colors ${
-                  isScrolled 
-                    ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
-                    : "bg-white hover:bg-white/90 text-maxmove-900"
+                  isHomePage 
+                    ? isScrolled 
+                      ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
+                      : "bg-white hover:bg-white/90 text-maxmove-900"
+                    : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
                 }`}
                 onClick={() => navigate("/signin")}
               >
@@ -150,7 +161,7 @@ const Navbar = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={isScrolled ? "text-maxmove-900" : "text-white"}
+              className={isHomePage ? (isScrolled ? "text-maxmove-900" : "text-white") : "text-maxmove-900"}
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
