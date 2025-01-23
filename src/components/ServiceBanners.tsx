@@ -83,10 +83,10 @@ const ServiceBanners = () => {
               Book a delivery van or truck for your moving needs
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-full h-6 md:h-auto text-[10px] md:text-base px-1 md:px-4 py-0 md:py-2"
             >
               Book Now
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-1 md:ml-2 h-2 w-2 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
 
@@ -101,10 +101,10 @@ const ServiceBanners = () => {
               Partner with us for your business logistics needs
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-full h-6 md:h-auto text-[10px] md:text-base px-1 md:px-4 py-0 md:py-2"
             >
               Learn More
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-1 md:ml-2 h-2 w-2 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
 
@@ -119,10 +119,10 @@ const ServiceBanners = () => {
               Join our network of professional drivers
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-full h-6 md:h-auto text-[10px] md:text-base px-1 md:px-4 py-0 md:py-2"
             >
               Join Us
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-1 md:ml-2 h-2 w-2 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>
