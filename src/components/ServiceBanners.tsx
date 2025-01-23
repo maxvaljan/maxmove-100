@@ -35,12 +35,12 @@ const ServiceBanners = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-24 md:pt-48 pb-16 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[35vh] md:min-h-[90vh] flex flex-col items-center">
-        <div className="flex flex-col items-center mb-20 w-full">
+      <div className="relative z-10 pt-16 md:pt-48 pb-16 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[35vh] md:min-h-[90vh] flex flex-col items-center">
+        <div className="flex flex-col items-center mb-12 md:mb-20 w-full scale-85 md:scale-100">
           <div className="flex justify-center mb-4">
-            <h1 className="text-5xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
+            <h1 className="text-4xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
               <span className="mr-4">Move</span>
-              <div className="relative h-[1.2em] w-[330px] overflow-hidden">
+              <div className="relative h-[1.2em] w-[280px] md:w-[330px] overflow-hidden">
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
@@ -65,7 +65,7 @@ const ServiceBanners = () => {
               </div>
             </h1>
           </div>
-          <p className="text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
+          <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-16 w-full">
