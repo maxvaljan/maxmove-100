@@ -26,17 +26,9 @@ const ServiceBanners = () => {
     <section className="relative">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[65%_center]"
         style={{
-          backgroundImage: "url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
-          backgroundRepeat: "no-repeat",
           height: "100vh",
-          "@media (max-width: 768px)": {
-            backgroundPosition: "65% center",
-            backgroundSize: "cover",
-          }
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
