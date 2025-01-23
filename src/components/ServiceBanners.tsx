@@ -41,32 +41,34 @@ const ServiceBanners = () => {
       {/* Content */}
       <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] flex flex-col items-center">
         <div className="flex flex-col items-center mb-20 w-full">
-          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center justify-center">
-            <span>Move</span>
-            <span className="relative inline-flex items-center justify-center h-[1.2em] overflow-hidden w-[250px] md:w-[350px]">
-              {titles.map((title, index) => (
-                <motion.span
-                  key={index}
-                  className="absolute left-0 right-0 text-center"
-                  initial={{ opacity: 0, y: "100%" }}
-                  animate={
-                    titleNumber === index
-                      ? {
-                          y: "0%",
-                          opacity: 1,
-                        }
-                      : {
-                          y: titleNumber > index ? "-100%" : "100%",
-                          opacity: 0,
-                        }
-                  }
-                  transition={{ type: "spring", stiffness: 50 }}
-                >
-                  {title}
-                </motion.span>
-              ))}
-            </span>
-          </h1>
+          <div className="flex justify-center items-center mb-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-white inline-flex items-center gap-3">
+              <span>Move</span>
+              <div className="relative h-[1.2em] w-[200px] md:w-[300px] overflow-hidden">
+                {titles.map((title, index) => (
+                  <motion.span
+                    key={index}
+                    className="absolute inset-0 flex items-center justify-center whitespace-nowrap"
+                    initial={{ opacity: 0, y: "100%" }}
+                    animate={
+                      titleNumber === index
+                        ? {
+                            y: "0%",
+                            opacity: 1,
+                          }
+                        : {
+                            y: titleNumber > index ? "-100%" : "100%",
+                            opacity: 0,
+                          }
+                    }
+                    transition={{ type: "spring", stiffness: 50 }}
+                  >
+                    {title}
+                  </motion.span>
+                ))}
+              </div>
+            </h1>
+          </div>
           <p className="text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
