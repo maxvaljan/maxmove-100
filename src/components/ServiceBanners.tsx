@@ -44,7 +44,7 @@ const ServiceBanners = () => {
         <div className="flex flex-col items-center mb-12">
           <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
             <span className="mr-4">Move</span>
-            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[200px] md:min-w-[300px]">
+            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
               {titles.map((title, index) => (
                 <motion.span
                   key={index}
