@@ -33,14 +33,17 @@ const ServiceBanners = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
-          marginTop: "-80px"
+          marginTop: "-80px",
+          "@media (max-width: 768px)": {
+            marginTop: "-120px"
+          }
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
+      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] md:mt-0 mt-[-40px]">
         <div className="flex flex-col items-center mb-20">
           <h1 className="text-4xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
             <span className="mr-2 md:mr-4">Move</span>
