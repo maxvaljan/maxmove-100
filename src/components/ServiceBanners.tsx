@@ -35,7 +35,7 @@ const ServiceBanners = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-16 md:pt-48 pb-8 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[35vh] md:min-h-[90vh] flex flex-col items-center">
+      <div className="relative z-10 pt-16 md:pt-48 pb-4 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[35vh] md:min-h-[90vh] flex flex-col items-center">
         <div className="flex flex-col items-center mb-12 md:mb-20 w-full scale-85 md:scale-100">
           <div className="flex justify-center mb-4 pl-8 md:pl-0">
             <h1 className="text-4xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
