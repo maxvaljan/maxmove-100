@@ -39,7 +39,7 @@ const ServiceBanners = () => {
         <div className="flex flex-col items-center mb-12 md:mb-20 w-full scale-85 md:scale-100">
           <div className="flex justify-center mb-4 pl-8 md:pl-0">
             <h1 className="text-4xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
-              <span className="mr-4">Move</span>
+              <span className="mr-4 translate-x-4 md:translate-x-0">Move</span>
               <div className="relative h-[1.2em] w-[280px] md:w-[330px] overflow-hidden translate-x-4 md:translate-x-0">
                 {titles.map((title, index) => (
                   <motion.span
