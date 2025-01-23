@@ -23,7 +23,7 @@ const ServiceBanners = () => {
   }, [titleNumber, titles]);
 
   return (
-    <section className="relative">
+    <section className="relative mt-16"> {/* Added margin-top here */}
       {/* Background Image Container */}
       <div 
         className="absolute inset-0 w-full h-full"
@@ -36,11 +36,11 @@ const ServiceBanners = () => {
         }}
       >
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/70"></div>
       </div>
 
       {/* Content */}
-      <div className="relative pt-24 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="relative pt-16 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"> {/* Adjusted padding-top */}
         <div className="flex flex-col md:flex-row justify-start items-start md:items-center mb-12 pl-4">
           <h1 className="text-5xl md:text-7xl tracking-tighter font-bold flex flex-col md:flex-row items-start md:items-center">
             <span className="text-maxmove-800 mr-4">Move</span>
@@ -73,7 +73,7 @@ const ServiceBanners = () => {
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden rounded-none bg-white/40 backdrop-blur p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
+            className="group relative overflow-hidden bg-white/40 backdrop-blur-md p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
           >
             <Truck className="h-12 w-12 text-maxmove-800 group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-maxmove-800 group-hover:text-white transition-colors mb-2">Move</h3>
@@ -91,7 +91,7 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden rounded-none bg-white/40 backdrop-blur p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
+            className="group relative overflow-hidden bg-white/40 backdrop-blur-md p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
           >
             <Building2 className="h-12 w-12 text-maxmove-800 group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-maxmove-800 group-hover:text-white transition-colors mb-2">Business</h3>
@@ -109,7 +109,7 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden rounded-none bg-white/40 backdrop-blur p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
+            className="group relative overflow-hidden bg-white/40 backdrop-blur-md p-5 transition-all hover:bg-maxmove-600/90 h-[250px] flex flex-col cursor-pointer hover:scale-[1.02] transform duration-300"
           >
             <Users className="h-12 w-12 text-maxmove-800 group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-maxmove-800 group-hover:text-white transition-colors mb-2">Driver</h3>
