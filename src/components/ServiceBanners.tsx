@@ -23,7 +23,7 @@ const ServiceBanners = () => {
   }, [titleNumber, titles]);
 
   return (
-    <section className="relative -mt-16">
+    <section className="relative">
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0"
@@ -33,6 +33,7 @@ const ServiceBanners = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
+          marginTop: "-80px"
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
