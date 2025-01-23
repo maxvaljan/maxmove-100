@@ -40,8 +40,8 @@ const ServiceBanners = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-32 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[80vh]">
-        <div className="flex flex-col items-center mb-12">
+      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
+        <div className="flex flex-col items-center mb-20">
           <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
             <span className="mr-4">Move</span>
             <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
@@ -71,7 +71,7 @@ const ServiceBanners = () => {
           <p className="text-xl text-white/90 mb-12">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           {/* Move Banner */}
           <Link 
             to="/book" 
