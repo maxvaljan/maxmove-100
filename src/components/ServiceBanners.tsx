@@ -33,43 +33,45 @@ const ServiceBanners = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
+          marginTop: "-80px"
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] flex flex-col items-center">
-        <div className="flex flex-col items-center mb-20 w-full">
-          <div className="flex justify-center mb-4">
-            <h1 className="text-5xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
-              <span className="mr-4">Move</span>
-              <div className="relative h-[1.2em] w-[330px] overflow-hidden">
-                {titles.map((title, index) => (
-                  <motion.span
-                    key={index}
-                    className="absolute inset-0 flex items-center justify-start"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{
-                      opacity: titleNumber === index ? 1 : 0,
-                      y: titleNumber === index ? 0 : (titleNumber > index ? -50 : 50)
-                    }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 15
-                    }}
-                  >
-                    {title}
-                  </motion.span>
-                ))}
-              </div>
-            </h1>
-          </div>
-          <p className="text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
+      <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
+        <div className="flex flex-col items-center mb-20">
+          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
+            <span className="mr-4">Move</span>
+            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
+              {titles.map((title, index) => (
+                <motion.span
+                  key={index}
+                  className="absolute whitespace-nowrap"
+                  initial={{ opacity: 0, y: "100%" }}
+                  animate={
+                    titleNumber === index
+                      ? {
+                          y: "0%",
+                          opacity: 1,
+                        }
+                      : {
+                          y: titleNumber > index ? "-100%" : "100%",
+                          opacity: 0,
+                        }
+                  }
+                  transition={{ type: "spring", stiffness: 50 }}
+                >
+                  {title}
+                </motion.span>
+              ))}
+            </span>
+          </h1>
+          <p className="text-xl text-white/90 mb-12">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           {/* Move Banner */}
           <Link 
             to="/book" 
