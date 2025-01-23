@@ -33,7 +33,7 @@ const ServiceBanners = () => {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
-          marginTop: "-80px" // Adjust based on your navbar height
+          marginTop: "-80px"
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
@@ -42,26 +42,26 @@ const ServiceBanners = () => {
       {/* Content */}
       <div className="relative z-10 pt-32 pb-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[80vh]">
         <div className="flex flex-col items-center mb-12">
-          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4">
+          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
             <span className="mr-4">Move</span>
-            <span className="relative h-[1.2em] overflow-hidden inline-block min-w-[200px] md:min-w-[300px]">
+            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[200px] md:min-w-[300px]">
               {titles.map((title, index) => (
                 <motion.span
                   key={index}
-                  className="absolute left-0 right-0 whitespace-nowrap"
-                  initial={{ opacity: 0, y: "-100" }}
-                  transition={{ type: "spring", stiffness: 50 }}
+                  className="absolute whitespace-nowrap"
+                  initial={{ opacity: 0, y: "100%" }}
                   animate={
                     titleNumber === index
                       ? {
-                          y: 0,
+                          y: "0%",
                           opacity: 1,
                         }
                       : {
-                          y: titleNumber > index ? -150 : 150,
+                          y: titleNumber > index ? "-100%" : "100%",
                           opacity: 0,
                         }
                   }
+                  transition={{ type: "spring", stiffness: 50 }}
                 >
                   {title}
                 </motion.span>
