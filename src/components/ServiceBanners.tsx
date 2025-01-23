@@ -42,9 +42,9 @@ const ServiceBanners = () => {
       {/* Content */}
       <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
         <div className="flex flex-col items-center mb-20">
-          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
-            <span className="mr-4">Move</span>
-            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white text-center mb-4 flex flex-col sm:flex-row items-center">
+            <span className="mb-2 sm:mb-0 sm:mr-4">Move</span>
+            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[200px] sm:min-w-[250px] md:min-w-[350px]">
               {titles.map((title, index) => (
                 <motion.span
                   key={index}
@@ -68,18 +68,18 @@ const ServiceBanners = () => {
               ))}
             </span>
           </h1>
-          <p className="text-xl text-white/90 mb-12">On-demand delivery platform</p>
+          <p className="text-lg sm:text-xl text-white/90 mb-12">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 px-4 sm:px-0">
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-lg"
           >
             <Truck className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Move</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
+            <p className="text-white/90 group-hover:text-white transition-colors mb-4">
               Book a delivery van or truck for your moving needs
             </p>
             <Button
@@ -93,11 +93,11 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-lg"
           >
             <Building2 className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Business</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
+            <p className="text-white/90 group-hover:text-white transition-colors mb-4">
               Partner with us for your business logistics needs
             </p>
             <Button
@@ -111,11 +111,11 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-lg"
           >
             <Users className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
             <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Driver</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
+            <p className="text-white/90 group-hover:text-white transition-colors mb-4">
               Join our network of professional drivers
             </p>
             <Button
