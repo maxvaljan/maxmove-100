@@ -26,11 +26,10 @@ const ServiceBanners = () => {
     <section className="relative overflow-x-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[65%_center]"
+        className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[65%_center] md:!h-[100vh]"
         style={{
           height: "50vh",
         }}
-        className="md:!h-[100vh]"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
