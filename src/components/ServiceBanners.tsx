@@ -42,25 +42,32 @@ const ServiceBanners = () => {
       <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] flex flex-col items-center">
         <div className="flex flex-col items-center mb-20 w-full">
           <div className="flex justify-center mb-4">
-            <div className="flex items-center justify-center text-5xl md:text-7xl font-bold text-white">
+            <h1 className="text-5xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
               <span className="mr-4">Move</span>
-              <div className="relative overflow-hidden" style={{ width: "250px", height: "1.2em" }}>
+              <div className="relative h-[1.2em] w-[250px] overflow-hidden">
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
-                    className="absolute inset-0 flex items-center justify-start"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{
-                      opacity: titleNumber === index ? 1 : 0,
-                      y: titleNumber === index ? 0 : (titleNumber > index ? -50 : 50)
-                    }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-center justify-start whitespace-nowrap"
+                    initial={{ opacity: 0, y: "100%" }}
+                    animate={
+                      titleNumber === index
+                        ? {
+                            y: "0%",
+                            opacity: 1,
+                          }
+                        : {
+                            y: titleNumber > index ? "-100%" : "100%",
+                            opacity: 0,
+                          }
+                    }
+                    transition={{ type: "spring", stiffness: 50 }}
                   >
                     {title}
                   </motion.span>
                 ))}
               </div>
-            </div>
+            </h1>
           </div>
           <p className="text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
