@@ -29,7 +29,7 @@ const ServiceBanners = () => {
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: "url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')",
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           height: "100vh",
@@ -42,9 +42,9 @@ const ServiceBanners = () => {
       {/* Content */}
       <div className="relative z-10 pt-48 pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh]">
         <div className="flex flex-col items-center mb-20">
-          <h1 className="text-4xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
-            <span className="mr-2 md:mr-4">Move</span>
-            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[180px] md:min-w-[350px]">
+          <h1 className="text-5xl md:text-7xl font-bold text-white text-center mb-4 flex items-center">
+            <span className="mr-4">Move</span>
+            <span className="relative inline-flex items-center h-[1.2em] overflow-hidden min-w-[250px] md:min-w-[350px]">
               {titles.map((title, index) => (
                 <motion.span
                   key={index}
@@ -68,61 +68,61 @@ const ServiceBanners = () => {
               ))}
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-12">On-demand delivery platform</p>
+          <p className="text-xl text-white/90 mb-12">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 md:gap-6 mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-2 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
           >
-            <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-2 md:mb-4" />
-            <h3 className="text-sm md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move</h3>
-            <p className="text-xs md:text-base text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+            <Truck className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
+            <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Move</h3>
+            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
               Book a delivery van or truck for your moving needs
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit"
             >
               Book Now
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
 
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-2 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
           >
-            <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-2 md:mb-4" />
-            <h3 className="text-sm md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Business</h3>
-            <p className="text-xs md:text-base text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+            <Building2 className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
+            <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Business</h3>
+            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
               Partner with us for your business logistics needs
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit"
             >
               Learn More
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
 
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-2 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
+            className="group relative overflow-hidden p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30"
           >
-            <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-2 md:mb-4" />
-            <h3 className="text-sm md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Driver</h3>
-            <p className="text-xs md:text-base text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+            <Users className="h-12 w-12 text-white group-hover:text-white transition-colors mb-4" />
+            <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">Driver</h3>
+            <p className="text-white/90 group-hover:text-white transition-colors mb-auto">
               Join our network of professional drivers
             </p>
             <Button
-              className="mt-2 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-xs md:text-base px-2 py-1 md:px-4 md:py-2"
+              className="mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit"
             >
               Join Us
-              <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>
