@@ -153,12 +153,14 @@ const SignIn = () => {
                   button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
                   input: 'w-full px-4 py-2 transition-colors bg-white/80',
                   label: 'sr-only', // This hides the labels while keeping them accessible
-                  auth: {
-                    button: {
-                      text: 'Login'
-                    }
-                  }
                 },
+              }}
+              localization={{
+                variables: {
+                  sign_in: {
+                    button_label: 'Login'
+                  }
+                }
               }}
               providers={[]}
             />
