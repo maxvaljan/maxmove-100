@@ -6,7 +6,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -44,7 +43,7 @@ const SignIn = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
-            Sign in to Maxmove
+            Maxmove
           </h2>
         </div>
         
@@ -62,34 +61,28 @@ const SignIn = () => {
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-white/80"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="bg-white/80"
-                />
-              </div>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Email"
+                className="bg-white/80 border-0"
+              />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Password"
+                className="bg-white/80 border-0"
+              />
               <Button 
                 type="submit" 
                 className="w-full bg-maxmove-800 hover:bg-maxmove-900"
                 disabled={isLoading}
               >
-                {isLoading ? "Signing in..." : "Sign in"}
+                {isLoading ? "Signing in..." : "Login"}
               </Button>
             </form>
 
