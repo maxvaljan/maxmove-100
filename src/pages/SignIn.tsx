@@ -44,7 +44,7 @@ const SignIn = () => {
         }
 
         // Handle sign up event
-        if (event === "USER_CREATED") {
+        if (event === "SIGNED_UP") {
           navigate("/account-type-selection");
         }
 
