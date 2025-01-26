@@ -1,91 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { AuthError, AuthApiError } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [isRateLimited, setIsRateLimited] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === "SIGNED_IN") {
-          // Get user profile to check role
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", session?.user?.id)
-            .single();
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
 
-          // Redirect based on role
-          if (profile?.role === "driver") {
-            navigate("/drivers/dashboard");
-          } else if (profile?.role === "business") {
-            navigate("/business/dashboard");
-          } else if (profile?.role === "admin") {
-            navigate("/admin/dashboard");
-          } else {
-            navigate("/book"); // Default customer route
-          }
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-          toast({
-            title: "Welcome back!",
-            description: "You have successfully signed in.",
-          });
-        }
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate, toast]);
-
-  const handleAuthError = (error: AuthError) => {
-    console.error("Auth error:", error);
-    
-    if (error instanceof AuthApiError) {
-      if (error.status === 429) {
-        setIsRateLimited(true);
-        setErrorMessage("Too many attempts. Please wait a few minutes before trying again.");
-        
-        setTimeout(() => {
-          setIsRateLimited(false);
-          setErrorMessage("");
-        }, 5 * 60 * 1000);
-        
-        return;
-      }
-
-      switch (error.message) {
-        case "Email rate limit exceeded":
-          setIsRateLimited(true);
-          setErrorMessage("Too many signup attempts. Please wait 5 minutes before trying again.");
-          
-          setTimeout(() => {
-            setIsRateLimited(false);
-            setErrorMessage("");
-          }, 5 * 60 * 1000);
-          break;
-          
-        case "Invalid login credentials":
-          setErrorMessage("Invalid email or password. Please try again.");
-          break;
-          
-        default:
-          setErrorMessage(error.message);
-      }
-    } else {
-      setErrorMessage("An unexpected error occurred. Please try again.");
+    if (error) {
+      console.error("Sign in error:", error);
+      setErrorMessage(error.message);
+      setIsLoading(false);
+      return;
     }
+
+    toast({
+      title: "Welcome back!",
+      description: "You have successfully signed in.",
+    });
   };
 
   return (
@@ -109,58 +60,57 @@ const SignIn = () => {
               Welcome back
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <Auth
-              supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-                variables: {
-                  default: {
-                    colors: {
-                      brand: 'rgb(67, 77, 99)',
-                      brandAccent: 'rgb(79, 91, 118)',
-                      brandButtonText: 'white',
-                      defaultButtonBackground: 'white',
-                      defaultButtonBackgroundHover: 'rgb(247, 250, 252)',
-                      inputBackground: 'white',
-                      inputBorder: 'transparent',
-                      inputBorderHover: 'transparent',
-                      inputBorderFocus: 'transparent',
-                    },
-                    borderWidths: {
-                      buttonBorderWidth: '1px',
-                      inputBorderWidth: '0px',
-                    },
-                    radii: {
-                      borderRadiusButton: '0.5rem',
-                      buttonBorderRadius: '0.5rem',
-                      inputBorderRadius: '0.5rem',
-                    },
-                  },
-                },
-                className: {
-                  container: 'space-y-4',
-                  button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
-                  input: 'w-full px-4 py-2 transition-colors bg-white/80',
-                  label: 'sr-only',
-                },
-              }}
-              localization={{
-                variables: {
-                  sign_in: {
-                    button_label: 'Sign in'
-                  },
-                  sign_up: {
-                    email_label: '',
-                    password_label: '',
-                    button_label: 'Create account',
-                    link_text: 'Create an account'
-                  }
-                }
-              }}
-              providers={[]}
-              redirectTo="/account-type-selection"
-            />
+          <CardContent className="space-y-6">
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="bg-white/80"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="bg-white/80"
+                />
+              </div>
+              <Button 
+                type="submit" 
+                className="w-full bg-maxmove-800 hover:bg-maxmove-900"
+                disabled={isLoading}
+              >
+                {isLoading ? "Signing in..." : "Sign in"}
+              </Button>
+            </form>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-maxmove-300" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white/50 px-2 text-maxmove-600">Or</span>
+              </div>
+            </div>
+
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full text-base font-semibold"
+              onClick={() => navigate("/account-type-selection")}
+            >
+              Create an account
+            </Button>
           </CardContent>
         </Card>
       </div>
