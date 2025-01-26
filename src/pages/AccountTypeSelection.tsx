@@ -131,6 +131,10 @@ const AccountTypeSelection = () => {
           </Card>
         </div>
 
+        <div className="text-center text-maxmove-600">
+          <p>Don't worry about your choice - you can always upgrade, add, or change your account type later!</p>
+        </div>
+
         <div className="text-center mt-8">
           <p className="text-maxmove-600">
             Already have an account?{" "}
