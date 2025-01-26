@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact } from "lucide-react";
+import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact, Settings } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -10,13 +10,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Navbar = () => {
+interface NavbarProps {
+  onSettingsClick?: () => void;
+}
+
+const Navbar = ({ onSettingsClick }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [session, setSession] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const isDashboard = location.pathname === "/dashboard";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,50 +84,63 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <DropdownMenu>
-              <DropdownMenuTrigger 
-                className={`transition-colors inline-flex items-center w-[140px] justify-center ${getTextColor()}`}
+            {isDashboard ? (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onSettingsClick}
+                className={getTextColor()}
               >
-                How it Works <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to="/personal-delivery">
-                    Personal Delivery
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/business">
-                    Business Solutions
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/drivers">
-                    Drivers
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger 
-                className={`transition-colors inline-flex items-center w-[120px] justify-center ${getTextColor()}`}
-              >
-                Company <ChevronDown className="ml-1 h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <Link to="/about">
-                    About Us
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="/career">
-                    Careers
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <Settings className="h-5 w-5" />
+              </Button>
+            ) : (
+              <>
+                <DropdownMenu>
+                  <DropdownMenuTrigger 
+                    className={`transition-colors inline-flex items-center w-[140px] justify-center ${getTextColor()}`}
+                  >
+                    How it Works <ChevronDown className="ml-1 h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <Link to="/personal-delivery">
+                        Personal Delivery
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link to="/business">
+                        Business Solutions
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link to="/drivers">
+                        Drivers
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger 
+                    className={`transition-colors inline-flex items-center w-[120px] justify-center ${getTextColor()}`}
+                  >
+                    Company <ChevronDown className="ml-1 h-4 w-4" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>
+                      <Link to="/about">
+                        About Us
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link to="/career">
+                        Careers
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            )}
 
             {session ? (
               <Button
@@ -176,50 +194,61 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white/95 backdrop-blur-md animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <div className="space-y-2">
-                <Link
-                  to="/personal-delivery"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+              {isDashboard ? (
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start"
+                  onClick={onSettingsClick}
                 >
-                  <Truck className="inline-block mr-2 h-4 w-4" />
-                  Personal Delivery
-                </Link>
-                <Link
-                  to="/business"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-                >
-                  <Briefcase className="inline-block mr-2 h-4 w-4" />
-                  Business Solutions
-                </Link>
-                <Link
-                  to="/drivers"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-                >
-                  <User className="inline-block mr-2 h-4 w-4" />
-                  Drivers
-                </Link>
-                <Link
-                  to="/about"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-                >
-                  <Building2 className="inline-block mr-2 h-4 w-4" />
-                  About Us
-                </Link>
-                <Link
-                  to="/career"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-                >
-                  <GraduationCap className="inline-block mr-2 h-4 w-4" />
-                  Career
-                </Link>
-                <Link
-                  to="/contact"
-                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-                >
-                  <Contact className="inline-block mr-2 h-4 w-4" />
-                  Contact
-                </Link>
-              </div>
+                  <Settings className="h-5 w-5 mr-2" />
+                  Settings
+                </Button>
+              ) : (
+                <div className="space-y-2">
+                  <Link
+                    to="/personal-delivery"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <Truck className="inline-block mr-2 h-4 w-4" />
+                    Personal Delivery
+                  </Link>
+                  <Link
+                    to="/business"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <Briefcase className="inline-block mr-2 h-4 w-4" />
+                    Business Solutions
+                  </Link>
+                  <Link
+                    to="/drivers"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <User className="inline-block mr-2 h-4 w-4" />
+                    Drivers
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <Building2 className="inline-block mr-2 h-4 w-4" />
+                    About Us
+                  </Link>
+                  <Link
+                    to="/career"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <GraduationCap className="inline-block mr-2 h-4 w-4" />
+                    Career
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <Contact className="inline-block mr-2 h-4 w-4" />
+                    Contact
+                  </Link>
+                </div>
+              )}
               <div className="px-3 py-2">
                 {session ? (
                   <Button
