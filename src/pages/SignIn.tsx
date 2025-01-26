@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Auth } from "@supabase/auth-ui-react";
+import { Auth, ViewType } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { AuthError, AuthApiError } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,6 +13,7 @@ const SignIn = () => {
   const { toast } = useToast();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isRateLimited, setIsRateLimited] = useState(false);
+  const [view, setView] = useState<ViewType>("sign_in");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -116,12 +117,14 @@ const SignIn = () => {
         <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
-              Sign in
+              {view === "sign_up" ? "Create an account" : "Sign in"}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Auth
               supabaseClient={supabase}
+              view={view}
+              onViewChange={(newView) => setView(newView)}
               appearance={{
                 theme: ThemeSupa,
                 variables: {
