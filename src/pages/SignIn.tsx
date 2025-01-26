@@ -12,6 +12,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isRateLimited, setIsRateLimited] = useState(false);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -45,7 +46,7 @@ const SignIn = () => {
         if (event === "USER_UPDATED" && !session) {
           const { error } = await supabase.auth.getSession();
           if (error) {
-            setErrorMessage(getErrorMessage(error));
+            handleAuthError(error);
           }
         }
       }
@@ -56,21 +57,45 @@ const SignIn = () => {
     };
   }, [navigate, toast]);
 
-  const getErrorMessage = (error: AuthError) => {
+  const handleAuthError = (error: AuthError) => {
+    console.error("Auth error:", error);
+    
     if (error instanceof AuthApiError) {
-      switch (error.status) {
-        case 429:
-          return "Too many attempts. Please wait a few minutes before trying again.";
-        case 400:
-          if (error.message.includes("rate limit")) {
-            return "Too many attempts. Please wait a few minutes before trying again.";
-          }
-          return "Invalid credentials. Please check your email and password.";
-        default:
-          return error.message;
+      if (error.status === 429) {
+        setIsRateLimited(true);
+        setErrorMessage("Too many attempts. Please wait a few minutes before trying again.");
+        
+        // Reset rate limit status after 5 minutes
+        setTimeout(() => {
+          setIsRateLimited(false);
+          setErrorMessage("");
+        }, 5 * 60 * 1000);
+        
+        return;
       }
+
+      switch (error.message) {
+        case "Email rate limit exceeded":
+          setIsRateLimited(true);
+          setErrorMessage("Too many signup attempts. Please wait 5 minutes before trying again.");
+          
+          // Reset rate limit status after 5 minutes
+          setTimeout(() => {
+            setIsRateLimited(false);
+            setErrorMessage("");
+          }, 5 * 60 * 1000);
+          break;
+          
+        case "Invalid login credentials":
+          setErrorMessage("Invalid email or password. Please try again.");
+          break;
+          
+        default:
+          setErrorMessage(error.message);
+      }
+    } else {
+      setErrorMessage("An unexpected error occurred. Please try again.");
     }
-    return "An unexpected error occurred. Please try again.";
   };
 
   return (
@@ -128,7 +153,7 @@ const SignIn = () => {
                 },
                 className: {
                   container: 'space-y-4',
-                  button: 'w-full px-4 py-2 font-medium transition-colors',
+                  button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
                   input: 'w-full px-4 py-2 transition-colors',
                   label: 'text-sm font-medium text-maxmove-700',
                 },
