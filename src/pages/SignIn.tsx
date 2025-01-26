@@ -13,7 +13,6 @@ const SignIn = () => {
   const { toast } = useToast();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isRateLimited, setIsRateLimited] = useState(false);
-  const [view, setView] = useState<"sign_in" | "sign_up">("sign_in");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -66,7 +65,6 @@ const SignIn = () => {
         setIsRateLimited(true);
         setErrorMessage("Too many attempts. Please wait a few minutes before trying again.");
         
-        // Reset rate limit status after 5 minutes
         setTimeout(() => {
           setIsRateLimited(false);
           setErrorMessage("");
@@ -80,7 +78,6 @@ const SignIn = () => {
           setIsRateLimited(true);
           setErrorMessage("Too many signup attempts. Please wait 5 minutes before trying again.");
           
-          // Reset rate limit status after 5 minutes
           setTimeout(() => {
             setIsRateLimited(false);
             setErrorMessage("");
@@ -104,7 +101,7 @@ const SignIn = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
-            Welcome to Maxmove
+            Sign in to Maxmove
           </h2>
         </div>
         
@@ -117,13 +114,12 @@ const SignIn = () => {
         <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
-              {view === "sign_up" ? "Create an account" : "Sign in"}
+              Welcome back
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Auth
               supabaseClient={supabase}
-              view={view}
               appearance={{
                 theme: ThemeSupa,
                 variables: {
@@ -160,17 +156,18 @@ const SignIn = () => {
               localization={{
                 variables: {
                   sign_in: {
-                    button_label: 'Login'
+                    button_label: 'Sign in'
                   },
                   sign_up: {
                     email_label: '',
                     password_label: '',
-                    button_label: 'Sign up',
-                    link_text: 'Create an Account'
+                    button_label: 'Create account',
+                    link_text: 'Create an account'
                   }
                 }
               }}
               providers={[]}
+              redirectTo="/account-type"
             />
           </CardContent>
         </Card>
