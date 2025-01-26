@@ -144,35 +144,35 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-maxmove-50 to-maxmove-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-maxmove-50 via-white to-maxmove-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 animate-fade-in">
-        <Card className="backdrop-blur-sm bg-white/90 border-maxmove-200 shadow-lg">
-          <CardHeader className="space-y-2">
-            <CardTitle className="text-2xl font-bold text-center text-maxmove-900">
-              Create your account
+        <Card className="backdrop-blur-sm bg-white/95 border-maxmove-200 shadow-xl rounded-2xl">
+          <CardHeader className="space-y-3 pb-8">
+            <CardTitle className="text-3xl font-bold text-center text-maxmove-900">
+              Join Maxmove
             </CardTitle>
-            <p className="text-center text-maxmove-600 text-sm">
-              Join Maxmove and start your journey with us
+            <p className="text-center text-maxmove-600 text-base">
+              Start your journey with us today
             </p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue={accountType} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsList className="grid w-full grid-cols-3 mb-8 bg-maxmove-50/50">
                 <TabsTrigger 
                   value="personal"
-                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
                 >
                   Personal
                 </TabsTrigger>
                 <TabsTrigger 
                   value="business"
-                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
                 >
                   Business
                 </TabsTrigger>
                 <TabsTrigger 
                   value="driver"
-                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
                 >
                   Driver
                 </TabsTrigger>
@@ -187,15 +187,15 @@ const SignUp = () => {
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-maxmove-700">First name</FormLabel>
+                            <FormLabel className="text-maxmove-700 font-medium">First name</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="John" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-sm" />
                           </FormItem>
                         )}
                       />
@@ -204,15 +204,15 @@ const SignUp = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-maxmove-700">Last name</FormLabel>
+                            <FormLabel className="text-maxmove-700 font-medium">Last name</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="Doe" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-sm" />
                           </FormItem>
                         )}
                       />
@@ -222,16 +222,16 @@ const SignUp = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700">Email</FormLabel>
+                          <FormLabel className="text-maxmove-700 font-medium">Email</FormLabel>
                           <FormControl>
                             <Input 
                               type="email" 
                               placeholder="john@example.com" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-sm" />
                         </FormItem>
                       )}
                     />
@@ -240,11 +240,11 @@ const SignUp = () => {
                       name="phoneNumber"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700">Phone number</FormLabel>
+                          <FormLabel className="text-maxmove-700 font-medium">Phone number</FormLabel>
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px] border-maxmove-200">
+                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
                                   <SelectValue placeholder="+65" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -252,13 +252,13 @@ const SignUp = () => {
                                 </SelectContent>
                               </Select>
                               <Input 
-                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200" 
+                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
                                 placeholder="91234567" 
                                 {...field} 
                               />
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-sm" />
                         </FormItem>
                       )}
                     />
@@ -267,16 +267,16 @@ const SignUp = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700">Password</FormLabel>
+                          <FormLabel className="text-maxmove-700 font-medium">Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
                               placeholder="••••••" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className="text-sm" />
                         </FormItem>
                       )}
                     />
@@ -294,7 +294,7 @@ const SignUp = () => {
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel className="text-sm text-maxmove-600">
-                              I'd like to receive offers and promotions from Maxmove
+                              Keep me updated with offers and news from Maxmove
                             </FormLabel>
                           </div>
                         </FormItem>
@@ -302,10 +302,17 @@ const SignUp = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white" 
+                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11 font-medium transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98]" 
                       disabled={isLoading}
                     >
-                      {isLoading ? "Creating account..." : "Create Account"}
+                      {isLoading ? (
+                        <div className="flex items-center justify-center space-x-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Creating account...</span>
+                        </div>
+                      ) : (
+                        "Create Account"
+                      )}
                     </Button>
                   </form>
                 </Form>
