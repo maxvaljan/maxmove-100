@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { CountryCodeSelect } from "@/components/CountryCodeSelect";
 
 const personalFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -61,6 +62,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [countryCode, setCountryCode] = useState("+49");
 
   const personalForm = useForm({
     resolver: zodResolver(personalFormSchema),
@@ -234,17 +236,13 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <div className="flex">
-                              <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
-                                  <SelectValue placeholder="+65" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="+65">+65</SelectItem>
-                                </SelectContent>
-                              </Select>
+                            <div className="flex gap-2">
+                              <CountryCodeSelect
+                                value={countryCode}
+                                onChange={setCountryCode}
+                              />
                               <Input 
-                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
+                                className="flex-1 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
@@ -390,17 +388,13 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <div className="flex">
-                              <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
-                                  <SelectValue placeholder="+65" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="+65">+65</SelectItem>
-                                </SelectContent>
-                              </Select>
+                            <div className="flex gap-2">
+                              <CountryCodeSelect
+                                value={countryCode}
+                                onChange={setCountryCode}
+                              />
                               <Input 
-                                className="flex-1 ml-2 border-maxmove-200 h-11" 
+                                className="flex-1 border-maxmove-200 h-11" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
@@ -496,17 +490,13 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <div className="flex">
-                              <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
-                                  <SelectValue placeholder="+65" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="+65">+65</SelectItem>
-                                </SelectContent>
-                              </Select>
+                            <div className="flex gap-2">
+                              <CountryCodeSelect
+                                value={countryCode}
+                                onChange={setCountryCode}
+                              />
                               <Input 
-                                className="flex-1 ml-2 border-maxmove-200 h-11" 
+                                className="flex-1 border-maxmove-200 h-11" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
