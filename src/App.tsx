@@ -13,7 +13,6 @@ import CookiePolicy from "./pages/CookiePolicy";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import AccountTypeSelection from "./pages/AccountTypeSelection";
-import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -33,7 +32,6 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/account-type-selection" element={<AccountTypeSelection />} />
-        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
