@@ -11,6 +11,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import CookiePolicy from "./pages/CookiePolicy";
 import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import AccountTypeSelection from "./pages/AccountTypeSelection";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/account-type-selection" element={<AccountTypeSelection />} />
       </Routes>
     </Router>
