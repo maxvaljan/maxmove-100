@@ -149,11 +149,8 @@ const SignUp = () => {
         <Card className="backdrop-blur-sm bg-white/95 border-maxmove-200 shadow-xl rounded-2xl">
           <CardHeader className="space-y-3 pb-8">
             <CardTitle className="text-3xl font-bold text-center text-maxmove-900">
-              Join Maxmove
+              Maxmove
             </CardTitle>
-            <p className="text-center text-maxmove-600 text-base">
-              Start your journey with us today
-            </p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue={accountType} className="w-full">
