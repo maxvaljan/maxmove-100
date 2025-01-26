@@ -156,7 +156,7 @@ const SignUp = () => {
             <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="-mt-4">
             <Tabs defaultValue={accountType} className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-8 bg-maxmove-50/50">
                 <TabsTrigger 
@@ -179,6 +179,7 @@ const SignUp = () => {
                 </TabsTrigger>
               </TabsList>
 
+              {/* Update the button text and color in each form */}
               <TabsContent value="personal">
                 <Form {...personalForm}>
                   <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-4">
@@ -547,17 +548,20 @@ const SignUp = () => {
                   </form>
                 </Form>
               </TabsContent>
+
             </Tabs>
 
-            <div className="mt-6 text-center text-sm">
-              <span className="text-maxmove-600">Already have an account? </span>
-              <Button 
-                variant="link" 
-                className="text-maxmove-800 hover:text-maxmove-900 p-0"
-                onClick={() => navigate("/signin")}
-              >
-                Sign in
-              </Button>
+            <div className="text-center mt-6">
+              <p className="text-maxmove-600">
+                Already have an account?{" "}
+                <Button
+                  variant="link"
+                  className="text-maxmove-800 hover:text-maxmove-900"
+                  onClick={() => navigate("/signin")}
+                >
+                  Login
+                </Button>
+              </p>
             </div>
           </CardContent>
         </Card>
