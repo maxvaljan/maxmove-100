@@ -27,9 +27,6 @@ const AccountTypeSelection = () => {
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
             Select an account type
           </h2>
-          <p className="mt-4 text-lg text-maxmove-600">
-            Choose the type of account that best suits your needs
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -42,7 +39,7 @@ const AccountTypeSelection = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-maxmove-600 text-center">
-                For personal use and small deliveries
+                For personal use and small businesses
               </p>
               <ul className="space-y-2 text-sm text-maxmove-700">
                 <li className="flex items-center">
@@ -56,6 +53,10 @@ const AccountTypeSelection = () => {
                 <li className="flex items-center">
                   <span className="mr-2">•</span>
                   Save favorite locations
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">•</span>
+                  Wide range of vehicles
                 </li>
               </ul>
             </CardContent>
@@ -85,6 +86,14 @@ const AccountTypeSelection = () => {
                   <span className="mr-2">•</span>
                   Priority support
                 </li>
+                <li className="flex items-center">
+                  <span className="mr-2">•</span>
+                  Centralized business wallet for multiple users
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">•</span>
+                  Monthly corporate statements
+                </li>
               </ul>
             </CardContent>
           </Card>
@@ -103,11 +112,15 @@ const AccountTypeSelection = () => {
               <ul className="space-y-2 text-sm text-maxmove-700">
                 <li className="flex items-center">
                   <span className="mr-2">•</span>
-                  Flexible working hours
+                  Great Earnings
                 </li>
                 <li className="flex items-center">
                   <span className="mr-2">•</span>
-                  Competitive earnings
+                  Be your own boss
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">•</span>
+                  Flexible working hours
                 </li>
                 <li className="flex items-center">
                   <span className="mr-2">•</span>

@@ -43,8 +43,8 @@ const SignIn = () => {
           });
         }
 
-        // Handle sign up event
-        if (event === "SIGNED_UP") {
+        // Handle sign up view change
+        if (view === "sign_up") {
           navigate("/account-type-selection");
         }
 
@@ -61,7 +61,7 @@ const SignIn = () => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate, toast]);
+  }, [navigate, toast, view]);
 
   const handleAuthError = (error: AuthError) => {
     console.error("Auth error:", error);
