@@ -67,7 +67,7 @@ const ServiceBanners = () => {
           <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-8 md:mt-32 w-full">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-8 md:mt-16 w-full">
           {/* Move Banner */}
           <Link 
             to="/book" 
