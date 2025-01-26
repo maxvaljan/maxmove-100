@@ -6,16 +6,16 @@ import { User, Building2, Car } from "lucide-react";
 const AccountTypeSelection = () => {
   const navigate = useNavigate();
 
-  const handleSelection = (type: "individual" | "business" | "driver") => {
+  const handleSelection = (type: "personal" | "business" | "driver") => {
     switch (type) {
-      case "individual":
-        navigate("/sign-up?type=individual");
+      case "personal":
+        navigate("/signup?type=personal");
         break;
       case "business":
-        navigate("/business");
+        navigate("/signup?type=business");
         break;
       case "driver":
-        navigate("/drivers/apply");
+        navigate("/signup?type=driver");
         break;
     }
   };
@@ -32,7 +32,7 @@ const AccountTypeSelection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Individual Account */}
           <Card className="hover:shadow-lg transition-shadow duration-300 cursor-pointer" 
-                onClick={() => handleSelection("individual")}>
+                onClick={() => handleSelection("personal")}>
             <CardHeader className="text-center">
               <User className="w-12 h-12 mx-auto text-maxmove-800 mb-4" />
               <CardTitle className="text-xl font-semibold text-maxmove-900">Individual</CardTitle>
