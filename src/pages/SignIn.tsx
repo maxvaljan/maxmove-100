@@ -59,27 +59,45 @@ const SignIn = () => {
     setIsLoading(true);
     setErrorMessage("");
 
-    const isEmail = identifier.includes('@');
-    const email = isEmail ? identifier : undefined;
-    const phone = !isEmail ? `${countryCode}${identifier}` : undefined;
+    try {
+      const isEmail = identifier.includes('@');
+      const email = isEmail ? identifier : undefined;
+      const phone = !isEmail ? `${countryCode}${identifier}` : undefined;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      phone,
-      password,
-    });
+      console.log("Attempting sign in with:", { email, phone, password });
 
-    if (error) {
-      console.error("Sign in error:", error);
-      setErrorMessage(error.message);
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        phone,
+        password,
+      });
+
+      if (error) {
+        console.error("Sign in error:", error);
+        
+        // Handle specific error cases
+        if (error.message === "Invalid login credentials") {
+          setErrorMessage("The email/phone or password you entered is incorrect. Please try again.");
+        } else if (error.message.includes("User already registered")) {
+          setErrorMessage("This account already exists. Please sign in instead.");
+        } else {
+          setErrorMessage(error.message);
+        }
+        return;
+      }
+
+      toast({
+        title: "Welcome back!",
+        description: "You have successfully signed in.",
+      });
+
+      navigate("/dashboard");
+    } catch (error: any) {
+      console.error("Unexpected error during sign in:", error);
+      setErrorMessage("An unexpected error occurred. Please try again.");
+    } finally {
       setIsLoading(false);
-      return;
     }
-
-    toast({
-      title: "Welcome back!",
-      description: "You have successfully signed in.",
-    });
   };
 
   // Filter country codes based on search value
