@@ -6,7 +6,6 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -144,57 +143,57 @@ const SignUp = () => {
     }
   };
 
-  const handleSocialSignUp = async (provider: 'google' | 'facebook') => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${window.location.origin}/account`,
-          queryParams: {
-            account_type: accountType,
-          },
-        },
-      });
-
-      if (error) throw error;
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-maxmove-100 to-maxmove-200 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
+    <div className="min-h-screen bg-gradient-to-br from-maxmove-50 to-maxmove-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 animate-fade-in">
+        <Card className="backdrop-blur-sm bg-white/90 border-maxmove-200 shadow-lg">
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-2xl font-bold text-center text-maxmove-900">
               Create your account
             </CardTitle>
+            <p className="text-center text-maxmove-600 text-sm">
+              Join Maxmove and start your journey with us
+            </p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue={accountType} className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="personal">Personal</TabsTrigger>
-                <TabsTrigger value="business">Business</TabsTrigger>
-                <TabsTrigger value="driver">Driver</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 mb-8">
+                <TabsTrigger 
+                  value="personal"
+                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                >
+                  Personal
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="business"
+                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                >
+                  Business
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="driver"
+                  className="data-[state=active]:bg-maxmove-100 data-[state=active]:text-maxmove-900"
+                >
+                  Driver
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="personal">
                 <Form {...personalForm}>
-                  <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-4">
+                  <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-6">
                     <div className="grid grid-cols-2 gap-4">
                       <FormField
                         control={personalForm.control}
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>First name</FormLabel>
+                            <FormLabel className="text-maxmove-700">First name</FormLabel>
                             <FormControl>
-                              <Input placeholder="John" {...field} />
+                              <Input 
+                                placeholder="John" 
+                                {...field} 
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -205,9 +204,13 @@ const SignUp = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Last name</FormLabel>
+                            <FormLabel className="text-maxmove-700">Last name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Doe" {...field} />
+                              <Input 
+                                placeholder="Doe" 
+                                {...field} 
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -219,9 +222,14 @@ const SignUp = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel className="text-maxmove-700">Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="john@example.com" {...field} />
+                            <Input 
+                              type="email" 
+                              placeholder="john@example.com" 
+                              {...field} 
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -232,18 +240,22 @@ const SignUp = () => {
                       name="phoneNumber"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone number</FormLabel>
+                          <FormLabel className="text-maxmove-700">Phone number</FormLabel>
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px]">
+                                <SelectTrigger className="w-[100px] border-maxmove-200">
                                   <SelectValue placeholder="+65" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectItem value="+65">+65</SelectItem>
                                 </SelectContent>
                               </Select>
-                              <Input className="flex-1 ml-2" placeholder="91234567" {...field} />
+                              <Input 
+                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200" 
+                                placeholder="91234567" 
+                                {...field} 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -255,9 +267,14 @@ const SignUp = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="text-maxmove-700">Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••" {...field} />
+                            <Input 
+                              type="password" 
+                              placeholder="••••••" 
+                              {...field} 
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -272,18 +289,23 @@ const SignUp = () => {
                             <Checkbox
                               checked={field.value}
                               onCheckedChange={field.onChange}
+                              className="border-maxmove-300 data-[state=checked]:bg-maxmove-600 data-[state=checked]:border-maxmove-600"
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
-                            <FormLabel>
+                            <FormLabel className="text-sm text-maxmove-600">
                               I'd like to receive offers and promotions from Maxmove
                             </FormLabel>
                           </div>
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      Sign Up
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white" 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
                 </Form>
@@ -559,50 +581,35 @@ const SignUp = () => {
                   </form>
                 </Form>
               </TabsContent>
+
             </Tabs>
-
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-maxmove-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-maxmove-600">Or continue with</span>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => handleSocialSignUp('facebook')}
-                  disabled={isLoading}
-                >
-                  Facebook
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => handleSocialSignUp('google')}
-                  disabled={isLoading}
-                >
-                  Google
-                </Button>
-              </div>
-            </div>
 
             <div className="mt-6 text-center text-sm text-maxmove-600">
               By signing up, you agree to our{" "}
-              <Button variant="link" className="p-0 text-maxmove-800 hover:text-maxmove-900" onClick={() => navigate("/terms")}>
+              <Button 
+                variant="link" 
+                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
+                onClick={() => navigate("/terms")}
+              >
                 Terms & Conditions
               </Button>{" "}
               and{" "}
-              <Button variant="link" className="p-0 text-maxmove-800 hover:text-maxmove-900" onClick={() => navigate("/privacy-policy")}>
+              <Button 
+                variant="link" 
+                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
+                onClick={() => navigate("/privacy-policy")}
+              >
                 Privacy Policy
               </Button>
             </div>
 
             <div className="mt-4 text-center text-sm text-maxmove-600">
               Already have an account?{" "}
-              <Button variant="link" className="p-0 text-maxmove-800 hover:text-maxmove-900" onClick={() => navigate("/signin")}>
+              <Button 
+                variant="link" 
+                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
+                onClick={() => navigate("/signin")}
+              >
                 Sign in
               </Button>
             </div>
