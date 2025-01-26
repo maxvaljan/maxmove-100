@@ -51,7 +51,6 @@ const driverFormSchema = z.object({
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   phoneNumber: z.string().min(8, "Invalid phone number"),
-  vehicleType: z.string().min(2, "Please select a vehicle type"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   marketing: z.boolean().default(false),
 });
@@ -97,7 +96,33 @@ const SignUp = () => {
       lastName: "",
       email: "",
       phoneNumber: "",
-      vehicleType: "",
+</lov-replace>
+
+<lov-search>
+                    <FormField
+                      control={driverForm.control}
+                      name="vehicleType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="h-11 bg-white/80 border-0">
+                                <SelectValue placeholder="Select vehicle type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="motorcycle">Motorcycle</SelectItem>
+                              <SelectItem value="car">Car</SelectItem>
+                              <SelectItem value="van">Van</SelectItem>
+                              <SelectItem value="truck">Truck</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+</lov-search>
+<lov-replace>
       password: "",
       marketing: false,
     },
