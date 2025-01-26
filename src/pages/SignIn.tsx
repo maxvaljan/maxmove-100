@@ -13,6 +13,7 @@ const SignIn = () => {
   const { toast } = useToast();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isRateLimited, setIsRateLimited] = useState(false);
+  const [view, setView] = useState<"sign_in" | "sign_up">("sign_in");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -40,6 +41,11 @@ const SignIn = () => {
             title: "Welcome back!",
             description: "You have successfully signed in.",
           });
+        }
+
+        // Handle sign up event
+        if (event === "SIGNED_UP") {
+          navigate("/account-type-selection");
         }
 
         // Handle authentication errors
@@ -101,7 +107,7 @@ const SignIn = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
-            Sign in to Maxmove
+            {view === "sign_up" ? "Create an account" : "Sign in to Maxmove"}
           </h2>
         </div>
         
@@ -120,6 +126,7 @@ const SignIn = () => {
           <CardContent>
             <Auth
               supabaseClient={supabase}
+              view={view}
               appearance={{
                 theme: ThemeSupa,
                 variables: {
@@ -167,7 +174,7 @@ const SignIn = () => {
                 }
               }}
               providers={[]}
-              redirectTo="/account-type"
+              redirectTo="/account-type-selection"
             />
           </CardContent>
         </Card>
