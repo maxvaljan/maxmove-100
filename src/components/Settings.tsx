@@ -72,7 +72,10 @@ export const Settings = ({ onClose }: SettingsProps) => {
           <label className="text-sm font-medium text-maxmove-700">
             Notification Preferences
           </label>
-          <Select value={notifications} onValueChange={setNotifications}>
+          <Select 
+            value={notifications} 
+            onValueChange={(value: NotificationPreference) => setNotifications(value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select notifications" />
             </SelectTrigger>
@@ -88,7 +91,10 @@ export const Settings = ({ onClose }: SettingsProps) => {
           <label className="text-sm font-medium text-maxmove-700">
             Language
           </label>
-          <Select value={language} onValueChange={setLanguage}>
+          <Select 
+            value={language} 
+            onValueChange={(value: LanguagePreference) => setLanguage(value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select language" />
             </SelectTrigger>
