@@ -13,7 +13,6 @@ const SignIn = () => {
   const { toast } = useToast();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isRateLimited, setIsRateLimited] = useState(false);
-  const [view, setView] = useState<"sign_in" | "sign_up">("sign_in");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -42,26 +41,13 @@ const SignIn = () => {
             description: "You have successfully signed in.",
           });
         }
-
-        // Handle sign up view change
-        if (view === "sign_up") {
-          navigate("/account-type-selection");
-        }
-
-        // Handle authentication errors
-        if (event === "USER_UPDATED" && !session) {
-          const { error } = await supabase.auth.getSession();
-          if (error) {
-            handleAuthError(error);
-          }
-        }
       }
     );
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate, toast, view]);
+  }, [navigate, toast]);
 
   const handleAuthError = (error: AuthError) => {
     console.error("Auth error:", error);
@@ -107,7 +93,7 @@ const SignIn = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
-            {view === "sign_up" ? "Create an account" : "Sign in to Maxmove"}
+            Sign in to Maxmove
           </h2>
         </div>
         
@@ -126,7 +112,6 @@ const SignIn = () => {
           <CardContent>
             <Auth
               supabaseClient={supabase}
-              view={view}
               appearance={{
                 theme: ThemeSupa,
                 variables: {
@@ -175,6 +160,11 @@ const SignIn = () => {
               }}
               providers={[]}
               redirectTo="/account-type-selection"
+              onViewChange={(view) => {
+                if (view === 'sign_up') {
+                  navigate('/account-type-selection');
+                }
+              }}
             />
           </CardContent>
         </Card>
