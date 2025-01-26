@@ -6,6 +6,35 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const countryCodes = [
+  { value: "+1", label: "🇺🇸 +1" },
+  { value: "+44", label: "🇬🇧 +44" },
+  { value: "+49", label: "🇩🇪 +49" },
+  { value: "+33", label: "🇫🇷 +33" },
+  { value: "+34", label: "🇪🇸 +34" },
+  { value: "+39", label: "🇮🇹 +39" },
+  { value: "+31", label: "🇳🇱 +31" },
+  { value: "+41", label: "🇨🇭 +41" },
+  { value: "+43", label: "🇦🇹 +43" },
+  { value: "+46", label: "🇸🇪 +46" },
+  { value: "+47", label: "🇳🇴 +47" },
+  { value: "+45", label: "🇩🇰 +45" },
+  { value: "+358", label: "🇫🇮 +358" },
+  { value: "+48", label: "🇵🇱 +48" },
+  { value: "+351", label: "🇵🇹 +351" },
+  { value: "+353", label: "🇮🇪 +353" },
+  { value: "+32", label: "🇧🇪 +32" },
+  { value: "+420", label: "🇨🇿 +420" },
+  { value: "+36", label: "🇭🇺 +36" },
+];
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -62,18 +91,27 @@ const SignIn = () => {
         <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
-              Welcome back
+              Maxmove
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="flex gap-2">
-                <Input
-                  type="text"
+                <Select
                   value={countryCode}
-                  onChange={(e) => setCountryCode(e.target.value)}
-                  className="bg-white/80 border-0 w-20"
-                />
+                  onValueChange={setCountryCode}
+                >
+                  <SelectTrigger className="w-[140px] bg-white/80 border-0">
+                    <SelectValue placeholder="Select code" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {countryCodes.map((code) => (
+                      <SelectItem key={code.value} value={code.value}>
+                        {code.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <Input
                   type="text"
                   value={identifier}
