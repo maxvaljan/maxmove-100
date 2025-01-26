@@ -440,8 +440,12 @@ const SignUp = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-maxmove-800 hover:bg-maxmove-900" disabled={isLoading}>
-                      {isLoading ? "Creating account..." : "Create Account"}
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white" 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Creating account..." : "Sign up"}
                     </Button>
                   </form>
                 </Form>
@@ -542,8 +546,12 @@ const SignUp = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-maxmove-800 hover:bg-maxmove-900" disabled={isLoading}>
-                      {isLoading ? "Creating account..." : "Create Account"}
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white" 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Creating account..." : "Sign up"}
                     </Button>
                   </form>
                 </Form>
