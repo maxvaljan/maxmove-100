@@ -152,7 +152,7 @@ const SignIn = () => {
                   container: 'space-y-4',
                   button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
                   input: 'w-full px-4 py-2 transition-colors bg-white/80',
-                  label: 'sr-only', // This hides the labels while keeping them accessible
+                  label: 'sr-only',
                 },
               }}
               localization={{
@@ -164,8 +164,7 @@ const SignIn = () => {
                     email_label: '',
                     password_label: '',
                     button_label: 'Sign up',
-                    link_text: 'Create an Account',
-                    header_text: 'Create an Account'
+                    link_text: 'Create an Account'
                   }
                 }
               }}
