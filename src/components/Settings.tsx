@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,9 +24,52 @@ export const Settings = ({ onClose }: SettingsProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [notifications, setNotifications] = useState<NotificationPreference>("all");
   const [language, setLanguage] = useState<LanguagePreference>("en");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadUserSettings = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+          toast.error("No user found");
+          onClose();
+          return;
+        }
+
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('phone_number, notification_preferences, language')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+
+        if (profile) {
+          setPhoneNumber(profile.phone_number || "");
+          setNotifications(profile.notification_preferences as NotificationPreference || "all");
+          setLanguage(profile.language as LanguagePreference || "en");
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+        toast.error("Failed to load settings");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadUserSettings();
+  }, [onClose]);
 
   const handleSave = async () => {
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error("No user found");
+        return;
+      }
+
       const { error } = await supabase
         .from('profiles')
         .update({
@@ -34,7 +77,7 @@ export const Settings = ({ onClose }: SettingsProps) => {
           notification_preferences: notifications,
           language: language,
         })
-        .eq('id', (await supabase.auth.getUser()).data.user?.id);
+        .eq('id', user.id);
 
       if (error) throw error;
       
@@ -45,6 +88,22 @@ export const Settings = ({ onClose }: SettingsProps) => {
       toast.error("Failed to update settings");
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="animate-fade-in">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-maxmove-900">Settings</h2>
+          <Button variant="ghost" size="icon" onClick={onClose}>
+            <X className="h-6 w-6" />
+          </Button>
+        </div>
+        <div className="flex items-center justify-center h-48">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-maxmove-900"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="animate-fade-in">
