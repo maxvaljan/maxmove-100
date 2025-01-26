@@ -159,6 +159,13 @@ const SignIn = () => {
                 variables: {
                   sign_in: {
                     button_label: 'Login'
+                  },
+                  sign_up: {
+                    email_label: '',
+                    password_label: '',
+                    button_label: 'Sign up',
+                    link_text: 'Create an Account',
+                    header_text: 'Create an Account'
                   }
                 }
               }}
