@@ -160,11 +160,6 @@ const SignIn = () => {
               }}
               providers={[]}
               redirectTo="/account-type-selection"
-              viewProps={{
-                sign_up: {
-                  redirectTo: '/account-type-selection',
-                },
-              }}
             />
           </CardContent>
         </Card>
