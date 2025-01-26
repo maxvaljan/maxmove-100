@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact } from "lucide-react";
+import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact, LayoutDashboard } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -125,19 +125,29 @@ const Navbar = () => {
             </DropdownMenu>
 
             {session ? (
-              <Button
-                variant="default"
-                className={`transition-colors ${
-                  isHomePage 
-                    ? isScrolled 
-                      ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
-                      : "bg-white hover:bg-white/90 text-maxmove-900"
-                    : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
-                }`}
-                onClick={handleSignOut}
-              >
-                Sign Out
-              </Button>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  className={`transition-colors ${getTextColor()}`}
+                  onClick={() => navigate("/dashboard")}
+                >
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  Dashboard
+                </Button>
+                <Button
+                  variant="default"
+                  className={`transition-colors ${
+                    isHomePage 
+                      ? isScrolled 
+                        ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
+                        : "bg-white hover:bg-white/90 text-maxmove-900"
+                      : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
+                  }`}
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </Button>
+              </div>
             ) : (
               <Button
                 variant="default"
@@ -146,7 +156,7 @@ const Navbar = () => {
                     ? isScrolled 
                       ? "bg-maxmove-800 hover:bg-maxmove-900 text-white" 
                       : "bg-white hover:bg-white/90 text-maxmove-900"
-                    : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
+                      : "bg-maxmove-800 hover:bg-maxmove-900 text-white"
                 }`}
                 onClick={() => navigate("/signin")}
               >
@@ -177,6 +187,15 @@ const Navbar = () => {
           <div className="md:hidden bg-white/95 backdrop-blur-md animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <div className="space-y-2">
+                {session && (
+                  <Link
+                    to="/dashboard"
+                    className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                  >
+                    <LayoutDashboard className="inline-block mr-2 h-4 w-4" />
+                    Dashboard
+                  </Link>
+                )}
                 <Link
                   to="/personal-delivery"
                   className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"

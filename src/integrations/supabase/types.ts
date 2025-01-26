@@ -319,19 +319,37 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          language: Database["public"]["Enums"]["language_preference"] | null
+          last_login: string | null
           name: string | null
+          notification_preferences:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          phone_number: string | null
           role: Database["public"]["Enums"]["user_role"]
         }
         Insert: {
           created_at?: string
           id?: string
+          language?: Database["public"]["Enums"]["language_preference"] | null
+          last_login?: string | null
           name?: string | null
+          notification_preferences?:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          phone_number?: string | null
           role?: Database["public"]["Enums"]["user_role"]
         }
         Update: {
           created_at?: string
           id?: string
+          language?: Database["public"]["Enums"]["language_preference"] | null
+          last_login?: string | null
           name?: string | null
+          notification_preferences?:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          phone_number?: string | null
           role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: []
@@ -384,6 +402,8 @@ export type Database = {
     Enums: {
       DeliveryStatus: "pending" | "out_for_delivery" | "delivered" | "failed"
       DriverStatus: "available" | "busy" | "offline"
+      language_preference: "en" | "de"
+      notification_preference: "all" | "important" | "none"
       NotificationType: "order_update" | "promo" | "system"
       OrderStatus:
         | "pending"
