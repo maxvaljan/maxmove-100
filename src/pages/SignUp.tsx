@@ -13,7 +13,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -285,9 +284,9 @@ const SignUp = () => {
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
-                            <FormLabel className="text-sm text-maxmove-600">
+                            <div className="text-sm text-maxmove-600">
                               Keep me updated with offers and news from Maxmove
-                            </FormLabel>
+                            </div>
                           </div>
                         </FormItem>
                       )}
@@ -319,7 +318,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input placeholder="Company name" {...field} />
+                            <Input placeholder="Company name" {...field} className="border-maxmove-200 h-11" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -332,8 +331,8 @@ const SignUp = () => {
                         <FormItem>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Industry" />
+                              <SelectTrigger className="h-11 border-maxmove-200">
+                                <SelectValue placeholder="Select industry" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -353,9 +352,8 @@ const SignUp = () => {
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>First name</FormLabel>
                             <FormControl>
-                              <Input placeholder="John" {...field} />
+                              <Input placeholder="First name" {...field} className="border-maxmove-200 h-11" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -366,9 +364,8 @@ const SignUp = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Last name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Doe" {...field} />
+                              <Input placeholder="Last name" {...field} className="border-maxmove-200 h-11" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -381,7 +378,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="email" placeholder="Work email" {...field} />
+                            <Input type="email" placeholder="Work email" {...field} className="border-maxmove-200 h-11" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -392,18 +389,21 @@ const SignUp = () => {
                       name="phoneNumber"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone number</FormLabel>
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px]">
+                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
                                   <SelectValue placeholder="+65" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectItem value="+65">+65</SelectItem>
                                 </SelectContent>
                               </Select>
-                              <Input className="flex-1 ml-2" placeholder="91234567" {...field} />
+                              <Input 
+                                className="flex-1 ml-2 border-maxmove-200 h-11" 
+                                placeholder="Phone number" 
+                                {...field} 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -415,9 +415,8 @@ const SignUp = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••" {...field} />
+                            <Input type="password" placeholder="Password" {...field} className="border-maxmove-200 h-11" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -432,18 +431,19 @@ const SignUp = () => {
                             <Checkbox
                               checked={field.value}
                               onCheckedChange={field.onChange}
+                              className="border-maxmove-300 data-[state=checked]:bg-maxmove-600 data-[state=checked]:border-maxmove-600"
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
-                            <FormLabel>
+                            <div className="text-sm text-maxmove-600">
                               I'd like to receive offers and promotions from Maxmove
-                            </FormLabel>
+                            </div>
                           </div>
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      Sign Up
+                    <Button type="submit" className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11" disabled={isLoading}>
+                      {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
                 </Form>
@@ -458,9 +458,8 @@ const SignUp = () => {
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>First name</FormLabel>
                             <FormControl>
-                              <Input placeholder="John" {...field} />
+                              <Input placeholder="First name" {...field} className="border-maxmove-200 h-11" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -471,9 +470,8 @@ const SignUp = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Last name</FormLabel>
                             <FormControl>
-                              <Input placeholder="Doe" {...field} />
+                              <Input placeholder="Last name" {...field} className="border-maxmove-200 h-11" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -485,9 +483,8 @@ const SignUp = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="john@example.com" {...field} />
+                            <Input type="email" placeholder="Email" {...field} className="border-maxmove-200 h-11" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -498,18 +495,21 @@ const SignUp = () => {
                       name="phoneNumber"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Phone number</FormLabel>
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px]">
+                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
                                   <SelectValue placeholder="+65" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectItem value="+65">+65</SelectItem>
                                 </SelectContent>
                               </Select>
-                              <Input className="flex-1 ml-2" placeholder="91234567" {...field} />
+                              <Input 
+                                className="flex-1 ml-2 border-maxmove-200 h-11" 
+                                placeholder="Phone number" 
+                                {...field} 
+                              />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -523,8 +523,8 @@ const SignUp = () => {
                         <FormItem>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Vehicle type" />
+                              <SelectTrigger className="h-11 border-maxmove-200">
+                                <SelectValue placeholder="Select vehicle type" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -543,9 +543,8 @@ const SignUp = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••" {...field} />
+                            <Input type="password" placeholder="Password" {...field} className="border-maxmove-200 h-11" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -560,23 +559,23 @@ const SignUp = () => {
                             <Checkbox
                               checked={field.value}
                               onCheckedChange={field.onChange}
+                              className="border-maxmove-300 data-[state=checked]:bg-maxmove-600 data-[state=checked]:border-maxmove-600"
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
-                            <FormLabel>
+                            <div className="text-sm text-maxmove-600">
                               I'd like to receive offers and promotions from Maxmove
-                            </FormLabel>
+                            </div>
                           </div>
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={isLoading}>
-                      Sign Up
+                    <Button type="submit" className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11" disabled={isLoading}>
+                      {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
                 </Form>
               </TabsContent>
-
             </Tabs>
 
             <div className="mt-6 text-center text-sm text-maxmove-600">
