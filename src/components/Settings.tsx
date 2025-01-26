@@ -16,10 +16,14 @@ interface SettingsProps {
   onClose: () => void;
 }
 
+// Define the allowed types based on the Supabase enums
+type NotificationPreference = "all" | "important" | "none";
+type LanguagePreference = "en" | "de";
+
 export const Settings = ({ onClose }: SettingsProps) => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [notifications, setNotifications] = useState("all");
-  const [language, setLanguage] = useState("en");
+  const [notifications, setNotifications] = useState<NotificationPreference>("all");
+  const [language, setLanguage] = useState<LanguagePreference>("en");
 
   const handleSave = async () => {
     try {
