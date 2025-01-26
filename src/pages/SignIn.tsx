@@ -160,11 +160,8 @@ const SignIn = () => {
               }}
               providers={[]}
               redirectTo="/account-type-selection"
-              onViewChange={(view) => {
-                if (view === 'sign_up') {
-                  navigate('/account-type-selection');
-                }
-              }}
+              view="sign_in"
+              onError={(error) => handleAuthError(error)}
             />
           </CardContent>
         </Card>
