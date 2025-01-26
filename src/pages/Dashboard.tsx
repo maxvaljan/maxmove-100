@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import DashboardHeader from "@/components/DashboardHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package2, MapPin, Clock, Star } from "lucide-react";
 
@@ -65,7 +64,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        <DashboardHeader />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maxmove-600"></div>
         </div>
@@ -75,8 +74,8 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <DashboardHeader />
+      <main className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-3xl font-bold text-maxmove-900 mb-8">Dashboard</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -187,7 +186,6 @@ const Dashboard = () => {
           </Card>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
