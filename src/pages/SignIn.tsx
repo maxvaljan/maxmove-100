@@ -160,8 +160,11 @@ const SignIn = () => {
               }}
               providers={[]}
               redirectTo="/account-type-selection"
-              view="sign_in"
-              onError={(error) => handleAuthError(error)}
+              viewProps={{
+                sign_up: {
+                  redirectTo: '/account-type-selection',
+                },
+              }}
             />
           </CardContent>
         </Card>
