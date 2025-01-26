@@ -105,9 +105,6 @@ const SignIn = () => {
           <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
             Welcome to Maxmove
           </h2>
-          <p className="mt-2 text-sm text-maxmove-600">
-            Sign in to your account to continue
-          </p>
         </div>
         
         {errorMessage && (
@@ -155,7 +152,7 @@ const SignIn = () => {
                   container: 'space-y-4',
                   button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
                   input: 'w-full px-4 py-2 transition-colors',
-                  label: 'text-sm font-medium text-maxmove-700',
+                  label: 'sr-only', // This hides the labels while keeping them accessible
                 },
               }}
               providers={[]}
