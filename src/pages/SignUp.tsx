@@ -187,10 +187,9 @@ const SignUp = () => {
                         name="firstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-maxmove-700 font-medium">First name</FormLabel>
                             <FormControl>
                               <Input 
-                                placeholder="John" 
+                                placeholder="First name" 
                                 {...field} 
                                 className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                               />
@@ -204,10 +203,9 @@ const SignUp = () => {
                         name="lastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-maxmove-700 font-medium">Last name</FormLabel>
                             <FormControl>
                               <Input 
-                                placeholder="Doe" 
+                                placeholder="Last name" 
                                 {...field} 
                                 className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                               />
@@ -222,11 +220,10 @@ const SignUp = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700 font-medium">Email</FormLabel>
                           <FormControl>
                             <Input 
                               type="email" 
-                              placeholder="john@example.com" 
+                              placeholder="Email" 
                               {...field} 
                               className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                             />
@@ -240,7 +237,6 @@ const SignUp = () => {
                       name="phoneNumber"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700 font-medium">Phone number</FormLabel>
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
@@ -253,7 +249,7 @@ const SignUp = () => {
                               </Select>
                               <Input 
                                 className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
-                                placeholder="91234567" 
+                                placeholder="Phone number" 
                                 {...field} 
                               />
                             </div>
@@ -267,11 +263,10 @@ const SignUp = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-maxmove-700 font-medium">Password</FormLabel>
                           <FormControl>
                             <Input 
                               type="password" 
-                              placeholder="••••••" 
+                              placeholder="Password" 
                               {...field} 
                               className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
                             />
@@ -326,7 +321,6 @@ const SignUp = () => {
                       name="companyName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Company name</FormLabel>
                           <FormControl>
                             <Input placeholder="Company name" {...field} />
                           </FormControl>
@@ -339,11 +333,10 @@ const SignUp = () => {
                       name="industry"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Industry</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select industry" />
+                                <SelectValue placeholder="Industry" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -390,9 +383,8 @@ const SignUp = () => {
                       name="workEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Work email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="john@company.com" {...field} />
+                            <Input type="email" placeholder="Work email" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -532,11 +524,10 @@ const SignUp = () => {
                       name="vehicleType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Vehicle type</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Select vehicle type" />
+                                <SelectValue placeholder="Vehicle type" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
