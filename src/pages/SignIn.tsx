@@ -133,13 +133,13 @@ const SignIn = () => {
                       defaultButtonBackground: 'white',
                       defaultButtonBackgroundHover: 'rgb(247, 250, 252)',
                       inputBackground: 'white',
-                      inputBorder: 'rgb(203, 213, 225)',
-                      inputBorderHover: 'rgb(148, 166, 188)',
-                      inputBorderFocus: 'rgb(67, 77, 99)',
+                      inputBorder: 'transparent',
+                      inputBorderHover: 'transparent',
+                      inputBorderFocus: 'transparent',
                     },
                     borderWidths: {
                       buttonBorderWidth: '1px',
-                      inputBorderWidth: '1px',
+                      inputBorderWidth: '0px',
                     },
                     radii: {
                       borderRadiusButton: '0.5rem',
@@ -151,8 +151,13 @@ const SignIn = () => {
                 className: {
                   container: 'space-y-4',
                   button: `w-full px-4 py-2 font-medium transition-colors ${isRateLimited ? 'opacity-50 cursor-not-allowed' : ''}`,
-                  input: 'w-full px-4 py-2 transition-colors',
+                  input: 'w-full px-4 py-2 transition-colors bg-white/80',
                   label: 'sr-only', // This hides the labels while keeping them accessible
+                  auth: {
+                    button: {
+                      text: 'Login'
+                    }
+                  }
                 },
               }}
               providers={[]}
