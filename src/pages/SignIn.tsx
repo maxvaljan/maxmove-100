@@ -10,18 +10,24 @@ import { Input } from "@/components/ui/input";
 const SignIn = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [countryCode, setCountryCode] = useState("+49");
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
 
+    const isEmail = identifier.includes('@');
+    const email = isEmail ? identifier : undefined;
+    const phone = !isEmail ? `${countryCode}${identifier}` : undefined;
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
+      phone,
       password,
     });
 
@@ -61,14 +67,22 @@ const SignIn = () => {
           </CardHeader>
           <CardContent className="space-y-6">
             <form onSubmit={handleSignIn} className="space-y-4">
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="Email"
-                className="bg-white/80 border-0"
-              />
+              <div className="flex gap-2">
+                <Input
+                  type="text"
+                  value={countryCode}
+                  onChange={(e) => setCountryCode(e.target.value)}
+                  className="bg-white/80 border-0 w-20"
+                />
+                <Input
+                  type="text"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  required
+                  placeholder="Email or phone number"
+                  className="bg-white/80 border-0 flex-1"
+                />
+              </div>
               <Input
                 type="password"
                 value={password}
@@ -86,24 +100,17 @@ const SignIn = () => {
               </Button>
             </form>
 
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-maxmove-300" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white/50 px-2 text-maxmove-600">Or</span>
-              </div>
+            <div className="text-center text-sm">
+              <span className="text-maxmove-600">New to Maxmove? </span>
+              <Button
+                type="button"
+                variant="link"
+                className="text-maxmove-800 hover:text-maxmove-900 p-0"
+                onClick={() => navigate("/account-type-selection")}
+              >
+                Create an account
+              </Button>
             </div>
-
-            <Button
-              type="button"
-              variant="outline"
-              size="lg"
-              className="w-full text-base font-semibold"
-              onClick={() => navigate("/account-type-selection")}
-            >
-              Create an account
-            </Button>
           </CardContent>
         </Card>
       </div>
