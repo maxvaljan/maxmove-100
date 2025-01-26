@@ -145,12 +145,18 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-maxmove-50 via-white to-maxmove-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 animate-fade-in">
-        <Card className="backdrop-blur-sm bg-white/95 border-maxmove-200 shadow-xl rounded-2xl">
-          <CardHeader className="space-y-3 pb-8">
-            <CardTitle className="text-3xl font-bold text-center text-maxmove-900">
-              Maxmove
+    <div className="min-h-screen bg-gradient-to-br from-maxmove-100 to-maxmove-200 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center">
+          <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
+            Maxmove
+          </h2>
+        </div>
+        
+        <Card className="backdrop-blur-sm bg-white/50 border border-maxmove-200">
+          <CardHeader>
+            <CardTitle className="text-2xl font-semibold text-center text-maxmove-900">
+              Create your account
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -178,7 +184,7 @@ const SignUp = () => {
 
               <TabsContent value="personal">
                 <Form {...personalForm}>
-                  <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-6">
+                  <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <FormField
                         control={personalForm.control}
@@ -189,10 +195,10 @@ const SignUp = () => {
                               <Input 
                                 placeholder="First name" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                                className="bg-white/80 border-0"
                               />
                             </FormControl>
-                            <FormMessage className="text-sm" />
+                            <FormMessage />
                           </FormItem>
                         )}
                       />
@@ -205,10 +211,10 @@ const SignUp = () => {
                               <Input 
                                 placeholder="Last name" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                                className="bg-white/80 border-0"
                               />
                             </FormControl>
-                            <FormMessage className="text-sm" />
+                            <FormMessage />
                           </FormItem>
                         )}
                       />
@@ -223,10 +229,10 @@ const SignUp = () => {
                               type="email" 
                               placeholder="Email" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                              className="bg-white/80 border-0"
                             />
                           </FormControl>
-                          <FormMessage className="text-sm" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -242,13 +248,13 @@ const SignUp = () => {
                                 onChange={setCountryCode}
                               />
                               <Input 
-                                className="flex-1 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
+                                className="flex-1 bg-white/80 border-0" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
                             </div>
                           </FormControl>
-                          <FormMessage className="text-sm" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -262,10 +268,10 @@ const SignUp = () => {
                               type="password" 
                               placeholder="Password" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                              className="bg-white/80 border-0"
                             />
                           </FormControl>
-                          <FormMessage className="text-sm" />
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -291,7 +297,7 @@ const SignUp = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11 font-medium transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98]" 
+                      className="w-full bg-maxmove-800 hover:bg-maxmove-900" 
                       disabled={isLoading}
                     >
                       {isLoading ? (
@@ -316,7 +322,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input placeholder="Company name" {...field} className="border-maxmove-200 h-11" />
+                            <Input placeholder="Company name" {...field} className="bg-white/80 border-0" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -329,7 +335,7 @@ const SignUp = () => {
                         <FormItem>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-11 border-maxmove-200">
+                              <SelectTrigger className="h-11 bg-white/80 border-0">
                                 <SelectValue placeholder="Select industry" />
                               </SelectTrigger>
                             </FormControl>
@@ -351,7 +357,7 @@ const SignUp = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="First name" {...field} className="border-maxmove-200 h-11" />
+                              <Input placeholder="First name" {...field} className="bg-white/80 border-0" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -363,7 +369,7 @@ const SignUp = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Last name" {...field} className="border-maxmove-200 h-11" />
+                              <Input placeholder="Last name" {...field} className="bg-white/80 border-0" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -376,7 +382,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="email" placeholder="Work email" {...field} className="border-maxmove-200 h-11" />
+                            <Input type="email" placeholder="Work email" {...field} className="bg-white/80 border-0" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -394,7 +400,7 @@ const SignUp = () => {
                                 onChange={setCountryCode}
                               />
                               <Input 
-                                className="flex-1 border-maxmove-200 h-11" 
+                                className="flex-1 bg-white/80 border-0" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
@@ -410,7 +416,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="password" placeholder="Password" {...field} className="border-maxmove-200 h-11" />
+                            <Input type="password" placeholder="Password" {...field} className="bg-white/80 border-0" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -436,7 +442,7 @@ const SignUp = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11" disabled={isLoading}>
+                    <Button type="submit" className="w-full bg-maxmove-800 hover:bg-maxmove-900" disabled={isLoading}>
                       {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
@@ -453,7 +459,7 @@ const SignUp = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="First name" {...field} className="border-maxmove-200 h-11" />
+                              <Input placeholder="First name" {...field} className="bg-white/80 border-0" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -465,7 +471,7 @@ const SignUp = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                              <Input placeholder="Last name" {...field} className="border-maxmove-200 h-11" />
+                              <Input placeholder="Last name" {...field} className="bg-white/80 border-0" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -478,7 +484,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="email" placeholder="Email" {...field} className="border-maxmove-200 h-11" />
+                            <Input type="email" placeholder="Email" {...field} className="bg-white/80 border-0" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -496,7 +502,7 @@ const SignUp = () => {
                                 onChange={setCountryCode}
                               />
                               <Input 
-                                className="flex-1 border-maxmove-200 h-11" 
+                                className="flex-1 bg-white/80 border-0" 
                                 placeholder="Phone number" 
                                 {...field} 
                               />
@@ -513,7 +519,7 @@ const SignUp = () => {
                         <FormItem>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="h-11 border-maxmove-200">
+                              <SelectTrigger className="h-11 bg-white/80 border-0">
                                 <SelectValue placeholder="Select vehicle type" />
                               </SelectTrigger>
                             </FormControl>
@@ -534,7 +540,7 @@ const SignUp = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input type="password" placeholder="Password" {...field} className="border-maxmove-200 h-11" />
+                            <Input type="password" placeholder="Password" {...field} className="bg-white/80 border-0" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -560,7 +566,7 @@ const SignUp = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11" disabled={isLoading}>
+                    <Button type="submit" className="w-full bg-maxmove-800 hover:bg-maxmove-900" disabled={isLoading}>
                       {isLoading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
@@ -568,30 +574,11 @@ const SignUp = () => {
               </TabsContent>
             </Tabs>
 
-            <div className="mt-6 text-center text-sm text-maxmove-600">
-              By signing up, you agree to our{" "}
+            <div className="mt-6 text-center text-sm">
+              <span className="text-maxmove-600">Already have an account? </span>
               <Button 
                 variant="link" 
-                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
-                onClick={() => navigate("/terms")}
-              >
-                Terms & Conditions
-              </Button>{" "}
-              and{" "}
-              <Button 
-                variant="link" 
-                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
-                onClick={() => navigate("/privacy-policy")}
-              >
-                Privacy Policy
-              </Button>
-            </div>
-
-            <div className="mt-4 text-center text-sm text-maxmove-600">
-              Already have an account?{" "}
-              <Button 
-                variant="link" 
-                className="p-0 text-maxmove-800 hover:text-maxmove-900 font-semibold" 
+                className="text-maxmove-800 hover:text-maxmove-900 p-0"
                 onClick={() => navigate("/signin")}
               >
                 Sign in
