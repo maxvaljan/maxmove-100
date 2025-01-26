@@ -132,7 +132,7 @@ const AccountTypeSelection = () => {
         </div>
 
         <div className="text-center text-maxmove-600">
-          <p>Don't worry about your choice - you can always upgrade, add, or change your account type later!</p>
+          <p>Your account type can be upgraded or modified at any time to meet your evolving needs.</p>
         </div>
 
         <div className="text-center mt-8">
