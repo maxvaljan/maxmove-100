@@ -146,39 +146,41 @@ const SignUp = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-maxmove-50 via-white to-maxmove-100 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 animate-fade-in">
-        <Card className="backdrop-blur-sm bg-white/95 border-maxmove-200 shadow-xl rounded-2xl">
-          <CardHeader className="space-y-3 pb-8">
+        <Card className="backdrop-blur-sm bg-white/95 border-none shadow-xl rounded-2xl overflow-hidden">
+          <CardHeader className="space-y-3 pb-8 pt-8">
             <CardTitle className="text-3xl font-bold text-center text-maxmove-900">
-              Join Maxmove
+              Create Account
             </CardTitle>
             <p className="text-center text-maxmove-600 text-base">
-              Start your journey with us today
+              Join Maxmove today
             </p>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 pb-8">
             <Tabs defaultValue={accountType} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-8 bg-maxmove-50/50">
-                <TabsTrigger 
-                  value="personal"
-                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
-                >
-                  Personal
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="business"
-                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
-                >
-                  Business
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="driver"
-                  className="data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3"
-                >
-                  Driver
-                </TabsTrigger>
-              </TabsList>
+              <div className="px-6 mb-8">
+                <TabsList className="grid w-full grid-cols-3 p-1 bg-maxmove-100/50 rounded-lg">
+                  <TabsTrigger 
+                    value="personal"
+                    className="rounded-md data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3 text-maxmove-600 relative overflow-hidden transition-all duration-200"
+                  >
+                    Personal
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="business"
+                    className="rounded-md data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3 text-maxmove-600 relative overflow-hidden transition-all duration-200"
+                  >
+                    Business
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="driver"
+                    className="rounded-md data-[state=active]:bg-white data-[state=active]:text-maxmove-900 data-[state=active]:shadow-sm py-3 text-maxmove-600 relative overflow-hidden transition-all duration-200"
+                  >
+                    Driver
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
-              <TabsContent value="personal">
+              <TabsContent value="personal" className="px-6">
                 <Form {...personalForm}>
                   <form onSubmit={personalForm.handleSubmit(handleSignUp)} className="space-y-6">
                     <div className="grid grid-cols-2 gap-4">
@@ -192,7 +194,7 @@ const SignUp = () => {
                               <Input 
                                 placeholder="John" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11 rounded-md"
                               />
                             </FormControl>
                             <FormMessage className="text-sm" />
@@ -209,7 +211,7 @@ const SignUp = () => {
                               <Input 
                                 placeholder="Doe" 
                                 {...field} 
-                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                                className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11 rounded-md"
                               />
                             </FormControl>
                             <FormMessage className="text-sm" />
@@ -228,7 +230,7 @@ const SignUp = () => {
                               type="email" 
                               placeholder="john@example.com" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11 rounded-md"
                             />
                           </FormControl>
                           <FormMessage className="text-sm" />
@@ -244,7 +246,7 @@ const SignUp = () => {
                           <FormControl>
                             <div className="flex">
                               <Select defaultValue="+65">
-                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11">
+                                <SelectTrigger className="w-[100px] border-maxmove-200 h-11 rounded-md">
                                   <SelectValue placeholder="+65" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -252,7 +254,7 @@ const SignUp = () => {
                                 </SelectContent>
                               </Select>
                               <Input 
-                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11" 
+                                className="flex-1 ml-2 border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11 rounded-md" 
                                 placeholder="91234567" 
                                 {...field} 
                               />
@@ -273,7 +275,7 @@ const SignUp = () => {
                               type="password" 
                               placeholder="••••••" 
                               {...field} 
-                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11"
+                              className="border-maxmove-200 focus:border-maxmove-300 focus:ring-maxmove-200 h-11 rounded-md"
                             />
                           </FormControl>
                           <FormMessage className="text-sm" />
@@ -289,12 +291,12 @@ const SignUp = () => {
                             <Checkbox
                               checked={field.value}
                               onCheckedChange={field.onChange}
-                              className="border-maxmove-300 data-[state=checked]:bg-maxmove-600 data-[state=checked]:border-maxmove-600"
+                              className="border-maxmove-300 data-[state=checked]:bg-maxmove-600 data-[state=checked]:border-maxmove-600 rounded"
                             />
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel className="text-sm text-maxmove-600">
-                              Keep me updated with offers and news from Maxmove
+                              Keep me updated with offers and news
                             </FormLabel>
                           </div>
                         </FormItem>
@@ -302,7 +304,7 @@ const SignUp = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11 font-medium transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98]" 
+                      className="w-full bg-maxmove-600 hover:bg-maxmove-700 text-white h-11 font-medium transition-all duration-200 ease-in-out transform hover:scale-[1.02] active:scale-[0.98] rounded-md" 
                       disabled={isLoading}
                     >
                       {isLoading ? (
@@ -591,7 +593,7 @@ const SignUp = () => {
 
             </Tabs>
 
-            <div className="mt-6 text-center text-sm text-maxmove-600">
+            <div className="mt-6 text-center text-sm text-maxmove-600 px-6">
               By signing up, you agree to our{" "}
               <Button 
                 variant="link" 
