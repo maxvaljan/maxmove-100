@@ -26,7 +26,7 @@ const ServiceBanners = () => {
     <section className="relative">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[75%_center] md:!h-[100vh]"
+        className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[85%_center] md:!h-[100vh]"
         style={{
           height: "55vh",
         }}
