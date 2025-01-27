@@ -2,6 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Map from "./Map";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const vehicleTypes = [
   { id: 1, name: "Sedan", icon: <div>🚗</div> },
@@ -11,33 +20,94 @@ const vehicleTypes = [
 
 const PlaceOrder = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(vehicleTypes[0].id);
+  const [showPastOrders, setShowPastOrders] = useState(false);
+  const [pastOrders, setPastOrders] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handlePastOrders = async () => {
+    setIsLoading(true);
+    const { data: orders, error } = await supabase
+      .from("Order")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(5);
+
+    setIsLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Could not fetch past orders",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setPastOrders(orders || []);
+    setShowPastOrders(true);
+  };
+
+  const downloadTemplate = () => {
+    const template = "pickup_address,pickup_latitude,pickup_longitude,dropoff_address,dropoff_latitude,dropoff_longitude\n123 Pickup St,40.7128,-74.0060,456 Dropoff Ave,40.7589,-73.9851";
+    const blob = new Blob([template], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "address_template.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
+
+  const handleCsvImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Here you would implement the CSV parsing logic
+      toast({
+        title: "CSV Import",
+        description: "CSV import functionality will be implemented here",
+      });
+    }
+  };
 
   return (
     <div className="flex h-[calc(100vh-57px)]">
       <div className="w-1/2 p-6">
         {/* Top Actions */}
         <div className="flex gap-3">
-          <Button variant="outline" className="bg-white">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="mr-2"
-            >
-              <path
-                d="M6.85355 3.14645C7.04882 3.34171 7.04882 3.65829 6.85355 3.85355L3.70711 7H12.5C12.7761 7 13 7.22386 13 7.5C13 7.77614 12.7761 8 12.5 8H3.70711L6.85355 11.1464C7.04882 11.3417 7.04882 11.6583 6.85355 11.8536C6.65829 12.0488 6.34171 12.0488 6.14645 11.8536L2.14645 7.85355C1.95118 7.65829 1.95118 7.34171 2.14645 7.14645L6.14645 3.14645C6.34171 2.95118 6.65829 2.95118 6.85355 3.14645Z"
-                fill="currentColor"
-                fillRule="evenodd"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-            Back
+          <Button
+            variant="outline"
+            className="bg-white"
+            onClick={handlePastOrders}
+            disabled={isLoading}
+          >
+            Past Orders
           </Button>
-          <Button variant="outline" className="bg-white">
-            Save as draft
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="bg-white">
+                Import Addresses
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={downloadTemplate}>
+                Download Template
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <label className="cursor-pointer w-full">
+                  Import CSV
+                  <input
+                    type="file"
+                    accept=".csv"
+                    className="hidden"
+                    onChange={handleCsvImport}
+                  />
+                </label>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Route Section */}
@@ -111,6 +181,35 @@ const PlaceOrder = () => {
       <div className="w-1/2">
         <Map />
       </div>
+
+      {/* Past Orders Dialog */}
+      <Dialog open={showPastOrders} onOpenChange={setShowPastOrders}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Past Orders</DialogTitle>
+          </DialogHeader>
+          {pastOrders.length === 0 ? (
+            <p className="text-center py-4 text-gray-500">No past orders found</p>
+          ) : (
+            <div className="space-y-4">
+              {pastOrders.map((order) => (
+                <div
+                  key={order.id}
+                  className="p-4 border rounded-lg hover:bg-gray-50"
+                >
+                  <p className="font-medium">Order #{order.id.slice(0, 8)}</p>
+                  <p className="text-sm text-gray-500">
+                    From: {order.pickup_address}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    To: {order.dropoff_address}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
