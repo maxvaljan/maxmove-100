@@ -41,7 +41,7 @@ const Dashboard = () => {
       <div>
         {/* Navigation */}
         <div className="border-b">
-          <div className="container mx-auto px-4">
+          <div className="mx-auto px-4">
             <div className="flex space-x-8">
               {tabs.map((tab) => (
                 <button
@@ -61,7 +61,7 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto">
+        <div>
           {activeTab === "place-order" && <PlaceOrder />}
           {/* Add other tab contents here */}
         </div>
