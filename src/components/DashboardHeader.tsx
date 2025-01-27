@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Settings, LogOut } from "lucide-react";
+import { Settings, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -25,7 +25,7 @@ const DashboardHeader = () => {
           {/* Left section with logo and navigation */}
           <div className="flex items-center space-x-8">
             <Link to="/dashboard" className="flex items-center">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-maxmove-500 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold">M</span>
               </div>
             </Link>
@@ -33,7 +33,7 @@ const DashboardHeader = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <Link
                 to="/place-order"
-                className="text-orange-500 font-medium hover:text-orange-600 transition-colors"
+                className="text-maxmove-500 font-medium hover:text-maxmove-600 transition-colors"
               >
                 Place Order
               </Link>
@@ -65,7 +65,29 @@ const DashboardHeader = () => {
           </div>
 
           {/* Right section with actions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
+            {/* Personal Button */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <User className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => navigate("/profile")}>
+                  My Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate("/preferences")}>
+                  Preferences
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Settings Button */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
