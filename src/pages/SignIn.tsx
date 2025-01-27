@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SignUpHeader } from "@/components/signup/SignUpHeader";
 import {
   Select,
   SelectContent,
@@ -108,11 +109,7 @@ const SignIn = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-maxmove-100 to-maxmove-200 flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-maxmove-900">
-            Maxmove
-          </h2>
-        </div>
+        <SignUpHeader />
         
         {errorMessage && (
           <Alert variant="destructive">
