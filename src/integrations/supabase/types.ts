@@ -315,6 +315,39 @@ export type Database = {
         }
         Relationships: []
       }
+      profile_change_requests: {
+        Row: {
+          additional_info: Json | null
+          created_at: string | null
+          id: string
+          previous_role: Database["public"]["Enums"]["user_role"]
+          requested_role: Database["public"]["Enums"]["user_role"]
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          additional_info?: Json | null
+          created_at?: string | null
+          id?: string
+          previous_role: Database["public"]["Enums"]["user_role"]
+          requested_role: Database["public"]["Enums"]["user_role"]
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          additional_info?: Json | null
+          created_at?: string | null
+          id?: string
+          previous_role?: Database["public"]["Enums"]["user_role"]
+          requested_role?: Database["public"]["Enums"]["user_role"]
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -327,9 +360,11 @@ export type Database = {
           notification_preferences:
             | Database["public"]["Enums"]["notification_preference"]
             | null
+          pending_role_change: Database["public"]["Enums"]["user_role"] | null
           phone_number: string | null
           proof_of_delivery_enabled: boolean | null
           role: Database["public"]["Enums"]["user_role"]
+          role_change_requested_at: string | null
         }
         Insert: {
           created_at?: string
@@ -342,9 +377,11 @@ export type Database = {
           notification_preferences?:
             | Database["public"]["Enums"]["notification_preference"]
             | null
+          pending_role_change?: Database["public"]["Enums"]["user_role"] | null
           phone_number?: string | null
           proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
+          role_change_requested_at?: string | null
         }
         Update: {
           created_at?: string
@@ -357,9 +394,11 @@ export type Database = {
           notification_preferences?:
             | Database["public"]["Enums"]["notification_preference"]
             | null
+          pending_role_change?: Database["public"]["Enums"]["user_role"] | null
           phone_number?: string | null
           proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
+          role_change_requested_at?: string | null
         }
         Relationships: []
       }
