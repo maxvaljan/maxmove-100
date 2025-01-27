@@ -12,12 +12,15 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
+import { Database } from "@/integrations/supabase/types";
+
+type UserRole = Database["public"]["Enums"]["user_role"];
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [currentRole, setCurrentRole] = useState<string>('customer');
-  const [availableRoles, setAvailableRoles] = useState<string[]>([]);
+  const [currentRole, setCurrentRole] = useState<UserRole>('customer');
+  const [availableRoles, setAvailableRoles] = useState<UserRole[]>([]);
 
   useEffect(() => {
     fetchUserRoles();
@@ -36,15 +39,15 @@ const DashboardHeader = () => {
 
       if (profile) {
         setCurrentRole(profile.role);
-        // For now, we'll assume all users have access to all roles
-        setAvailableRoles(['customer', 'business', 'driver']);
+        // For now, we'll only allow customer and business roles
+        setAvailableRoles(['customer', 'business']);
       }
     } catch (error) {
       console.error('Error fetching user roles:', error);
     }
   };
 
-  const handleRoleSwitch = async (newRole: string) => {
+  const handleRoleSwitch = async (newRole: UserRole) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
