@@ -11,11 +11,27 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Info } from "lucide-react";
 
 const vehicleTypes = [
-  { id: 1, name: "Sedan", icon: <div>🚗</div> },
-  { id: 2, name: "SUV", icon: <div>🚙</div> },
-  { id: 3, name: "Truck", icon: <div>🚚</div> },
+  { 
+    id: 1, 
+    name: "Sedan", 
+    icon: "🚗",
+    description: "Perfect for small to medium deliveries"
+  },
+  { 
+    id: 2, 
+    name: "SUV", 
+    icon: "🚙",
+    description: "Ideal for larger items and multiple packages"
+  },
+  { 
+    id: 3, 
+    name: "Truck", 
+    icon: "🚚",
+    description: "Best for heavy cargo and bulk deliveries"
+  }
 ];
 
 const PlaceOrder = () => {
@@ -153,25 +169,28 @@ const PlaceOrder = () => {
         <div className="space-y-4 mt-6">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-gray-500 font-medium">VEHICLE TYPE</h2>
-            <Button variant="ghost" className="text-orange-500">
-              Compare vehicles
+            <Button variant="ghost" size="sm" className="text-orange-500">
+              <Info className="w-4 h-4 mr-1" />
+              More Info
             </Button>
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             {vehicleTypes.map((vehicle) => (
-              <Button
+              <div
                 key={vehicle.id}
-                variant="outline"
-                className={`h-auto p-4 flex flex-col items-center gap-2 ${
+                className={`relative rounded-xl border-2 p-6 cursor-pointer transition-all hover:border-orange-500 ${
                   selectedVehicle === vehicle.id
                     ? "border-orange-500 bg-orange-50"
-                    : "bg-white"
+                    : "border-gray-200 bg-white"
                 }`}
                 onClick={() => setSelectedVehicle(vehicle.id)}
               >
-                {vehicle.icon}
-                <span className="text-sm font-normal">{vehicle.name}</span>
-              </Button>
+                <div className="flex flex-col items-center text-center">
+                  <span className="text-4xl mb-3">{vehicle.icon}</span>
+                  <h3 className="font-medium text-gray-900 mb-1">{vehicle.name}</h3>
+                  <p className="text-sm text-gray-500">{vehicle.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
