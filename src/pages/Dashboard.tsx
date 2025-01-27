@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import DashboardHeader from "@/components/DashboardHeader";
 import PlaceOrder from "@/components/PlaceOrder";
 
 const Dashboard = () => {
@@ -39,9 +38,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader />
-      
-      <div className="mt-16">
+      <div>
         {/* Navigation */}
         <div className="border-b">
           <div className="container mx-auto px-4">
