@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
-import { Settings as SettingsIcon, User, Wallet, CreditCard, Ticket } from "lucide-react";
+import { Settings as SettingsIcon, User, Wallet, CreditCard, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,13 +21,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("place-order");
   const [showSettings, setShowSettings] = useState(false);
-  const [showWalletSidebar, setShowWalletSidebar] = useState(false);
+  const [walletBalance, setWalletBalance] = useState("$0.00");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -56,13 +57,13 @@ const Dashboard = () => {
 
   const walletItems = [
     {
-      title: "Wallet",
-      icon: Wallet,
-      onClick: () => console.log("Wallet clicked"),
+      title: "Transaction History",
+      icon: ScrollText,
+      onClick: () => console.log("Transaction History clicked"),
     },
     {
       title: "Coupons",
-      icon: Ticket,
+      icon: CreditCard,
       onClick: () => console.log("Coupons clicked"),
     },
     {
@@ -83,38 +84,68 @@ const Dashboard = () => {
   const handleSettingsClick = () => {
     setShowSettings(true);
     setActiveTab("");
-    setShowWalletSidebar(false);
   };
 
   const handleTabClick = (tabId: string) => {
     setActiveTab(tabId);
     setShowSettings(false);
-    setShowWalletSidebar(tabId === "wallet");
   };
+
+  const renderWalletContent = () => (
+    <div className="p-8">
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Personal wallet balance</h2>
+        <div className="flex justify-between items-center">
+          <span className="text-3xl font-bold">{walletBalance}</span>
+          <Button variant="default" className="bg-orange-500 hover:bg-orange-600">
+            Top Up
+          </Button>
+        </div>
+      </div>
+      
+      <div>
+        <h3 className="text-xl font-semibold mb-4">Transaction History</h3>
+        <div className="text-center py-16">
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/placeholder.svg" 
+              alt="No transactions" 
+              className="w-32 h-32 opacity-50"
+            />
+          </div>
+          <p className="text-gray-500">
+            You have no transactions for the selected time period.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
-        {showWalletSidebar && (
-          <Sidebar className="h-screen">
-            <SidebarContent>
-              <SidebarGroup>
-                <SidebarGroupLabel>Wallet</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {walletItems.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton onClick={item.onClick}>
-                          <item.icon className="h-5 w-5" />
-                          <span>{item.title}</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            </SidebarContent>
-          </Sidebar>
+        {activeTab === "wallet" && (
+          <SidebarProvider>
+            <Sidebar className="h-screen border-r">
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Wallet</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {walletItems.map((item) => (
+                        <SidebarMenuItem key={item.title}>
+                          <SidebarMenuButton onClick={item.onClick}>
+                            <item.icon className="h-5 w-5" />
+                            <span>{item.title}</span>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </Sidebar>
+          </SidebarProvider>
         )}
 
         <div className="flex-1">
@@ -188,9 +219,11 @@ const Dashboard = () => {
           <div className="p-4">
             {showSettings ? (
               <Settings />
-            ) : (
-              activeTab === "place-order" && <PlaceOrder />
-            )}
+            ) : activeTab === "place-order" ? (
+              <PlaceOrder />
+            ) : activeTab === "wallet" ? (
+              renderWalletContent()
+            ) : null}
           </div>
         </div>
       </div>
