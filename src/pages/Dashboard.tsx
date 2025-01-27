@@ -62,8 +62,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" style={{ overflow: 'hidden' }}>
-      <div>
+    <div className="min-h-screen bg-gray-50 overflow-hidden">
+      <div className="h-screen">
         {/* Navigation */}
         <div className="border-b">
           <div className="mx-auto px-4">
