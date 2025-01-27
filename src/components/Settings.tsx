@@ -15,11 +15,18 @@ import {
   LogOut 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface MenuItem {
   id: string;
   label: string;
-  icon: any; // Using any for Lucide icons
+  icon: any;
   section: string;
 }
 
@@ -38,6 +45,7 @@ const Settings = () => {
   const [proofOfDeliveryEnabled, setProofOfDeliveryEnabled] = useState(false);
   const [eReceiptEmail, setEReceiptEmail] = useState("");
   const [isEditingEReceiptEmail, setIsEditingEReceiptEmail] = useState(false);
+  const [language, setLanguage] = useState<"en" | "de">("en");
 
   useEffect(() => {
     fetchProfile();
@@ -73,6 +81,7 @@ const Settings = () => {
         setEReceiptEmail(profile.e_receipt_email || '');
         setEReceiptEnabled(profile.e_receipt_enabled || false);
         setProofOfDeliveryEnabled(profile.proof_of_delivery_enabled || false);
+        setLanguage(profile.language || 'en');
       } else {
         console.log("No profile found for user:", user.id);
       }
@@ -98,7 +107,8 @@ const Settings = () => {
           phone_number: phone,
           e_receipt_email: eReceiptEmail,
           e_receipt_enabled: eReceiptEnabled,
-          proof_of_delivery_enabled: proofOfDeliveryEnabled
+          proof_of_delivery_enabled: proofOfDeliveryEnabled,
+          language
         })
         .eq('id', user.id);
 
@@ -280,6 +290,44 @@ const Settings = () => {
                   checked={proofOfDeliveryEnabled}
                   onCheckedChange={setProofOfDeliveryEnabled}
                 />
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleSaveProfile}
+              className="mt-4 bg-orange-500 hover:bg-orange-600"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      );
+    } else if (activeSection === 'location') {
+      return (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Location & Language</h2>
+          
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">LOCATION</h3>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-700">Germany</span>
+                <span className="text-sm text-gray-500">(Only available location)</span>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">LANGUAGE</h3>
+              <div className="flex items-center justify-between">
+                <Select value={language} onValueChange={(value: "en" | "de") => setLanguage(value)}>
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="de">German</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
