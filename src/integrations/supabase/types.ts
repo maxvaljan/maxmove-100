@@ -392,6 +392,36 @@ export type Database = {
           },
         ]
       }
+      vehicle_types: {
+        Row: {
+          category: Database["public"]["Enums"]["vehicle_category"]
+          created_at: string | null
+          description: string
+          dimensions: string
+          id: string
+          max_weight: string
+          name: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["vehicle_category"]
+          created_at?: string | null
+          description: string
+          dimensions: string
+          id?: string
+          max_weight: string
+          name: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["vehicle_category"]
+          created_at?: string | null
+          description?: string
+          dimensions?: string
+          id?: string
+          max_weight?: string
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -415,6 +445,15 @@ export type Database = {
       PaymentStatus: "pending" | "completed" | "failed"
       user_role: "admin" | "driver" | "customer" | "business"
       UserType: "customer" | "driver" | "admin"
+      vehicle_category:
+        | "bike_motorcycle"
+        | "car"
+        | "van"
+        | "light_truck"
+        | "medium_truck"
+        | "heavy_truck"
+        | "towing"
+        | "refrigerated"
       VehicleType: "bike" | "car" | "van" | "truck"
     }
     CompositeTypes: {
