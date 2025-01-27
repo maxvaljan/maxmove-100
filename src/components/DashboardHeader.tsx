@@ -3,76 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Settings, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useToast } from "./ui/use-toast";
-import { Database } from "@/integrations/supabase/types";
-
-type UserRole = Database["public"]["Enums"]["user_role"];
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [currentRole, setCurrentRole] = useState<UserRole>('customer');
-  const [availableRoles, setAvailableRoles] = useState<UserRole[]>([]);
-
-  useEffect(() => {
-    fetchUserRoles();
-  }, []);
-
-  const fetchUserRoles = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .single();
-
-      if (profile) {
-        setCurrentRole(profile.role);
-        // For now, we'll only allow customer and business roles
-        setAvailableRoles(['customer', 'business']);
-      }
-    } catch (error) {
-      console.error('Error fetching user roles:', error);
-    }
-  };
-
-  const handleRoleSwitch = async (newRole: UserRole) => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { error } = await supabase
-        .from('profiles')
-        .update({ role: newRole })
-        .eq('id', user.id);
-
-      if (error) throw error;
-
-      setCurrentRole(newRole);
-      toast({
-        title: "Role Updated",
-        description: `Switched to ${newRole} account`,
-      });
-    } catch (error) {
-      console.error('Error switching role:', error);
-      toast({
-        title: "Error",
-        description: "Failed to switch role. Please try again.",
-        variant: "destructive",
-      });
-    }
-  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -127,7 +66,7 @@ const DashboardHeader = () => {
 
           {/* Right section with actions */}
           <div className="flex items-center space-x-4">
-            {/* Role Switcher */}
+            {/* Personal Button */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -138,25 +77,7 @@ const DashboardHeader = () => {
                   <User className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <div className="px-2 py-1.5 text-sm font-medium text-gray-500">
-                  Account Type
-                </div>
-                {availableRoles.map((role) => (
-                  <DropdownMenuItem
-                    key={role}
-                    className="cursor-pointer"
-                    onSelect={() => handleRoleSwitch(role)}
-                  >
-                    <div className="flex items-center">
-                      <span className="capitalize">{role}</span>
-                      {currentRole === role && (
-                        <span className="ml-2 h-2 w-2 rounded-full bg-green-500" />
-                      )}
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuSeparator />
+              <DropdownMenuContent align="end">
                 <DropdownMenuItem onSelect={() => navigate("/profile")}>
                   My Profile
                 </DropdownMenuItem>
