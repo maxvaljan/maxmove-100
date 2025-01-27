@@ -60,6 +60,42 @@ export type Database = {
         }
         Relationships: []
       }
+      coupons: {
+        Row: {
+          code: string
+          created_at: string | null
+          current_usage: number | null
+          discount_amount: number | null
+          discount_percentage: number | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          max_usage: number | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          current_usage?: number | null
+          discount_amount?: number | null
+          discount_percentage?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_usage?: number | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          current_usage?: number | null
+          discount_amount?: number | null
+          discount_percentage?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          max_usage?: number | null
+        }
+        Relationships: []
+      }
       Delivery: {
         Row: {
           createdAt: string
@@ -440,6 +476,41 @@ export type Database = {
           },
         ]
       }
+      user_coupons: {
+        Row: {
+          coupon_id: string
+          created_at: string | null
+          id: string
+          is_used: boolean | null
+          used_at: string | null
+          user_id: string
+        }
+        Insert: {
+          coupon_id: string
+          created_at?: string | null
+          id?: string
+          is_used?: boolean | null
+          used_at?: string | null
+          user_id: string
+        }
+        Update: {
+          coupon_id?: string
+          created_at?: string | null
+          id?: string
+          is_used?: boolean | null
+          used_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_coupons_coupon_id_fkey"
+            columns: ["coupon_id"]
+            isOneToOne: false
+            referencedRelation: "coupons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vehicle_types: {
         Row: {
           category: Database["public"]["Enums"]["vehicle_category"]
@@ -467,6 +538,33 @@ export type Database = {
           id?: string
           max_weight?: string
           name?: string
+        }
+        Relationships: []
+      }
+      wallet: {
+        Row: {
+          balance: number
+          created_at: string | null
+          currency: string
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string | null
+          currency?: string
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string | null
+          currency?: string
+          id?: string
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
