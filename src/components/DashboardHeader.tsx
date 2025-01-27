@@ -13,13 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
 
-type UserRole = "admin" | "driver" | "customer" | "business";
-
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [currentRole, setCurrentRole] = useState<UserRole>('customer');
-  const [availableRoles, setAvailableRoles] = useState<UserRole[]>([]);
+  const [currentRole, setCurrentRole] = useState<string>('customer');
+  const [availableRoles, setAvailableRoles] = useState<string[]>([]);
 
   useEffect(() => {
     fetchUserRoles();
@@ -37,7 +35,8 @@ const DashboardHeader = () => {
         .single();
 
       if (profile) {
-        setCurrentRole(profile.role as UserRole);
+        setCurrentRole(profile.role);
+        // For now, we'll assume all users have access to all roles
         setAvailableRoles(['customer', 'business', 'driver']);
       }
     } catch (error) {
