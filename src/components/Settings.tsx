@@ -15,6 +15,13 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+interface MenuItem {
+  id: string;
+  label: string;
+  icon: any; // Using any for Lucide icons
+  section: string;
+}
+
 const Settings = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -31,24 +38,36 @@ const Settings = () => {
   const fetchProfile = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!user) {
+        console.log("No user found");
+        return;
+      }
 
       setEmail(user.email || '');
 
-      const { data: profile } = await supabase
+      // Using maybeSingle() instead of single() to handle no results gracefully
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error fetching profile:', error);
+        return;
+      }
 
       if (profile) {
+        console.log("Profile found:", profile);
         const names = (profile.name || '').split(' ');
         setFirstName(names[0] || '');
         setLastName(names.slice(1).join(' ') || '');
         setPhone(profile.phone_number || '');
+      } else {
+        console.log("No profile found for user:", user.id);
       }
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('Error in fetchProfile:', error);
     } finally {
       setLoading(false);
     }
@@ -57,7 +76,10 @@ const Settings = () => {
   const handleSaveProfile = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!user) {
+        console.log("No user found during save");
+        return;
+      }
 
       const { error } = await supabase
         .from('profiles')
@@ -87,7 +109,7 @@ const Settings = () => {
     await supabase.auth.signOut();
   };
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { id: 'profile', label: 'Profile', icon: User, section: 'ACCOUNT' },
     { id: 'orders', label: 'Orders', icon: Package, section: 'ACCOUNT' },
     { id: 'location', label: 'Location & Language', icon: Globe, section: 'ACCOUNT' },
@@ -203,7 +225,7 @@ const Settings = () => {
     }
     acc[item.section].push(item);
     return acc;
-  }, {});
+  }, {} as Record<string, MenuItem[]>);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
