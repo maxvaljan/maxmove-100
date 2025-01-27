@@ -27,6 +27,8 @@ const Settings = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [activeSection, setActiveSection] = useState("profile");
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -45,7 +47,6 @@ const Settings = () => {
 
       setEmail(user.email || '');
 
-      // Using maybeSingle() instead of single() to handle no results gracefully
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -128,7 +129,6 @@ const Settings = () => {
             <div>
               <label className="text-sm text-gray-500 uppercase">First Name</label>
               <Input 
-                placeholder="Add first name"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="mt-1"
@@ -138,7 +138,6 @@ const Settings = () => {
             <div>
               <label className="text-sm text-gray-500 uppercase">Last Name</label>
               <Input 
-                placeholder="Add last name"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="mt-1"
@@ -148,12 +147,21 @@ const Settings = () => {
             <div>
               <label className="text-sm text-gray-500 uppercase">Phone</label>
               <div className="flex items-center justify-between mt-1">
-                <span className="text-gray-700">{phone || '+65 8120 9493'}</span>
+                {isEditingPhone ? (
+                  <Input 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="mr-2"
+                  />
+                ) : (
+                  <span className="text-gray-700">{phone || 'Add phone number'}</span>
+                )}
                 <Button 
                   variant="ghost" 
                   className="text-orange-500 hover:text-orange-600"
+                  onClick={() => setIsEditingPhone(!isEditingPhone)}
                 >
-                  Change
+                  {isEditingPhone ? 'Save' : 'Change'}
                 </Button>
               </div>
             </div>
@@ -161,12 +169,21 @@ const Settings = () => {
             <div>
               <label className="text-sm text-gray-500 uppercase">Login Email</label>
               <div className="flex items-center justify-between mt-1">
-                <span className="text-gray-700">{email}</span>
+                {isEditingEmail ? (
+                  <Input 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mr-2"
+                  />
+                ) : (
+                  <span className="text-gray-700">{email || 'Add email'}</span>
+                )}
                 <Button 
                   variant="ghost" 
                   className="text-orange-500 hover:text-orange-600"
+                  onClick={() => setIsEditingEmail(!isEditingEmail)}
                 >
-                  Change
+                  {isEditingEmail ? 'Save' : 'Change'}
                 </Button>
               </div>
             </div>
