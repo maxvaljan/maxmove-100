@@ -15,6 +15,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("place-order");
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -49,6 +50,11 @@ const Dashboard = () => {
     { id: "rewards", label: "Rewards" },
   ];
 
+  const handleSettingsClick = () => {
+    setShowSettings(true);
+    setActiveTab("");
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div>
@@ -65,7 +71,10 @@ const Dashboard = () => {
                         ? "border-b-2 border-orange-500 text-orange-500"
                         : "text-gray-500 hover:text-gray-700"
                     }`}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => {
+                      setActiveTab(tab.id);
+                      setShowSettings(false);
+                    }}
                   >
                     {tab.label}
                   </button>
@@ -74,6 +83,17 @@ const Dashboard = () => {
 
               {/* Personal and Settings Buttons */}
               <div className="flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={`text-gray-600 hover:text-gray-900 ${
+                    showSettings ? "text-orange-500" : ""
+                  }`}
+                  onClick={handleSettingsClick}
+                >
+                  <Settings className="h-5 w-5" />
+                </Button>
+
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
@@ -91,29 +111,6 @@ const Dashboard = () => {
                     <DropdownMenuItem onSelect={() => navigate("/preferences")}>
                       Preferences
                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-gray-600 hover:text-gray-900"
-                    >
-                      <Settings className="h-5 w-5" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onSelect={() => navigate("/settings/profile")}>
-                      Profile Settings
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => navigate("/settings/notifications")}>
-                      Notifications
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => navigate("/settings/security")}>
-                      Security
-                    </DropdownMenuItem>
                     <DropdownMenuItem onSelect={handleSignOut}>
                       Sign Out
                     </DropdownMenuItem>
@@ -125,9 +122,28 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
-        <div>
-          {activeTab === "place-order" && <PlaceOrder />}
-          {/* Add other tab contents here */}
+        <div className="p-4">
+          {showSettings ? (
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-semibold mb-6">Settings</h2>
+              <div className="space-y-6">
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <h3 className="text-lg font-medium mb-4">Profile Settings</h3>
+                  {/* Add your settings content here */}
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <h3 className="text-lg font-medium mb-4">Notification Preferences</h3>
+                  {/* Add notification settings here */}
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow">
+                  <h3 className="text-lg font-medium mb-4">Security Settings</h3>
+                  {/* Add security settings here */}
+                </div>
+              </div>
+            </div>
+          ) : (
+            activeTab === "place-order" && <PlaceOrder />
+          )}
         </div>
       </div>
     </div>
