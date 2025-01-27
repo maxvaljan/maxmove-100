@@ -196,8 +196,8 @@ const PlaceOrder = () => {
         </div>
       </div>
 
-      {/* Map Section - Now fills entire right side */}
-      <div className="flex-1">
+      {/* Map Section */}
+      <div className="w-1/2">
         <Map />
       </div>
 
