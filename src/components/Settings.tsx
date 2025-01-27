@@ -3,12 +3,23 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { User, Settings as SettingsIcon, UserCircle, Bell, Shield, LogOut } from "lucide-react";
+import { 
+  User, 
+  Settings as SettingsIcon, 
+  Package, 
+  Globe, 
+  Bell, 
+  ShoppingBag, 
+  FileText, 
+  LogOut 
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Settings = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [activeSection, setActiveSection] = useState("profile");
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -22,6 +33,8 @@ const Settings = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
+      setEmail(user.email || '');
+
       const { data: profile } = await supabase
         .from('profiles')
         .select('*')
@@ -32,6 +45,7 @@ const Settings = () => {
         const names = (profile.name || '').split(' ');
         setFirstName(names[0] || '');
         setLastName(names.slice(1).join(' ') || '');
+        setPhone(profile.phone_number || '');
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -47,7 +61,10 @@ const Settings = () => {
 
       const { error } = await supabase
         .from('profiles')
-        .update({ name: `${firstName} ${lastName}`.trim() })
+        .update({ 
+          name: `${firstName} ${lastName}`.trim(),
+          phone_number: phone
+        })
         .eq('id', user.id);
 
       if (error) throw error;
@@ -66,97 +83,166 @@ const Settings = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
   const menuItems = [
-    { id: 'profile', label: 'Profile', icon: UserCircle },
-    { id: 'notifications', label: 'Notifications', icon: Bell },
-    { id: 'security', label: 'Security', icon: Shield },
+    { id: 'profile', label: 'Profile', icon: User, section: 'ACCOUNT' },
+    { id: 'orders', label: 'Orders', icon: Package, section: 'ACCOUNT' },
+    { id: 'location', label: 'Location & Language', icon: Globe, section: 'ACCOUNT' },
+    { id: 'notifications', label: 'Notifications', icon: Bell, section: 'ACCOUNT' },
+    { id: 'shopify', label: 'Link with Shopify', icon: ShoppingBag, section: 'ACCOUNT' },
+    { id: 'terms', label: 'Terms and Policies', icon: FileText, section: 'ABOUT' },
   ];
 
   const renderContent = () => {
-    switch (activeSection) {
-      case 'profile':
-        return (
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm text-gray-500 uppercase">First Name</label>
-                <Input 
-                  placeholder="Add first name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="mt-1"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm text-gray-500 uppercase">Last Name</label>
-                <Input 
-                  placeholder="Add last name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="mt-1"
-                />
-              </div>
-
-              <Button 
-                onClick={handleSaveProfile}
-                className="mt-4"
-              >
-                Save Changes
-              </Button>
+    if (activeSection === 'profile') {
+      return (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Profile</h2>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm text-gray-500 uppercase">First Name</label>
+              <Input 
+                placeholder="Add first name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="mt-1"
+              />
             </div>
+
+            <div>
+              <label className="text-sm text-gray-500 uppercase">Last Name</label>
+              <Input 
+                placeholder="Add last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-500 uppercase">Phone</label>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-gray-700">{phone || '+65 8120 9493'}</span>
+                <Button 
+                  variant="ghost" 
+                  className="text-orange-500 hover:text-orange-600"
+                >
+                  Change
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-500 uppercase">Login Email</label>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-gray-700">{email}</span>
+                <Button 
+                  variant="ghost" 
+                  className="text-orange-500 hover:text-orange-600"
+                >
+                  Change
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-500 uppercase">Password</label>
+              <div className="mt-1">
+                <Button 
+                  variant="ghost" 
+                  className="text-orange-500 hover:text-orange-600 p-0"
+                >
+                  Change Password
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm text-gray-500 uppercase">Account</label>
+              <div className="mt-1">
+                <Button 
+                  variant="ghost" 
+                  className="text-red-500 hover:text-red-600 p-0"
+                >
+                  Delete Account
+                </Button>
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleSaveProfile}
+              className="mt-4 bg-orange-500 hover:bg-orange-600"
+            >
+              Save Changes
+            </Button>
           </div>
-        );
-      case 'notifications':
-        return (
-          <div>
-            <h3 className="text-lg font-medium">Notification Preferences</h3>
-            <p className="text-gray-500">Coming soon...</p>
-          </div>
-        );
-      case 'security':
-        return (
-          <div>
-            <h3 className="text-lg font-medium">Security Settings</h3>
-            <p className="text-gray-500">Coming soon...</p>
-          </div>
-        );
-      default:
-        return null;
+        </div>
+      );
     }
+    return (
+      <div>
+        <h2 className="text-2xl font-semibold">{
+          menuItems.find(item => item.id === activeSection)?.label
+        }</h2>
+        <p className="text-gray-500 mt-4">This section is coming soon...</p>
+      </div>
+    );
   };
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  const groupedMenuItems = menuItems.reduce((acc, item) => {
+    if (!acc[item.section]) {
+      acc[item.section] = [];
+    }
+    acc[item.section].push(item);
+    return acc;
+  }, {});
+
   return (
-    <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto p-4 animate-fade-in">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="md:w-64 space-y-1">
-        {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setActiveSection(item.id)}
-            className={cn(
-              "w-full flex items-center space-x-2 px-4 py-2 rounded-lg text-sm transition-colors",
-              activeSection === item.id
-                ? "bg-maxmove-500 text-white"
-                : "text-gray-600 hover:bg-gray-100"
-            )}
-          >
-            <item.icon className="h-5 w-5" />
-            <span>{item.label}</span>
-          </button>
+      <div className="w-64 bg-white border-r border-gray-200 p-4">
+        {Object.entries(groupedMenuItems).map(([section, items]) => (
+          <div key={section} className="mb-8">
+            <h3 className="text-xs text-gray-500 font-medium mb-2">{section}</h3>
+            {items.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={cn(
+                  "w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-sm transition-colors",
+                  activeSection === item.id
+                    ? "bg-orange-500 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
         ))}
+        
+        <Button
+          onClick={handleSignOut}
+          className="w-full flex items-center space-x-3 px-3 py-2 mt-auto text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
+          variant="ghost"
+        >
+          <LogOut className="h-5 w-5" />
+          <span>Log Out</span>
+        </Button>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 min-w-0">
-        <div className="bg-white rounded-lg p-6 shadow-sm">
-          <h2 className="text-2xl font-semibold mb-6">{
-            menuItems.find(item => item.id === activeSection)?.label
-          }</h2>
+      <div className="flex-1 p-8">
+        <div className="max-w-3xl mx-auto">
           {renderContent()}
         </div>
       </div>
