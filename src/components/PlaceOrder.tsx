@@ -89,8 +89,8 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="flex h-full">
-      <div className="w-1/2 p-6 overflow-auto">
+    <div className="flex h-screen">
+      <div className="w-1/2 p-6 overflow-y-auto">
         {/* Top Actions */}
         <div className="flex gap-3">
           <Button
@@ -197,7 +197,7 @@ const PlaceOrder = () => {
       </div>
 
       {/* Map Section */}
-      <div className="w-1/2 h-full">
+      <div className="w-1/2 h-screen">
         <Map />
       </div>
 
