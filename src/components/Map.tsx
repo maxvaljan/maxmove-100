@@ -36,7 +36,6 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
           return;
         }
 
-        // Log the token to verify it's correct
         console.log('Retrieved Mapbox token:', data.key_value);
         setMapboxToken(data.key_value);
       } catch (err) {
@@ -112,7 +111,7 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
   }, [pickupLocation, dropoffLocation]);
 
   return (
-    <div className="w-full h-full rounded-xl overflow-hidden">
+    <div className="h-full">
       <div ref={mapContainer} className="w-full h-full" />
     </div>
   );

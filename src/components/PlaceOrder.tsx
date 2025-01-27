@@ -44,8 +44,8 @@ const PlaceOrder = () => {
   ]);
 
   return (
-    <div className="flex gap-6 p-6">
-      <div className="w-[450px] space-y-6">
+    <div className="flex h-[calc(100vh-57px)]">
+      <div className="w-1/2 p-6 overflow-y-auto">
         {/* Top Actions */}
         <div className="flex gap-3">
           <Button variant="outline" className="bg-white">
@@ -66,7 +66,7 @@ const PlaceOrder = () => {
         </div>
 
         {/* Route Section */}
-        <div className="space-y-4">
+        <div className="space-y-4 mt-6">
           <h2 className="text-sm text-gray-500 font-medium">
             ROUTE (MAX. 20 STOPS)
           </h2>
@@ -113,7 +113,7 @@ const PlaceOrder = () => {
         </div>
 
         {/* Vehicle Type Section */}
-        <div className="space-y-4">
+        <div className="space-y-4 mt-6">
           <div className="flex items-center justify-between">
             <h2 className="text-sm text-gray-500 font-medium">VEHICLE TYPE</h2>
             <Button variant="ghost" className="text-orange-500">
@@ -139,7 +139,7 @@ const PlaceOrder = () => {
       </div>
 
       {/* Map Section */}
-      <div className="flex-1">
+      <div className="w-1/2">
         <Map />
       </div>
     </div>
