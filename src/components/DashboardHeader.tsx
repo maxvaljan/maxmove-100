@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Settings, HelpCircle } from "lucide-react";
+import { Settings, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
@@ -59,27 +65,37 @@ const DashboardHeader = () => {
           </div>
 
           {/* Right section with actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <Settings className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onSelect={() => navigate("/settings/profile")}>
+                  Profile Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate("/settings/notifications")}>
+                  Notifications
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => navigate("/settings/security")}>
+                  Security
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             <Button
               variant="ghost"
               size="icon"
               className="text-gray-600 hover:text-gray-900"
-            >
-              <HelpCircle className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              <Settings className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              className="hidden md:inline-flex"
               onClick={handleSignOut}
             >
-              Sign Out
+              <LogOut className="h-5 w-5" />
             </Button>
           </div>
         </div>
