@@ -13,13 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
 
-type UserRole = "customer" | "business" | "driver" | "admin";
-
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [currentRole, setCurrentRole] = useState<UserRole>("customer");
-  const [availableRoles, setAvailableRoles] = useState<UserRole[]>([]);
+  const [currentRole, setCurrentRole] = useState<string>('customer');
+  const [availableRoles, setAvailableRoles] = useState<string[]>([]);
 
   useEffect(() => {
     fetchUserRoles();
@@ -37,8 +35,8 @@ const DashboardHeader = () => {
         .single();
 
       if (profile) {
-        setCurrentRole(profile.role as UserRole);
-        // For now, we'll assume all users have access to these roles
+        setCurrentRole(profile.role);
+        // For now, we'll assume all users have access to all roles
         setAvailableRoles(['customer', 'business', 'driver']);
       }
     } catch (error) {
@@ -46,7 +44,7 @@ const DashboardHeader = () => {
     }
   };
 
-  const handleRoleSwitch = async (newRole: UserRole) => {
+  const handleRoleSwitch = async (newRole: string) => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
