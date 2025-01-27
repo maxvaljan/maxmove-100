@@ -57,9 +57,15 @@ const Settings = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         console.log("No user found");
+        toast({
+          title: "Error",
+          description: "No user found. Please sign in again.",
+          variant: "destructive",
+        });
         return;
       }
 
+      console.log("Fetching profile for user:", user.id);
       setEmail(user.email || '');
 
       const { data: profile, error } = await supabase
@@ -70,6 +76,11 @@ const Settings = () => {
 
       if (error) {
         console.error('Error fetching profile:', error);
+        toast({
+          title: "Error",
+          description: "Failed to fetch profile. Please try again.",
+          variant: "destructive",
+        });
         return;
       }
 
@@ -85,9 +96,19 @@ const Settings = () => {
         setLanguage(profile.language || 'en');
       } else {
         console.log("No profile found for user:", user.id);
+        toast({
+          title: "Profile Not Found",
+          description: "Your profile information could not be loaded.",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error('Error in fetchProfile:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
