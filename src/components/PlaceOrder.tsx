@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { MapPin, Plus, ChevronDown, Info, Clock } from "lucide-react";
+import { MapPin, Plus, ChevronDown, Info } from "lucide-react";
 import Map from "@/components/Map";
 import {
   DropdownMenu,
@@ -48,17 +48,17 @@ const PlaceOrder = () => {
       <div className="w-[450px] space-y-6">
         {/* Top Actions */}
         <div className="flex gap-3">
-          <Button variant="outline" className="bg-white flex items-center text-gray-700 hover:text-gray-900">
-            <Clock className="mr-2 h-4 w-4 text-orange-500" />
+          <Button variant="outline" className="bg-white">
+            <span className="mr-2">⏱️</span>
             Place Past Order
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="bg-white text-gray-700 hover:text-gray-900">
+              <Button variant="outline" className="bg-white">
                 Import Addresses <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white">
+            <DropdownMenuContent>
               <DropdownMenuItem>From CSV</DropdownMenuItem>
               <DropdownMenuItem>From Excel</DropdownMenuItem>
             </DropdownMenuContent>
@@ -67,7 +67,7 @@ const PlaceOrder = () => {
 
         {/* Route Section */}
         <div className="space-y-4">
-          <h2 className="text-xs font-medium text-gray-500 tracking-wider">
+          <h2 className="text-sm text-gray-500 font-medium">
             ROUTE (MAX. 20 STOPS)
           </h2>
           <div className="space-y-3">
@@ -87,7 +87,7 @@ const PlaceOrder = () => {
                       ? 'Drop-off location' 
                       : 'Stop location'
                   }`}
-                  className="flex-1 border border-gray-200 rounded-md px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+                  className="flex-1 border rounded-md px-3 py-2"
                   value={stop.address}
                   onChange={(e) => {
                     const newStops = [...stops];
@@ -99,7 +99,7 @@ const PlaceOrder = () => {
             ))}
             <Button 
               variant="ghost" 
-              className="w-full justify-start text-orange-500 hover:text-orange-600 hover:bg-orange-50"
+              className="w-full justify-start text-orange-500"
               onClick={() => {
                 if (stops.length < 20) {
                   setStops([...stops.slice(0, -1), { type: 'stop', address: '' }, stops[stops.length - 1]]);
@@ -115,11 +115,8 @@ const PlaceOrder = () => {
         {/* Vehicle Type Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xs font-medium text-gray-500 tracking-wider">VEHICLE TYPE</h2>
-            <Button 
-              variant="ghost" 
-              className="text-orange-500 hover:text-orange-600 hover:bg-orange-50 h-8 px-2"
-            >
+            <h2 className="text-sm text-gray-500 font-medium">VEHICLE TYPE</h2>
+            <Button variant="ghost" className="text-orange-500">
               <Info className="mr-2 h-4 w-4" />
               More Info
             </Button>
@@ -128,12 +125,12 @@ const PlaceOrder = () => {
             {vehicles.map((vehicle, index) => (
               <div
                 key={index}
-                className="p-4 border border-gray-200 rounded-lg cursor-pointer hover:border-orange-500 transition-colors bg-white"
+                className="p-4 border rounded-lg cursor-pointer hover:border-orange-500 transition-colors"
               >
                 <div className="text-2xl mb-2">{vehicle.icon}</div>
-                <div className="font-medium text-sm text-gray-900">{vehicle.name}</div>
+                <div className="font-medium">{vehicle.name}</div>
                 {vehicle.description && (
-                  <div className="text-xs text-gray-500 mt-1">{vehicle.description}</div>
+                  <div className="text-sm text-gray-500">{vehicle.description}</div>
                 )}
               </div>
             ))}
@@ -142,7 +139,7 @@ const PlaceOrder = () => {
       </div>
 
       {/* Map Section */}
-      <div className="flex-1 rounded-lg overflow-hidden border border-gray-200">
+      <div className="flex-1">
         <Map />
       </div>
     </div>

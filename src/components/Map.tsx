@@ -17,6 +17,7 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
   useEffect(() => {
     const fetchMapboxToken = async () => {
       try {
+        console.log('Fetching Mapbox token...');
         const { data, error } = await supabase
           .from('api_keys')
           .select('key_value')
@@ -35,6 +36,8 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
           return;
         }
 
+        // Log the token to verify it's correct
+        console.log('Retrieved Mapbox token:', data.key_value);
         setMapboxToken(data.key_value);
       } catch (err) {
         console.error('Unexpected error fetching Mapbox token:', err);
@@ -49,24 +52,18 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
     if (!mapboxToken || !mapContainer.current) return;
 
     try {
+      console.log('Initializing map with token:', mapboxToken);
       mapboxgl.accessToken = mapboxToken;
       
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [103.8198, 1.3521], // Singapore coordinates
-        zoom: 11,
+        center: [6.9578, 50.9367], // Cologne, Germany
+        zoom: 12,
         attributionControl: false
       });
 
-      // Add navigation controls
-      map.current.addControl(
-        new mapboxgl.NavigationControl({
-          showCompass: false
-        }),
-        'top-right'
-      );
-
+      console.log('Map initialized successfully');
     } catch (err) {
       console.error('Error initializing map:', err);
       toast.error('Error loading map');
@@ -87,13 +84,13 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
       }
 
       if (pickupLocation) {
-        new mapboxgl.Marker({ color: '#f97316' })
+        new mapboxgl.Marker({ color: '#4CAF50' })
           .setLngLat(pickupLocation)
           .addTo(map.current);
       }
 
       if (dropoffLocation) {
-        new mapboxgl.Marker({ color: '#f97316' })
+        new mapboxgl.Marker({ color: '#F44336' })
           .setLngLat(dropoffLocation)
           .addTo(map.current);
       }
@@ -115,7 +112,7 @@ const Map = ({ pickupLocation, dropoffLocation }: MapProps) => {
   }, [pickupLocation, dropoffLocation]);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full rounded-xl overflow-hidden">
       <div ref={mapContainer} className="w-full h-full" />
     </div>
   );
