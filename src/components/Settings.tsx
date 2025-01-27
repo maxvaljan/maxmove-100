@@ -3,6 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Switch } from "./ui/switch";
 import { 
   User, 
   Settings as SettingsIcon, 
@@ -32,6 +33,11 @@ const Settings = () => {
   const [activeSection, setActiveSection] = useState("profile");
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  const [eReceiptEnabled, setEReceiptEnabled] = useState(false);
+  const [proofOfDeliveryEnabled, setProofOfDeliveryEnabled] = useState(false);
+  const [eReceiptEmail, setEReceiptEmail] = useState("");
+  const [isEditingEReceiptEmail, setIsEditingEReceiptEmail] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -64,6 +70,9 @@ const Settings = () => {
         setFirstName(names[0] || '');
         setLastName(names.slice(1).join(' ') || '');
         setPhone(profile.phone_number || '');
+        setEReceiptEmail(profile.e_receipt_email || '');
+        setEReceiptEnabled(profile.e_receipt_enabled || false);
+        setProofOfDeliveryEnabled(profile.proof_of_delivery_enabled || false);
       } else {
         console.log("No profile found for user:", user.id);
       }
@@ -86,7 +95,10 @@ const Settings = () => {
         .from('profiles')
         .update({ 
           name: `${firstName} ${lastName}`.trim(),
-          phone_number: phone
+          phone_number: phone,
+          e_receipt_email: eReceiptEmail,
+          e_receipt_enabled: eReceiptEnabled,
+          proof_of_delivery_enabled: proofOfDeliveryEnabled
         })
         .eq('id', user.id);
 
@@ -209,6 +221,65 @@ const Settings = () => {
                 >
                   Delete Account
                 </Button>
+              </div>
+            </div>
+
+            <Button 
+              onClick={handleSaveProfile}
+              className="mt-4 bg-orange-500 hover:bg-orange-600"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      );
+    } else if (activeSection === 'orders') {
+      return (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Orders</h2>
+          
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">E-RECEIPT</h3>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-700">Receive E-receipts</span>
+                <Switch
+                  checked={eReceiptEnabled}
+                  onCheckedChange={setEReceiptEnabled}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">E-RECEIPT EMAIL</h3>
+              <div className="flex items-center justify-between">
+                {isEditingEReceiptEmail ? (
+                  <Input 
+                    value={eReceiptEmail}
+                    onChange={(e) => setEReceiptEmail(e.target.value)}
+                    className="mr-2"
+                  />
+                ) : (
+                  <span className="text-gray-700">{eReceiptEmail || email}</span>
+                )}
+                <Button 
+                  variant="ghost" 
+                  className="text-orange-500 hover:text-orange-600"
+                  onClick={() => setIsEditingEReceiptEmail(!isEditingEReceiptEmail)}
+                >
+                  {isEditingEReceiptEmail ? 'Save' : 'Change'}
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">PROOF OF DELIVERY</h3>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-700">Receive signature or photo proof upon delivery</span>
+                <Switch
+                  checked={proofOfDeliveryEnabled}
+                  onCheckedChange={setProofOfDeliveryEnabled}
+                />
               </div>
             </div>
 
