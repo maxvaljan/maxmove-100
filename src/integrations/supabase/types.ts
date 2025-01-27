@@ -318,6 +318,8 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
+          e_receipt_email: string | null
+          e_receipt_enabled: boolean | null
           id: string
           language: Database["public"]["Enums"]["language_preference"] | null
           last_login: string | null
@@ -326,10 +328,13 @@ export type Database = {
             | Database["public"]["Enums"]["notification_preference"]
             | null
           phone_number: string | null
+          proof_of_delivery_enabled: boolean | null
           role: Database["public"]["Enums"]["user_role"]
         }
         Insert: {
           created_at?: string
+          e_receipt_email?: string | null
+          e_receipt_enabled?: boolean | null
           id?: string
           language?: Database["public"]["Enums"]["language_preference"] | null
           last_login?: string | null
@@ -338,10 +343,13 @@ export type Database = {
             | Database["public"]["Enums"]["notification_preference"]
             | null
           phone_number?: string | null
+          proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
         }
         Update: {
           created_at?: string
+          e_receipt_email?: string | null
+          e_receipt_enabled?: boolean | null
           id?: string
           language?: Database["public"]["Enums"]["language_preference"] | null
           last_login?: string | null
@@ -350,6 +358,7 @@ export type Database = {
             | Database["public"]["Enums"]["notification_preference"]
             | null
           phone_number?: string | null
+          proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: []

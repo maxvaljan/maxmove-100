@@ -12,7 +12,8 @@ import {
   Bell, 
   ShoppingBag, 
   FileText, 
-  LogOut 
+  LogOut,
+  UserCog 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -134,6 +135,7 @@ const Settings = () => {
 
   const menuItems: MenuItem[] = [
     { id: 'profile', label: 'Profile', icon: User, section: 'ACCOUNT' },
+    { id: 'account-type', label: 'Account Type', icon: UserCog, section: 'ACCOUNT' },
     { id: 'orders', label: 'Orders', icon: Package, section: 'ACCOUNT' },
     { id: 'location', label: 'Location & Language', icon: Globe, section: 'ACCOUNT' },
     { id: 'notifications', label: 'Notifications', icon: Bell, section: 'ACCOUNT' },
@@ -241,6 +243,19 @@ const Settings = () => {
               Save Changes
             </Button>
           </div>
+        </div>
+      );
+    } else if (activeSection === 'account-type') {
+      return (
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Account Type</h2>
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <p className="text-gray-700 font-medium">Current Account Type</p>
+            <p className="text-lg text-orange-500 mt-2">Personal Account</p>
+          </div>
+          <p className="text-sm text-gray-500">
+            To upgrade your account type or switch to a business account, please contact our support team.
+          </p>
         </div>
       );
     } else if (activeSection === 'orders') {
