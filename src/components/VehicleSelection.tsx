@@ -35,21 +35,39 @@ const getVehicleIcon = (category: string) => {
   }
 };
 
+const categoryOrder = [
+  'bike_motorcycle', // courier
+  'car',            // car
+  'van',            // small transporter
+  'medium_truck',   // medium transporter
+  'refrigerated',   // refrigerated vehicle
+  'towing',         // towing service
+  'light_truck',    // small truck
+  'medium_truck',   // medium truck
+  'heavy_truck'     // heavy truck
+];
+
 const VehicleSelection = () => {
   const { data: vehicles, isLoading, error } = useQuery({
     queryKey: ['vehicleTypes'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('vehicle_types')
-        .select('*')
-        .order('name');
+        .select('*');
       
       if (error) {
         console.error('Error fetching vehicle types:', error);
         throw error;
       }
       
-      return data as VehicleType[];
+      // Sort the vehicles based on the categoryOrder array
+      const sortedData = [...(data || [])].sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a.category);
+        const indexB = categoryOrder.indexOf(b.category);
+        return indexA - indexB;
+      });
+      
+      return sortedData as VehicleType[];
     }
   });
 
