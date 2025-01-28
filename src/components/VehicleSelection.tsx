@@ -104,17 +104,19 @@ const VehicleSelection = () => {
             {vehicles?.map((vehicle) => (
               <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
                 <Card 
-                  className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF6B35] transition-colors h-48"
+                  className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF6B35] transition-all duration-300 h-48 group relative overflow-hidden"
                 >
-                  <div className="mb-4">
+                  <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
                     {getVehicleIcon(vehicle.category)}
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900">{vehicle.name}</h3>
-                  {vehicle.max_weight && (
-                    <p className="text-sm text-gray-500 mt-1">
-                      Weight&lt;{vehicle.max_weight}
-                    </p>
-                  )}
+                  <h3 className="text-lg font-medium text-gray-900 transition-transform duration-300 group-hover:-translate-y-2">
+                    {vehicle.name}
+                  </h3>
+                  <div className="absolute inset-x-0 bottom-0 bg-[#FF6B35] text-white p-4 transform translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0">
+                    <p className="text-sm">{vehicle.description}</p>
+                    <p className="text-xs mt-1">Max weight: {vehicle.max_weight}</p>
+                    <p className="text-xs">Dimensions: {vehicle.dimensions}</p>
+                  </div>
                 </Card>
               </CarouselItem>
             ))}
