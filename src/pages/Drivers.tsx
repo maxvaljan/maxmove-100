@@ -16,10 +16,16 @@ import {
   MapPin,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
-import VehicleSelection from "@/components/VehicleSelection";
 
 const Drivers = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -109,16 +115,19 @@ const Drivers = () => {
                   <label htmlFor="city" className="text-sm font-medium">
                     City
                   </label>
-                  <Input
-                    id="city"
-                    type="text"
-                    placeholder="Enter your city"
+                  <Select
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onValueChange={setCity}
                     required
-                  />
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your city" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="cologne">Cologne, Germany</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-                <VehicleSelection />
                 <Button
                   type="submit"
                   className="w-full bg-maxmove-800"
@@ -133,68 +142,68 @@ const Drivers = () => {
 
         {/* Benefits Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <Card>
-            <CardHeader>
-              <Clock className="w-12 h-12 text-maxmove-800 mb-4" />
-              <CardTitle>Flexible Hours</CardTitle>
-              <CardDescription>
-                Work whenever you want. No minimum hours required.
-              </CardDescription>
-            </CardHeader>
-          </Card>
+            <Card>
+              <CardHeader>
+                <Clock className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Flexible Hours</CardTitle>
+                <CardDescription>
+                  Work whenever you want. No minimum hours required.
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CreditCard className="w-12 h-12 text-maxmove-800 mb-4" />
-              <CardTitle>Great Earnings</CardTitle>
-              <CardDescription>
-                Earn competitive rates with bonuses and incentives.
-              </CardDescription>
-            </CardHeader>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CreditCard className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Great Earnings</CardTitle>
+                <CardDescription>
+                  Earn competitive rates with bonuses and incentives.
+                </CardDescription>
+              </CardHeader>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <Smartphone className="w-12 h-12 text-maxmove-800 mb-4" />
-              <CardTitle>Easy to Use App</CardTitle>
-              <CardDescription>
-                Simple, intuitive app for managing deliveries.
-              </CardDescription>
-            </CardHeader>
-          </Card>
+            <Card>
+              <CardHeader>
+                <Smartphone className="w-12 h-12 text-maxmove-800 mb-4" />
+                <CardTitle>Easy to Use App</CardTitle>
+                <CardDescription>
+                  Simple, intuitive app for managing deliveries.
+                </CardDescription>
+              </CardHeader>
+            </Card>
         </div>
 
         {/* Requirements Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 mb-16">
-          <Card>
-            <CardContent className="pt-6">
-              <Shield className="w-12 h-12 text-maxmove-800 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Valid License</h3>
-              <p className="text-gray-600">
-                Must have a valid driver's license and clean driving record
-              </p>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <Card>
+              <CardContent className="pt-6">
+                <Shield className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Valid License</h3>
+                <p className="text-gray-600">
+                  Must have a valid driver's license and clean driving record
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <Calendar className="w-12 h-12 text-maxmove-800 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Vehicle Age</h3>
-              <p className="text-gray-600">
-                Vehicle must be less than 10 years old
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <Calendar className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Vehicle Age</h3>
+                <p className="text-gray-600">
+                  Vehicle must be less than 10 years old
+                </p>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardContent className="pt-6">
-              <MapPin className="w-12 h-12 text-maxmove-800 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Location</h3>
-              <p className="text-gray-600">
-                Must be eligible to work in your operating area
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardContent className="pt-6">
+                <MapPin className="w-12 h-12 text-maxmove-800 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Location</h3>
+                <p className="text-gray-600">
+                  Must be eligible to work in your operating area
+                </p>
+              </CardContent>
+            </Card>
         </div>
       </div>
     </div>
