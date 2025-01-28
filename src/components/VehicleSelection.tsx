@@ -56,7 +56,11 @@ const VehicleSelection = () => {
             More Info
           </Button>
         </div>
-        <div className="h-48 bg-gray-100 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-2 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-48 bg-gray-100 rounded-lg animate-pulse" />
+          ))}
+        </div>
       </div>
     );
   }
@@ -80,7 +84,7 @@ const VehicleSelection = () => {
         </Button>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {vehicles?.map((vehicle) => (
           <Card 
             key={vehicle.id} 
