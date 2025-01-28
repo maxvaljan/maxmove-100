@@ -92,7 +92,14 @@ const VehicleSelection = () => {
       </div>
       
       <div className="relative">
-        <Carousel className="w-full">
+        <Carousel
+          className="w-full"
+          opts={{
+            align: "start",
+            skipSnaps: true,
+            dragFree: false
+          }}
+        >
           <CarouselContent className="-ml-4">
             {vehicles?.map((vehicle) => (
               <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
@@ -112,8 +119,8 @@ const VehicleSelection = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2" />
-          <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2" />
+          <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 border-[#FF6B35] text-[#FF6B35] hover:text-[#FF6B35]" />
+          <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 border-[#FF6B35] text-[#FF6B35] hover:text-[#FF6B35]" />
         </Carousel>
       </div>
     </div>
