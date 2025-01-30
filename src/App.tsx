@@ -18,7 +18,6 @@ import Book from "@/pages/Book";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AccountTypeSelection from "@/pages/AccountTypeSelection";
 import DriverApplication from "@/pages/DriverApplication";
-import DriverDashboard from "@/pages/DriverDashboard";
 
 function App() {
   return (
@@ -42,7 +41,6 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/account-type" element={<AccountTypeSelection />} />
         <Route path="/driver-application" element={<DriverApplication />} />
-        <Route path="/driver-dashboard" element={<DriverDashboard />} />
       </Routes>
       <Toaster />
     </Router>
