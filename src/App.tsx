@@ -12,6 +12,12 @@ import Terms from "@/pages/Terms";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CookiePolicy from "@/pages/CookiePolicy";
 import PersonalDelivery from "@/pages/PersonalDelivery";
+import Dashboard from "@/pages/Dashboard";
+import Drivers from "@/pages/Drivers";
+import Book from "@/pages/Book";
+import AdminDashboard from "@/pages/AdminDashboard";
+import AccountTypeSelection from "@/pages/AccountTypeSelection";
+import DriverApplication from "@/pages/DriverApplication";
 
 function App() {
   return (
@@ -29,6 +35,12 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/personal-delivery" element={<PersonalDelivery />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/drivers" element={<Drivers />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/account-type" element={<AccountTypeSelection />} />
+        <Route path="/driver-application" element={<DriverApplication />} />
       </Routes>
       <Toaster />
     </Router>
