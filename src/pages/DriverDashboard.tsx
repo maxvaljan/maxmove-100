@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import DashboardHeader from "@/components/DashboardHeader";
 import { Car, MapPin, Navigation, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import DriverDashboardHeader from "@/components/driver/DriverDashboardHeader";
 
 const DriverDashboard = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const DriverDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader />
+      <DriverDashboardHeader />
       <main className="p-6 mt-16">
         <h1 className="text-2xl font-bold mb-6">Driver Dashboard</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
