@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Navbar from "@/components/Navbar";
+import DashboardHeader from "@/components/DashboardHeader";
 import Map from "@/components/Map";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -135,36 +135,38 @@ const Book = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-maxmove-50 to-white">
-      <Navbar />
+    <div className="min-h-screen bg-gray-50">
+      <DashboardHeader />
       
-      <div className="container mx-auto px-4 pt-24 lg:pt-28">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="w-full lg:w-[50%] flex-shrink-0 space-y-6">
-            <h1 className="text-3xl font-bold text-maxmove-900">
-              Move anything anywhere anytime with any vehicle
-            </h1>
-            
-            <BookingForm
-              stops={stops}
-              setStops={setStops}
-              suggestions={suggestions}
-              activeInput={activeInput}
-              suggestionsRef={suggestionsRef}
-              onAddressChange={handleAddressChange}
-              onSuggestionSelect={handleSuggestionSelect}
-              onAddStop={addStop}
-              onRemoveStop={removeStop}
-            />
+      <div className="pt-16">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="w-full lg:w-[50%] flex-shrink-0 space-y-6">
+              <h1 className="text-3xl font-bold text-maxmove-900">
+                Move anything anywhere anytime with any vehicle
+              </h1>
+              
+              <BookingForm
+                stops={stops}
+                setStops={setStops}
+                suggestions={suggestions}
+                activeInput={activeInput}
+                suggestionsRef={suggestionsRef}
+                onAddressChange={handleAddressChange}
+                onSuggestionSelect={handleSuggestionSelect}
+                onAddStop={addStop}
+                onRemoveStop={removeStop}
+              />
 
-            <VehicleSelection />
-          </div>
+              <VehicleSelection />
+            </div>
 
-          <div className="sticky top-28 lg:w-[45%] aspect-square h-fit">
-            <Map
-              pickupLocation={stops[0].coordinates}
-              dropoffLocation={stops[stops.length - 1].coordinates}
-            />
+            <div className="sticky top-28 lg:w-[45%] aspect-square h-fit">
+              <Map
+                pickupLocation={stops[0].coordinates}
+                dropoffLocation={stops[stops.length - 1].coordinates}
+              />
+            </div>
           </div>
         </div>
       </div>
