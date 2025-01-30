@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Toaster } from "@/components/ui/toast";
-import { SignIn } from "@/pages/SignIn";
-import { SignUp } from "@/pages/SignUp";
+import { Toaster } from "@/components/ui/toaster";
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
 import ResetPassword from "@/pages/ResetPassword";
 import UpdatePassword from "@/pages/UpdatePassword";
 
