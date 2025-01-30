@@ -22,37 +22,39 @@ export const SignInForm = () => {
     setErrorMessage("");
 
     try {
+      // Determine if the identifier is an email or phone number
       const isEmail = identifier.includes('@');
-      const email = isEmail ? identifier : undefined;
-      const phone = !isEmail ? `${countryCode}${identifier}` : undefined;
+      
+      // Prepare the sign-in credentials
+      const credentials = isEmail 
+        ? { email: identifier, password }
+        : { phone: `${countryCode}${identifier}`, password };
 
-      console.log("Attempting sign in with:", { email, phone, password });
+      console.log("Attempting sign in with:", { ...credentials, password: '[REDACTED]' });
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        phone,
-        password,
-      });
+      const { data, error } = await supabase.auth.signInWithPassword(credentials);
 
       if (error) {
         console.error("Sign in error:", error);
         
         if (error.message === "Invalid login credentials") {
           setErrorMessage("The email/phone or password you entered is incorrect. Please try again.");
-        } else if (error.message.includes("User already registered")) {
-          setErrorMessage("This account already exists. Please sign in instead.");
+        } else if (error.message.includes("Email not confirmed")) {
+          setErrorMessage("Please verify your email address before signing in.");
         } else {
           setErrorMessage(error.message);
         }
         return;
       }
 
-      toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in.",
-      });
-
-      navigate("/dashboard");
+      if (data?.user) {
+        console.log("Sign in successful:", { user: data.user.id });
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully signed in.",
+        });
+        navigate("/dashboard");
+      }
     } catch (error: any) {
       console.error("Unexpected error during sign in:", error);
       setErrorMessage("An unexpected error occurred. Please try again.");
