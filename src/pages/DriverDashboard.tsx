@@ -17,6 +17,7 @@ const DriverDashboard = () => {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Session data:", session);
       setSession(session);
       if (!session) {
         navigate("/signin");
@@ -59,16 +60,20 @@ const DriverDashboard = () => {
 
   const fetchDriverStatus = async (userId) => {
     try {
+      console.log("Fetching status for user:", userId);
       const { data, error } = await supabase
         .from('Driver')
         .select('status')
         .eq('id', userId)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching driver status:", error);
+        throw error;
+      }
       if (data) {
-        setDriverStatus(data.status);
         console.log("Fetched driver status:", data.status);
+        setDriverStatus(data.status);
       }
     } catch (error) {
       console.error("Error fetching driver status:", error);
@@ -85,6 +90,7 @@ const DriverDashboard = () => {
 
     setIsUpdating(true);
     try {
+      console.log("Updating status for user:", session.user.id, "to:", newStatus);
       const { error } = await supabase
         .from('Driver')
         .update({ status: newStatus })
