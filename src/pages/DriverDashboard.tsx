@@ -22,8 +22,8 @@ const DriverDashboard = () => {
       if (!session) {
         navigate("/signin");
       } else {
-        // Fetch initial driver status
-        fetchDriverStatus(session.user.id);
+        // First ensure driver record exists
+        ensureDriverRecord(session.user.id);
       }
     });
 
@@ -58,6 +58,54 @@ const DriverDashboard = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
+  const ensureDriverRecord = async (userId) => {
+    console.log("Ensuring driver record exists for:", userId);
+    try {
+      // Try to fetch existing driver record
+      const { data: existingDriver, error: fetchError } = await supabase
+        .from('Driver')
+        .select('id')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (fetchError) {
+        console.error("Error checking driver record:", fetchError);
+        throw fetchError;
+      }
+
+      if (!existingDriver) {
+        // Create new driver record if none exists
+        const { error: insertError } = await supabase
+          .from('Driver')
+          .insert([
+            {
+              id: userId,
+              status: 'offline',
+              vehicle_type: 'car', // Default value
+              vehicle_number: 'PENDING', // Default value
+              latitude: 0,
+              longitude: 0
+            }
+          ]);
+
+        if (insertError) {
+          console.error("Error creating driver record:", insertError);
+          throw insertError;
+        }
+      }
+
+      // Now fetch the status
+      fetchDriverStatus(userId);
+    } catch (error) {
+      console.error("Error in ensureDriverRecord:", error);
+      toast({
+        title: "Error",
+        description: "Failed to initialize driver record",
+        variant: "destructive",
+      });
+    }
+  };
+
   const fetchDriverStatus = async (userId) => {
     try {
       console.log("Fetching status for user:", userId);
@@ -65,7 +113,7 @@ const DriverDashboard = () => {
         .from('Driver')
         .select('status')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error("Error fetching driver status:", error);
