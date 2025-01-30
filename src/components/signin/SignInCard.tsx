@@ -15,16 +15,28 @@ export const SignInCard = () => {
       </CardHeader>
       <CardContent className="space-y-6">
         <SignInForm />
-        <div className="text-center text-sm">
-          <span className="text-maxmove-600">New to Maxmove? </span>
-          <Button
-            type="button"
-            variant="link"
-            className="text-maxmove-800 hover:text-maxmove-900 p-0"
-            onClick={() => navigate("/account-type-selection")}
-          >
-            Create an account
-          </Button>
+        <div className="text-center text-sm space-y-2">
+          <div>
+            <Button
+              type="button"
+              variant="link"
+              className="text-maxmove-800 hover:text-maxmove-900 p-0"
+              onClick={() => navigate("/reset-password")}
+            >
+              Forgot your password?
+            </Button>
+          </div>
+          <div>
+            <span className="text-maxmove-600">New to Maxmove? </span>
+            <Button
+              type="button"
+              variant="link"
+              className="text-maxmove-800 hover:text-maxmove-900 p-0"
+              onClick={() => navigate("/account-type-selection")}
+            >
+              Create an account
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
