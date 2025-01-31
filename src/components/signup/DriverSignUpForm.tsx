@@ -18,14 +18,14 @@ const driverFormSchema = z.object({
 });
 
 interface DriverSignUpFormProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: z.infer<typeof driverFormSchema>) => void;
   isLoading: boolean;
 }
 
 export const DriverSignUpForm = ({ onSubmit, isLoading }: DriverSignUpFormProps) => {
   const [countryCode, setCountryCode] = useState("+49");
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof driverFormSchema>>({
     resolver: zodResolver(driverFormSchema),
     defaultValues: {
       firstName: "",
@@ -37,9 +37,19 @@ export const DriverSignUpForm = ({ onSubmit, isLoading }: DriverSignUpFormProps)
     },
   });
 
+  const handleSubmit = async (data: z.infer<typeof driverFormSchema>) => {
+    // Format the phone number with country code
+    const formattedData = {
+      ...data,
+      phoneNumber: `${countryCode}${data.phoneNumber}`,
+    };
+    
+    onSubmit(formattedData);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
