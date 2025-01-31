@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import { PhoneInput } from "../signup/PhoneInput";
+import { CountryCodeSelect } from "@/components/CountryCodeSelect";
 
 const signInSchema = z.object({
   identifier: z.string().min(1, "Email or phone number is required"),
