@@ -14,16 +14,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PhoneInput } from "../signup/PhoneInput";
 
-const emailFormSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-const phoneFormSchema = z.object({
-  phoneNumber: z.string().min(8, "Invalid phone number"),
+const signInSchema = z.object({
+  identifier: z.string().min(1, "Email or phone number is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -33,35 +27,31 @@ export const SignInForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const emailForm = useForm<z.infer<typeof emailFormSchema>>({
-    resolver: zodResolver(emailFormSchema),
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
 
-  const phoneForm = useForm<z.infer<typeof phoneFormSchema>>({
-    resolver: zodResolver(phoneFormSchema),
-    defaultValues: {
-      phoneNumber: "",
-      password: "",
-    },
-  });
-
-  const handleSignIn = async (credentials: any, isEmail: boolean) => {
+  const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
     try {
       setIsLoading(true);
+      const isEmail = values.identifier.includes('@');
       console.log(`Attempting to sign in with ${isEmail ? 'email' : 'phone'}...`);
       
-      const { error } = await supabase.auth.signInWithPassword(
-        isEmail 
-          ? credentials 
-          : { 
-              phone: `${countryCode}${credentials.phoneNumber}`,
-              password: credentials.password 
-            }
-      );
+      const credentials = isEmail 
+        ? { 
+            email: values.identifier, 
+            password: values.password 
+          }
+        : { 
+            phone: `${countryCode}${values.identifier}`,
+            password: values.password 
+          };
+
+      const { error } = await supabase.auth.signInWithPassword(credentials);
 
       if (error) throw error;
 
@@ -103,100 +93,56 @@ export const SignInForm = () => {
     }
   };
 
-  const onEmailSubmit = (values: z.infer<typeof emailFormSchema>) => {
-    handleSignIn(values, true);
-  };
-
-  const onPhoneSubmit = (values: z.infer<typeof phoneFormSchema>) => {
-    handleSignIn(values, false);
-  };
-
   return (
-    <Tabs defaultValue="email" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 mb-4">
-        <TabsTrigger value="email">Email</TabsTrigger>
-        <TabsTrigger value="phone">Phone</TabsTrigger>
-      </TabsList>
-
-      <TabsContent value="email">
-        <Form {...emailForm}>
-          <form onSubmit={emailForm.handleSubmit(onEmailSubmit)} className="space-y-4">
-            <FormField
-              control={emailForm.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Email"
-                      type="email"
-                      {...field}
-                      className="bg-white/80 border-0"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={emailForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      {...field}
-                      className="bg-white/80 border-0"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
-        </Form>
-      </TabsContent>
-
-      <TabsContent value="phone">
-        <Form {...phoneForm}>
-          <form onSubmit={phoneForm.handleSubmit(onPhoneSubmit)} className="space-y-4">
-            <PhoneInput form={phoneForm} countryCode={countryCode} setCountryCode={setCountryCode} />
-            <FormField
-              control={phoneForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      {...field}
-                      className="bg-white/80 border-0"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
-            </Button>
-          </form>
-        </Form>
-      </TabsContent>
-    </Tabs>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSignIn)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="identifier"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <div className="flex gap-2">
+                  <CountryCodeSelect
+                    value={countryCode}
+                    onChange={setCountryCode}
+                  />
+                  <Input
+                    placeholder="Email or phone number"
+                    {...field}
+                    className="flex-1 bg-white/80 border-0"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  {...field}
+                  className="bg-white/80 border-0"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type="submit"
+          className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing in..." : "Sign in"}
+        </Button>
+      </form>
+    </Form>
   );
 };
