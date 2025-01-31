@@ -36,6 +36,8 @@ export const SignInForm = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
+      console.log("Attempting to sign in...");
+      
       const { error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
@@ -47,16 +49,21 @@ export const SignInForm = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("No user found");
 
+      console.log("Fetching user profile...");
       const { data: profile } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', user.id)
         .single();
 
-      // Redirect based on user role
+      console.log("User role:", profile?.role);
+
+      // Always redirect drivers to driver dashboard
       if (profile?.role === 'driver') {
+        console.log("Redirecting to driver dashboard...");
         navigate('/driver-dashboard');
       } else {
+        console.log("Redirecting to regular dashboard...");
         navigate('/dashboard');
       }
 
