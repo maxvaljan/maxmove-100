@@ -23,14 +23,15 @@ const SignUp = () => {
       setIsLoading(true);
       console.log("Starting sign up process for account type:", accountType);
       
-      const { error } = await supabase.auth.signUp({
+      const { error: signUpError, data: authData } = await supabase.auth.signUp({
         email: data.email || data.workEmail,
         password: data.password,
+        phone: data.phoneNumber,
         options: {
           data: {
             first_name: data.firstName,
             last_name: data.lastName,
-            role: accountType, // This will be used to set the role in the profiles table
+            role: accountType,
             ...(accountType === "business" && {
               company_name: data.companyName,
               industry: data.industry,
@@ -39,7 +40,20 @@ const SignUp = () => {
         },
       });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
+
+      // Update profile with phone number
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .update({ 
+            phone_number: data.phoneNumber,
+            name: `${data.firstName} ${data.lastName}`
+          })
+          .eq('id', authData.user.id);
+
+        if (profileError) throw profileError;
+      }
 
       console.log("Sign up successful");
       toast({
