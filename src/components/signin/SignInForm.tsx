@@ -16,10 +16,42 @@ export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [countryCode, setCountryCode] = useState("+49"); // Default to Germany
 
+  const validateCredentials = () => {
+    if (!identifier || !password) {
+      setErrorMessage("Please fill in all fields");
+      return false;
+    }
+    
+    // Basic email validation
+    const isEmail = identifier.includes('@');
+    if (isEmail && !identifier.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      setErrorMessage("Please enter a valid email address");
+      return false;
+    }
+    
+    // Basic phone validation if not email
+    if (!isEmail && !identifier.match(/^\d+$/)) {
+      setErrorMessage("Phone number should contain only digits");
+      return false;
+    }
+
+    if (password.length < 6) {
+      setErrorMessage("Password must be at least 6 characters");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
+
+    if (!validateCredentials()) {
+      setIsLoading(false);
+      return;
+    }
 
     try {
       // Determine if the identifier is an email or phone number
@@ -27,8 +59,8 @@ export const SignInForm = () => {
       
       // Prepare the sign-in credentials
       const credentials = isEmail 
-        ? { email: identifier, password }
-        : { phone: `${countryCode}${identifier}`, password };
+        ? { email: identifier.trim(), password }
+        : { phone: `${countryCode}${identifier.trim()}`, password };
 
       console.log("Attempting sign in with:", { ...credentials, password: '[REDACTED]' });
 
