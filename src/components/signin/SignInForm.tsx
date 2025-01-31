@@ -49,15 +49,19 @@ export const SignInForm = () => {
     },
   });
 
-  const onEmailSubmit = async (values: z.infer<typeof emailFormSchema>) => {
+  const handleSignIn = async (credentials: any, isEmail: boolean) => {
     try {
       setIsLoading(true);
-      console.log("Attempting to sign in with email...");
+      console.log(`Attempting to sign in with ${isEmail ? 'email' : 'phone'}...`);
       
-      const { error } = await supabase.auth.signInWithPassword({
-        email: values.email,
-        password: values.password,
-      });
+      const { error } = await supabase.auth.signInWithPassword(
+        isEmail 
+          ? credentials 
+          : { 
+              phone: `${countryCode}${credentials.phoneNumber}`,
+              password: credentials.password 
+            }
+      );
 
       if (error) throw error;
 
@@ -99,55 +103,12 @@ export const SignInForm = () => {
     }
   };
 
-  const onPhoneSubmit = async (values: z.infer<typeof phoneFormSchema>) => {
-    try {
-      setIsLoading(true);
-      console.log("Attempting to sign in with phone...");
-      
-      const fullPhoneNumber = `${countryCode}${values.phoneNumber}`;
-      const { error } = await supabase.auth.signInWithPassword({
-        phone: fullPhoneNumber,
-        password: values.password,
-      });
+  const onEmailSubmit = (values: z.infer<typeof emailFormSchema>) => {
+    handleSignIn(values, true);
+  };
 
-      if (error) throw error;
-
-      // Get user profile to check role
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("No user found");
-
-      console.log("Fetching user profile...");
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', user.id)
-        .single();
-
-      console.log("User role:", profile?.role);
-
-      // Always redirect drivers to driver dashboard
-      if (profile?.role === 'driver') {
-        console.log("Redirecting to driver dashboard...");
-        navigate('/driver-dashboard');
-      } else {
-        console.log("Redirecting to regular dashboard...");
-        navigate('/dashboard');
-      }
-
-      toast({
-        title: "Success",
-        description: "You have successfully signed in.",
-      });
-    } catch (error: any) {
-      console.error("Sign in error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
-    } finally {
-      setIsLoading(false);
-    }
+  const onPhoneSubmit = (values: z.infer<typeof phoneFormSchema>) => {
+    handleSignIn(values, false);
   };
 
   return (
