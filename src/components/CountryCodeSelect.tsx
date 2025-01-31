@@ -58,7 +58,7 @@ export const CountryCodeSelect = ({ value, onChange }: CountryCodeSelectProps) =
         setSearchValue(value);
       }}
     >
-      <SelectTrigger className="w-[140px] bg-white/80 border-0">
+      <SelectTrigger className="w-[100px] bg-white/80 border-0">
         <SelectValue placeholder="Select code">
           {countryCodes.find(code => code.value === value)?.label || value}
         </SelectValue>
