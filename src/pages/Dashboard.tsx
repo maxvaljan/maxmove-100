@@ -5,6 +5,7 @@ import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
 import { Settings as SettingsIcon, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,14 +18,37 @@ const Dashboard = () => {
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState("place-order");
   const [showSettings, setShowSettings] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const checkUserRole = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
+      
       if (!session) {
         navigate("/signin");
+        return;
       }
-    });
+
+      // Check user role
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profile?.role === 'driver') {
+        toast({
+          variant: "destructive",
+          title: "Access Denied",
+          description: "Drivers should use the driver dashboard.",
+        });
+        navigate("/driver-dashboard");
+        return;
+      }
+    };
+
+    checkUserRole();
 
     const {
       data: { subscription },

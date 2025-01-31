@@ -68,7 +68,7 @@ export const SignInForm = () => {
 
       console.log("User role:", profile?.role);
 
-      // Always redirect drivers to driver dashboard
+      // Redirect based on role
       if (profile?.role === 'driver') {
         console.log("Redirecting to driver dashboard...");
         navigate('/driver-dashboard');

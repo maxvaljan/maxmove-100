@@ -47,6 +47,7 @@ const Settings = () => {
   const [eReceiptEmail, setEReceiptEmail] = useState("");
   const [isEditingEReceiptEmail, setIsEditingEReceiptEmail] = useState(false);
   const [language, setLanguage] = useState<"en" | "de">("en");
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     fetchProfile();
@@ -94,13 +95,7 @@ const Settings = () => {
         setEReceiptEnabled(profile.e_receipt_enabled || false);
         setProofOfDeliveryEnabled(profile.proof_of_delivery_enabled || false);
         setLanguage(profile.language || 'en');
-      } else {
-        console.log("No profile found for user:", user.id);
-        toast({
-          title: "Profile Not Found",
-          description: "Your profile information could not be loaded.",
-          variant: "destructive",
-        });
+        setUserRole(profile.role || 'customer');
       }
     } catch (error) {
       console.error('Error in fetchProfile:', error);
@@ -272,10 +267,10 @@ const Settings = () => {
           <h2 className="text-2xl font-semibold">Account Type</h2>
           <div className="p-4 bg-gray-50 rounded-lg">
             <p className="text-gray-700 font-medium">Current Account Type</p>
-            <p className="text-lg text-orange-500 mt-2">Personal Account</p>
+            <p className="text-lg text-orange-500 mt-2 capitalize">{userRole} Account</p>
           </div>
           <p className="text-sm text-gray-500">
-            To upgrade your account type or switch to a business account, please contact our support team.
+            To change your account type, please contact our support team.
           </p>
         </div>
       );
