@@ -39,10 +39,7 @@ const SignUp = () => {
         },
       });
 
-      if (error) {
-        console.error("Sign up error:", error);
-        throw error;
-      }
+      if (error) throw error;
 
       console.log("Sign up successful");
       toast({
@@ -50,7 +47,12 @@ const SignUp = () => {
         description: "Please check your email to verify your account.",
       });
       
-      navigate("/signin");
+      // Redirect based on account type
+      if (accountType === "driver") {
+        navigate("/driver-dashboard");
+      } else {
+        navigate("/signin");
+      }
     } catch (error: any) {
       console.error("Error in sign up:", error);
       toast({

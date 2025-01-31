@@ -1,133 +1,126 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { CountryCodeSelect } from "@/components/CountryCodeSelect";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
+
+const formSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 export const SignInForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [countryCode, setCountryCode] = useState("+49"); // Default to Germany
 
-  const validateCredentials = () => {
-    if (!identifier || !password) {
-      setErrorMessage("Please fill in all fields");
-      return false;
-    }
-    
-    // Basic email validation
-    const isEmail = identifier.includes('@');
-    if (isEmail && !identifier.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setErrorMessage("Please enter a valid email address");
-      return false;
-    }
-    
-    // Basic phone validation if not email
-    if (!isEmail && !identifier.match(/^\d+$/)) {
-      setErrorMessage("Phone number should contain only digits");
-      return false;
-    }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-    if (password.length < 6) {
-      setErrorMessage("Password must be at least 6 characters");
-      return false;
-    }
-
-    return true;
-  };
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrorMessage("");
-
-    if (!validateCredentials()) {
-      setIsLoading(false);
-      return;
-    }
-
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // Determine if the identifier is an email or phone number
-      const isEmail = identifier.includes('@');
-      
-      // Prepare the sign-in credentials
-      const credentials = isEmail 
-        ? { email: identifier.trim(), password }
-        : { phone: `${countryCode}${identifier.trim()}`, password };
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.password,
+      });
 
-      console.log("Attempting sign in with:", { ...credentials, password: '[REDACTED]' });
+      if (error) throw error;
 
-      const { data, error } = await supabase.auth.signInWithPassword(credentials);
+      // Get user profile to check role
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No user found");
 
-      if (error) {
-        console.error("Sign in error:", error);
-        
-        if (error.message === "Invalid login credentials") {
-          setErrorMessage("The email/phone or password you entered is incorrect. Please try again.");
-        } else if (error.message.includes("Email not confirmed")) {
-          setErrorMessage("Please verify your email address before signing in.");
-        } else {
-          setErrorMessage(error.message);
-        }
-        return;
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+
+      // Redirect based on user role
+      if (profile?.role === 'driver') {
+        navigate('/driver-dashboard');
+      } else {
+        navigate('/dashboard');
       }
 
-      if (data?.user) {
-        console.log("Sign in successful:", { user: data.user.id });
-        toast({
-          title: "Welcome back!",
-          description: "You have successfully signed in.",
-        });
-        navigate("/dashboard");
-      }
+      toast({
+        title: "Success",
+        description: "You have successfully signed in.",
+      });
     } catch (error: any) {
-      console.error("Unexpected error during sign in:", error);
-      setErrorMessage("An unexpected error occurred. Please try again.");
+      console.error("Sign in error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSignIn} className="space-y-4">
-      {errorMessage && (
-        <Alert variant="destructive">
-          <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-      )}
-      <div className="flex gap-2">
-        <CountryCodeSelect value={countryCode} onChange={setCountryCode} />
-        <Input
-          type="text"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
-          required
-          placeholder="Email or phone number"
-          className="bg-white/80 border-0 flex-1"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  {...field}
+                  className="bg-white/80 border-0"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        placeholder="Password"
-        className="bg-white/80 border-0"
-      />
-      <Button 
-        type="submit" 
-        className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white"
-        disabled={isLoading}
-      >
-        {isLoading ? "Signing in..." : "Login"}
-      </Button>
-    </form>
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Password"
+                  type="password"
+                  {...field}
+                  className="bg-white/80 border-0"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type="submit"
+          className="w-full bg-maxmove-800 hover:bg-maxmove-900 text-white"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing in..." : "Sign in"}
+        </Button>
+      </form>
+    </Form>
   );
 };
