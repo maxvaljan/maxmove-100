@@ -21,6 +21,8 @@ const SignUp = () => {
   const handleSignUp = async (data: any) => {
     try {
       setIsLoading(true);
+      console.log("Starting sign up process for account type:", accountType);
+      
       const { error } = await supabase.auth.signUp({
         email: data.email || data.workEmail,
         password: data.password,
@@ -28,7 +30,7 @@ const SignUp = () => {
           data: {
             first_name: data.firstName,
             last_name: data.lastName,
-            account_type: accountType,
+            role: accountType, // This will be used to set the role in the profiles table
             ...(accountType === "business" && {
               company_name: data.companyName,
               industry: data.industry,
@@ -37,8 +39,12 @@ const SignUp = () => {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Sign up error:", error);
+        throw error;
+      }
 
+      console.log("Sign up successful");
       toast({
         title: "Registration successful",
         description: "Please check your email to verify your account.",
@@ -46,6 +52,7 @@ const SignUp = () => {
       
       navigate("/signin");
     } catch (error: any) {
+      console.error("Error in sign up:", error);
       toast({
         variant: "destructive",
         title: "Error",

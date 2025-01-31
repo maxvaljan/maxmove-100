@@ -32,7 +32,7 @@ export const SignInCard = () => {
               type="button"
               variant="link"
               className="text-maxmove-800 hover:text-maxmove-900 p-0"
-              onClick={() => navigate("/account-type-selection")}
+              onClick={() => navigate("/account-type")}
             >
               Create an account
             </Button>

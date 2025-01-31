@@ -1,23 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { User, Building2, Car } from "lucide-react";
 
 const AccountTypeSelection = () => {
   const navigate = useNavigate();
 
   const handleSelection = (type: "personal" | "business" | "driver") => {
-    switch (type) {
-      case "personal":
-        navigate("/signup?type=personal");
-        break;
-      case "business":
-        navigate("/signup?type=business");
-        break;
-      case "driver":
-        navigate("/signup?type=driver");
-        break;
-    }
+    navigate(`/signup?type=${type}`);
   };
 
   return (
