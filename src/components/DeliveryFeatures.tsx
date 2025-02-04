@@ -4,9 +4,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import type { EmblaCarouselType } from 'embla-carousel-react';
+import type { UseEmblaCarouselType } from 'embla-carousel-react';
 
 const DeliveryFeatures = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,6 +22,26 @@ const DeliveryFeatures = () => {
     },
   ];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const carouselElement = document.querySelector('[data-embla-container]');
+      if (carouselElement) {
+        const emblaApi = (carouselElement as any).__embla;
+        if (emblaApi) {
+          if (currentSlide === images.length - 1) {
+            emblaApi.scrollTo(0);
+            setCurrentSlide(0);
+          } else {
+            emblaApi.scrollNext();
+            setCurrentSlide(prev => prev + 1);
+          }
+        }
+      }
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(timer);
+  }, [currentSlide, images.length]);
+
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -29,7 +49,7 @@ const DeliveryFeatures = () => {
           <Carousel 
             className="w-full" 
             opts={{ loop: true }}
-            onSelect={(api: EmblaCarouselType) => {
+            onSelect={(api: UseEmblaCarouselType[1]) => {
               setCurrentSlide(api.selectedScrollSnap());
             }}
           >
@@ -45,29 +65,6 @@ const DeliveryFeatures = () => {
               ))}
             </CarouselContent>
           </Carousel>
-          
-          {/* Dots Navigation */}
-          <div className="flex justify-center gap-2 mt-4 w-full">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  const carouselElement = document.querySelector('[data-embla-container]');
-                  if (carouselElement) {
-                    const emblaApi = (carouselElement as any).__embla;
-                    emblaApi?.scrollTo(index);
-                  }
-                }}
-                className={cn(
-                  "w-2.5 h-2.5 rounded-full transition-all duration-300",
-                  currentSlide === index 
-                    ? "bg-maxmove-600 w-6" 
-                    : "bg-maxmove-300 hover:bg-maxmove-400"
-                )}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
         </div>
         
         <div className="space-y-8">
