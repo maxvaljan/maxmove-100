@@ -55,7 +55,7 @@ const Investment = () => {
               <CardHeader>
                 <Globe2 className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Expansion</CardTitle>
-                <CardDescription>Strategic expansion plans to key European metropolitan areas</CardDescription>
+                <CardDescription>Focused on establishing strong presence in the Rhein-Ruhr region</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
