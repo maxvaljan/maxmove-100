@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Truck, Building2, Users } from "lucide-react";
+import { Building2, Truck, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
@@ -28,8 +27,8 @@ const ServiceBanners = () => {
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[15%_center] md:!h-[100vh]"
         style={{
-          height: "85%", // Reduced from 90% to 85%
-          minHeight: "85vh", // Reduced from 90vh to 85vh
+          height: "85%",
+          minHeight: "85vh",
           backgroundPosition: "15% center",
         }}
       >
@@ -82,12 +81,6 @@ const ServiceBanners = () => {
                 Book a delivery van or truck for your moving needs
               </p>
             </div>
-            <Button
-              className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
-            >
-              Book Now
-              <ArrowRight className="ml-1 md:ml-2 h-2.5 w-2.5 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
           </Link>
 
           {/* Business Banner */}
@@ -102,12 +95,6 @@ const ServiceBanners = () => {
                 Partner with us for your business logistics needs
               </p>
             </div>
-            <Button
-              className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
-            >
-              Learn More
-              <ArrowRight className="ml-1 md:ml-2 h-2.5 w-2.5 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
           </Link>
 
           {/* Driver Banner */}
@@ -122,12 +109,6 @@ const ServiceBanners = () => {
                 Join our network of professional drivers
               </p>
             </div>
-            <Button
-              className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
-            >
-              Join Us
-              <ArrowRight className="ml-1 md:ml-2 h-2.5 w-2.5 md:h-4 md:w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
           </Link>
         </div>
       </div>
