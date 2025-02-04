@@ -28,7 +28,7 @@ const ServiceBanners = () => {
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[2%_center] md:!h-[100vh]"
         style={{
-          height: "90vh", // Increased height on mobile to over 85%
+          height: "97vh", // Increased height on mobile to over 95%
           backgroundPosition: "15% center", // Moved more to the left to show van on mobile
         }}
       >
