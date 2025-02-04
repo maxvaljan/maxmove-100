@@ -1,4 +1,4 @@
-import { ChartBar, DollarSign, PiggyBank, ChartLine, TrendingUp, Globe2, Shield } from "lucide-react";
+import { ChartBar, DollarSign, PiggyBank, ChartLine, TrendingUp, Globe2, Shield, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -65,6 +65,40 @@ const Investment = () => {
                 <CardDescription>State-of-the-art technology with AI-driven route optimization and matching</CardDescription>
               </CardHeader>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Future Section */}
+      <section className="py-20 bg-maxmove-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Future</h2>
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Card className="transition-transform hover:scale-105">
+                <CardHeader>
+                  <Rocket className="h-12 w-12 text-maxmove-500 mb-4" />
+                  <CardTitle>Underground Hyperlogistics</CardTitle>
+                  <CardDescription>
+                    Building the future of urban logistics with underground pipeline networks. 
+                    Leveraging existing infrastructure to deploy autonomous robots that can deliver 
+                    anything in less than 15 minutes from central warehouses to stations distributed 
+                    throughout the city.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="transition-transform hover:scale-105">
+                <CardHeader>
+                  <ChartLine className="h-12 w-12 text-maxmove-500 mb-4" />
+                  <CardTitle>Autonomous Delivery</CardTitle>
+                  <CardDescription>
+                    Pioneering the future of delivery with a dual approach: launching Europe's first 
+                    comprehensive drone delivery network and introducing autonomous vehicle delivery 
+                    systems to revolutionize urban logistics.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
