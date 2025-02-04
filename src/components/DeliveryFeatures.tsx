@@ -49,9 +49,6 @@ const DeliveryFeatures = () => {
           <Carousel 
             className="w-full" 
             opts={{ loop: true }}
-            onSelect={(api: UseEmblaCarouselType[1]) => {
-              setCurrentSlide(api.selectedScrollSnap());
-            }}
           >
             <CarouselContent>
               {images.map((image, index) => (
