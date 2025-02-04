@@ -18,10 +18,6 @@ const DeliveryFeatures = () => {
       alt: "Maxmove movers handling packages with care",
     },
     {
-      src: "/lovable-uploads/fd8355d2-5dc4-4a1c-9ff1-e8ce5c8f3160.png",
-      alt: "Maxmove professional movers handling furniture",
-    },
-    {
       src: "/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png",
       alt: "Maxmove delivery vehicles on the road",
     },
