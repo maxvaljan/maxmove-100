@@ -1,13 +1,15 @@
-import { DollarSign, Clock, Truck, Shield, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
+import { DollarSign, Clock, Truck, Shield, MapPin } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const DeliveryFeatures = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
   const images = [
     {
       src: "/lovable-uploads/01ec132b-c367-4e95-9389-96294b1140dd.png",
@@ -22,8 +24,14 @@ const DeliveryFeatures = () => {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div className="flex items-start relative">
-          <Carousel className="w-full" opts={{ loop: true }}>
+        <div className="flex flex-col items-start relative">
+          <Carousel 
+            className="w-full" 
+            opts={{ loop: true }}
+            onSelect={(api) => {
+              setCurrentSlide(api?.selectedScrollSnap() || 0);
+            }}
+          >
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
@@ -35,13 +43,30 @@ const DeliveryFeatures = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none">
-              <ChevronLeft className="h-8 w-8 text-maxmove-800" />
-            </CarouselPrevious>
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none">
-              <ChevronRight className="h-8 w-8 text-maxmove-800" />
-            </CarouselNext>
           </Carousel>
+          
+          {/* Dots Navigation */}
+          <div className="flex justify-center gap-2 mt-4 w-full">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  const carouselElement = document.querySelector('[data-embla-container]');
+                  if (carouselElement) {
+                    const emblaApi = (carouselElement as any).__embla;
+                    emblaApi?.scrollTo(index);
+                  }
+                }}
+                className={cn(
+                  "w-2.5 h-2.5 rounded-full transition-all duration-300",
+                  currentSlide === index 
+                    ? "bg-maxmove-600 w-6" 
+                    : "bg-maxmove-300 hover:bg-maxmove-400"
+                )}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
         
         <div className="space-y-8">
