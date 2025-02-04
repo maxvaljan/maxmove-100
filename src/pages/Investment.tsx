@@ -62,7 +62,7 @@ const Investment = () => {
               <CardHeader>
                 <Shield className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Technology</CardTitle>
-                <CardDescription>State of the art Technology with AI driven Route optimizations and matching</CardDescription>
+                <CardDescription>State-of-the-art technology with AI-driven route optimization and matching</CardDescription>
               </CardHeader>
             </Card>
           </div>
