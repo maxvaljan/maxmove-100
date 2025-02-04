@@ -28,8 +28,8 @@ const ServiceBanners = () => {
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[15%_center] md:!h-[100vh]"
         style={{
-          height: "85%", // Reduced from 90% to 85%
-          minHeight: "85vh", // Reduced from 90vh to 85vh
+          height: "85%",
+          minHeight: "85vh",
           backgroundPosition: "15% center",
         }}
       >
@@ -66,7 +66,15 @@ const ServiceBanners = () => {
               </div>
             </h1>
           </div>
-          <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
+          <p className="text-lg md:text-xl text-white/90 mb-6 text-center w-full">On-demand delivery platform</p>
+          <Link to="/investment">
+            <Button 
+              className="bg-white text-maxmove-600 hover:bg-white/90 group"
+            >
+              Investment
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-48 md:mt-16 w-full">
