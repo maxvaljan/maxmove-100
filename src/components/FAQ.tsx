@@ -1,8 +1,19 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 
+interface FAQLink {
+  url: string;
+  text: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+  link?: FAQLink;
+}
+
 const FAQ = () => {
-  const faqs = [
+  const faqs: FAQItem[] = [
     {
       question: "Does Maxmove do delivery for businesses?",
       answer: "Yes! Every day we help thousands of businesses across Rhein-Ruhr Region to make delivery fast and easy. Whether your business just has a few deliveries per week or larger daily orders, we can scale your service accordingly. Get in touch with our friendly and professional sales team to find out more."
