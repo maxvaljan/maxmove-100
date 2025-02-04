@@ -1,15 +1,48 @@
+
 import { DollarSign, Clock, Truck, Shield, MapPin } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const DeliveryFeatures = () => {
+  const images = [
+    {
+      src: "/lovable-uploads/01ec132b-c367-4e95-9389-96294b1140dd.png",
+      alt: "Maxmove delivery team loading boxes into a truck",
+    },
+    {
+      src: "/lovable-uploads/462a0b5e-62c8-472a-999a-27c0aeaddfe6.png",
+      alt: "Maxmove movers handling packages with care",
+    },
+    {
+      src: "/lovable-uploads/fd8355d2-5dc4-4a1c-9ff1-e8ce5c8f3160.png",
+      alt: "Maxmove professional movers handling furniture",
+    },
+  ];
+
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div className="flex items-start">
-          <img
-            src="/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png"
-            alt="Maxmove delivery vehicles on the road"
-            className="rounded-2xl w-full object-cover shadow-lg"
-          />
+        <div className="flex items-start relative">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {images.map((image, index) => (
+                <CarouselItem key={index}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="rounded-2xl w-full h-[400px] object-cover shadow-lg"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+          </Carousel>
         </div>
         
         <div className="space-y-8">
