@@ -12,6 +12,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Business = () => {
+  const handleContactSales = () => {
+    window.location.href = "mailto:sales@maxmove.com";
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -27,7 +31,11 @@ const Business = () => {
             <p className="text-xl md:text-2xl text-maxmove-200 mb-8 max-w-3xl mx-auto">
               Streamline your logistics operations with our enterprise-grade delivery solutions
             </p>
-            <Button size="lg" className="bg-maxmove-500 hover:bg-maxmove-600">
+            <Button 
+              size="lg" 
+              className="bg-maxmove-500 hover:bg-maxmove-600"
+              onClick={handleContactSales}
+            >
               Contact Sales <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
