@@ -69,11 +69,11 @@ const ServiceBanners = () => {
           <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-8 md:mt-16 w-full">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-16 md:mt-16 w-full">
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -93,7 +93,7 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -113,7 +113,7 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
