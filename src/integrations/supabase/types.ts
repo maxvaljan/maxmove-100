@@ -60,6 +60,42 @@ export type Database = {
         }
         Relationships: []
       }
+      business_inquiries: {
+        Row: {
+          company_name: string
+          contact_name: string
+          created_at: string | null
+          email: string
+          id: string
+          industry: string | null
+          message: string | null
+          phone: string | null
+          status: string | null
+        }
+        Insert: {
+          company_name: string
+          contact_name: string
+          created_at?: string | null
+          email: string
+          id?: string
+          industry?: string | null
+          message?: string | null
+          phone?: string | null
+          status?: string | null
+        }
+        Update: {
+          company_name?: string
+          contact_name?: string
+          created_at?: string | null
+          email?: string
+          id?: string
+          industry?: string | null
+          message?: string | null
+          phone?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
       coupons: {
         Row: {
           code: string
