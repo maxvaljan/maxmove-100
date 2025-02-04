@@ -41,9 +41,6 @@ const FAQ = () => {
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-maxmove-900">Frequently Asked Questions</h2>
-        <p className="mt-4 text-lg text-maxmove-600">
-          Find answers to common questions about our delivery service
-        </p>
       </div>
       <div className="max-w-3xl mx-auto">
         <Accordion type="single" collapsible className="w-full">
