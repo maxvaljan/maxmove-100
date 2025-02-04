@@ -1,4 +1,4 @@
-import { DollarSign, Clock, Truck, Shield, MapPin } from "lucide-react";
+import { DollarSign, Clock, Truck, Shield, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -35,19 +35,22 @@ const DeliveryFeatures = () => {
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
-                  <div className="relative group">
+                  <div className="relative">
                     <img
                       src={image.src}
                       alt={image.alt}
                       className="rounded-2xl w-full h-[500px] object-cover shadow-lg"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none" />
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none">
+              <ChevronLeft className="h-8 w-8 text-maxmove-800" />
+            </CarouselPrevious>
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none">
+              <ChevronRight className="h-8 w-8 text-maxmove-800" />
+            </CarouselNext>
           </Carousel>
         </div>
         
