@@ -18,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BusinessServices from "@/components/BusinessServices";
 
 const businessInquirySchema = z.object({
   companyName: z.string().min(2, "Company name must be at least 2 characters"),
@@ -172,6 +173,9 @@ const Business = () => {
           </div>
         </div>
       </section>
+
+      {/* Business Services Section */}
+      <BusinessServices />
 
       {/* Integration Section */}
       <section className="py-20 bg-maxmove-50">
