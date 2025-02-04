@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/carousel";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import type { EmblaCarouselType } from 'embla-carousel-react';
 
 const DeliveryFeatures = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -28,8 +29,8 @@ const DeliveryFeatures = () => {
           <Carousel 
             className="w-full" 
             opts={{ loop: true }}
-            onSelect={(api) => {
-              setCurrentSlide(api?.selectedScrollSnap() || 0);
+            onSelect={(api: EmblaCarouselType) => {
+              setCurrentSlide(api.selectedScrollSnap());
             }}
           >
             <CarouselContent>
