@@ -15,7 +15,6 @@ import BusinessServices from "@/components/BusinessServices";
 import { useNavigate } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Building2, Clock, CreditCard, FileText, Globe2, HeartHandshake, LayoutDashboard, Truck } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 
 const businessInquirySchema = z.object({
   companyName: z.string().min(2, "Company name must be at least 2 characters"),
@@ -477,4 +476,3 @@ const delivery = await maxmove.createDelivery({
 };
 
 export default Business;
-
