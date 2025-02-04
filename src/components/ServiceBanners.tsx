@@ -23,18 +23,18 @@ const ServiceBanners = () => {
   }, [titleNumber, titles]);
 
   return (
-    <section className="relative">
+    <section className="relative w-full overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[2%_center] md:!h-[100vh]"
         style={{
-          height: "75vh",
+          height: "85vh", // Increased height on mobile
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
 
-      <div className="relative z-10 pt-16 md:pt-48 pb-4 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[50vh] md:min-h-[90vh] flex flex-col items-center">
+      <div className="relative z-10 pt-16 md:pt-48 pb-4 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[60vh] md:min-h-[90vh] flex flex-col items-center">
         <div className="flex flex-col items-center mb-8 md:mb-20 w-full scale-85 md:scale-100">
           <div className="flex justify-center mb-4 pl-12 md:pl-0">
             <h1 className="text-4xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
