@@ -1,1 +1,2 @@
-project_id = "xuehdmslktlsgpoexilo"
+[functions.send-business-inquiry]
+verify_jwt = false

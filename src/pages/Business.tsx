@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -48,7 +48,8 @@ const Business = () => {
 
   const onSubmit = async (data: z.infer<typeof businessInquirySchema>) => {
     try {
-      const { error } = await supabase.from('business_inquiries').insert({
+      // First, save to Supabase
+      const { error: dbError } = await supabase.from('business_inquiries').insert({
         company_name: data.companyName,
         contact_name: data.contactName,
         email: data.email,
@@ -57,7 +58,14 @@ const Business = () => {
         message: data.message,
       });
 
-      if (error) throw error;
+      if (dbError) throw dbError;
+
+      // Then, send email notification
+      const { error: emailError } = await supabase.functions.invoke('send-business-inquiry', {
+        body: data
+      });
+
+      if (emailError) throw emailError;
 
       toast({
         title: "Inquiry Submitted",
@@ -74,6 +82,52 @@ const Business = () => {
       });
     }
   };
+
+  const businessFeatures = [
+    {
+      icon: Building2,
+      title: "Enterprise Dashboard",
+      description: "Manage all your deliveries from a centralized dashboard with real-time tracking and analytics."
+    },
+    {
+      icon: Truck,
+      title: "Fleet Management",
+      description: "Access our vast network of verified drivers and vehicles to meet your delivery demands."
+    },
+    {
+      icon: Clock,
+      title: "24/7 Support",
+      description: "Dedicated account managers and round-the-clock support for your business needs."
+    },
+    {
+      icon: CreditCard,
+      title: "Flexible Billing",
+      description: "Monthly invoicing, multiple payment options, and detailed expense reports."
+    },
+    {
+      icon: FileText,
+      title: "Custom Reports",
+      description: "Generate detailed reports and analytics to optimize your delivery operations."
+    },
+    {
+      icon: HeartHandshake,
+      title: "Service Guarantee",
+      description: "Reliable delivery service with insurance coverage and satisfaction guarantee."
+    }
+  ];
+
+  const integrationFeatures = [
+    {
+      icon: Globe2,
+      title: "RESTful API",
+      description: "Easy-to-use API endpoints for seamless integration with your existing systems."
+    },
+    {
+      icon: LayoutDashboard,
+      title: "Webhooks",
+      description: "Real-time delivery updates and notifications through webhook events."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -302,51 +356,5 @@ const delivery = await maxmove.createDelivery({
     </div>
   );
 };
-
-const businessFeatures = [
-  {
-    icon: Building2,
-    title: "Enterprise Dashboard",
-    description: "Manage all your deliveries from a centralized dashboard with real-time tracking and analytics."
-  },
-  {
-    icon: Truck,
-    title: "Fleet Management",
-    description: "Access our vast network of verified drivers and vehicles to meet your delivery demands."
-  },
-  {
-    icon: Clock,
-    title: "24/7 Support",
-    description: "Dedicated account managers and round-the-clock support for your business needs."
-  },
-  {
-    icon: CreditCard,
-    title: "Flexible Billing",
-    description: "Monthly invoicing, multiple payment options, and detailed expense reports."
-  },
-  {
-    icon: FileText,
-    title: "Custom Reports",
-    description: "Generate detailed reports and analytics to optimize your delivery operations."
-  },
-  {
-    icon: HeartHandshake,
-    title: "Service Guarantee",
-    description: "Reliable delivery service with insurance coverage and satisfaction guarantee."
-  }
-];
-
-const integrationFeatures = [
-  {
-    icon: Globe2,
-    title: "RESTful API",
-    description: "Easy-to-use API endpoints for seamless integration with your existing systems."
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Webhooks",
-    description: "Real-time delivery updates and notifications through webhook events."
-  }
-];
 
 export default Business;
