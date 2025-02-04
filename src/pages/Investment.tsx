@@ -55,14 +55,14 @@ const Investment = () => {
               <CardHeader>
                 <Globe2 className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Expansion</CardTitle>
-                <CardDescription>Focused on establishing strong presence in Europe's leading economic powerhouse and one of most densely populated areas - the Rhein-Ruhr region</CardDescription>
+                <CardDescription>Start in Europe's leading economic powerhouse and one of most densely populated areas - the Rhein-Ruhr region and expand from there to whole Europe</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <Shield className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Technology</CardTitle>
-                <CardDescription>Proprietary AI-driven logistics platform</CardDescription>
+                <CardDescription>State of the art Technology with AI driven Route optimizations and matching</CardDescription>
               </CardHeader>
             </Card>
           </div>
