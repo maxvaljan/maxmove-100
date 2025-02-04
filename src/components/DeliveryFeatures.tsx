@@ -17,14 +17,6 @@ const DeliveryFeatures = () => {
       src: "/lovable-uploads/462a0b5e-62c8-472a-999a-27c0aeaddfe6.png",
       alt: "Maxmove movers handling packages with care",
     },
-    {
-      src: "/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png",
-      alt: "Maxmove delivery vehicles on the road",
-    },
-    {
-      src: "/lovable-uploads/b55f469b-321c-4b04-91a1-30a9f36c5794.png",
-      alt: "Maxmove motorcycle delivery driver in action",
-    },
   ];
 
   return (
