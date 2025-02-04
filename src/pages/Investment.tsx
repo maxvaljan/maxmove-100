@@ -21,10 +21,10 @@ const Investment = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-              Invest in the Future of Urban Logistics
+              Invest in the Future of Logistics
             </h1>
             <p className="text-xl md:text-2xl text-maxmove-200 mb-8 max-w-3xl mx-auto animate-slide-up">
-              Join Maxmove in revolutionizing last-mile delivery across the Rhein-Ruhr region and beyond
+              Join Maxmove in becoming Europe's largest last mile delivery platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -42,27 +42,27 @@ const Investment = () => {
       {/* Key Metrics Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Investment Highlights</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Info</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <TrendingUp className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Market Growth</CardTitle>
-                <CardDescription>35% YoY growth in the urban logistics market with expanding opportunities</CardDescription>
+                <CardDescription>35% YoY growth in the last mile logistics market</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <Globe2 className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Expansion</CardTitle>
-                <CardDescription>Focused on establishing strong presence in the Rhein-Ruhr region</CardDescription>
+                <CardDescription>Focused on establishing strong presence in Europe's leading economic powerhouse and one of most densely populated areas - the Rhein-Ruhr region</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <Shield className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Technology</CardTitle>
-                <CardDescription>Proprietary AI-driven logistics platform with multiple patents pending</CardDescription>
+                <CardDescription>Proprietary AI-driven logistics platform</CardDescription>
               </CardHeader>
             </Card>
           </div>
