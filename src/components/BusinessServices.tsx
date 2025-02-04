@@ -1,5 +1,6 @@
 import { Briefcase, Wallet, PenTool, Headphones, MapPinned, Snowflake } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
@@ -35,6 +36,12 @@ const services = [
 ];
 
 const BusinessServices = () => {
+  const navigate = useNavigate();
+
+  const handleSignUp = () => {
+    navigate("/signup?type=business");
+  };
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,10 +59,8 @@ const BusinessServices = () => {
               viewport={{ once: true }}
               className="flex flex-col items-center text-center group"
             >
-              <div className="w-20 h-20 mb-6 relative">
-                <div className="absolute inset-0 bg-maxmove-100 rounded-lg transform rotate-3 transition-transform group-hover:rotate-6" />
-                <div className="absolute inset-0 bg-white rounded-lg transform -rotate-3 transition-transform group-hover:-rotate-6 shadow-sm" />
-                <service.icon className="relative w-12 h-12 text-maxmove-600 mx-auto mt-4" />
+              <div className="w-20 h-20 mb-6 flex items-center justify-center">
+                <service.icon className="w-12 h-12 text-maxmove-600" />
               </div>
               
               <h3 className="text-xl font-semibold mb-3 text-maxmove-900">
@@ -72,6 +77,7 @@ const BusinessServices = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={handleSignUp}
             className="bg-maxmove-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-maxmove-700 transition-colors"
           >
             Sign up now

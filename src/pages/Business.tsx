@@ -19,6 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BusinessServices from "@/components/BusinessServices";
+import { useNavigate } from "react-router-dom";
 
 const businessInquirySchema = z.object({
   companyName: z.string().min(2, "Company name must be at least 2 characters"),
@@ -31,6 +32,7 @@ const businessInquirySchema = z.object({
 
 const Business = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(businessInquirySchema),
     defaultValues: {
@@ -342,17 +344,13 @@ const delivery = await maxmove.createDelivery({
       <section className="py-20 bg-maxmove-950 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Delivery Operations?</h2>
-          <p className="text-xl text-maxmove-200 mb-8 max-w-2xl mx-auto">
-            Join thousands of businesses that trust Maxmove for their delivery needs
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="default">
-              Schedule a Demo
-            </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-maxmove-950">
-              View Pricing
-            </Button>
-          </div>
+          <Button 
+            size="lg" 
+            variant="default"
+            onClick={() => navigate("/signup?type=business")}
+          >
+            Try it now
+          </Button>
         </div>
       </section>
 
