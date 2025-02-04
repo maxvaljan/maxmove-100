@@ -103,6 +103,19 @@ const Investment = () => {
         </div>
       </section>
 
+      {/* What is Hyperlogistics Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6">What is Hyperlogistics?</h2>
+            <p className="text-lg text-gray-600">
+              Hyperlogistics means ultra-fast delivery, where items can move across cities in minutes or even seconds, 
+              at a minimal cost. This redefines how we think about and access goods.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-maxmove-950 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
