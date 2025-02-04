@@ -1,50 +1,39 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 
-interface FAQLink {
-  url: string;
-  text: string;
-}
-
-interface FAQItem {
-  question: string;
-  answer: string;
-  link?: FAQLink;
-}
-
 const FAQ = () => {
-  const faqs: FAQItem[] = [
+  const faqs = [
     {
-      question: "Does Maxmove do delivery for businesses?",
-      answer: "Yes! Every day we help thousands of businesses across Rhein-Ruhr Region to make delivery fast and easy. Whether your business just has a few deliveries per week or larger daily orders, we can scale your service accordingly. Get in touch with our friendly and professional sales team to find out more."
+      question: "How does MaxMove delivery service work?",
+      answer: "MaxMove operates on a gig economy model, similar to Uber but for logistics. Currently rolling out in Germany, our platform connects you with reliable drivers through our user-friendly app. Simply enter your pickup and delivery locations, choose your vehicle type based on your needs, and get instant pricing. Our drivers will handle your delivery with care and professionalism while you track the entire process in real-time."
     },
     {
-      question: "What can Maxmove deliver?",
-      answer: "Maxmove can deliver almost anything to where you need it to go in Rhein-Ruhr Region. From small and fragile goods to large and bulky items, we offer a range of vehicles and drivers to provide fast and effective delivery solutions for businesses."
+      question: "What types of vehicles are available?",
+      answer: "We offer a comprehensive range of vehicles to suit all delivery needs, from motorcycles for small packages to vans and trucks for larger items. We also provide specialized services including towing services, temperature-controlled vehicles (frozen/chilled), and certified transport for hazardous goods. Each vehicle type comes with specific dimensions and weight capacity information to help you choose the right option for your delivery."
     },
     {
-      question: "How much does Maxmove charge?",
-      answer: "The fare of service is based on multiple factors such as traffic situation, order volume, availability of delivery partners, applicable tolls, surcharges and so on. Hence the total fare of the service may vary. The fare displayed at the time of request may not be the same if there is a change to order details. Open up the Maxmove app and simply select the type of vehicle (courier bike, car, van, lorry etc), pick up and drop off locations. You'll instantly be given the price details before you choose whether to place the order."
+      question: "How is the delivery price calculated?",
+      answer: "Our pricing is transparent and based on several factors including distance, vehicle type, time of day, and delivery urgency. You'll see the exact price before confirming your booking, with no hidden fees or surprises."
     },
     {
-      question: "Can Maxmove handle large volumes of orders?",
-      answer: "Yes, we offer specific solutions for businesses that require lots of orders to be placed. Our API technical solution seamlessly integrates our delivery software into your systems to automate the scheduling of orders. Get in touch with our friendly and professional sales team to find out more."
+      question: "How can I track my delivery?",
+      answer: "Once your delivery is confirmed, you can track its progress in real-time through our app. You'll receive live updates on your driver's location and estimated arrival time, plus notifications at key stages of the delivery process."
     },
     {
-      question: "Which features are available for API integrations?",
-      answer: "Our capabilities include: Quote delivery fees, Place order, Cancel order, Driver details & location, Get order status (ASSIGNING_DRIVER, ON_GOING, etc), Add Tips (known as 'Priority Fee' in app), Receive auto update of delivery status easily and promptly through Webhook"
+      question: "What if I need to cancel my delivery?",
+      answer: "You can cancel your delivery through the app before the driver picks up your item. Our cancellation policy varies depending on how close to the pickup time you cancel. Full details are available in our terms of service."
     },
     {
-      question: "Can your API handle multi-stop orders?",
-      answer: "Yes, customers can place multi-stop orders via API. Please note that the sequence in which you list the stops will be the routing the driver will take. Route optimization is yet to be available."
+      question: "How do I become a MaxMove driver?",
+      answer: "To become a MaxMove driver, you'll need to meet our requirements including having a valid driver's license, vehicle insurance, and passing our background check. You can start the application process right here on our website by visiting our driver registration page or through our driver app. Ready to join? ",
+      link: {
+        text: "Register as a driver now",
+        url: "/drivers"
+      }
     },
     {
-      question: "Will I be notified when there is an order status change via API?",
-      answer: "Yes, our API is able to proactively provide status updates with Webhooks."
-    },
-    {
-      question: "Is there someone I can reach out to for technical support?",
-      answer: "We understand that your team may have questions while studying the documentation and also during integration. Feel free to contact us anytime at support@maxmove.com for technical support and our API specialists will respond as soon as possible."
+      question: "Is MaxMove available 24/7?",
+      answer: "Yes, MaxMove is always available, anytime you need us - even just minutes before your desired pickup time. Our platform operates round-the-clock to ensure you can schedule and receive deliveries whenever you need them."
     }
   ];
 
