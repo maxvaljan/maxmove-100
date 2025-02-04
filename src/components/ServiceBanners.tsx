@@ -28,8 +28,8 @@ const ServiceBanners = () => {
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[15%_center] md:!h-[100vh]"
         style={{
-          height: "90%", // Reduced by 10% on mobile
-          minHeight: "90vh", // Reduced by 10% on mobile
+          height: "90%",
+          minHeight: "90vh",
           backgroundPosition: "15% center",
         }}
       >
@@ -73,13 +73,15 @@ const ServiceBanners = () => {
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[180px] md:h-auto"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
           >
-            <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
-            <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
-              Book a delivery van or truck for your moving needs
-            </p>
+            <div>
+              <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
+              <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move</h3>
+              <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+                Book a delivery van or truck for your moving needs
+              </p>
+            </div>
             <Button
               className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
             >
@@ -91,13 +93,15 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[180px] md:h-auto"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
           >
-            <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
-            <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Business</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
-              Partner with us for your business logistics needs
-            </p>
+            <div>
+              <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
+              <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Business</h3>
+              <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+                Partner with us for your business logistics needs
+              </p>
+            </div>
             <Button
               className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
             >
@@ -109,13 +113,15 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[180px] md:h-auto"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[162px] md:h-auto flex flex-col justify-between"
           >
-            <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
-            <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Driver</h3>
-            <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
-              Join our network of professional drivers
-            </p>
+            <div>
+              <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
+              <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Driver</h3>
+              <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
+                Join our network of professional drivers
+              </p>
+            </div>
             <Button
               className="mt-1 md:mt-4 bg-maxmove-600 text-white group-hover:bg-white group-hover:text-maxmove-600 hover:bg-white/90 group w-fit text-[11px] md:text-sm px-1.5 py-0.5 md:px-4 md:py-2 scale-[0.77] md:scale-100 origin-left"
             >
