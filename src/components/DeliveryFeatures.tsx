@@ -1,4 +1,3 @@
-
 import { DollarSign, Clock, Truck, Shield, MapPin } from "lucide-react";
 import {
   Carousel,
@@ -22,6 +21,10 @@ const DeliveryFeatures = () => {
       src: "/lovable-uploads/fd8355d2-5dc4-4a1c-9ff1-e8ce5c8f3160.png",
       alt: "Maxmove professional movers handling furniture",
     },
+    {
+      src: "/lovable-uploads/2ffff655-44c5-4251-9811-a26017d8c849.png",
+      alt: "Maxmove delivery vehicles on the road",
+    },
   ];
 
   return (
@@ -32,16 +35,19 @@ const DeliveryFeatures = () => {
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="rounded-2xl w-full h-[400px] object-cover shadow-lg"
-                  />
+                  <div className="relative group">
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="rounded-2xl w-full h-[500px] object-cover shadow-lg"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-4" />
-            <CarouselNext className="right-4" />
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 border-none" />
           </Carousel>
         </div>
         
