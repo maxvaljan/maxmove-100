@@ -1,22 +1,19 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Link } from "react-router-dom";
 
 const FAQ = () => {
   const faqs = [
     {
       question: "How does MaxMove delivery service work?",
-      answer: "MaxMove connects you with reliable drivers through our user-friendly app. Simply enter your pickup and delivery locations, choose your vehicle type based on your needs, and get instant pricing. Our drivers will handle your delivery with care and professionalism while you track the entire process in real-time."
+      answer: "MaxMove operates on a gig economy model, similar to Uber but for logistics. Currently rolling out in Germany, our platform connects you with reliable drivers through our user-friendly app. Simply enter your pickup and delivery locations, choose your vehicle type based on your needs, and get instant pricing. Our drivers will handle your delivery with care and professionalism while you track the entire process in real-time."
     },
     {
       question: "What types of vehicles are available?",
-      answer: "We offer a range of vehicles to suit different delivery needs, from motorcycles for small packages to vans and trucks for larger items. Each vehicle type comes with specific dimensions and weight capacity information to help you choose the right option for your delivery."
+      answer: "We offer a comprehensive range of vehicles to suit all delivery needs, from motorcycles for small packages to vans and trucks for larger items. We also provide specialized services including towing services, temperature-controlled vehicles (frozen/chilled), and certified transport for hazardous goods. Each vehicle type comes with specific dimensions and weight capacity information to help you choose the right option for your delivery."
     },
     {
       question: "How is the delivery price calculated?",
       answer: "Our pricing is transparent and based on several factors including distance, vehicle type, time of day, and delivery urgency. You'll see the exact price before confirming your booking, with no hidden fees or surprises."
-    },
-    {
-      question: "Is my delivery insured?",
-      answer: "Yes, all deliveries through MaxMove are covered by our comprehensive insurance policy. This provides protection for your items during transit, giving you peace of mind with every delivery."
     },
     {
       question: "How can I track my delivery?",
@@ -28,11 +25,15 @@ const FAQ = () => {
     },
     {
       question: "How do I become a MaxMove driver?",
-      answer: "To become a MaxMove driver, you'll need to meet our requirements including having a valid driver's license, vehicle insurance, and passing our background check. You can start the application process through our driver app."
+      answer: "To become a MaxMove driver, you'll need to meet our requirements including having a valid driver's license, vehicle insurance, and passing our background check. You can start the application process right here on our website by visiting our driver registration page or through our driver app. Ready to join? ",
+      link: {
+        text: "Register as a driver now",
+        url: "/drivers"
+      }
     },
     {
       question: "Is MaxMove available 24/7?",
-      answer: "Yes, MaxMove operates 24/7, allowing you to schedule deliveries at any time. However, availability of specific vehicle types may vary depending on your location and time of day."
+      answer: "Yes, MaxMove is always available, anytime you need us - even just minutes before your desired pickup time. Our platform operates round-the-clock to ensure you can schedule and receive deliveries whenever you need them."
     }
   ];
 
@@ -53,6 +54,14 @@ const FAQ = () => {
               </AccordionTrigger>
               <AccordionContent className="text-maxmove-600">
                 {faq.answer}
+                {faq.link && (
+                  <Link 
+                    to={faq.link.url}
+                    className="inline-block mt-2 text-maxmove-800 hover:text-maxmove-900 font-medium"
+                  >
+                    {faq.link.text} →
+                  </Link>
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}
