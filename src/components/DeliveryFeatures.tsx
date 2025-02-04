@@ -23,17 +23,15 @@ const DeliveryFeatures = () => {
     <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="flex items-start relative">
-          <Carousel className="w-full">
+          <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent>
               {images.map((image, index) => (
                 <CarouselItem key={index}>
-                  <div className="relative">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className="rounded-2xl w-full h-[500px] object-cover shadow-lg"
-                    />
-                  </div>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="rounded-2xl w-full h-[500px] object-cover shadow-lg"
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>
