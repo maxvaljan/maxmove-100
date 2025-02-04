@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact, LayoutDashboard } from "lucide-react";
+import { Menu, X, ChevronDown, Truck, Briefcase, User, Building2, GraduationCap, Contact, LayoutDashboard, DollarSign } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -121,6 +121,11 @@ const Navbar = () => {
                     Careers
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/investment">
+                    Investment
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -230,6 +235,13 @@ const Navbar = () => {
                 >
                   <GraduationCap className="inline-block mr-2 h-4 w-4" />
                   Career
+                </Link>
+                <Link
+                  to="/investment"
+                  className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
+                >
+                  <DollarSign className="inline-block mr-2 h-4 w-4" />
+                  Investment
                 </Link>
                 <Link
                   to="/contact"
