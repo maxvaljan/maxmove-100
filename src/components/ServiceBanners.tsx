@@ -28,15 +28,15 @@ const ServiceBanners = () => {
       <div 
         className="absolute inset-0 z-0 bg-[url('/lovable-uploads/18efedbc-fa85-4a03-978b-d62558e7ea5b.png')] bg-cover bg-center md:bg-[center_40%] bg-[15%_center] md:!h-[100vh]"
         style={{
-          height: "90%",
-          minHeight: "90vh",
+          height: "85%", // Reduced from 90% to 85%
+          minHeight: "85vh", // Reduced from 90vh to 85vh
           backgroundPosition: "15% center",
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
       </div>
 
-      <div className="relative z-10 pt-16 md:pt-48 pb-4 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[90vh] md:min-h-screen flex flex-col items-center">
+      <div className="relative z-10 pt-16 md:pt-48 pb-4 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[85vh] md:min-h-screen flex flex-col items-center">
         <div className="flex flex-col items-center mb-8 md:mb-20 w-full scale-85 md:scale-100">
           <div className="flex justify-center mb-4 pl-12 md:pl-0">
             <h1 className="text-4xl md:text-7xl font-bold text-white inline-flex items-center justify-center">
@@ -69,11 +69,11 @@ const ServiceBanners = () => {
           <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">On-demand delivery platform</p>
         </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-64 md:mt-16 w-full">
+        <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-48 md:mt-16 w-full">
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[142px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -93,7 +93,7 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[142px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -113,7 +113,7 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[149px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[142px] md:h-auto flex flex-col justify-between"
           >
             <div>
               <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
