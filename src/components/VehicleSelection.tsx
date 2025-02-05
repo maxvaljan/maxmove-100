@@ -10,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 
 interface VehicleType {
   id: string;
@@ -32,12 +31,10 @@ const getVehicleIcon = (category: string) => {
     case 'heavy_truck':
       return (
         <div className="w-12 h-12 relative">
-          <Image
+          <img
             src="/lovable-uploads/2717fb29-1274-4445-ac02-fc36ac6bab3d.png"
             alt="24t Truck"
-            width={48}
-            height={48}
-            className="text-maxmove-900"
+            className="w-12 h-12 text-maxmove-900"
           />
         </div>
       );
