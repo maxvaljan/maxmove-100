@@ -100,10 +100,18 @@ const getVehicleIcon = (category: string) => {
 const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
   if (!vehicles.length) return null;
 
-  // Sort vehicles to show heavy trucks first
+  // Custom sorting function to arrange heavy trucks in specific order
   const sortedVehicles = [...vehicles].sort((a, b) => {
+    // First, separate heavy trucks from other vehicles
     if (a.category === 'heavy_truck' && b.category !== 'heavy_truck') return -1;
     if (a.category !== 'heavy_truck' && b.category === 'heavy_truck') return 1;
+
+    // If both are heavy trucks, sort them in specific order
+    if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
+      const order = ['Heavy Truck', '12t Truck', '24t Truck'];
+      return order.indexOf(a.name) - order.indexOf(b.name);
+    }
+
     return 0;
   });
 
