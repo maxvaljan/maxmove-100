@@ -174,6 +174,26 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
     return orderA - orderB;
   });
 
+  const formatDimensions = (dimensions: string) => {
+    // Extract numeric values and units if possible
+    const match = dimensions.match(/(\d+)\s*[xX]\s*(\d+)\s*[xX]\s*(\d+)\s*([a-zA-Z]+)/);
+    if (match) {
+      const [_, length, width, height, unit] = match;
+      return `max. ${length}${unit} x ${width}${unit} x ${height}${unit}`;
+    }
+    return dimensions;
+  };
+
+  const formatWeight = (weight: string) => {
+    // Extract numeric values and units if possible
+    const match = weight.match(/(\d+(?:\.\d+)?)\s*([a-zA-Z]+)/);
+    if (match) {
+      const [_, value, unit] = match;
+      return `max. ${value}${unit}`;
+    }
+    return weight;
+  };
+
   return (
     <Carousel
       className="w-full"
@@ -197,8 +217,8 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
               </h3>
               <div className="absolute inset-x-0 bottom-0 bg-maxmove-900 text-white p-4 transform translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0">
                 <p className="text-sm">{vehicle.description}</p>
-                <p className="text-xs mt-1">Max weight: {vehicle.max_weight}</p>
-                <p className="text-xs">Dimensions: {vehicle.dimensions}</p>
+                <p className="text-xs mt-1">{formatWeight(vehicle.max_weight)}</p>
+                <p className="text-xs">{formatDimensions(vehicle.dimensions)}</p>
               </div>
             </Card>
           </CarouselItem>
