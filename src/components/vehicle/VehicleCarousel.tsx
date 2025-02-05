@@ -21,6 +21,17 @@ interface VehicleCarouselProps {
 }
 
 const getVehicleIcon = (category: string, name?: string) => {
+  // Special case for medium transporter
+  if (name === 'Medium Transporter') {
+    return (
+      <img
+        src="./lovable-uploads/c2d2fb7f-fd48-4206-8a86-7aca0e62de3b.png"
+        alt="Medium Transporter"
+        className="w-40 h-24 object-contain"
+      />
+    );
+  }
+
   // Special case for 12t and 24t trucks
   if (category === 'heavy_truck' && (name === '12t Truck' || name === '24t Truck')) {
     return (
