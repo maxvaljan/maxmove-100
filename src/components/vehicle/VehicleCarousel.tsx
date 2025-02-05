@@ -100,6 +100,13 @@ const getVehicleIcon = (category: string) => {
 const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
   if (!vehicles.length) return null;
 
+  // Sort vehicles to show heavy trucks first
+  const sortedVehicles = [...vehicles].sort((a, b) => {
+    if (a.category === 'heavy_truck' && b.category !== 'heavy_truck') return -1;
+    if (a.category !== 'heavy_truck' && b.category === 'heavy_truck') return 1;
+    return 0;
+  });
+
   return (
     <Carousel
       className="w-full"
@@ -110,7 +117,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
       }}
     >
       <CarouselContent className="-ml-4">
-        {vehicles.map((vehicle) => (
+        {sortedVehicles.map((vehicle) => (
           <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
             <Card 
               className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-48 group relative overflow-hidden bg-maxmove-50"
