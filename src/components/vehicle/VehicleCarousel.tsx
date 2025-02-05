@@ -120,7 +120,9 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
     // If both are heavy trucks, sort them in specific order
     if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
       const order = ['Heavy Truck', '12t Truck', '24t Truck', 'Hazardous Transport'];
-      return order.indexOf(a.name) - order.indexOf(b.name);
+      const aIndex = order.indexOf(a.name);
+      const bIndex = order.indexOf(b.name);
+      return aIndex - bIndex;
     }
 
     return 0;
