@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import {
   Carousel,
@@ -133,34 +134,38 @@ const getVehicleIcon = (category: string, name?: string) => {
 const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
   if (!vehicles.length) return null;
 
-  // Custom sorting function to arrange vehicles
+  const getVehicleSortOrder = (vehicle: VehicleType) => {
+    // Define explicit ordering for express vehicles
+    const expressOrder = {
+      'Car': 1,
+      'Small Transporter': 2,
+      'Medium Transporter': 3,
+    };
+
+    // Define ordering for heavy trucks
+    const heavyTruckOrder = {
+      'Heavy Truck': 1,
+      '12t Truck': 2,
+      '24t Truck': 3,
+      'Hazardous Transport': 4,
+    };
+
+    if (vehicle.name in expressOrder) {
+      return expressOrder[vehicle.name];
+    }
+
+    if (vehicle.category === 'heavy_truck' && vehicle.name in heavyTruckOrder) {
+      return heavyTruckOrder[vehicle.name];
+    }
+
+    // Return a high number for other vehicles to place them at the end
+    return 1000;
+  };
+
   const sortedVehicles = [...vehicles].sort((a, b) => {
-    // Define the exact order we want for express vehicles
-    const expressOrder = ['Car', 'Small Transporter', 'Medium Transporter'];
-    
-    // Get the index of each vehicle in the desired order
-    const aIndex = expressOrder.indexOf(a.name);
-    const bIndex = expressOrder.indexOf(b.name);
-    
-    // If both vehicles are in the express order list, sort by their position
-    if (aIndex !== -1 && bIndex !== -1) {
-      return aIndex - bIndex;
-    }
-    
-    // If only one vehicle is in the express order list, put it first
-    if (aIndex !== -1) return -1;
-    if (bIndex !== -1) return 1;
-
-    // Then handle heavy trucks order
-    if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
-      const heavyOrder = ['Heavy Truck', '12t Truck', '24t Truck', 'Hazardous Transport'];
-      const aHeavyIndex = heavyOrder.indexOf(a.name);
-      const bHeavyIndex = heavyOrder.indexOf(b.name);
-      return aHeavyIndex - bHeavyIndex;
-    }
-
-    // For all other vehicles, maintain their original order
-    return 0;
+    const orderA = getVehicleSortOrder(a);
+    const orderB = getVehicleSortOrder(b);
+    return orderA - orderB;
   });
 
   return (
