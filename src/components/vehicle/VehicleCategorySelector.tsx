@@ -7,23 +7,23 @@ interface VehicleCategorySelectorProps {
 
 const VehicleCategorySelector = ({
   selectedCategory,
-  onCategoryChange,
+  onCategoryChange
 }: VehicleCategorySelectorProps) => {
   return (
-    <div className="flex gap-2 mb-6">
+    <div className="flex gap-4">
       <Button
-        variant={selectedCategory === 'express' ? "default" : "outline"}
+        variant={selectedCategory === 'express' ? 'default' : 'outline'}
         onClick={() => onCategoryChange('express')}
         className="flex-1"
       >
-        Express Delivery
+        Express
       </Button>
       <Button
-        variant={selectedCategory === 'heavy' ? "default" : "outline"}
+        variant={selectedCategory === 'heavy' ? 'default' : 'outline'}
         onClick={() => onCategoryChange('heavy')}
         className="flex-1"
       >
-        Heavy Transport
+        Heavy
       </Button>
     </div>
   );
