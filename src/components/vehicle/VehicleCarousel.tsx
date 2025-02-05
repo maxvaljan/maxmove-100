@@ -145,7 +145,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
 
     // Define ordering for heavy trucks
     const heavyTruckOrder = {
-      'Heavy Truck': 1,
+      'Heavy Truck': 1, // Moved Heavy Truck to first position
       '12t Truck': 2,
       '24t Truck': 3,
       'Hazardous Transport': 4,
@@ -231,3 +231,4 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
 };
 
 export default VehicleCarousel;
+
