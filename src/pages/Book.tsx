@@ -135,13 +135,13 @@ const Book = () => {
   };
 
   return (
-    <div className="min-h-screen bg-maxmove-950">
+    <div className="min-h-screen bg-gradient-to-b from-maxmove-50 to-white">
       <Navbar />
       
       <div className="container mx-auto px-4 pt-24 lg:pt-28">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-[50%] flex-shrink-0 space-y-6">
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-maxmove-900">
               Move anything anywhere anytime with any vehicle
             </h1>
             
