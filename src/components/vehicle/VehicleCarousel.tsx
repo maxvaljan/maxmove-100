@@ -135,8 +135,8 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
 
   // Custom sorting function to arrange vehicles
   const sortedVehicles = [...vehicles].sort((a, b) => {
-    // Define the desired order for express vehicles
-    const expressOrder = ['Car', 'Small Transporter', 'Medium Transporter', 'Van'];
+    // Define the exact order we want for express vehicles
+    const expressOrder = ['Car', 'Small Transporter', 'Medium Transporter'];
     
     // Get the index of each vehicle in the desired order
     const aIndex = expressOrder.indexOf(a.name);
@@ -146,6 +146,10 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
     if (aIndex !== -1 && bIndex !== -1) {
       return aIndex - bIndex;
     }
+    
+    // If only one vehicle is in the express order list, put it first
+    if (aIndex !== -1) return -1;
+    if (bIndex !== -1) return 1;
 
     // Then handle heavy trucks order
     if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
@@ -155,6 +159,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
       return aHeavyIndex - bHeavyIndex;
     }
 
+    // For all other vehicles, maintain their original order
     return 0;
   });
 
