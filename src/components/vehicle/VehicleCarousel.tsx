@@ -52,7 +52,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'van':
       return (
         <img
-          src="/lovable-uploads/baaeb840-0046-4b19-819f-316e2b13590d.png"
+          src="/lovable-uploads/7af2546d-2388-456f-b825-72a74dd81844.png"
           alt="Van"
           className="w-40 h-24 object-contain"
         />
@@ -111,13 +111,13 @@ const getVehicleIcon = (category: string, name?: string) => {
 const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
   if (!vehicles.length) return null;
 
-  // Custom sorting function to arrange heavy trucks in specific order
+  // Custom sorting function to arrange vehicles
   const sortedVehicles = [...vehicles].sort((a, b) => {
-    // First, separate heavy trucks from other vehicles
-    if (a.category === 'heavy_truck' && b.category !== 'heavy_truck') return -1;
-    if (a.category !== 'heavy_truck' && b.category === 'heavy_truck') return 1;
+    // First, handle express vehicles order
+    if (a.category === 'car' && b.category === 'van') return -1;
+    if (a.category === 'van' && b.category === 'car') return 1;
 
-    // If both are heavy trucks, sort them in specific order
+    // Then handle heavy trucks order
     if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
       const order = ['Heavy Truck', '12t Truck', '24t Truck', 'Hazardous Transport'];
       const aIndex = order.indexOf(a.name);
