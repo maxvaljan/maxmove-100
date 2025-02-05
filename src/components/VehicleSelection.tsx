@@ -15,6 +15,7 @@ const VehicleSelection = () => {
   const { data: vehicles, isLoading, error } = useQuery({
     queryKey: ['vehicleTypes'],
     queryFn: async () => {
+      console.log('Fetching vehicle types...');
       const { data, error } = await supabase
         .from('vehicle_types')
         .select('*');
@@ -23,6 +24,8 @@ const VehicleSelection = () => {
         console.error('Error fetching vehicle types:', error);
         throw error;
       }
+      
+      console.log('Raw vehicle data:', data);
       
       // Create a Map to store unique vehicles by name
       const uniqueVehiclesMap = new Map();
@@ -36,6 +39,7 @@ const VehicleSelection = () => {
       
       // Convert Map back to array
       const uniqueVehicles = Array.from(uniqueVehiclesMap.values());
+      console.log('Filtered unique vehicles:', uniqueVehicles);
       
       return uniqueVehicles;
     }
