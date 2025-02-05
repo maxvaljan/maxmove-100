@@ -48,7 +48,7 @@ const getVehicleIcon = (category: string) => {
     case 'medium_truck':
       return (
         <img
-          src="/lovable-uploads/bf97cf78-ecda-42db-a20f-7e5a3f3f6895.png"
+          src="/lovable-uploads/a51067b5-cb5a-425b-b98b-bc4deb2074f8.png"
           alt="Medium Truck"
           className="w-32 h-20 object-contain" // Increased from 20x12 to 32x20
         />
