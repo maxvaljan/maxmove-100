@@ -25,7 +25,7 @@ const getVehicleIcon = (category: string, name?: string) => {
   if (category === 'heavy_truck' && (name === '12t Truck' || name === '24t Truck')) {
     return (
       <img
-        src="/lovable-uploads/ba6e097a-64d5-4fda-a014-cadf72ca6c51.png"
+        src="./lovable-uploads/ba6e097a-64d5-4fda-a014-cadf72ca6c51.png"
         alt={name}
         className="w-44 h-28 object-contain"
       />
@@ -36,7 +36,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'bike_motorcycle':
       return (
         <img
-          src="/lovable-uploads/857953f5-80ec-4389-98bc-7097f4145a07.png"
+          src="./lovable-uploads/857953f5-80ec-4389-98bc-7097f4145a07.png"
           alt="Motorcycle"
           className="w-28 h-28 object-contain"
         />
@@ -44,7 +44,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'car':
       return (
         <img
-          src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
+          src="./lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
           alt="Car"
           className="w-40 h-24 object-contain"
         />
@@ -52,7 +52,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'van':
       return (
         <img
-          src="/lovable-uploads/7af2546d-2388-456f-b825-72a74dd81844.png"
+          src="./lovable-uploads/7af2546d-2388-456f-b825-72a74dd81844.png"
           alt="Van"
           className="w-40 h-24 object-contain"
         />
@@ -60,7 +60,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'medium_truck':
       return (
         <img
-          src="/lovable-uploads/caf7c9fe-60a7-4102-b774-af963f25b124.png"
+          src="./lovable-uploads/caf7c9fe-60a7-4102-b774-af963f25b124.png"
           alt="Medium Truck"
           className="w-40 h-24 object-contain"
         />
@@ -68,7 +68,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'light_truck':
       return (
         <img
-          src="/lovable-uploads/7d24556b-7600-4818-a036-be44d4d90890.png"
+          src="./lovable-uploads/7d24556b-7600-4818-a036-be44d4d90890.png"
           alt="Light Truck"
           className="w-40 h-24 object-contain"
         />
@@ -76,7 +76,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'refrigerated':
       return (
         <img
-          src="/lovable-uploads/d542a364-4c46-45aa-a73d-ef400b31db19.png"
+          src="./lovable-uploads/d542a364-4c46-45aa-a73d-ef400b31db19.png"
           alt="Refrigerated Truck"
           className="w-28 h-28 object-contain"
         />
@@ -84,7 +84,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'towing':
       return (
         <img
-          src="/lovable-uploads/5ca8634b-d37b-4eb6-8064-8cdafaffbf62.png"
+          src="./lovable-uploads/5ca8634b-d37b-4eb6-8064-8cdafaffbf62.png"
           alt="Towing Truck"
           className="w-40 h-24 object-contain"
         />
@@ -92,7 +92,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     case 'heavy_truck':
       return (
         <img
-          src="/lovable-uploads/050d7ae9-feac-4a7e-9916-4f1388359109.png"
+          src="./lovable-uploads/050d7ae9-feac-4a7e-9916-4f1388359109.png"
           alt="Heavy Truck"
           className="w-44 h-28 object-contain"
         />
@@ -100,7 +100,7 @@ const getVehicleIcon = (category: string, name?: string) => {
     default:
       return (
         <img
-          src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
+          src="./lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
           alt="Default Vehicle"
           className="w-40 h-24 object-contain"
         />
