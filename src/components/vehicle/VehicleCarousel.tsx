@@ -49,7 +49,7 @@ const getVehicleIcon = (category: string) => {
     case 'medium_truck':
       return (
         <img
-          src="/lovable-uploads/c802a68b-329c-4fec-9635-bf2395559ecb.png"
+          src="/lovable-uploads/caf7c9fe-60a7-4102-b774-af963f25b124.png"
           alt="Medium Truck"
           className="w-40 h-24 object-contain"
         />
@@ -81,7 +81,7 @@ const getVehicleIcon = (category: string) => {
     case 'heavy_truck':
       return (
         <img
-          src="/lovable-uploads/5fa106ee-51a2-432b-acfc-fe544b1c2a17.png"
+          src="/lovable-uploads/050d7ae9-feac-4a7e-9916-4f1388359109.png"
           alt="Heavy Truck"
           className="w-44 h-28 object-contain"
         />
@@ -108,7 +108,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
 
     // If both are heavy trucks, sort them in specific order
     if (a.category === 'heavy_truck' && b.category === 'heavy_truck') {
-      const order = ['Heavy Truck', '12t Truck', '24t Truck'];
+      const order = ['Heavy Truck', '12t Truck', '24t Truck', 'Hazardous Transport'];
       return order.indexOf(a.name) - order.indexOf(b.name);
     }
 
