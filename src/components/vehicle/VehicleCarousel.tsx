@@ -21,6 +21,17 @@ interface VehicleCarouselProps {
 }
 
 const getVehicleIcon = (category: string, name?: string) => {
+  // Special case for small transporter
+  if (name === 'Small Transporter') {
+    return (
+      <img
+        src="./lovable-uploads/54588d60-e6dd-4e18-acd5-58000e4a02c2.png"
+        alt="Small Transporter"
+        className="w-40 h-24 object-contain"
+      />
+    );
+  }
+
   // Special case for medium transporter
   if (name === 'Medium Transporter') {
     return (
