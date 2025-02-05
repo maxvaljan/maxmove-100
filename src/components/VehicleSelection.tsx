@@ -24,7 +24,17 @@ const VehicleSelection = () => {
         throw error;
       }
       
-      return data;
+      // Remove duplicates based on name
+      const uniqueVehicles = data?.reduce((acc: any[], current) => {
+        const x = acc.find(item => item.name === current.name);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
+      
+      return uniqueVehicles;
     }
   });
 
