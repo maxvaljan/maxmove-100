@@ -41,7 +41,7 @@ const getVehicleIcon = (category: string) => {
     case 'van':
       return (
         <img
-          src="/lovable-uploads/baaeb840-0046-4b19-819f-316e2b13590d.png"
+          src="/lovable-uploads/787e38c0-a0a5-4657-a865-e3b26429c5fb.png"
           alt="Van"
           className="w-40 h-24 object-contain"
         />
