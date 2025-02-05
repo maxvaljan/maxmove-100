@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { Bike, Car, CarFront, Truck } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,26 +22,69 @@ interface VehicleType {
 const getVehicleIcon = (category: string) => {
   switch (category.toLowerCase()) {
     case 'bike_motorcycle':
-      return <Bike className="w-12 h-12 text-maxmove-900" />;
+      return (
+        <img
+          src="/lovable-uploads/857953f5-80ec-4389-98bc-7097f4145a07.png"
+          alt="Motorcycle"
+          className="w-16 h-16 object-contain"
+        />
+      );
     case 'car':
-      return <Car className="w-12 h-12 text-maxmove-900" />;
+      return (
+        <img
+          src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
+          alt="Car"
+          className="w-20 h-12 object-contain"
+        />
+      );
     case 'van':
-      return <CarFront className="w-12 h-12 text-maxmove-900" />;
+      return (
+        <img
+          src="/lovable-uploads/baaeb840-0046-4b19-819f-316e2b13590d.png"
+          alt="Van"
+          className="w-20 h-12 object-contain"
+        />
+      );
+    case 'medium_truck':
+      return (
+        <img
+          src="/lovable-uploads/bf97cf78-ecda-42db-a20f-7e5a3f3f6895.png"
+          alt="Medium Truck"
+          className="w-20 h-12 object-contain"
+        />
+      );
+    case 'refrigerated':
+      return (
+        <img
+          src="/lovable-uploads/d542a364-4c46-45aa-a73d-ef400b31db19.png"
+          alt="Refrigerated Truck"
+          className="w-16 h-16 object-contain"
+        />
+      );
+    case 'towing':
+      return (
+        <img
+          src="/lovable-uploads/5ca8634b-d37b-4eb6-8064-8cdafaffbf62.png"
+          alt="Towing Truck"
+          className="w-20 h-12 object-contain"
+        />
+      );
     case 'heavy_truck':
       return (
-        <div className="w-12 h-12 relative">
-          <img
-            src="/lovable-uploads/2717fb29-1274-4445-ac02-fc36ac6bab3d.png"
-            alt="24t Truck"
-            className="w-12 h-12 text-maxmove-900"
-          />
-        </div>
+        <img
+          src="/lovable-uploads/5fa106ee-51a2-432b-acfc-fe544b1c2a17.png"
+          alt="Heavy Truck"
+          className="w-24 h-14 object-contain"
+        />
       );
-    case 'truck':
-    case 'medium_truck':
-      return <Truck className="w-12 h-12 text-maxmove-900" />;
     default:
-      return <Car className="w-12 h-12 text-maxmove-900" />;
+      return (
+        <img
+          src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
+          alt="Default Vehicle"
+          className="w-20 h-12 object-contain"
+        />
+      );
   }
 };
 
