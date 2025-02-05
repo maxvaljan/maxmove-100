@@ -137,9 +137,10 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
   const getVehicleSortOrder = (vehicle: VehicleType) => {
     // Define explicit ordering for express vehicles
     const expressOrder = {
-      'Car': 1,
-      'Small Transporter': 2,
-      'Medium Transporter': 3,
+      'Courier': 1,
+      'Car': 2,
+      'Small Transporter': 3,
+      'Medium Transporter': 4,
     };
 
     // Define ordering for heavy trucks
@@ -149,6 +150,11 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
       '24t Truck': 3,
       'Hazardous Transport': 4,
     };
+
+    // Special case for bike/motorcycle (courier)
+    if (vehicle.category === 'bike_motorcycle') {
+      return expressOrder['Courier'];
+    }
 
     if (vehicle.name in expressOrder) {
       return expressOrder[vehicle.name];
