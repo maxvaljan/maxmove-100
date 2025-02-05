@@ -48,21 +48,21 @@ const Investment = () => {
               <CardHeader>
                 <TrendingUp className="h-12 w-12 text-maxmove-500 mb-4" />
                 <CardTitle>Market Growth</CardTitle>
-                <CardDescription>35% YoY growth in the last mile logistics market</CardDescription>
+                <CardDescription>Capitalizing on the explosive 35% year-over-year growth in the last-mile logistics market, driven by increasing e-commerce adoption and changing consumer preferences.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <Globe2 className="h-12 w-12 text-maxmove-500 mb-4" />
-                <CardTitle>Expansion</CardTitle>
-                <CardDescription>Start in Europe's leading economic powerhouse and one of most densely populated areas - the Rhein-Ruhr region and expand from there to whole Europe</CardDescription>
+                <CardTitle>Strategic Expansion</CardTitle>
+                <CardDescription>Launching in the Rhein-Ruhr metropolitan region, Germany's economic powerhouse with 10+ million inhabitants, before strategic expansion across key European markets.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="transition-transform hover:scale-105">
               <CardHeader>
                 <Shield className="h-12 w-12 text-maxmove-500 mb-4" />
-                <CardTitle>Technology</CardTitle>
-                <CardDescription>State-of-the-art technology with AI-driven route optimization and matching</CardDescription>
+                <CardTitle>Advanced Technology</CardTitle>
+                <CardDescription>Proprietary AI-powered platform featuring real-time route optimization, intelligent driver matching, and predictive demand forecasting for maximum operational efficiency.</CardDescription>
               </CardHeader>
             </Card>
           </div>
