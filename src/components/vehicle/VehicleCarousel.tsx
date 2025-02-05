@@ -20,7 +20,18 @@ interface VehicleCarouselProps {
   vehicles: VehicleType[];
 }
 
-const getVehicleIcon = (category: string) => {
+const getVehicleIcon = (category: string, name?: string) => {
+  // Special case for 12t and 24t trucks
+  if (category === 'heavy_truck' && (name === '12t Truck' || name === '24t Truck')) {
+    return (
+      <img
+        src="/lovable-uploads/ba6e097a-64d5-4fda-a014-cadf72ca6c51.png"
+        alt={name}
+        className="w-44 h-28 object-contain"
+      />
+    );
+  }
+
   switch (category.toLowerCase()) {
     case 'bike_motorcycle':
       return (
@@ -131,7 +142,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
               className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-48 group relative overflow-hidden bg-maxmove-50"
             >
               <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
-                {getVehicleIcon(vehicle.category)}
+                {getVehicleIcon(vehicle.category, vehicle.name)}
               </div>
               <h3 className="text-lg font-medium text-maxmove-900 transition-transform duration-300 group-hover:-translate-y-2">
                 {vehicle.name}
