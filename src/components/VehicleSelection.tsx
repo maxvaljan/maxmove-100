@@ -88,17 +88,9 @@ const getVehicleIcon = (category: string) => {
   }
 }
 
-const categoryOrder = [
-  'bike_motorcycle',
-  'car',
-  'van',
-  'medium_truck',
-  'refrigerated',
-  'towing',
-  'light_truck',
-  'medium_truck',
-  'heavy_truck'
-];
+// Define which categories belong to express vs heavy
+const expressCategories = ['bike_motorcycle', 'car', 'van'];
+const heavyCategories = ['light_truck', 'medium_truck', 'heavy_truck', 'towing', 'refrigerated'];
 
 const VehicleSelection = () => {
   const { data: vehicles, isLoading, error } = useQuery({
@@ -113,13 +105,7 @@ const VehicleSelection = () => {
         throw error;
       }
       
-      const sortedData = [...(data || [])].sort((a, b) => {
-        const indexA = categoryOrder.indexOf(a.category);
-        const indexB = categoryOrder.indexOf(b.category);
-        return indexA - indexB;
-      });
-      
-      return sortedData as VehicleType[];
+      return data as VehicleType[];
     }
   });
 
@@ -150,8 +136,50 @@ const VehicleSelection = () => {
     );
   }
 
+  // Group vehicles by type (express vs heavy)
+  const expressVehicles = vehicles?.filter(v => expressCategories.includes(v.category)) || [];
+  const heavyVehicles = vehicles?.filter(v => heavyCategories.includes(v.category)) || [];
+
+  const renderVehicleGroup = (groupVehicles: VehicleType[], title: string) => (
+    <div className="space-y-4">
+      <h3 className="text-lg font-semibold text-maxmove-700">{title}</h3>
+      <Carousel
+        className="w-full"
+        opts={{
+          align: "start",
+          skipSnaps: true,
+          dragFree: false
+        }}
+      >
+        <CarouselContent className="-ml-4">
+          {groupVehicles.map((vehicle) => (
+            <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
+              <Card 
+                className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-48 group relative overflow-hidden bg-maxmove-50"
+              >
+                <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
+                  {getVehicleIcon(vehicle.category)}
+                </div>
+                <h3 className="text-lg font-medium text-maxmove-900 transition-transform duration-300 group-hover:-translate-y-2">
+                  {vehicle.name}
+                </h3>
+                <div className="absolute inset-x-0 bottom-0 bg-maxmove-900 text-white p-4 transform translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0">
+                  <p className="text-sm">{vehicle.description}</p>
+                  <p className="text-xs mt-1">Max weight: {vehicle.max_weight}</p>
+                  <p className="text-xs">Dimensions: {vehicle.dimensions}</p>
+                </div>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-maxmove-50 border-maxmove-900 text-maxmove-900 hover:text-maxmove-900" />
+        <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-maxmove-50 border-maxmove-900 text-maxmove-900 hover:text-maxmove-900" />
+      </Carousel>
+    </div>
+  );
+
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold text-maxmove-900 uppercase">Vehicle Type</h2>
         <Button variant="ghost" className="text-maxmove-900">
@@ -159,40 +187,8 @@ const VehicleSelection = () => {
         </Button>
       </div>
       
-      <div className="relative">
-        <Carousel
-          className="w-full"
-          opts={{
-            align: "start",
-            skipSnaps: true,
-            dragFree: false
-          }}
-        >
-          <CarouselContent className="-ml-4">
-            {vehicles?.map((vehicle) => (
-              <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
-                <Card 
-                  className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-48 group relative overflow-hidden bg-maxmove-50"
-                >
-                  <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
-                    {getVehicleIcon(vehicle.category)}
-                  </div>
-                  <h3 className="text-lg font-medium text-maxmove-900 transition-transform duration-300 group-hover:-translate-y-2">
-                    {vehicle.name}
-                  </h3>
-                  <div className="absolute inset-x-0 bottom-0 bg-maxmove-900 text-white p-4 transform translate-y-full transition-transform duration-300 ease-in-out group-hover:translate-y-0">
-                    <p className="text-sm">{vehicle.description}</p>
-                    <p className="text-xs mt-1">Max weight: {vehicle.max_weight}</p>
-                    <p className="text-xs">Dimensions: {vehicle.dimensions}</p>
-                  </div>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-maxmove-50 border-maxmove-900 text-maxmove-900 hover:text-maxmove-900" />
-          <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-maxmove-50 border-maxmove-900 text-maxmove-900 hover:text-maxmove-900" />
-        </Carousel>
-      </div>
+      {expressVehicles.length > 0 && renderVehicleGroup(expressVehicles, "Express Vehicles")}
+      {heavyVehicles.length > 0 && renderVehicleGroup(heavyVehicles, "Heavy Vehicles")}
     </div>
   );
 };
