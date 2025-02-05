@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Image from "next/image";
 
 interface VehicleType {
   id: string;
@@ -28,9 +29,20 @@ const getVehicleIcon = (category: string) => {
       return <Car className="w-12 h-12 text-maxmove-900" />;
     case 'van':
       return <CarFront className="w-12 h-12 text-maxmove-900" />;
+    case 'heavy_truck':
+      return (
+        <div className="w-12 h-12 relative">
+          <Image
+            src="/lovable-uploads/2717fb29-1274-4445-ac02-fc36ac6bab3d.png"
+            alt="24t Truck"
+            width={48}
+            height={48}
+            className="text-maxmove-900"
+          />
+        </div>
+      );
     case 'truck':
     case 'medium_truck':
-    case 'heavy_truck':
       return <Truck className="w-12 h-12 text-maxmove-900" />;
     default:
       return <Car className="w-12 h-12 text-maxmove-900" />;
