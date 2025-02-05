@@ -27,13 +27,14 @@ const VehicleSelection = () => {
       
       console.log('Raw vehicle data:', data);
       
-      // Create a Map to store unique vehicles by name
+      // Create a Map to store unique vehicles by name AND category
       const uniqueVehiclesMap = new Map();
       
       // Only keep the first occurrence of each vehicle name
       data?.forEach(vehicle => {
-        if (!uniqueVehiclesMap.has(vehicle.name)) {
-          uniqueVehiclesMap.set(vehicle.name, vehicle);
+        const key = `${vehicle.name}-${vehicle.category}`; // Create unique key combining name and category
+        if (!uniqueVehiclesMap.has(key)) {
+          uniqueVehiclesMap.set(key, vehicle);
         }
       });
       
