@@ -27,7 +27,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/857953f5-80ec-4389-98bc-7097f4145a07.png"
           alt="Motorcycle"
-          className="w-24 h-24 object-contain"
+          className="w-28 h-28 object-contain" // Increased from w-24 h-24
         />
       );
     case 'car':
@@ -35,7 +35,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
           alt="Car"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
     case 'van':
@@ -43,7 +43,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/baaeb840-0046-4b19-819f-316e2b13590d.png"
           alt="Van"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
     case 'medium_truck':
@@ -51,7 +51,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/c802a68b-329c-4fec-9635-bf2395559ecb.png"
           alt="Medium Truck"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
     case 'light_truck':
@@ -59,7 +59,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/7d24556b-7600-4818-a036-be44d4d90890.png"
           alt="Light Truck"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
     case 'refrigerated':
@@ -67,7 +67,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/d542a364-4c46-45aa-a73d-ef400b31db19.png"
           alt="Refrigerated Truck"
-          className="w-24 h-24 object-contain"
+          className="w-28 h-28 object-contain" // Increased from w-24 h-24
         />
       );
     case 'towing':
@@ -75,7 +75,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/5ca8634b-d37b-4eb6-8064-8cdafaffbf62.png"
           alt="Towing Truck"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
     case 'heavy_truck':
@@ -83,7 +83,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/5fa106ee-51a2-432b-acfc-fe544b1c2a17.png"
           alt="Heavy Truck"
-          className="w-36 h-24 object-contain"
+          className="w-44 h-28 object-contain" // Increased from w-36 h-24
         />
       );
     default:
@@ -91,7 +91,7 @@ const getVehicleIcon = (category: string) => {
         <img
           src="/lovable-uploads/9aeb519c-288d-4889-b33d-d9ebf206e955.png"
           alt="Default Vehicle"
-          className="w-32 h-20 object-contain"
+          className="w-40 h-24 object-contain" // Increased from w-32 h-20
         />
       );
   }
