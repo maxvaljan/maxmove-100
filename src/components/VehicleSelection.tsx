@@ -24,15 +24,18 @@ const VehicleSelection = () => {
         throw error;
       }
       
-      // Remove duplicates based on name
-      const uniqueVehicles = data?.reduce((acc: any[], current) => {
-        const x = acc.find(item => item.name === current.name);
-        if (!x) {
-          return acc.concat([current]);
-        } else {
-          return acc;
+      // Create a Map to store unique vehicles by name
+      const uniqueVehiclesMap = new Map();
+      
+      // Only keep the first occurrence of each vehicle name
+      data?.forEach(vehicle => {
+        if (!uniqueVehiclesMap.has(vehicle.name)) {
+          uniqueVehiclesMap.set(vehicle.name, vehicle);
         }
-      }, []);
+      });
+      
+      // Convert Map back to array
+      const uniqueVehicles = Array.from(uniqueVehiclesMap.values());
       
       return uniqueVehicles;
     }
