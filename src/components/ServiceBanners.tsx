@@ -73,7 +73,7 @@ const ServiceBanners = () => {
           {/* Move Banner */}
           <Link 
             to="/book" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[100px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[110px] md:h-[220px] flex flex-col justify-between"
           >
             <div>
               <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -88,7 +88,7 @@ const ServiceBanners = () => {
           {/* Business Banner */}
           <Link 
             to="/business" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[100px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[110px] md:h-[220px] flex flex-col justify-between"
           >
             <div>
               <Building2 className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -103,7 +103,7 @@ const ServiceBanners = () => {
           {/* Driver Banner */}
           <Link 
             to="/drivers" 
-            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[100px] md:h-auto flex flex-col justify-between"
+            className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[110px] md:h-[220px] flex flex-col justify-between"
           >
             <div>
               <Users className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
@@ -121,3 +121,4 @@ const ServiceBanners = () => {
 };
 
 export default ServiceBanners;
+
