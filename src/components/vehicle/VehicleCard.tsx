@@ -20,7 +20,7 @@ interface VehicleCardProps {
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   return (
     <Card 
-      className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-[25.2rem] group relative overflow-hidden bg-maxmove-50"
+      className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-[21.42rem] group relative overflow-hidden bg-maxmove-50"
     >
       <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
         <VehicleIcon category={vehicle.category} name={vehicle.name} />
@@ -39,3 +39,4 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
 };
 
 export default VehicleCard;
+
