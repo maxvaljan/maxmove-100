@@ -1,4 +1,5 @@
-import { Building2, Truck, Users } from "lucide-react";
+
+import { Building2, Truck, Users, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
@@ -81,6 +82,7 @@ const ServiceBanners = () => {
                 Book a delivery van or truck for your moving needs
               </p>
             </div>
+            <ChevronRight className="absolute bottom-2 right-2 w-5 h-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Link>
 
           {/* Business Banner */}
@@ -95,6 +97,7 @@ const ServiceBanners = () => {
                 Partner with us for your business logistics needs
               </p>
             </div>
+            <ChevronRight className="absolute bottom-2 right-2 w-5 h-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Link>
 
           {/* Driver Banner */}
@@ -109,6 +112,7 @@ const ServiceBanners = () => {
                 Join our network of professional drivers
               </p>
             </div>
+            <ChevronRight className="absolute bottom-2 right-2 w-5 h-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Link>
         </div>
       </div>
