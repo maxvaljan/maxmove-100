@@ -77,7 +77,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <DropdownMenu>
               <DropdownMenuTrigger 
@@ -87,17 +86,17 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/personal-delivery">
+                  <Link to="/personal-delivery" className="w-full">
                     Personal Delivery
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/business">
+                  <Link to="/business" className="w-full">
                     Business Solutions
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/drivers">
+                  <Link to="/drivers" className="w-full">
                     Drivers
                   </Link>
                 </DropdownMenuItem>
@@ -112,17 +111,17 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <Link to="/about">
+                  <Link to="/about" className="w-full">
                     About Us
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/career">
+                  <Link to="/career" className="w-full">
                     Careers
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link to="/investment">
+                  <Link to="/investment" className="w-full">
                     Investment
                   </Link>
                 </DropdownMenuItem>
@@ -170,7 +169,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -187,7 +185,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white/95 backdrop-blur-md animate-fade-in">
             <div className="px-2 pt-2 pb-3 space-y-1">
