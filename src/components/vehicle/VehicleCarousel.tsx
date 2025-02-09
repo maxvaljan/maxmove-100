@@ -42,7 +42,7 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
     >
       <CarouselContent className="-ml-4">
         {sortedVehicles.map((vehicle) => (
-          <CarouselItem key={vehicle.id} className="pl-4 basis-[250px]">
+          <CarouselItem key={vehicle.id} className="pl-4 basis-[275px]">
             <VehicleCard vehicle={vehicle} />
           </CarouselItem>
         ))}
