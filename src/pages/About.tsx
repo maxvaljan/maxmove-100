@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -40,14 +41,6 @@ const About = () => {
                 <li className="flex items-center text-maxmove-700">
                   <span className="w-32 font-semibold">Headquarters</span>
                   <span>Cologne, Germany</span>
-                </li>
-                <li className="flex items-center text-maxmove-700">
-                  <span className="w-32 font-semibold">Coverage</span>
-                  <span>50+ Cities</span>
-                </li>
-                <li className="flex items-center text-maxmove-700">
-                  <span className="w-32 font-semibold">Fleet Size</span>
-                  <span>10,000+ Drivers</span>
                 </li>
               </ul>
             </div>
