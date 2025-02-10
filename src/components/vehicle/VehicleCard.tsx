@@ -1,8 +1,9 @@
-
 import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import VehicleIcon from "./VehicleIcon";
 import { formatWeight, formatDimensions } from "@/utils/vehicleUtils";
 import { ChevronRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface VehicleType {
   id: string;
@@ -18,9 +19,23 @@ interface VehicleCardProps {
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      navigate("/signin");
+      return;
+    }
+    
+    console.log("Vehicle selected:", vehicle);
+  };
+
   return (
     <Card 
       className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-[21.42rem] group relative overflow-hidden bg-maxmove-50"
+      onClick={handleCardClick}
     >
       <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
         <VehicleIcon category={vehicle.category} name={vehicle.name} />
@@ -39,4 +54,3 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
 };
 
 export default VehicleCard;
-
