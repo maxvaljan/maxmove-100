@@ -1,8 +1,10 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
+import RecordsSection from "@/components/records/RecordsSection";
 import { Settings as SettingsIcon, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -85,6 +87,28 @@ const Dashboard = () => {
     setShowSettings(false);
   };
 
+  const renderContent = () => {
+    if (showSettings) {
+      return <Settings />;
+    }
+
+    switch (activeTab) {
+      case "place-order":
+        return <PlaceOrder />;
+      case "records":
+        return <RecordsSection />;
+      default:
+        return (
+          <div className="p-4">
+            <h2 className="text-2xl font-semibold">{
+              tabs.find(tab => tab.id === activeTab)?.label
+            }</h2>
+            <p className="text-gray-500 mt-4">This section is coming soon...</p>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
       <div className="h-screen">
@@ -156,11 +180,7 @@ const Dashboard = () => {
 
         {/* Content */}
         <div className="p-4">
-          {showSettings ? (
-            <Settings />
-          ) : (
-            activeTab === "place-order" && <PlaceOrder />
-          )}
+          {renderContent()}
         </div>
       </div>
     </div>
