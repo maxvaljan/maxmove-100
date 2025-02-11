@@ -357,6 +357,33 @@ export type Database = {
           },
         ]
       }
+      payment_methods: {
+        Row: {
+          created_at: string | null
+          details: Json
+          id: string
+          is_default: boolean | null
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          details: Json
+          id?: string
+          is_default?: boolean | null
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          details?: Json
+          id?: string
+          is_default?: boolean | null
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       PhoneVerification: {
         Row: {
           attempts: number | null
@@ -610,7 +637,9 @@ export type Database = {
           created_at: string | null
           description: string | null
           id: string
+          order_id: string | null
           payment_method: string | null
+          placed_by: string | null
           reference_id: string | null
           status: string
           type: string
@@ -622,7 +651,9 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           id?: string
+          order_id?: string | null
           payment_method?: string | null
+          placed_by?: string | null
           reference_id?: string | null
           status: string
           type: string
@@ -634,7 +665,9 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           id?: string
+          order_id?: string | null
           payment_method?: string | null
+          placed_by?: string | null
           reference_id?: string | null
           status?: string
           type?: string
