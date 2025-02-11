@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
-import { Settings as SettingsIcon, User, Package, Clock, Wallet, Users, Gift } from "lucide-react";
+import { Settings as SettingsIcon, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -13,7 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -21,7 +19,6 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("place-order");
   const [showSettings, setShowSettings] = useState(false);
   const { toast } = useToast();
-  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const checkUserRole = async () => {
@@ -49,18 +46,6 @@ const Dashboard = () => {
         navigate("/driver-dashboard");
         return;
       }
-
-      // Fetch recent orders
-      const { data: recentOrders } = await supabase
-        .from('Order')
-        .select('*')
-        .eq('customer_id', session.user.id)
-        .order('created_at', { ascending: false })
-        .limit(5);
-
-      if (recentOrders) {
-        setOrders(recentOrders);
-      }
     };
 
     checkUserRole();
@@ -83,11 +68,11 @@ const Dashboard = () => {
   };
 
   const tabs = [
-    { id: "place-order", label: "Place Order", icon: Package },
-    { id: "records", label: "Records", icon: Clock },
-    { id: "wallet", label: "Wallet", icon: Wallet },
-    { id: "drivers", label: "Drivers", icon: Users },
-    { id: "rewards", label: "Rewards", icon: Gift },
+    { id: "place-order", label: "Place Order" },
+    { id: "records", label: "Records" },
+    { id: "wallet", label: "Wallet" },
+    { id: "drivers", label: "Drivers" },
+    { id: "rewards", label: "Rewards" },
   ];
 
   const handleSettingsClick = () => {
@@ -101,33 +86,29 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="h-screen flex flex-col">
+    <div className="min-h-screen bg-gray-50 overflow-hidden">
+      <div className="h-screen">
         {/* Navigation */}
-        <div className="border-b bg-white shadow-sm">
+        <div className="border-b">
           <div className="mx-auto px-4">
-            <div className="flex items-center justify-between h-16">
+            <div className="flex items-center justify-between">
               <div className="flex space-x-8">
-                {tabs.map((tab) => {
-                  const Icon = tab.icon;
-                  return (
-                    <button
-                      key={tab.id}
-                      className={`py-4 px-4 -mb-px font-medium text-sm transition-colors relative flex items-center gap-2 ${
-                        activeTab === tab.id
-                          ? "text-maxmove-500"
-                          : "text-gray-500 hover:text-gray-700"
-                      }`}
-                      onClick={() => handleTabClick(tab.id)}
-                    >
-                      <Icon className="h-4 w-4" />
-                      {tab.label}
-                      {activeTab === tab.id && (
-                        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-maxmove-500" />
-                      )}
-                    </button>
-                  );
-                })}
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    className={`py-4 px-2 -mb-px font-medium text-sm transition-colors relative ${
+                      activeTab === tab.id
+                        ? "text-orange-500"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                    onClick={() => handleTabClick(tab.id)}
+                  >
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500" />
+                    )}
+                  </button>
+                ))}
               </div>
 
               {/* Personal and Settings Buttons */}
@@ -135,14 +116,14 @@ const Dashboard = () => {
                 <button
                   className={`p-2 rounded-md transition-colors relative ${
                     showSettings
-                      ? "text-maxmove-500"
+                      ? "text-orange-500"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
                   onClick={handleSettingsClick}
                 >
                   <SettingsIcon className="h-5 w-5" />
                   {showSettings && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-maxmove-500" />
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500" />
                   )}
                 </button>
 
@@ -174,56 +155,11 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-auto p-6">
+        <div className="p-4">
           {showSettings ? (
             <Settings />
-          ) : activeTab === "place-order" ? (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
-                    <Package className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{orders.filter(o => o.status === 'active').length}</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{orders.length}</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Recent Activity</CardTitle>
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-sm text-gray-500">
-                      {orders.length > 0 ? (
-                        <div>Last order: {new Date(orders[0]?.created_at).toLocaleDateString()}</div>
-                      ) : (
-                        <div>No recent orders</div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              <PlaceOrder />
-            </div>
           ) : (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center space-y-4">
-                <div className="text-4xl">🚧</div>
-                <h3 className="text-xl font-semibold text-gray-700">Coming Soon</h3>
-                <p className="text-gray-500">This feature is under development</p>
-              </div>
-            </div>
+            activeTab === "place-order" && <PlaceOrder />
           )}
         </div>
       </div>
