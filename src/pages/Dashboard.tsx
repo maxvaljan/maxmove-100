@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
 import RecordsSection from "@/components/records/RecordsSection";
+import WalletSection from "@/components/wallet/WalletSection";
 import { Settings as SettingsIcon, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -97,6 +98,8 @@ const Dashboard = () => {
         return <PlaceOrder />;
       case "records":
         return <RecordsSection />;
+      case "wallet":
+        return <WalletSection />;
       default:
         return (
           <div className="p-4">
