@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Map from "./Map";
@@ -15,6 +15,11 @@ interface Stop {
   coordinates?: [number, number];
 }
 
+interface Suggestion {
+  place_name: string;
+  center: [number, number];
+}
+
 type OrderInsert = Database["public"]["Tables"]["Order"]["Insert"];
 
 const PlaceOrder = () => {
@@ -23,7 +28,81 @@ const PlaceOrder = () => {
     { address: '', type: 'pickup' },
     { address: '', type: 'dropoff' }
   ]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [activeInput, setActiveInput] = useState<number | null>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const mapboxTokenRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const fetchMapboxToken = async () => {
+      const { data, error } = await supabase
+        .from('api_keys')
+        .select('key_value')
+        .eq('key_name', 'mapbox_public_token')
+        .single();
+
+      if (error) {
+        console.error('Error fetching Mapbox token:', error);
+        return;
+      }
+
+      if (data) {
+        mapboxTokenRef.current = data.key_value;
+      }
+    };
+
+    fetchMapboxToken();
+  }, []);
+
+  const handleAddressChange = async (value: string, index: number) => {
+    if (!mapboxTokenRef.current) return;
+
+    const newStops = [...stops];
+    newStops[index].address = value;
+    setStops(newStops);
+    setActiveInput(index);
+
+    if (value.length > 2) {
+      try {
+        const response = await fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+            value
+          )}.json?access_token=${mapboxTokenRef.current}&country=de`
+        );
+        const data = await response.json();
+        setSuggestions(data.features);
+      } catch (error) {
+        console.error('Error fetching suggestions:', error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionSelect = (suggestion: Suggestion, index: number) => {
+    const newStops = [...stops];
+    newStops[index] = {
+      ...newStops[index],
+      address: suggestion.place_name,
+      coordinates: suggestion.center,
+    };
+    setStops(newStops);
+    setSuggestions([]);
+    setActiveInput(null);
+  };
+
+  const handleAddStop = () => {
+    if (stops.length < 5) {
+      setStops([...stops, { address: '', type: 'stop' }]);
+    }
+  };
+
+  const handleRemoveStop = (index: number) => {
+    const newStops = stops.filter((_, i) => i !== index);
+    setStops(newStops);
+  };
 
   const handleCreateOrder = async () => {
     if (!selectedVehicle) {
@@ -95,6 +174,21 @@ const PlaceOrder = () => {
     }
   };
 
+  // Click outside suggestions handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+        setSuggestions([]);
+        setActiveInput(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="flex h-[calc(100vh-57px)]">
       <div className="w-1/2 p-6 space-y-6 overflow-y-auto">
@@ -105,13 +199,13 @@ const PlaceOrder = () => {
         <BookingForm
           stops={stops}
           setStops={setStops}
-          suggestions={[]}
-          activeInput={null}
-          suggestionsRef={{ current: null }}
-          onAddressChange={() => {}}
-          onSuggestionSelect={() => {}}
-          onAddStop={() => {}}
-          onRemoveStop={() => {}}
+          suggestions={suggestions}
+          activeInput={activeInput}
+          suggestionsRef={suggestionsRef}
+          onAddressChange={handleAddressChange}
+          onSuggestionSelect={handleSuggestionSelect}
+          onAddStop={handleAddStop}
+          onRemoveStop={handleRemoveStop}
         />
         
         <VehicleSelection onVehicleSelect={setSelectedVehicle} />

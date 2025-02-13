@@ -4,31 +4,17 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
-// Make sure we get the correct type from the database enums
-type DriverStatusType = Database['public']['Enums']['DriverStatus'];
-
-interface UpdateLocationParams {
-  p_driver_id: string | undefined;
-  p_latitude: number;
-  p_longitude: number;
-  p_status: DriverStatusType;
-}
-
 const LocationUpdater = () => {
   const updateDriverLocation = useCallback(async (position: GeolocationPosition) => {
     try {
       const user = await supabase.auth.getUser();
       
-      // Create params object with the correct type annotations
-      const params: UpdateLocationParams = {
+      const { error } = await supabase.rpc('update_driver_location', {
         p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'available'
-      };
-
-      const { error } = await supabase
-        .rpc('update_driver_location', params);
+        p_status: 'available' satisfies Database['public']['Enums']['DriverStatus']
+      });
 
       if (error) {
         console.error('Error updating location:', error);
