@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -5,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Car, MapPin, Navigation, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import DriverDashboardHeader from "@/components/driver/DriverDashboardHeader";
+import LocationUpdater from "@/components/driver/LocationUpdater";
 import { Switch } from "@/components/ui/switch";
 
 const DriverDashboard = () => {
@@ -172,6 +174,7 @@ const DriverDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <DriverDashboardHeader />
+      {driverStatus === 'available' && <LocationUpdater />}
       <main className="p-6 mt-16">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Driver Dashboard</h1>
