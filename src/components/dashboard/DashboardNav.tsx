@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 
 const DashboardNav = () => {
@@ -5,7 +6,7 @@ const DashboardNav = () => {
     <nav className="hidden md:flex items-center space-x-8">
       <Link
         to="/place-order"
-        className="text-maxmove-500 font-medium hover:text-maxmove-600 transition-colors"
+        className="text-sky-500 font-medium hover:text-sky-600 transition-colors"
       >
         Place Order
       </Link>
