@@ -40,7 +40,7 @@ const VehicleCard = ({ vehicle, isSelected, onSelect }: VehicleCardProps) => {
 
   return (
     <Card 
-      className={`p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 h-[21.42rem] group relative overflow-hidden ${
+      className={`p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 h-[18.2rem] group relative overflow-hidden ${
         isSelected ? 'bg-orange-50 border-orange-500' : 'bg-maxmove-50 hover:border-maxmove-900'
       }`}
       onClick={handleCardClick}
