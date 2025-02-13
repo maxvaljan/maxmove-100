@@ -206,6 +206,45 @@ export type Database = {
         }
         Relationships: []
       }
+      driver_payouts: {
+        Row: {
+          amount: number
+          created_at: string | null
+          driver_id: string
+          id: string
+          order_id: string
+          payout_method: string | null
+          platform_fee: number
+          processed_at: string | null
+          status: string
+          transaction_reference: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          driver_id: string
+          id?: string
+          order_id: string
+          payout_method?: string | null
+          platform_fee: number
+          processed_at?: string | null
+          status?: string
+          transaction_reference?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          driver_id?: string
+          id?: string
+          order_id?: string
+          payout_method?: string | null
+          platform_fee?: number
+          processed_at?: string | null
+          status?: string
+          transaction_reference?: string | null
+        }
+        Relationships: []
+      }
       Location: {
         Row: {
           address: string
@@ -411,6 +450,33 @@ export type Database = {
           phone_number?: string
           verification_code?: string
           verified?: boolean | null
+        }
+        Relationships: []
+      }
+      platform_fees: {
+        Row: {
+          created_at: string | null
+          fee_percentage: number
+          id: string
+          is_active: boolean | null
+          min_fee: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          fee_percentage?: number
+          id?: string
+          is_active?: boolean | null
+          min_fee?: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          fee_percentage?: number
+          id?: string
+          is_active?: boolean | null
+          min_fee?: number
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -697,6 +763,13 @@ export type Database = {
         | "cancelled"
       PaymentMethod: "card" | "cash" | "wallet" | "other"
       PaymentStatus: "pending" | "completed" | "failed"
+      transaction_type:
+        | "deposit"
+        | "withdrawal"
+        | "refund"
+        | "payment"
+        | "platform_fee"
+        | "driver_payout"
       user_role: "admin" | "driver" | "customer" | "business"
       UserType: "customer" | "driver" | "admin"
       vehicle_category:
