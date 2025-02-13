@@ -245,6 +245,47 @@ export type Database = {
         }
         Relationships: []
       }
+      driver_profiles: {
+        Row: {
+          created_at: string
+          documents_submitted: boolean | null
+          id: string
+          insurance_info: Json | null
+          license_number: string | null
+          vehicle_plate: string | null
+          vehicle_type: string | null
+          verification_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          documents_submitted?: boolean | null
+          id: string
+          insurance_info?: Json | null
+          license_number?: string | null
+          vehicle_plate?: string | null
+          vehicle_type?: string | null
+          verification_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          documents_submitted?: boolean | null
+          id?: string
+          insurance_info?: Json | null
+          license_number?: string | null
+          vehicle_plate?: string | null
+          vehicle_type?: string | null
+          verification_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "driver_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       Location: {
         Row: {
           address: string
@@ -552,9 +593,11 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_url: string | null
           created_at: string
           e_receipt_email: string | null
           e_receipt_enabled: boolean | null
+          email: string | null
           id: string
           language: Database["public"]["Enums"]["language_preference"] | null
           last_login: string | null
@@ -569,9 +612,11 @@ export type Database = {
           role_change_requested_at: string | null
         }
         Insert: {
+          avatar_url?: string | null
           created_at?: string
           e_receipt_email?: string | null
           e_receipt_enabled?: boolean | null
+          email?: string | null
           id?: string
           language?: Database["public"]["Enums"]["language_preference"] | null
           last_login?: string | null
@@ -586,9 +631,11 @@ export type Database = {
           role_change_requested_at?: string | null
         }
         Update: {
+          avatar_url?: string | null
           created_at?: string
           e_receipt_email?: string | null
           e_receipt_enabled?: boolean | null
+          email?: string | null
           id?: string
           language?: Database["public"]["Enums"]["language_preference"] | null
           last_login?: string | null

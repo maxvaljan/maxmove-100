@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import SignIn from "@/pages/SignIn";
@@ -20,6 +21,7 @@ import AccountTypeSelection from "@/pages/AccountTypeSelection";
 import DriverApplication from "@/pages/DriverApplication";
 import DriverDashboard from "@/pages/DriverDashboard";
 import Investment from "@/pages/Investment";
+import Onboarding from "@/pages/Onboarding";
 
 function App() {
   return (
@@ -45,6 +47,7 @@ function App() {
         <Route path="/driver-application" element={<DriverApplication />} />
         <Route path="/driver-dashboard" element={<DriverDashboard />} />
         <Route path="/investment" element={<Investment />} />
+        <Route path="/onboarding" element={<Onboarding />} />
       </Routes>
       <Toaster />
     </Router>
