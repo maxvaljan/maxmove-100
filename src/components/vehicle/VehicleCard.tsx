@@ -49,7 +49,7 @@ const VehicleCard = ({ vehicle, isSelected, onSelect }: VehicleCardProps) => {
       className={cn(
         BASE_CARD_STYLES,
         VEHICLE_CARD_HEIGHT,
-        isSelected ? 'bg-orange-50 border-orange-500' : 'bg-maxmove-50 hover:border-maxmove-900'
+        isSelected ? 'bg-sky-50 border-sky-500' : 'bg-maxmove-50 hover:border-maxmove-900'
       )}
       onClick={handleCardClick}
     >
