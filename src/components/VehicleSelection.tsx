@@ -1,22 +1,13 @@
-
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import VehicleCategorySelector from "./vehicle/VehicleCategorySelector";
 import VehicleCarousel from "./vehicle/VehicleCarousel";
-
-// Define which categories belong to express vs heavy
-const expressCategories = ['bike_motorcycle', 'car', 'van', 'refrigerated', 'towing', 'light_truck'];
-const heavyCategories = ['medium_truck', 'heavy_truck'];
 
 interface VehicleSelectionProps {
   onVehicleSelect?: (vehicleId: string) => void;
 }
 
 const VehicleSelection = ({ onVehicleSelect }: VehicleSelectionProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<'express' | 'heavy'>('express');
-
   const { data: vehicles, isLoading, error } = useQuery({
     queryKey: ['vehicleTypes'],
     queryFn: async () => {
@@ -78,10 +69,6 @@ const VehicleSelection = ({ onVehicleSelect }: VehicleSelectionProps) => {
     );
   }
 
-  // Group vehicles by type (express vs heavy)
-  const expressVehicles = vehicles?.filter(v => expressCategories.includes(v.category)) || [];
-  const heavyVehicles = vehicles?.filter(v => heavyCategories.includes(v.category)) || [];
-
   return (
     <div className="w-full space-y-6">
       <div className="flex items-center justify-between">
@@ -91,24 +78,10 @@ const VehicleSelection = ({ onVehicleSelect }: VehicleSelectionProps) => {
         </Button>
       </div>
       
-      <VehicleCategorySelector
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+      <VehicleCarousel 
+        vehicles={vehicles || []}
+        onVehicleSelect={onVehicleSelect}
       />
-
-      {selectedCategory === 'express' && (
-        <VehicleCarousel 
-          vehicles={expressVehicles} 
-          onVehicleSelect={onVehicleSelect}
-        />
-      )}
-      
-      {selectedCategory === 'heavy' && (
-        <VehicleCarousel 
-          vehicles={heavyVehicles}
-          onVehicleSelect={onVehicleSelect}
-        />
-      )}
     </div>
   );
 };

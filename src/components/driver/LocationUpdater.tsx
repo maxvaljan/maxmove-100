@@ -6,24 +6,24 @@ import type { Database } from "@/integrations/supabase/types";
 
 type DriverStatus = Database['public']['Enums']['DriverStatus'];
 
-type RPCParams = {
+interface RPCParams {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
   p_status: DriverStatus;
-};
+}
 
 const LocationUpdater = () => {
   const updateDriverLocation = useCallback(async (position: GeolocationPosition) => {
     try {
-      const user = await supabase.auth.getUser();
+      const { data: { user } } = await supabase.auth.getUser();
       
       // Construct params with explicit types
       const params: RPCParams = {
-        p_driver_id: user.data.user?.id,
+        p_driver_id: user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'available' as DriverStatus // Use type assertion here
+        p_status: 'available'
       };
 
       // Call RPC function with typed params
