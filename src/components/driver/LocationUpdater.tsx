@@ -4,12 +4,15 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
+// Get the DriverStatus type from our Database types
+type DriverStatus = Database['public']['Enums']['DriverStatus'];
+
 // Define function parameters type
 type UpdateLocationParams = {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
-  p_status: 'available' | 'busy' | 'offline';
+  p_status: DriverStatus;
 };
 
 const LocationUpdater = () => {
@@ -22,7 +25,7 @@ const LocationUpdater = () => {
         p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'available'
+        p_status: 'available' as DriverStatus
       };
 
       const { error } = await supabase
