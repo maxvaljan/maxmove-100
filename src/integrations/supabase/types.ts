@@ -840,10 +840,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      update_driver_location: {
+        Args: {
+          p_driver_id: string
+          p_latitude: number
+          p_longitude: number
+          p_status: Database["public"]["Enums"]["driverstatus"]
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       DeliveryStatus: "pending" | "out_for_delivery" | "delivered" | "failed"
+      driverstatus: "available" | "busy" | "offline"
       DriverStatus: "available" | "busy" | "offline"
       language_preference: "en" | "de"
       notification_preference: "all" | "important" | "none"
