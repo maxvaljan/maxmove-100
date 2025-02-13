@@ -1,24 +1,32 @@
+
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-interface VehicleType {
-  id: number;
-  name: string;
-  icon: string;
-  description: string;
-}
+const vehicleTypes = [
+  { 
+    id: 1, 
+    name: "Sedan", 
+    icon: "🚗",
+    description: "Perfect for small to medium deliveries"
+  },
+  { 
+    id: 2, 
+    name: "SUV", 
+    icon: "🚙",
+    description: "Ideal for larger items and multiple packages"
+  },
+  { 
+    id: 3, 
+    name: "Truck", 
+    icon: "🚚",
+    description: "Best for heavy cargo and bulk deliveries"
+  }
+];
 
-interface VehicleSelectionProps {
-  selectedVehicle: number;
-  onVehicleSelect: (id: number) => void;
-  vehicleTypes: VehicleType[];
-}
+const VehicleSelection = () => {
+  const [selectedVehicle, setSelectedVehicle] = useState(vehicleTypes[0].id);
 
-const VehicleSelection = ({ 
-  selectedVehicle, 
-  onVehicleSelect, 
-  vehicleTypes 
-}: VehicleSelectionProps) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -37,7 +45,7 @@ const VehicleSelection = ({
                 ? "border-orange-500 bg-orange-50"
                 : "border-gray-200 bg-white"
             }`}
-            onClick={() => onVehicleSelect(vehicle.id)}
+            onClick={() => setSelectedVehicle(vehicle.id)}
           >
             <div className="flex flex-col items-center text-center">
               <span className="text-4xl mb-3">{vehicle.icon}</span>

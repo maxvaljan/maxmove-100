@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Map from "./Map";
-import VehicleSelection from "@/components/vehicle/VehicleSelection";
+import VehicleSelection from "@/components/order/VehicleSelection";
 import PastOrdersDialog from "./order/PastOrdersDialog";
 import FileImportActions from "./order/FileImportActions";
 import RouteManager from "./order/RouteManager";
