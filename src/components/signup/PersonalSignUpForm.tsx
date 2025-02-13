@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -37,9 +38,19 @@ export const PersonalSignUpForm = ({ onSubmit, isLoading }: PersonalSignUpFormPr
     },
   });
 
+  const handleSubmit = async (data: z.infer<typeof personalFormSchema>) => {
+    // Format the phone number with country code
+    const formattedData = {
+      ...data,
+      phoneNumber: `${countryCode}${data.phoneNumber}`,
+    };
+    
+    onSubmit(formattedData);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}

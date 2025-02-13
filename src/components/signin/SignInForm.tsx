@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -13,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { CountryCodeSelect } from "@/components/CountryCodeSelect";
 
 const signInSchema = z.object({
@@ -25,7 +26,6 @@ export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [countryCode, setCountryCode] = useState("+49");
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -77,17 +77,10 @@ export const SignInForm = () => {
         navigate('/dashboard');
       }
 
-      toast({
-        title: "Success",
-        description: "You have successfully signed in.",
-      });
+      toast.success("Successfully signed in!");
     } catch (error: any) {
       console.error("Sign in error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

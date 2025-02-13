@@ -1,10 +1,11 @@
+
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { SignUpHeader } from "@/components/signup/SignUpHeader";
 import { AccountTypeTabs } from "@/components/signup/AccountTypeTabs";
 import { PersonalSignUpForm } from "@/components/signup/PersonalSignUpForm";
@@ -15,7 +16,6 @@ const SignUp = () => {
   const [searchParams] = useSearchParams();
   const accountType = searchParams.get("type") || "personal";
   const navigate = useNavigate();
-  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async (data: any) => {
@@ -42,7 +42,7 @@ const SignUp = () => {
 
       if (signUpError) throw signUpError;
 
-      // Update profile with phone number
+      // Update profile with phone number and name
       if (authData.user) {
         const { error: profileError } = await supabase
           .from('profiles')
@@ -53,13 +53,22 @@ const SignUp = () => {
           .eq('id', authData.user.id);
 
         if (profileError) throw profileError;
+
+        // Create phone verification entry
+        const { error: verificationError } = await supabase
+          .from('phone_verifications')
+          .insert([
+            {
+              phone_number: data.phoneNumber,
+              verification_code: Math.floor(100000 + Math.random() * 900000).toString(),
+            }
+          ]);
+
+        if (verificationError) throw verificationError;
       }
 
       console.log("Sign up successful");
-      toast({
-        title: "Registration successful",
-        description: "Please check your email to verify your account.",
-      });
+      toast.success("Registration successful! Please check your email to verify your account.");
       
       // Redirect based on account type
       if (accountType === "driver") {
@@ -69,11 +78,7 @@ const SignUp = () => {
       }
     } catch (error: any) {
       console.error("Error in sign up:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

@@ -501,6 +501,36 @@ export type Database = {
         }
         Relationships: []
       }
+      phone_verifications: {
+        Row: {
+          attempts: number | null
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          phone_number: string
+          verification_code: string
+          verified: boolean | null
+        }
+        Insert: {
+          attempts?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          phone_number: string
+          verification_code: string
+          verified?: boolean | null
+        }
+        Update: {
+          attempts?: number | null
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          phone_number?: string
+          verification_code?: string
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
       PhoneVerification: {
         Row: {
           attempts: number | null
@@ -610,6 +640,7 @@ export type Database = {
           proof_of_delivery_enabled: boolean | null
           role: Database["public"]["Enums"]["user_role"]
           role_change_requested_at: string | null
+          verified_phone: boolean | null
         }
         Insert: {
           avatar_url?: string | null
@@ -629,6 +660,7 @@ export type Database = {
           proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
           role_change_requested_at?: string | null
+          verified_phone?: boolean | null
         }
         Update: {
           avatar_url?: string | null
@@ -648,6 +680,7 @@ export type Database = {
           proof_of_delivery_enabled?: boolean | null
           role?: Database["public"]["Enums"]["user_role"]
           role_change_requested_at?: string | null
+          verified_phone?: boolean | null
         }
         Relationships: []
       }
