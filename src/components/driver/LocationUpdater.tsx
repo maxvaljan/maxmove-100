@@ -4,23 +4,21 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
-// Use the DriverStatus from the Database types
-type DriverStatus = Database["public"]["Enums"]["DriverStatus"];
-
-// Define the parameters expected by the RPC function
-type UpdateDriverLocationParams = {
+// Define function parameters type
+type UpdateLocationParams = {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
-  p_status: Database["public"]["Enums"]["DriverStatus"];
-}
+  p_status: 'available' | 'busy' | 'offline';
+};
 
 const LocationUpdater = () => {
   const updateDriverLocation = useCallback(async (position: GeolocationPosition) => {
     try {
       const user = await supabase.auth.getUser();
       
-      const params: UpdateDriverLocationParams = {
+      // Define the parameters with the correct type
+      const params: UpdateLocationParams = {
         p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,

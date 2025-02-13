@@ -304,53 +304,80 @@ export type Database = {
       }
       Order: {
         Row: {
+          contact_name: string | null
+          contact_phone: string | null
           created_at: string
           customer_id: string
+          distance: number | null
           driver_id: string | null
           dropoff_address: string
           dropoff_latitude: number
           dropoff_longitude: number
+          estimated_duration: unknown | null
           id: string
+          insurance_required: boolean | null
           items: Json
+          payment_method: string | null
           pickup_address: string
           pickup_latitude: number
           pickup_longitude: number
           price: number
+          scheduled_pickup: string | null
+          special_instructions: string | null
           status: Database["public"]["Enums"]["OrderStatus"]
+          total_weight: number | null
           updated_at: string
           vehicle_type_id: string | null
         }
         Insert: {
+          contact_name?: string | null
+          contact_phone?: string | null
           created_at?: string
           customer_id: string
+          distance?: number | null
           driver_id?: string | null
           dropoff_address: string
           dropoff_latitude: number
           dropoff_longitude: number
+          estimated_duration?: unknown | null
           id: string
+          insurance_required?: boolean | null
           items?: Json
+          payment_method?: string | null
           pickup_address: string
           pickup_latitude: number
           pickup_longitude: number
           price: number
+          scheduled_pickup?: string | null
+          special_instructions?: string | null
           status?: Database["public"]["Enums"]["OrderStatus"]
+          total_weight?: number | null
           updated_at: string
           vehicle_type_id?: string | null
         }
         Update: {
+          contact_name?: string | null
+          contact_phone?: string | null
           created_at?: string
           customer_id?: string
+          distance?: number | null
           driver_id?: string | null
           dropoff_address?: string
           dropoff_latitude?: number
           dropoff_longitude?: number
+          estimated_duration?: unknown | null
           id?: string
+          insurance_required?: boolean | null
           items?: Json
+          payment_method?: string | null
           pickup_address?: string
           pickup_latitude?: number
           pickup_longitude?: number
           price?: number
+          scheduled_pickup?: string | null
+          special_instructions?: string | null
           status?: Database["public"]["Enums"]["OrderStatus"]
+          total_weight?: number | null
           updated_at?: string
           vehicle_type_id?: string | null
         }
@@ -652,31 +679,40 @@ export type Database = {
       }
       vehicle_types: {
         Row: {
+          base_price: number
           category: Database["public"]["Enums"]["vehicle_category"]
           created_at: string | null
           description: string
           dimensions: string
           id: string
           max_weight: string
+          minimum_distance: number
           name: string
+          price_per_km: number
         }
         Insert: {
+          base_price?: number
           category: Database["public"]["Enums"]["vehicle_category"]
           created_at?: string | null
           description: string
           dimensions: string
           id?: string
           max_weight: string
+          minimum_distance?: number
           name: string
+          price_per_km?: number
         }
         Update: {
+          base_price?: number
           category?: Database["public"]["Enums"]["vehicle_category"]
           created_at?: string | null
           description?: string
           dimensions?: string
           id?: string
           max_weight?: string
+          minimum_distance?: number
           name?: string
+          price_per_km?: number
         }
         Relationships: []
       }
@@ -791,6 +827,15 @@ export type Database = {
         | "heavy_truck"
         | "towing"
         | "refrigerated"
+      VehicleCategory:
+        | "bike_motorcycle"
+        | "car"
+        | "van"
+        | "refrigerated"
+        | "towing"
+        | "light_truck"
+        | "medium_truck"
+        | "heavy_truck"
       VehicleType: "bike" | "car" | "van" | "truck"
     }
     CompositeTypes: {
