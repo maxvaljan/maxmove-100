@@ -4,11 +4,13 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 
+type DriverStatus = Database["public"]["Enums"]["DriverStatus"];
+
 type UpdateDriverLocationParams = {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
-  p_status: Database["public"]["Enums"]["DriverStatus"];
+  p_status: DriverStatus;
 };
 
 const LocationUpdater = () => {
@@ -20,8 +22,8 @@ const LocationUpdater = () => {
           p_driver_id: user.data.user?.id,
           p_latitude: position.coords.latitude,
           p_longitude: position.coords.longitude,
-          p_status: 'available'
-        } as UpdateDriverLocationParams);
+          p_status: 'available' as DriverStatus
+        } satisfies UpdateDriverLocationParams);
 
       if (error) {
         console.error('Error updating location:', error);

@@ -6,12 +6,16 @@ import Map from "./Map";
 import VehicleSelection from "./VehicleSelection";
 import BookingForm from "./BookingForm";
 import { Button } from "@/components/ui/button";
+import { Database } from "@/integrations/supabase/types";
+import { v4 as uuidv4 } from 'uuid';
 
 interface Stop {
   address: string;
   type: 'pickup' | 'dropoff' | 'stop';
   coordinates?: [number, number];
 }
+
+type OrderInsert = Database["public"]["Tables"]["Order"]["Insert"];
 
 const PlaceOrder = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<string | null>(null);
@@ -52,21 +56,27 @@ const PlaceOrder = () => {
         return;
       }
 
+      const now = new Date().toISOString();
+      const newOrder: OrderInsert = {
+        id: uuidv4(),
+        vehicle_type_id: selectedVehicle,
+        status: 'pending',
+        customer_id: session.user.id,
+        pickup_address: stops[0].address,
+        pickup_latitude: stops[0].coordinates[1],
+        pickup_longitude: stops[0].coordinates[0],
+        dropoff_address: stops[stops.length - 1].address,
+        dropoff_latitude: stops[stops.length - 1].coordinates[1],
+        dropoff_longitude: stops[stops.length - 1].coordinates[0],
+        items: [],
+        price: 0,
+        created_at: now,
+        updated_at: now
+      };
+
       const { error: orderError } = await supabase
         .from('Order')
-        .insert({
-          vehicle_type_id: selectedVehicle,
-          status: 'pending',
-          customer_id: session.user.id,
-          pickup_address: stops[0].address,
-          pickup_latitude: stops[0].coordinates[1],
-          pickup_longitude: stops[0].coordinates[0],
-          dropoff_address: stops[stops.length - 1].address,
-          dropoff_latitude: stops[stops.length - 1].coordinates[1],
-          dropoff_longitude: stops[stops.length - 1].coordinates[0],
-          items: [],
-          price: 0
-        });
+        .insert(newOrder);
 
       if (orderError) throw orderError;
 
@@ -104,7 +114,7 @@ const PlaceOrder = () => {
           onRemoveStop={() => {}}
         />
         
-        <VehicleSelection onVehicleSelect={(id) => setSelectedVehicle(id)} />
+        <VehicleSelection onVehicleSelect={setSelectedVehicle} />
 
         <Button 
           className="w-full"
