@@ -3,34 +3,12 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Map from "./Map";
-import VehicleSelection from "@/components/VehicleSelection";
+import VehicleSelection from "@/components/vehicle/VehicleSelection";
 import PastOrdersDialog from "./order/PastOrdersDialog";
 import FileImportActions from "./order/FileImportActions";
 import RouteManager from "./order/RouteManager";
 
-const vehicleTypes = [
-  { 
-    id: 1, 
-    name: "Sedan", 
-    icon: "🚗",
-    description: "Perfect for small to medium deliveries"
-  },
-  { 
-    id: 2, 
-    name: "SUV", 
-    icon: "🚙",
-    description: "Ideal for larger items and multiple packages"
-  },
-  { 
-    id: 3, 
-    name: "Truck", 
-    icon: "🚚",
-    description: "Best for heavy cargo and bulk deliveries"
-  }
-];
-
 const PlaceOrder = () => {
-  const [selectedVehicle, setSelectedVehicle] = useState(vehicleTypes[0].id);
   const [showPastOrders, setShowPastOrders] = useState(false);
   const [pastOrders, setPastOrders] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,11 +49,7 @@ const PlaceOrder = () => {
           <RouteManager />
         </div>
 
-        <VehicleSelection
-          selectedVehicle={selectedVehicle}
-          onVehicleSelect={setSelectedVehicle}
-          vehicleTypes={vehicleTypes}
-        />
+        <VehicleSelection />
       </div>
 
       <div className="w-1/2">

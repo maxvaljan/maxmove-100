@@ -6,11 +6,12 @@ import { supabase } from "@/integrations/supabase/client";
 const LocationUpdater = () => {
   const updateDriverLocation = useCallback(async (position: GeolocationPosition) => {
     try {
+      const user = await supabase.auth.getUser();
       const { error } = await supabase.rpc('update_driver_location', {
-        p_driver_id: (await supabase.auth.getUser()).data.user?.id,
+        p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'online'
+        p_status: 'online' as const
       });
 
       if (error) {
