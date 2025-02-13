@@ -16,12 +16,12 @@ const LocationUpdater = () => {
     try {
       const user = await supabase.auth.getUser();
       const { error } = await supabase
-        .rpc<any, UpdateDriverLocationParams>('update_driver_location', {
+        .rpc('update_driver_location', {
           p_driver_id: user.data.user?.id,
           p_latitude: position.coords.latitude,
           p_longitude: position.coords.longitude,
           p_status: 'available'
-        });
+        } as UpdateDriverLocationParams);
 
       if (error) {
         console.error('Error updating location:', error);
@@ -39,7 +39,6 @@ const LocationUpdater = () => {
       return;
     }
 
-    // Watch position and update regularly
     const watchId = navigator.geolocation.watchPosition(
       updateDriverLocation,
       (error) => {
@@ -53,13 +52,12 @@ const LocationUpdater = () => {
       }
     );
 
-    // Cleanup
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
   }, [updateDriverLocation]);
 
-  return null; // This is a background component
+  return null;
 };
 
 export default LocationUpdater;
