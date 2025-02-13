@@ -2,13 +2,15 @@
 import { useEffect, useCallback } from 'react';
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 
-// Define the exact type for the update_driver_location RPC parameters
-type UpdateDriverLocationParams = {
+type DriverStatus = Database['public']['Enums']['DriverStatus'];
+
+type RPCParams = {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
-  p_status: 'available' | 'busy' | 'offline';
+  p_status: DriverStatus;
 };
 
 const LocationUpdater = () => {
@@ -16,14 +18,15 @@ const LocationUpdater = () => {
     try {
       const user = await supabase.auth.getUser();
       
-      // Create the params object with the correct type
-      const params: UpdateDriverLocationParams = {
+      // Construct params with explicit types
+      const params: RPCParams = {
         p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'available'
+        p_status: 'available' as DriverStatus // Use type assertion here
       };
 
+      // Call RPC function with typed params
       const { error } = await supabase.rpc('update_driver_location', params);
 
       if (error) {
