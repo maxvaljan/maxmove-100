@@ -318,6 +318,7 @@ export type Database = {
           price: number
           status: Database["public"]["Enums"]["OrderStatus"]
           updated_at: string
+          vehicle_type_id: string | null
         }
         Insert: {
           created_at?: string
@@ -334,6 +335,7 @@ export type Database = {
           price: number
           status?: Database["public"]["Enums"]["OrderStatus"]
           updated_at: string
+          vehicle_type_id?: string | null
         }
         Update: {
           created_at?: string
@@ -350,6 +352,7 @@ export type Database = {
           price?: number
           status?: Database["public"]["Enums"]["OrderStatus"]
           updated_at?: string
+          vehicle_type_id?: string | null
         }
         Relationships: [
           {
@@ -357,6 +360,13 @@ export type Database = {
             columns: ["driver_id"]
             isOneToOne: false
             referencedRelation: "Driver"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Order_vehicle_type_id_fkey"
+            columns: ["vehicle_type_id"]
+            isOneToOne: false
+            referencedRelation: "vehicle_types"
             referencedColumns: ["id"]
           },
         ]

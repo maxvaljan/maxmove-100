@@ -20,9 +20,11 @@ interface VehicleType {
 
 interface VehicleCarouselProps {
   vehicles: VehicleType[];
+  selectedVehicle?: string | null;
+  onVehicleSelect?: (vehicleId: string) => void;
 }
 
-const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
+const VehicleCarousel = ({ vehicles, selectedVehicle, onVehicleSelect }: VehicleCarouselProps) => {
   if (!vehicles.length) return null;
 
   const sortedVehicles = [...vehicles].sort((a, b) => {
@@ -43,7 +45,11 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
       <CarouselContent className="-ml-4">
         {sortedVehicles.map((vehicle) => (
           <CarouselItem key={vehicle.id} className="pl-4 basis-[275px]">
-            <VehicleCard vehicle={vehicle} />
+            <VehicleCard 
+              vehicle={vehicle} 
+              isSelected={selectedVehicle === vehicle.id}
+              onSelect={() => onVehicleSelect?.(vehicle.id)}
+            />
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -54,4 +60,3 @@ const VehicleCarousel = ({ vehicles }: VehicleCarouselProps) => {
 };
 
 export default VehicleCarousel;
-

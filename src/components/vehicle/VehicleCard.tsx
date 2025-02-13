@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import VehicleIcon from "./VehicleIcon";
@@ -16,9 +17,11 @@ interface VehicleType {
 
 interface VehicleCardProps {
   vehicle: VehicleType;
+  isSelected?: boolean;
+  onSelect?: () => void;
 }
 
-const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+const VehicleCard = ({ vehicle, isSelected, onSelect }: VehicleCardProps) => {
   const navigate = useNavigate();
 
   const handleCardClick = async () => {
@@ -29,12 +32,17 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
       return;
     }
     
+    if (onSelect) {
+      onSelect();
+    }
     console.log("Vehicle selected:", vehicle);
   };
 
   return (
     <Card 
-      className="p-6 flex flex-col items-center justify-center cursor-pointer hover:border-maxmove-900 transition-all duration-300 h-[21.42rem] group relative overflow-hidden bg-maxmove-50"
+      className={`p-6 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 h-[21.42rem] group relative overflow-hidden ${
+        isSelected ? 'bg-orange-50 border-orange-500' : 'bg-maxmove-50 hover:border-maxmove-900'
+      }`}
       onClick={handleCardClick}
     >
       <div className="mb-4 transition-transform duration-300 group-hover:-translate-y-2">
