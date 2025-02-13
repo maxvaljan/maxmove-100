@@ -2,30 +2,29 @@
 import { useEffect, useCallback } from 'react';
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { Database } from "@/integrations/supabase/types";
+import type { Database } from "@/integrations/supabase/types";
 
-// Get the DriverStatus type from our Database types
-type DriverStatus = Database['public']['Enums']['DriverStatus'];
+// Make sure we get the correct type from the database enums
+type DriverStatusType = Database['public']['Enums']['DriverStatus'];
 
-// Define function parameters type
-type UpdateLocationParams = {
+interface UpdateLocationParams {
   p_driver_id: string | undefined;
   p_latitude: number;
   p_longitude: number;
-  p_status: DriverStatus;
-};
+  p_status: DriverStatusType;
+}
 
 const LocationUpdater = () => {
   const updateDriverLocation = useCallback(async (position: GeolocationPosition) => {
     try {
       const user = await supabase.auth.getUser();
       
-      // Define the parameters with the correct type
+      // Create params object with the correct type annotations
       const params: UpdateLocationParams = {
         p_driver_id: user.data.user?.id,
         p_latitude: position.coords.latitude,
         p_longitude: position.coords.longitude,
-        p_status: 'available' as DriverStatus
+        p_status: 'available'
       };
 
       const { error } = await supabase
