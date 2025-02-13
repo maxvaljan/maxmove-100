@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,11 @@ import VehicleCarousel from "./vehicle/VehicleCarousel";
 const expressCategories = ['bike_motorcycle', 'car', 'van', 'refrigerated', 'towing', 'light_truck'];
 const heavyCategories = ['medium_truck', 'heavy_truck'];
 
-const VehicleSelection = () => {
+interface VehicleSelectionProps {
+  onVehicleSelect?: (vehicleId: string) => void;
+}
+
+const VehicleSelection = ({ onVehicleSelect }: VehicleSelectionProps) => {
   const [selectedCategory, setSelectedCategory] = useState<'express' | 'heavy'>('express');
 
   const { data: vehicles, isLoading, error } = useQuery({
@@ -92,11 +97,17 @@ const VehicleSelection = () => {
       />
 
       {selectedCategory === 'express' && (
-        <VehicleCarousel vehicles={expressVehicles} />
+        <VehicleCarousel 
+          vehicles={expressVehicles} 
+          onVehicleSelect={onVehicleSelect}
+        />
       )}
       
       {selectedCategory === 'heavy' && (
-        <VehicleCarousel vehicles={heavyVehicles} />
+        <VehicleCarousel 
+          vehicles={heavyVehicles}
+          onVehicleSelect={onVehicleSelect}
+        />
       )}
     </div>
   );
