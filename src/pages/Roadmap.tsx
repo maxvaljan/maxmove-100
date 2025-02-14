@@ -59,8 +59,8 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Expansion & Infrastructure Development</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Begin construction of first underground logistics pilot project in Cologne</li>
-                      <li>Expand with Maxmove.com Platform</li>
+                      <li>Begin construction of first underground logistics pilot project and autonomous Robots in Cologne</li>
+                      <li>🚀 Start Fundraising: Goal $12M for Underground Hyperlogistics Platform & Autonomous Robot Production</li>
                       <li>
                     </li>
                       <li>Expand with Maxmove Platform</li>
