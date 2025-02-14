@@ -62,6 +62,11 @@ const NavbarDesktopMenu = ({ getTextColor }: NavbarDesktopMenuProps) => {
               Investment
             </Link>
           </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link to="/roadmap" className="w-full">
+              Roadmap
+            </Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
