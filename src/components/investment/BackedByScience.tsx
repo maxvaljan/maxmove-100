@@ -1,0 +1,96 @@
+
+import { FileText, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+interface Report {
+  id: string;
+  name: string;
+  description: string;
+  file_path: string;
+}
+
+interface BackedByScienceProps {
+  reports: Report[];
+  isAdmin: boolean;
+  onUpload: (file: File, reportName: string) => Promise<void>;
+  onDownload: (report: Report) => Promise<void>;
+}
+
+const BackedByScience = ({ reports, isAdmin, onUpload, onDownload }: BackedByScienceProps) => {
+  return (
+    <section className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-center mb-12 text-white">Backed by Science</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {['McKinsey Report', 'Deloitte Analysis', 'BMVI Report'].map((reportName) => {
+            const report = reports.find(r => r.name === reportName);
+            
+            return (
+              <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
+                <CardHeader>
+                  <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                  <CardTitle className="text-white">{reportName}</CardTitle>
+                  <CardDescription className="text-gray-400">
+                    {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
+                    {reportName === 'Deloitte Analysis' && 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'}
+                    {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery'}
+                  </CardDescription>
+                  {isAdmin && !report && (
+                    <div className="mt-4">
+                      <input
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            onUpload(file, reportName);
+                          }
+                        }}
+                        className="hidden"
+                        id={`upload-${reportName}`}
+                      />
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                        onClick={() => document.getElementById(`upload-${reportName}`)?.click()}
+                      >
+                        Upload PDF
+                      </Button>
+                    </div>
+                  )}
+                  {report ? (
+                    <Button 
+                      variant="outline" 
+                      className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                      onClick={() => onDownload(report)}
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download Report
+                    </Button>
+                  ) : !isAdmin && (
+                    <Button 
+                      variant="outline" 
+                      className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                      disabled
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Coming Soon
+                    </Button>
+                  )}
+                </CardHeader>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BackedByScience;
