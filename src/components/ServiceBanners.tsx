@@ -57,7 +57,7 @@ const ServiceBanners = () => {
           <Link to="/book" className="group relative overflow-hidden p-1 md:p-6 transition-all cursor-pointer bg-white/20 backdrop-blur-md hover:bg-white/30 h-[110px] md:h-[220px] flex flex-col justify-between">
             <div>
               <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
-              <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move</h3>
+              <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move Now!</h3>
               <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
                 Fast delivery at anytime to anywhere
               </p>
