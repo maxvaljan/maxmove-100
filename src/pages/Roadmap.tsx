@@ -1,9 +1,11 @@
-import { Milestone, ArrowDown } from "lucide-react";
+
+import { Milestone } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
 const Roadmap = () => {
   return <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Navbar />
@@ -23,20 +25,16 @@ const Roadmap = () => {
       {/* Timeline Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Vertical Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-500/30 top-0" />
-
           <div className="space-y-24">
             {/* 2024 */}
             <div className="relative">
-              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
                     <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">Q1-Q4 2025</span>
                     <Milestone className="h-8 w-8 text-blue-500" />
                   </div>
-                  <CardTitle className="text-white text-2xl">Development & MArket Entry</CardTitle>
+                  <CardTitle className="text-white text-2xl">Development & Market Entry</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
                       <li>Launch operations in Rhein-Ruhr metropolitan regionDevelop scalable state of the art applications, with integrated AI-route optimization, -matching and -agents </li>
@@ -47,11 +45,12 @@ const Roadmap = () => {
                   </CardDescription>
                 </CardHeader>
               </Card>
+              {/* Connecting Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-24 w-0.5 bg-gradient-to-b from-blue-500 to-transparent bottom-[-96px]" />
             </div>
 
             {/* 2025 */}
             <div className="relative">
-              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
@@ -69,11 +68,12 @@ const Roadmap = () => {
                   </CardDescription>
                 </CardHeader>
               </Card>
+              {/* Connecting Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-24 w-0.5 bg-gradient-to-b from-blue-500 to-transparent bottom-[-96px]" />
             </div>
 
             {/* 2026 */}
             <div className="relative">
-              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
@@ -91,11 +91,12 @@ const Roadmap = () => {
                   </CardDescription>
                 </CardHeader>
               </Card>
+              {/* Connecting Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-24 w-0.5 bg-gradient-to-b from-blue-500 to-transparent bottom-[-96px]" />
             </div>
 
             {/* 2027+ */}
             <div className="relative">
-              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
