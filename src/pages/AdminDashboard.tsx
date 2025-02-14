@@ -22,6 +22,7 @@ const AdminDashboard = () => {
         const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
+          console.log("No session found, redirecting to signin");
           setIsAdmin(false);
           setIsLoading(false);
           navigate("/signin");
@@ -45,11 +46,31 @@ const AdminDashboard = () => {
           return;
         }
 
+        // If no profile exists yet
         if (!profile) {
-          console.log("No profile found for user");
+          console.log("No profile found for user, creating default profile");
+          const { error: createError } = await supabase
+            .from("profiles")
+            .insert([
+              { 
+                id: session.user.id,
+                role: "customer",
+                email: session.user.email
+              }
+            ]);
+
+          if (createError) {
+            console.error("Error creating profile:", createError);
+            setIsAdmin(false);
+            setIsLoading(false);
+            toast.error("Error creating user profile");
+            navigate("/dashboard");
+            return;
+          }
+
           setIsAdmin(false);
           setIsLoading(false);
-          toast.error("User profile not found");
+          toast.error("Unauthorized access");
           navigate("/dashboard");
           return;
         }

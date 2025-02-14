@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -27,7 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { VehicleType, NewVehicle } from "@/types/admin";
+import { VehicleType, NewVehicle, VehicleCategory } from "@/types/admin";
 
 interface VehicleTypeSectionProps {
   vehicleTypes: VehicleType[];
