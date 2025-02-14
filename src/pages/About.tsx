@@ -81,7 +81,7 @@ const About = () => {
             <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-sm">
               <Phone className="h-8 w-8 text-maxmove-600 mb-4" />
               <h3 className="text-lg font-semibold text-maxmove-900 mb-2">Call Us</h3>
-              <p className="text-maxmove-600 text-center">+491734224371</p>
+              <p className="text-maxmove-600 text-center">+49 173 4224371</p>
             </div>
           </div>
         </div>
