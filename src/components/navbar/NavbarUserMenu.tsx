@@ -37,9 +37,7 @@ const NavbarUserMenu = ({ session, handleSignOut, getTextColor, isHomePage, isSc
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="ghost" 
-                className={`relative h-11 w-11 rounded-full bg-gradient-to-br from-[#9b87f5] via-[#8B5CF6] to-[#7E69AB] hover:scale-105 transition-all duration-300 ease-out ${
-                  isHomePage && !isScrolled ? "shadow-lg ring-2 ring-white/20" : ""
-                }`}
+                className="relative h-11 w-11 rounded-full bg-gradient-to-br from-[#9b87f5] via-[#8B5CF6] to-[#7E69AB] hover:scale-105 transition-all duration-300 ease-out"
               >
                 <User className="h-5 w-5 text-white" />
                 <div className="absolute inset-0 rounded-full bg-white/10 hover:bg-transparent transition-colors" />
