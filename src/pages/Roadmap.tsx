@@ -38,7 +38,7 @@ const Roadmap = () => {
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
                       <li>Launch operations in Rhein-Ruhr metropolitan region</li>
-                      <li>Develop scalable and state of the art AI-powered applications.</li>
+                      <li>Develop scalable state of the art applications, with integrated AI route optimization, AI matching and AI agents </li>
                       <li>Integrate AI-route optimization, AI matching and AI Agents.</li>
                       <li>Secure EXIST grant funding and start prototyping and planning autonomous underground delivery robot and network.</li>
                     </ul>
