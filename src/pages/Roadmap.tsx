@@ -1,18 +1,9 @@
-
 import { Milestone, ArrowDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const Roadmap = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+  return <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Navbar />
 
       {/* Hero Section */}
@@ -22,9 +13,7 @@ const Roadmap = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               Our Vision for the Future
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Building the next generation of urban logistics infrastructure
-            </p>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">Building the next generation of logistics infrastructure.</p>
           </div>
         </div>
       </section>
@@ -128,8 +117,6 @@ const Roadmap = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Roadmap;
