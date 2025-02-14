@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,10 +37,12 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+type VehicleCategory = "bike_motorcycle" | "car" | "van" | "light_truck" | "medium_truck" | "heavy_truck" | "towing" | "refrigerated";
+
 interface VehicleType {
   id: string;
   name: string;
-  category: string;
+  category: VehicleCategory;
   description: string;
   dimensions: string;
   max_weight: string;
@@ -61,7 +62,7 @@ interface UserProfile {
 
 interface NewVehicle {
   name: string;
-  category: string;
+  category: VehicleCategory;
   description: string;
   dimensions: string;
   max_weight: string;
@@ -152,7 +153,7 @@ const AdminDashboard = () => {
   const handleAddVehicle = async () => {
     const { error } = await supabase
       .from("vehicle_types")
-      .insert([newVehicle]);
+      .insert(newVehicle);
 
     if (error) {
       toast.error("Error adding vehicle type");
@@ -214,7 +215,6 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="flex">
-        {/* Sidebar */}
         <div className="w-64 min-h-screen bg-white border-r border-gray-200">
           <div className="p-4">
             <h2 className="text-xl font-bold text-maxmove-900">Admin Dashboard</h2>
@@ -236,8 +236,6 @@ const AdminDashboard = () => {
             ))}
           </nav>
         </div>
-
-        {/* Main content */}
         <div className="flex-1 p-8">
           {activeSection === "vehicle-types" && (
             <div>
@@ -289,7 +287,6 @@ const AdminDashboard = () => {
               </div>
             </div>
           )}
-          
           {activeSection === "users" && (
             <div>
               <div className="flex justify-between items-center mb-6">
@@ -327,8 +324,6 @@ const AdminDashboard = () => {
               </div>
             </div>
           )}
-
-          {/* Add Vehicle Dialog */}
           <Dialog open={isAddVehicleOpen} onOpenChange={setIsAddVehicleOpen}>
             <DialogContent>
               <DialogHeader>
@@ -347,7 +342,7 @@ const AdminDashboard = () => {
                   <Label htmlFor="category">Category</Label>
                   <Select
                     value={newVehicle.category}
-                    onValueChange={(value) => setNewVehicle({ ...newVehicle, category: value })}
+                    onValueChange={(value: VehicleCategory) => setNewVehicle({ ...newVehicle, category: value })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
@@ -356,7 +351,11 @@ const AdminDashboard = () => {
                       <SelectItem value="bike_motorcycle">Bike/Motorcycle</SelectItem>
                       <SelectItem value="car">Car</SelectItem>
                       <SelectItem value="van">Van</SelectItem>
-                      <SelectItem value="truck">Truck</SelectItem>
+                      <SelectItem value="light_truck">Light Truck</SelectItem>
+                      <SelectItem value="medium_truck">Medium Truck</SelectItem>
+                      <SelectItem value="heavy_truck">Heavy Truck</SelectItem>
+                      <SelectItem value="towing">Towing</SelectItem>
+                      <SelectItem value="refrigerated">Refrigerated</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
