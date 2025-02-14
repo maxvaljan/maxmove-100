@@ -1,3 +1,4 @@
+
 import { Milestone, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -47,7 +48,7 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Development & MArket Entry</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Launch operations in Rhein-Ruhr metropolitan regionDevelop scalable state of the art applications, with integrated AI-route optimization, -matching and -agents </li>
+                      <li>Launch operations in Rhein-Ruhr metropolitan regionDevelop scalable state of the art applications, with integrated AI-route optimization, -matching and -agents </li>
                       <li>Launch operations in Rhein-Ruhr metropolitan region</li>
                       <li>Secure EXIST Grant Funding and recruit team</li>
                       <li>Start prototyping and planning autonomous underground delivery robot and network.</li>
