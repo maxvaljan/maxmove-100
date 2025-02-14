@@ -38,15 +38,47 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+interface VehicleType {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  dimensions: string;
+  max_weight: string;
+  base_price: number;
+  price_per_km: number;
+  minimum_distance: number;
+}
+
+interface UserProfile {
+  id: string;
+  name: string | null;
+  email: string | null;
+  role: string;
+  created_at: string;
+  last_login: string | null;
+}
+
+interface NewVehicle {
+  name: string;
+  category: string;
+  description: string;
+  dimensions: string;
+  max_weight: string;
+  base_price: number;
+  price_per_km: number;
+  minimum_distance: number;
+}
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
   const [activeSection, setActiveSection] = useState("vehicle-types");
-  const [vehicleTypes, setVehicleTypes] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
+  const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false);
-  const [newVehicle, setNewVehicle] = useState({
+  const [newVehicle, setNewVehicle] = useState<NewVehicle>({
     name: "",
     category: "car",
     description: "",
@@ -100,7 +132,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    setVehicleTypes(data);
+    setVehicleTypes(data || []);
   };
 
   const fetchUsers = async () => {
@@ -114,7 +146,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    setUsers(data);
+    setUsers(data || []);
   };
 
   const handleAddVehicle = async () => {
@@ -234,7 +266,7 @@ const AdminDashboard = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {vehicleTypes.map((vehicle: any) => (
+                    {vehicleTypes.map((vehicle) => (
                       <TableRow key={vehicle.id}>
                         <TableCell className="font-medium">{vehicle.name}</TableCell>
                         <TableCell>{vehicle.category}</TableCell>
@@ -275,7 +307,7 @@ const AdminDashboard = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.map((user: any) => (
+                    {users.map((user) => (
                       <TableRow key={user.id}>
                         <TableCell className="font-medium">{user.name || "N/A"}</TableCell>
                         <TableCell>{user.email || "N/A"}</TableCell>
@@ -368,6 +400,15 @@ const AdminDashboard = () => {
                     type="number"
                     value={newVehicle.price_per_km}
                     onChange={(e) => setNewVehicle({ ...newVehicle, price_per_km: Number(e.target.value) })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="minimum_distance">Minimum Distance (km)</Label>
+                  <Input
+                    id="minimum_distance"
+                    type="number"
+                    value={newVehicle.minimum_distance}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, minimum_distance: Number(e.target.value) })}
                   />
                 </div>
               </div>
