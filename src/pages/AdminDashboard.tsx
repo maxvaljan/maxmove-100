@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +11,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Package,
   Users,
@@ -26,12 +43,26 @@ const AdminDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [activeSection, setActiveSection] = useState("vehicle-types");
   const [vehicleTypes, setVehicleTypes] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false);
+  const [newVehicle, setNewVehicle] = useState({
+    name: "",
+    category: "car",
+    description: "",
+    dimensions: "",
+    max_weight: "",
+    base_price: 0,
+    price_per_km: 0,
+    minimum_distance: 0,
+  });
 
   useEffect(() => {
     checkAdminStatus();
     if (activeSection === "vehicle-types") {
       fetchVehicleTypes();
+    } else if (activeSection === "users") {
+      fetchUsers();
     }
   }, [activeSection]);
 
@@ -70,6 +101,60 @@ const AdminDashboard = () => {
     }
 
     setVehicleTypes(data);
+  };
+
+  const fetchUsers = async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      toast.error("Error fetching users");
+      return;
+    }
+
+    setUsers(data);
+  };
+
+  const handleAddVehicle = async () => {
+    const { error } = await supabase
+      .from("vehicle_types")
+      .insert([newVehicle]);
+
+    if (error) {
+      toast.error("Error adding vehicle type");
+      return;
+    }
+
+    toast.success("Vehicle type added successfully");
+    setIsAddVehicleOpen(false);
+    fetchVehicleTypes();
+    setNewVehicle({
+      name: "",
+      category: "car",
+      description: "",
+      dimensions: "",
+      max_weight: "",
+      base_price: 0,
+      price_per_km: 0,
+      minimum_distance: 0,
+    });
+  };
+
+  const handleDeleteVehicle = async (id: string) => {
+    const { error } = await supabase
+      .from("vehicle_types")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      toast.error("Error deleting vehicle type");
+      return;
+    }
+
+    toast.success("Vehicle type deleted successfully");
+    fetchVehicleTypes();
   };
 
   const sections = [
@@ -126,7 +211,11 @@ const AdminDashboard = () => {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-900">Vehicle Types</h3>
-                <Button variant="default" className="bg-maxmove-500 hover:bg-maxmove-600">
+                <Button
+                  variant="default"
+                  className="bg-maxmove-500 hover:bg-maxmove-600"
+                  onClick={() => setIsAddVehicleOpen(true)}
+                >
                   Add Vehicle Type
                 </Button>
               </div>
@@ -139,6 +228,8 @@ const AdminDashboard = () => {
                       <TableHead>Description</TableHead>
                       <TableHead>Dimensions</TableHead>
                       <TableHead>Max Weight</TableHead>
+                      <TableHead>Base Price</TableHead>
+                      <TableHead>Price/km</TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -150,12 +241,11 @@ const AdminDashboard = () => {
                         <TableCell>{vehicle.description}</TableCell>
                         <TableCell>{vehicle.dimensions}</TableCell>
                         <TableCell>{vehicle.max_weight}</TableCell>
+                        <TableCell>${vehicle.base_price}</TableCell>
+                        <TableCell>${vehicle.price_per_km}/km</TableCell>
                         <TableCell>
                           <div className="flex space-x-2">
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
-                            <Button variant="destructive" size="sm">
+                            <Button variant="destructive" size="sm" onClick={() => handleDeleteVehicle(vehicle.id)}>
                               Delete
                             </Button>
                           </div>
@@ -170,12 +260,125 @@ const AdminDashboard = () => {
           
           {activeSection === "users" && (
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Users Management</h3>
-              {/* Users management content will go here */}
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-900">Users</h3>
+              </div>
+              <div className="bg-white rounded-lg shadow">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Role</TableHead>
+                      <TableHead>Joined</TableHead>
+                      <TableHead>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {users.map((user: any) => (
+                      <TableRow key={user.id}>
+                        <TableCell className="font-medium">{user.name || "N/A"}</TableCell>
+                        <TableCell>{user.email || "N/A"}</TableCell>
+                        <TableCell className="capitalize">{user.role}</TableCell>
+                        <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
+                        <TableCell>
+                          <span className={`px-2 py-1 rounded-full text-xs ${
+                            user.last_login ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"
+                          }`}>
+                            {user.last_login ? "Active" : "Inactive"}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </div>
           )}
-          
-          {/* Add other sections as needed */}
+
+          {/* Add Vehicle Dialog */}
+          <Dialog open={isAddVehicleOpen} onOpenChange={setIsAddVehicleOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Vehicle Type</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    value={newVehicle.name}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, name: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Select
+                    value={newVehicle.category}
+                    onValueChange={(value) => setNewVehicle({ ...newVehicle, category: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="bike_motorcycle">Bike/Motorcycle</SelectItem>
+                      <SelectItem value="car">Car</SelectItem>
+                      <SelectItem value="van">Van</SelectItem>
+                      <SelectItem value="truck">Truck</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Input
+                    id="description"
+                    value={newVehicle.description}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, description: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="dimensions">Dimensions</Label>
+                  <Input
+                    id="dimensions"
+                    value={newVehicle.dimensions}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, dimensions: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="max_weight">Max Weight</Label>
+                  <Input
+                    id="max_weight"
+                    value={newVehicle.max_weight}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, max_weight: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="base_price">Base Price</Label>
+                  <Input
+                    id="base_price"
+                    type="number"
+                    value={newVehicle.base_price}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, base_price: Number(e.target.value) })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="price_per_km">Price per KM</Label>
+                  <Input
+                    id="price_per_km"
+                    type="number"
+                    value={newVehicle.price_per_km}
+                    onChange={(e) => setNewVehicle({ ...newVehicle, price_per_km: Number(e.target.value) })}
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button variant="outline" onClick={() => setIsAddVehicleOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleAddVehicle}>Add Vehicle</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
