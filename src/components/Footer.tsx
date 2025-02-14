@@ -1,9 +1,7 @@
 import { Instagram, Linkedin, X } from "lucide-react";
 import { Link } from "react-router-dom";
-
 const Footer = () => {
-  return (
-    <footer className="bg-maxmove-950 text-white">
+  return <footer className="bg-maxmove-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -91,9 +89,7 @@ const Footer = () => {
               <li className="text-maxmove-300">
                 contact@maxmove.com
               </li>
-              <li className="text-maxmove-300">
-                +491734224371
-              </li>
+              <li className="text-maxmove-300">+49 173 4224371</li>
               <li className="text-maxmove-300">
                 Eulenbergstr.37
                 <br />
@@ -109,8 +105,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
