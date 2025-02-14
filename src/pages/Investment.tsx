@@ -127,7 +127,7 @@ const Investment = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1c2e] to-[#0d0f1a]">
+    <div className="min-h-screen bg-[#0d0f1a]">
       <Navbar />
       <Hero />
       <BackedByScience 
@@ -140,12 +140,11 @@ const Investment = () => {
       <Future />
       
       {/* Funding Section */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c2e]/30 to-[#0d0f1a]"></div>
+      <section className="py-20 relative bg-[#0d0f1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">Funding</h2>
           <div className="max-w-3xl mx-auto">
-            <Card className="bg-[#1a1c2e]/40 backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/60 transition-all duration-300">
+            <Card className="bg-[#1a1c2e] backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/80 transition-all duration-300">
               <CardHeader>
                 <DollarSign className="h-12 w-12 text-blue-500 mb-4" />
                 <CardTitle className="text-white">Current Funding Round</CardTitle>
@@ -161,16 +160,13 @@ const Investment = () => {
       </section>
 
       {/* What is Hyperlogistics Section */}
-      <section className="py-16 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c2e]/30 to-[#0d0f1a]"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6 text-white">What is Hyperlogistics?</h2>
-            <p className="text-lg text-gray-400">
-              Hyperlogistics means ultra-fast delivery, where items can move across cities in minutes or even seconds, 
-              at a minimal cost. This redefines how we think about and access goods.
-            </p>
-          </div>
+      <section className="py-16 relative bg-[#0d0f1a]">
+        <div className="max-w-3xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-6 text-white">What is Hyperlogistics?</h2>
+          <p className="text-lg text-gray-400">
+            Hyperlogistics means ultra-fast delivery, where items can move across cities in minutes or even seconds, 
+            at a minimal cost. This redefines how we think about and access goods.
+          </p>
         </div>
       </section>
 
@@ -181,3 +177,4 @@ const Investment = () => {
 };
 
 export default Investment;
+

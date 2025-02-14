@@ -9,13 +9,12 @@ import {
 
 const Future = () => {
   return (
-    <section className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c2e]/30 to-[#0d0f1a]"></div>
+    <section className="py-20 relative bg-[#0d0f1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <h2 className="text-3xl font-bold text-center mb-12 text-white">Future</h2>
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-[#1a1c2e]/40 backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/60 transition-all duration-300">
+            <Card className="bg-[#1a1c2e] backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/80 transition-all duration-300">
               <CardHeader>
                 <Rocket className="h-12 w-12 text-blue-500 mb-4" />
                 <CardTitle className="text-white">Underground Hyperlogistics</CardTitle>
@@ -27,7 +26,7 @@ const Future = () => {
                 </CardDescription>
               </CardHeader>
             </Card>
-            <Card className="bg-[#1a1c2e]/40 backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/60 transition-all duration-300">
+            <Card className="bg-[#1a1c2e] backdrop-blur-sm border-gray-800 hover:bg-[#1a1c2e]/80 transition-all duration-300">
               <CardHeader>
                 <ChartLine className="h-12 w-12 text-blue-500 mb-4" />
                 <CardTitle className="text-white">Autonomous Delivery</CardTitle>
@@ -46,3 +45,4 @@ const Future = () => {
 };
 
 export default Future;
+

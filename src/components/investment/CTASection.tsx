@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const CTASection = () => {
   return (
-    <section className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1a1c2e]/30 to-[#0d0f1a]"></div>
+    <section className="py-20 relative bg-[#0d0f1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
         <h2 className="text-3xl font-bold mb-6 text-white">Join Our Growth Journey</h2>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -22,3 +21,4 @@ const CTASection = () => {
 };
 
 export default CTASection;
+
