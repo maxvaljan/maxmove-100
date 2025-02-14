@@ -58,9 +58,7 @@ const ServiceBanners = () => {
             <div>
               <Truck className="h-6 w-6 md:h-12 md:w-12 text-white group-hover:text-white transition-colors mb-1 md:mb-4" />
               <h3 className="text-lg md:text-2xl font-bold text-white group-hover:text-white transition-colors mb-1 md:mb-2">Move Now!</h3>
-              <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">
-                Fast delivery at anytime to anywhere
-              </p>
+              <p className="text-white/90 group-hover:text-white transition-colors mb-auto hidden md:block">Click here to book your delivery</p>
             </div>
             <ChevronRight className="absolute bottom-2 right-2 w-5 h-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Link>
