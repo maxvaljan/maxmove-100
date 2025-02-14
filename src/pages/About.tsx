@@ -1,12 +1,9 @@
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone } from "lucide-react";
-
 const About = () => {
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
       
       {/* Hero Section */}
@@ -15,9 +12,7 @@ const About = () => {
           <h1 className="text-4xl font-bold text-maxmove-900 sm:text-5xl">
             About Maxmove
           </h1>
-          <p className="mt-4 text-xl text-maxmove-600 max-w-3xl mx-auto">
-            We're revolutionizing the way businesses and individuals handle their delivery needs with technology-driven solutions.
-          </p>
+          <p className="mt-4 text-xl text-maxmove-600 max-w-3xl mx-auto">We are building the future of logistics</p>
         </div>
       </section>
 
@@ -93,8 +88,6 @@ const About = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
