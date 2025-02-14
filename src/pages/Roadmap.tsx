@@ -1,20 +1,11 @@
-
 import { Milestone, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 const Roadmap = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
+  return <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Navbar />
 
       {/* Hero Section */}
@@ -131,7 +122,7 @@ const Roadmap = () => {
       <section className="py-16 text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/investment">
-            <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-white text-lg px-8 py-6">
+            <Button size="lg" className="text-lg px-8 py-6 bg-gray-50 text-slate-800">
               Join Our Investment Journey
             </Button>
           </Link>
@@ -139,8 +130,6 @@ const Roadmap = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Roadmap;
