@@ -1,14 +1,14 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Wrench, Briefcase, Brain } from "lucide-react";
+import { Wrench, Briefcase, Brain, LucideIcon } from "lucide-react";
 
 interface JobListing {
   id: string;
   title: string;
   type: string;
   location: string;
-  icon: React.ComponentType;
+  icon: LucideIcon;
 }
 
 const jobListings: JobListing[] = [
@@ -99,7 +99,9 @@ const Career = () => {
                   <div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <job.icon className="h-5 w-5 text-maxmove-600" />
+                        <div className="text-maxmove-600">
+                          <job.icon size={20} />
+                        </div>
                         <h3 className="text-lg font-semibold text-maxmove-900">
                           {job.title}
                         </h3>
