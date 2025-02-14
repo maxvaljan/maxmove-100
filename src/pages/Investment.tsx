@@ -103,6 +103,26 @@ const Investment = () => {
         </div>
       </section>
 
+      {/* Funding Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Funding</h2>
+          <div className="max-w-3xl mx-auto">
+            <Card className="transition-transform hover:scale-105">
+              <CardHeader>
+                <DollarSign className="h-12 w-12 text-maxmove-500 mb-4" />
+                <CardTitle>Current Funding Round</CardTitle>
+                <CardDescription>
+                  We are currently in the process for EXIST grant and looking to raise €15M next year 
+                  to build the first underground autonomous robots logistics pilot project. This funding will 
+                  enable us to revolutionize urban logistics with cutting-edge autonomous technology.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* What is Hyperlogistics Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
