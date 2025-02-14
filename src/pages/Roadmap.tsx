@@ -34,7 +34,7 @@ const Roadmap = () => {
                     <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">Q1-Q4 2025</span>
                     <Milestone className="h-8 w-8 text-blue-500" />
                   </div>
-                  <CardTitle className="text-white text-2xl">Market Entry & Initial Growth</CardTitle>
+                  <CardTitle className="text-white text-2xl">Development & MArket Entry</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
                       <li>Launch operations in Rhein-Ruhr metropolitan region</li>
@@ -59,10 +59,11 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Expansion & Infrastructure Development</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Begin construction of first underground logistics pilot project</li>
-                      <li>Expand operations to additional German metropolitan areas</li>
-                      <li>Launch autonomous delivery pilot program</li>
-                      <li>Develop proprietary delivery management platform</li>
+                      <li>Begin construction of first underground logistics pilot project in Cologne</li>
+                      <li>Expand with Maxmove.com Platform</li>
+                      <li>
+                    </li>
+                      <li>Expand with Maxmove Platform</li>
                     </ul>
                   </CardDescription>
                 </CardHeader>
