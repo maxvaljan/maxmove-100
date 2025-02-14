@@ -1,4 +1,3 @@
-
 import { Milestone, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -120,14 +119,21 @@ const Roadmap = () => {
         </div>
       </section>
 
-      {/* Investment CTA Section */}
-      <section className="py-16 text-center">
+      {/* Investment and Career CTA Section */}
+      <section className="py-8 text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link to="/investment">
-            <Button size="lg" className="text-lg px-8 py-6 bg-gray-50 text-slate-800">
-              Join Our Investment Journey
-            </Button>
-          </Link>
+          <div className="flex items-center justify-center gap-6">
+            <Link to="/career">
+              <Button size="lg" className="text-lg px-8 py-6 bg-gray-50 text-slate-800 hover:bg-gray-100">
+                Join Our Team
+              </Button>
+            </Link>
+            <Link to="/investment">
+              <Button size="lg" className="text-lg px-8 py-6 bg-gray-50 text-slate-800 hover:bg-gray-100">
+                Investment
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 
