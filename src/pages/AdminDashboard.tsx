@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,7 +73,7 @@ interface NewVehicle {
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("vehicle-types");
   const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
@@ -92,8 +91,59 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+          setIsAdmin(false);
+          setIsLoading(false);
+          navigate("/signin");
+          return;
+        }
+
+        console.log("Checking admin status for user:", session.user.id);
+        
+        const { data: profile, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", session.user.id)
+          .single();
+
+        if (error) {
+          console.error("Error fetching profile:", error);
+          setIsAdmin(false);
+          setIsLoading(false);
+          toast.error("Error checking admin status");
+          navigate("/dashboard");
+          return;
+        }
+
+        console.log("User profile:", profile);
+
+        if (profile?.role !== "admin") {
+          console.log("User is not admin, redirecting...");
+          setIsAdmin(false);
+          setIsLoading(false);
+          toast.error("Unauthorized access");
+          navigate("/dashboard");
+          return;
+        }
+
+        console.log("User is admin, proceeding...");
+        setIsAdmin(true);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error in admin check:", error);
+        setIsAdmin(false);
+        setIsLoading(false);
+        toast.error("Error checking admin status");
+        navigate("/dashboard");
+      }
+    };
+
     checkAdminStatus();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (isAdmin && !isLoading) {
@@ -104,44 +154,6 @@ const AdminDashboard = () => {
       }
     }
   }, [activeSection, isAdmin, isLoading]);
-
-  const checkAdminStatus = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/signin");
-        return;
-      }
-
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", session.user.id)
-        .single();
-
-      if (error) {
-        console.error("Error fetching profile:", error);
-        toast.error("Error checking admin status");
-        navigate("/dashboard");
-        return;
-      }
-
-      if (profile?.role !== "admin") {
-        toast.error("Unauthorized access");
-        navigate("/dashboard");
-        return;
-      }
-
-      setIsAdmin(true);
-    } catch (error) {
-      console.error("Error in admin check:", error);
-      toast.error("Error checking admin status");
-      navigate("/dashboard");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const fetchVehicleTypes = async () => {
     const { data, error } = await supabase
@@ -221,7 +233,7 @@ const AdminDashboard = () => {
     { id: "settings", label: "Settings", icon: Settings },
   ];
 
-  if (isLoading) {
+  if (isLoading || isAdmin === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-maxmove-500"></div>
