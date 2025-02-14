@@ -81,9 +81,9 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Innovation & European Expansion</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Complete first underground logistics network</li>
-                      <li>Launch operations in major European cities</li>
-                      <li>Roll out fleet of autonomous delivery vehicles</li>
+                      <li>Complete first underground logistics network in Rhein-Ruhr Area</li>
+                      <li>Launch operations of Maxmove platform in major European cities</li>
+                      <li>Become Germany's most innovative and profitable mid- and last mile logistics platform</li>
                       <li>Establish strategic partnerships across Europe</li>
                     </ul>
                   </CardDescription>
@@ -97,7 +97,7 @@ const Roadmap = () => {
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
-                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2027+</span>
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2028+</span>
                     <Milestone className="h-8 w-8 text-blue-500" />
                   </div>
                   <CardTitle className="text-white text-2xl">Future Vision</CardTitle>
