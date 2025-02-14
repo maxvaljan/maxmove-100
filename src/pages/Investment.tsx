@@ -1,5 +1,4 @@
-
-import { ChartBar, DollarSign, PiggyBank, ChartLine, TrendingUp, Globe2, Shield, Rocket } from "lucide-react";
+import { ChartBar, DollarSign, PiggyBank, ChartLine, TrendingUp, Globe2, Shield, Rocket, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +12,7 @@ import Footer from "@/components/Footer";
 
 const Investment = () => {
   return (
-    <div className="min-h-screen bg-[#0a0a0c]">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a1c2e] to-[#0d0f1a]">
       <Navbar />
       
       {/* Hero Section */}
@@ -38,6 +37,68 @@ const Investment = () => {
                 Contact Founders
               </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Backed by Science Section */}
+      <section className="py-20 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12 text-white">Backed by Science</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
+              <CardHeader>
+                <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                <CardTitle className="text-white">McKinsey Report</CardTitle>
+                <CardDescription className="text-gray-400">
+                  The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections
+                </CardDescription>
+                <Button 
+                  variant="outline" 
+                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                  disabled
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Coming Soon
+                </Button>
+              </CardHeader>
+            </Card>
+
+            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
+              <CardHeader>
+                <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                <CardTitle className="text-white">Deloitte Analysis</CardTitle>
+                <CardDescription className="text-gray-400">
+                  Underground Logistics Networks: A Revolutionary Approach to Urban Delivery
+                </CardDescription>
+                <Button 
+                  variant="outline" 
+                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                  disabled
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Coming Soon
+                </Button>
+              </CardHeader>
+            </Card>
+
+            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
+              <CardHeader>
+                <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                <CardTitle className="text-white">BMVI Report</CardTitle>
+                <CardDescription className="text-gray-400">
+                  Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery
+                </CardDescription>
+                <Button 
+                  variant="outline" 
+                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                  disabled
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Coming Soon
+                </Button>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
