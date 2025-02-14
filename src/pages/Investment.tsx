@@ -1,3 +1,4 @@
+
 import { ChartBar, DollarSign, PiggyBank, ChartLine, TrendingUp, Globe2, Shield, Rocket, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +10,119 @@ import {
 } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
+
+interface Report {
+  id: string;
+  name: string;
+  description: string;
+  file_path: string;
+}
 
 const Investment = () => {
+  const [reports, setReports] = useState<Report[]>([]);
+  const { toast } = useToast();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetchReports();
+    checkAdminStatus();
+  }, []);
+
+  const checkAdminStatus = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single();
+      
+      setIsAdmin(data?.role === 'admin');
+    }
+  };
+
+  const fetchReports = async () => {
+    const { data, error } = await supabase
+      .from('reports')
+      .select('*');
+    
+    if (error) {
+      console.error('Error fetching reports:', error);
+      return;
+    }
+
+    if (data) {
+      setReports(data);
+    }
+  };
+
+  const handleUpload = async (file: File, reportName: string) => {
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('reports')
+      .upload(`reports/${reportName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.pdf`, file);
+
+    if (uploadError) {
+      toast({
+        variant: "destructive",
+        title: "Upload failed",
+        description: uploadError.message,
+      });
+      return;
+    }
+
+    const { error: dbError } = await supabase
+      .from('reports')
+      .insert({
+        name: reportName,
+        file_path: uploadData.path,
+        file_type: 'application/pdf',
+        description: reportName
+      });
+
+    if (dbError) {
+      toast({
+        variant: "destructive",
+        title: "Failed to save report metadata",
+        description: dbError.message,
+      });
+      return;
+    }
+
+    toast({
+      title: "Success",
+      description: "Report uploaded successfully",
+    });
+
+    fetchReports();
+  };
+
+  const handleDownload = async (report: Report) => {
+    const { data, error } = await supabase.storage
+      .from('reports')
+      .download(report.file_path);
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Download failed",
+        description: error.message,
+      });
+      return;
+    }
+
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = report.name + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1c2e] to-[#0d0f1a]">
       <Navbar />
@@ -46,59 +158,65 @@ const Investment = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">Backed by Science</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
-              <CardHeader>
-                <FileText className="h-12 w-12 text-blue-500 mb-4" />
-                <CardTitle className="text-white">McKinsey Report</CardTitle>
-                <CardDescription className="text-gray-400">
-                  The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections
-                </CardDescription>
-                <Button 
-                  variant="outline" 
-                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                  disabled
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Coming Soon
-                </Button>
-              </CardHeader>
-            </Card>
-
-            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
-              <CardHeader>
-                <FileText className="h-12 w-12 text-blue-500 mb-4" />
-                <CardTitle className="text-white">Deloitte Analysis</CardTitle>
-                <CardDescription className="text-gray-400">
-                  Underground Logistics Networks: A Revolutionary Approach to Urban Delivery
-                </CardDescription>
-                <Button 
-                  variant="outline" 
-                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                  disabled
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Coming Soon
-                </Button>
-              </CardHeader>
-            </Card>
-
-            <Card className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
-              <CardHeader>
-                <FileText className="h-12 w-12 text-blue-500 mb-4" />
-                <CardTitle className="text-white">BMVI Report</CardTitle>
-                <CardDescription className="text-gray-400">
-                  Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery
-                </CardDescription>
-                <Button 
-                  variant="outline" 
-                  className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                  disabled
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Coming Soon
-                </Button>
-              </CardHeader>
-            </Card>
+            {['McKinsey Report', 'Deloitte Analysis', 'BMVI Report'].map((reportName) => {
+              const report = reports.find(r => r.name === reportName);
+              
+              return (
+                <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
+                  <CardHeader>
+                    <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                    <CardTitle className="text-white">{reportName}</CardTitle>
+                    <CardDescription className="text-gray-400">
+                      {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
+                      {reportName === 'Deloitte Analysis' && 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'}
+                      {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery'}
+                    </CardDescription>
+                    {isAdmin && !report && (
+                      <div className="mt-4">
+                        <input
+                          type="file"
+                          accept=".pdf"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handleUpload(file, reportName);
+                            }
+                          }}
+                          className="hidden"
+                          id={`upload-${reportName}`}
+                        />
+                        <Button 
+                          variant="outline" 
+                          className="w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                          onClick={() => document.getElementById(`upload-${reportName}`)?.click()}
+                        >
+                          Upload PDF
+                        </Button>
+                      </div>
+                    )}
+                    {report ? (
+                      <Button 
+                        variant="outline" 
+                        className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                        onClick={() => handleDownload(report)}
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Report
+                      </Button>
+                    ) : !isAdmin && (
+                      <Button 
+                        variant="outline" 
+                        className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                        disabled
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Coming Soon
+                      </Button>
+                    )}
+                  </CardHeader>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
