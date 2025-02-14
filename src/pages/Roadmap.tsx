@@ -13,7 +13,7 @@ const Roadmap = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               Our Vision for the Future
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">Building the next generation of logistics infrastructure.</p>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">Building the next generation of logistics infrastructure</p>
           </div>
         </div>
       </section>
