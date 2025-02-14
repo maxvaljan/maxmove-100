@@ -22,6 +22,7 @@ import DriverApplication from "@/pages/DriverApplication";
 import DriverDashboard from "@/pages/DriverDashboard";
 import Investment from "@/pages/Investment";
 import Onboarding from "@/pages/Onboarding";
+import Roadmap from "@/pages/Roadmap";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/driver-dashboard" element={<DriverDashboard />} />
         <Route path="/investment" element={<Investment />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/roadmap" element={<Roadmap />} />
       </Routes>
       <Toaster />
     </Router>
