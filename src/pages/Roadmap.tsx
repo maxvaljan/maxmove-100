@@ -62,7 +62,7 @@ const Roadmap = () => {
                       <li>Begin construction of first underground logistics pilot project and autonomous robots</li>
                       <li>Start fundraising: Goal $12M for underground hyperlogistics platform & autonomous robot production</li>
                       <li>Expand with Maxmove Platform</li>
-                      <li>Expand with Maxmove Platform</li>
+                      <li>Start moving items in our underground hyperlogistics network</li>
                     </ul>
                   </CardDescription>
                 </CardHeader>
