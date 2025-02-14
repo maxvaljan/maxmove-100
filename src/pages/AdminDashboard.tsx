@@ -108,7 +108,7 @@ const AdminDashboard = () => {
           .from("profiles")
           .select("role")
           .eq("id", session.user.id)
-          .single();
+          .maybeSingle();
 
         if (error) {
           console.error("Error fetching profile:", error);
@@ -119,9 +119,18 @@ const AdminDashboard = () => {
           return;
         }
 
+        if (!profile) {
+          console.log("No profile found for user");
+          setIsAdmin(false);
+          setIsLoading(false);
+          toast.error("User profile not found");
+          navigate("/dashboard");
+          return;
+        }
+
         console.log("User profile:", profile);
 
-        if (profile?.role !== "admin") {
+        if (profile.role !== "admin") {
           console.log("User is not admin, redirecting...");
           setIsAdmin(false);
           setIsLoading(false);
