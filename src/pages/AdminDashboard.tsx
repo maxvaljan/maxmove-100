@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,10 +75,10 @@ interface NewVehicle {
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("vehicle-types");
   const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
   const [users, setUsers] = useState<UserProfile[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false);
   const [newVehicle, setNewVehicle] = useState<NewVehicle>({
     name: "",
@@ -92,34 +93,54 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     checkAdminStatus();
-    if (activeSection === "vehicle-types") {
-      fetchVehicleTypes();
-    } else if (activeSection === "users") {
-      fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    if (isAdmin && !isLoading) {
+      if (activeSection === "vehicle-types") {
+        fetchVehicleTypes();
+      } else if (activeSection === "users") {
+        fetchUsers();
+      }
     }
-  }, [activeSection]);
+  }, [activeSection, isAdmin, isLoading]);
 
   const checkAdminStatus = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/signin");
-      return;
-    }
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        navigate("/signin");
+        return;
+      }
 
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", session.user.id)
-      .single();
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .single();
 
-    if (profile?.role !== "admin") {
-      toast.error("Unauthorized access");
+      if (error) {
+        console.error("Error fetching profile:", error);
+        toast.error("Error checking admin status");
+        navigate("/dashboard");
+        return;
+      }
+
+      if (profile?.role !== "admin") {
+        toast.error("Unauthorized access");
+        navigate("/dashboard");
+        return;
+      }
+
+      setIsAdmin(true);
+    } catch (error) {
+      console.error("Error in admin check:", error);
+      toast.error("Error checking admin status");
       navigate("/dashboard");
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsAdmin(true);
-    setLoading(false);
   };
 
   const fetchVehicleTypes = async () => {
@@ -200,7 +221,7 @@ const AdminDashboard = () => {
     { id: "settings", label: "Settings", icon: Settings },
   ];
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-maxmove-500"></div>
