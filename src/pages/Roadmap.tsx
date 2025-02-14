@@ -1,5 +1,5 @@
 
-import { Milestone } from "lucide-react";
+import { Milestone, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,6 +18,7 @@ const Roadmap = () => {
               Our Vision for the Future
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">Building the next generation of logistics infrastructure backed by science</p>
+            <ArrowDown className="mx-auto w-16 h-16 text-blue-500 animate-bounce" />
           </div>
         </div>
       </section>
