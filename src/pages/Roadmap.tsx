@@ -60,9 +60,8 @@ const Roadmap = () => {
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
                       <li>Begin construction of first underground logistics pilot project and autonomous robots</li>
-                      <li>🚀 Start Fundraising: Goal $12M for Underground Hyperlogistics Platform & Autonomous Robot Production</li>
-                      <li>
-                    </li>
+                      <li>Start fundraising: Goal $12M for underground hyperlogistics platform & autonomous robot production</li>
+                      <li>Expand with Maxmove Platform</li>
                       <li>Expand with Maxmove Platform</li>
                     </ul>
                   </CardDescription>
