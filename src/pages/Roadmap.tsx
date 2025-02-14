@@ -40,7 +40,7 @@ const Roadmap = () => {
                       <li>Launch operations in Rhein-Ruhr metropolitan region</li>
                       <li>Develop scalable and state of the art AI-powered applications.</li>
                       <li>Integrate AI-route optimization, AI matching and AI Agents.</li>
-                      <li>Secure EXIST grant funding</li>
+                      <li>Secure EXIST grant funding and start prototyping and planning autonomous underground delivery robot and network.</li>
                     </ul>
                   </CardDescription>
                 </CardHeader>
@@ -53,7 +53,7 @@ const Roadmap = () => {
               <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex items-center gap-4">
-                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2025</span>
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">Q1-Q2 2026</span>
                     <Milestone className="h-8 w-8 text-blue-500" />
                   </div>
                   <CardTitle className="text-white text-2xl">Expansion & Infrastructure Development</CardTitle>
