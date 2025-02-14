@@ -1,5 +1,5 @@
 
-import { Milestone } from "lucide-react";
+import { Milestone, ArrowDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
@@ -12,18 +12,17 @@ import {
 
 const Roadmap = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative py-24 bg-slate-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a,#334155)]"></div>
+      <section className="relative py-24 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <div className="text-center animate-fade-in">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
               Our Vision for the Future
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Building the next generation of urban logistics infrastructure
             </p>
           </div>
@@ -31,84 +30,99 @@ const Roadmap = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Vertical Line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-500/30 top-0" />
+
+          <div className="space-y-24">
             {/* 2024 */}
-            <Card className="transition-transform hover:scale-105 border border-gray-200">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl font-bold text-blue-600">2024</span>
-                  <Milestone className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-gray-900">Market Entry & Initial Growth</CardTitle>
-                <CardDescription className="text-gray-600">
-                  <ul className="list-disc pl-5 space-y-2 mt-2">
-                    <li>Launch operations in Rhein-Ruhr metropolitan region</li>
-                    <li>Establish partnerships with key retailers and businesses</li>
-                    <li>Develop and test AI-powered route optimization system</li>
-                    <li>Secure EXIST grant funding</li>
-                  </ul>
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="relative">
+              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
+              <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2024</span>
+                    <Milestone className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <CardTitle className="text-white text-2xl">Market Entry & Initial Growth</CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    <ul className="list-disc pl-5 space-y-3 mt-4">
+                      <li>Launch operations in Rhein-Ruhr metropolitan region</li>
+                      <li>Establish partnerships with key retailers and businesses</li>
+                      <li>Develop and test AI-powered route optimization system</li>
+                      <li>Secure EXIST grant funding</li>
+                    </ul>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
 
             {/* 2025 */}
-            <Card className="transition-transform hover:scale-105 border border-gray-200">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl font-bold text-blue-600">2025</span>
-                  <Milestone className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-gray-900">Expansion & Infrastructure Development</CardTitle>
-                <CardDescription className="text-gray-600">
-                  <ul className="list-disc pl-5 space-y-2 mt-2">
-                    <li>Begin construction of first underground logistics pilot project</li>
-                    <li>Expand operations to additional German metropolitan areas</li>
-                    <li>Launch autonomous delivery pilot program</li>
-                    <li>Develop proprietary delivery management platform</li>
-                  </ul>
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="relative">
+              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
+              <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2025</span>
+                    <Milestone className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <CardTitle className="text-white text-2xl">Expansion & Infrastructure Development</CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    <ul className="list-disc pl-5 space-y-3 mt-4">
+                      <li>Begin construction of first underground logistics pilot project</li>
+                      <li>Expand operations to additional German metropolitan areas</li>
+                      <li>Launch autonomous delivery pilot program</li>
+                      <li>Develop proprietary delivery management platform</li>
+                    </ul>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
 
             {/* 2026 */}
-            <Card className="transition-transform hover:scale-105 border border-gray-200">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl font-bold text-blue-600">2026</span>
-                  <Milestone className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-gray-900">Innovation & European Expansion</CardTitle>
-                <CardDescription className="text-gray-600">
-                  <ul className="list-disc pl-5 space-y-2 mt-2">
-                    <li>Complete first underground logistics network</li>
-                    <li>Launch operations in major European cities</li>
-                    <li>Roll out fleet of autonomous delivery vehicles</li>
-                    <li>Establish strategic partnerships across Europe</li>
-                  </ul>
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="relative">
+              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
+              <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2026</span>
+                    <Milestone className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <CardTitle className="text-white text-2xl">Innovation & European Expansion</CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    <ul className="list-disc pl-5 space-y-3 mt-4">
+                      <li>Complete first underground logistics network</li>
+                      <li>Launch operations in major European cities</li>
+                      <li>Roll out fleet of autonomous delivery vehicles</li>
+                      <li>Establish strategic partnerships across Europe</li>
+                    </ul>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
 
             {/* 2027+ */}
-            <Card className="transition-transform hover:scale-105 border border-gray-200">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl font-bold text-blue-600">2027+</span>
-                  <Milestone className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-gray-900">Future Vision</CardTitle>
-                <CardDescription className="text-gray-600">
-                  <ul className="list-disc pl-5 space-y-2 mt-2">
-                    <li>Scale underground logistics networks across Europe</li>
-                    <li>Achieve full automation of delivery operations</li>
-                    <li>Establish Maxmove as Europe's leading logistics platform</li>
-                    <li>Drive innovation in sustainable urban logistics</li>
-                  </ul>
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="relative">
+              <ArrowDown className="absolute left-1/2 transform -translate-x-1/2 -top-16 w-8 h-8 text-blue-500 animate-bounce" />
+              <Card className="transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20 border-2 border-blue-500/20 bg-white/5 backdrop-blur-sm">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">2027+</span>
+                    <Milestone className="h-8 w-8 text-blue-500" />
+                  </div>
+                  <CardTitle className="text-white text-2xl">Future Vision</CardTitle>
+                  <CardDescription className="text-gray-300 text-lg">
+                    <ul className="list-disc pl-5 space-y-3 mt-4">
+                      <li>Scale underground logistics networks across Europe</li>
+                      <li>Achieve full automation of delivery operations</li>
+                      <li>Establish Maxmove as Europe's leading logistics platform</li>
+                      <li>Drive innovation in sustainable urban logistics</li>
+                    </ul>
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
