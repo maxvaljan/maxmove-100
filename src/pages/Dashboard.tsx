@@ -6,7 +6,7 @@ import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
 import RecordsSection from "@/components/records/RecordsSection";
 import WalletSection from "@/components/wallet/WalletSection";
-import { Settings as SettingsIcon, User } from "lucide-react";
+import { Settings as SettingsIcon, User, Home, UserCog } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -19,6 +19,7 @@ import {
 const Dashboard = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [activeTab, setActiveTab] = useState("place-order");
   const [showSettings, setShowSettings] = useState(false);
   const { toast } = useToast();
@@ -39,6 +40,8 @@ const Dashboard = () => {
         .select('role')
         .eq('id', session.user.id)
         .single();
+
+      setIsAdmin(profile?.role === 'admin');
 
       if (profile?.role === 'driver') {
         toast({
@@ -115,8 +118,24 @@ const Dashboard = () => {
                 ))}
               </div>
 
-              {/* Personal and Settings Buttons */}
+              {/* Navigation and Settings Buttons */}
               <div className="flex items-center space-x-4">
+                <button
+                  className="p-2 rounded-md text-gray-600 hover:text-gray-900 transition-colors"
+                  onClick={() => navigate("/")}
+                >
+                  <Home className="h-5 w-5" />
+                </button>
+
+                {isAdmin && (
+                  <button
+                    className="p-2 rounded-md text-gray-600 hover:text-gray-900 transition-colors"
+                    onClick={() => navigate("/admin")}
+                  >
+                    <UserCog className="h-5 w-5" />
+                  </button>
+                )}
+
                 <button
                   className={`p-2 rounded-md transition-colors relative ${
                     showSettings
