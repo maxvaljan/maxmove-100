@@ -1,5 +1,5 @@
 
-import { FileText } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -60,7 +60,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
             return (
               <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
                 <CardHeader>
-                  <FileText className="h-12 w-12 text-blue-500 mb-4" />
+                  <Eye className="h-12 w-12 text-blue-500 mb-4" />
                   <CardTitle className="text-white">{reportName}</CardTitle>
                   <CardDescription className="text-gray-400">
                     {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
@@ -96,8 +96,8 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
                       onClick={() => handleOpenReport(report)}
                     >
-                      <FileText className="mr-2 h-4 w-4" />
-                      View Report
+                      <Eye className="mr-2 h-4 w-4" />
+                      View
                     </Button>
                   ) : !isAdmin && (
                     <Button 
@@ -105,7 +105,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
                       disabled
                     >
-                      <FileText className="mr-2 h-4 w-4" />
+                      <Eye className="mr-2 h-4 w-4" />
                       Coming Soon
                     </Button>
                   )}
@@ -120,3 +120,4 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
 };
 
 export default BackedByScience;
+
