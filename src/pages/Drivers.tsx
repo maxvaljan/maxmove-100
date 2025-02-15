@@ -67,8 +67,7 @@ const Drivers = () => {
             <CardHeader className="pb-4">
               <CardTitle className="text-xl">Start Driving</CardTitle>
               <CardDescription>
-                Enter your details to begin the application process
-              </CardDescription>
+            </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
