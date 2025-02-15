@@ -11,6 +11,7 @@ export interface VehicleType {
   base_price: number;
   price_per_km: number;
   minimum_distance: number;
+  icon_path?: string;
 }
 
 export interface UserProfile {

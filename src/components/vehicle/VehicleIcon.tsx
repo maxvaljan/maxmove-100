@@ -1,10 +1,48 @@
 
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+
 interface VehicleIconProps {
   category: string;
   name?: string;
 }
 
 const VehicleIcon = ({ category, name }: VehicleIconProps) => {
+  const [iconUrl, setIconUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchIcon = async () => {
+      if (!name) return;
+
+      const { data: vehicleType } = await supabase
+        .from('vehicle_types')
+        .select('icon_path')
+        .eq('name', name)
+        .single();
+
+      if (vehicleType?.icon_path) {
+        const { data } = supabase.storage
+          .from('vehicles')
+          .getPublicUrl(vehicleType.icon_path);
+        
+        setIconUrl(data.publicUrl);
+      }
+    };
+
+    fetchIcon();
+  }, [name]);
+
+  // If we have a custom icon, use it
+  if (iconUrl) {
+    return (
+      <img
+        src={iconUrl}
+        alt={name || category}
+        className="w-48 h-28 object-contain"
+      />
+    );
+  }
+
   // Special case for small transporter
   if (name === 'Small Transporter') {
     return (
@@ -115,4 +153,3 @@ const VehicleIcon = ({ category, name }: VehicleIconProps) => {
 };
 
 export default VehicleIcon;
-

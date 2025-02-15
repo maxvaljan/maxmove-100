@@ -794,6 +794,7 @@ export type Database = {
           created_at: string | null
           description: string
           dimensions: string
+          icon_path: string | null
           id: string
           max_weight: string
           minimum_distance: number
@@ -806,6 +807,7 @@ export type Database = {
           created_at?: string | null
           description: string
           dimensions: string
+          icon_path?: string | null
           id?: string
           max_weight: string
           minimum_distance?: number
@@ -818,6 +820,7 @@ export type Database = {
           created_at?: string | null
           description?: string
           dimensions?: string
+          icon_path?: string | null
           id?: string
           max_weight?: string
           minimum_distance?: number
