@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -76,13 +77,11 @@ export const AddReportDialog = ({
       // Upload the file to Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from("reports")
-        .upload(filePath, newReport.file, {
-          cacheControl: '3600',
-          upsert: false
-        });
+        .upload(filePath, newReport.file);
 
       if (uploadError) {
-        toast.error("Error uploading file: " + uploadError.message);
+        console.error("Upload error:", uploadError);
+        toast.error("Error uploading file");
         return;
       }
 
@@ -93,13 +92,13 @@ export const AddReportDialog = ({
           name: newReport.name,
           description: newReport.description,
           file_path: filePath,
-          file_type: newReport.file.type,
         });
 
       if (dbError) {
-        toast.error("Error saving report metadata: " + dbError.message);
+        console.error("Database error:", dbError);
         // Clean up the uploaded file if database insert fails
         await supabase.storage.from("reports").remove([filePath]);
+        toast.error("Error saving report metadata");
         return;
       }
 
@@ -112,8 +111,8 @@ export const AddReportDialog = ({
         file: null,
       });
     } catch (error) {
+      console.error("Unexpected error:", error);
       toast.error("An unexpected error occurred");
-      console.error("Error adding report:", error);
     } finally {
       setIsUploading(false);
     }
@@ -124,6 +123,7 @@ export const AddReportDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Report</DialogTitle>
+          <DialogDescription>Upload a new report to the system.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
