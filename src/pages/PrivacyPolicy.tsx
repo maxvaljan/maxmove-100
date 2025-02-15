@@ -91,6 +91,56 @@ const PrivacyPolicy = () => {
           description: "To analyze user behavior and enhance platform functionality"
         }
       ]
+    },
+    {
+      id: "legalBasis",
+      title: "5. Legal Basis for Processing",
+      items: [
+        {
+          title: "Contractual Necessity",
+          description: "Processing necessary for delivery services and platform functionality"
+        },
+        {
+          title: "Consent",
+          description: "Processing based on your explicit consent for specific purposes"
+        },
+        {
+          title: "Legitimate Interests",
+          description: "Processing based on our legitimate business interests"
+        },
+        {
+          title: "Legal Obligations",
+          description: "Processing required to comply with applicable laws and regulations"
+        }
+      ]
+    },
+    {
+      id: "dataSharing",
+      title: "6. Data Sharing and Transfers",
+      content: [
+        "We may share your personal data with third parties in specific circumstances, always ensuring appropriate safeguards are in place.",
+        "If data transfers occur outside the European Economic Area (EEA), we implement proper protection measures such as Standard Contractual Clauses."
+      ],
+      categories: [
+        {
+          title: "Service Providers",
+          items: [
+            "Payment processors",
+            "Customer support services",
+            "Analytics providers",
+            "Technical infrastructure"
+          ]
+        },
+        {
+          title: "Business Partners",
+          items: [
+            "Delivery partners",
+            "Logistics providers",
+            "Payment services",
+            "Technology partners"
+          ]
+        }
+      ]
     }
   ];
 
@@ -103,13 +153,27 @@ const PrivacyPolicy = () => {
           <article className="bg-white shadow-sm rounded-lg p-8">
             {/* Header Section */}
             <header className="border-b border-gray-200 pb-8 mb-8">
-              <h1 className="text-4xl font-bold text-maxmove-900">Privacy Policy of MaxMove</h1>
+              <h1 className="text-4xl font-bold text-maxmove-900">Privacy Policy</h1>
               <p className="mt-4 text-gray-600">Last updated: {companyInfo.lastUpdated}</p>
             </header>
 
+            {/* Table of Contents */}
+            <nav className="mb-12 p-6 bg-gray-50 rounded-lg">
+              <h2 className="text-lg font-semibold text-maxmove-900 mb-4">Table of Contents</h2>
+              <ul className="space-y-2">
+                {sections.map((section) => (
+                  <li key={section.id}>
+                    <a href={`#${section.id}`} className="text-maxmove-600 hover:text-maxmove-800 transition-colors">
+                      {section.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
             <div className="space-y-12">
               {/* Data Controller Section */}
-              <section>
+              <section id="dataController">
                 <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">2. Data Controller</h2>
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="font-semibold text-maxmove-900 mb-2">The data controller for MaxMove is:</p>
@@ -126,7 +190,7 @@ const PrivacyPolicy = () => {
 
               {/* Dynamic Sections */}
               {sections.map((section) => (
-                <section key={section.id}>
+                <section key={section.id} id={section.id} className="scroll-mt-20">
                   <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">{section.title}</h2>
                   
                   {section.content && (
@@ -162,11 +226,22 @@ const PrivacyPolicy = () => {
                       ))}
                     </div>
                   )}
+
+                  {section.items && (
+                    <div className="grid gap-4 sm:grid-cols-2 mt-4">
+                      {section.items.map((item) => (
+                        <div key={item.title} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                          <h3 className="font-semibold text-maxmove-900 mb-2">{item.title}</h3>
+                          <p className="text-gray-700">{item.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </section>
               ))}
 
               {/* Contact Section */}
-              <section>
+              <section id="contact">
                 <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">Contact Us</h2>
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700 mb-4">
