@@ -38,6 +38,7 @@ import Onboarding from "@/pages/Onboarding";
 // Legal
 import Terms from "@/pages/Terms";
 import CookiePolicy from "@/pages/CookiePolicy";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 // Services
 import PersonalDelivery from "@/pages/PersonalDelivery";
@@ -87,6 +88,7 @@ function App() {
         <Route path="/legal">
           <Route path="terms" element={<Terms />} />
           <Route path="cookies" element={<CookiePolicy />} />
+          <Route path="privacy" element={<PrivacyPolicy />} />
         </Route>
 
         {/* Services */}
