@@ -1,36 +1,14 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Edit2, Trash2, Plus } from "lucide-react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VehicleType, NewVehicle, VehicleCategory, VehicleTypeCategory } from "@/types/admin";
-import VehicleIcon from "@/components/vehicle/VehicleIcon";
+import { VehicleList } from "./vehicle/VehicleList";
+import { CategoryList } from "./vehicle/CategoryList";
+import { VehicleDialog } from "./vehicle/VehicleDialog";
+import { CategoryDialog } from "./vehicle/CategoryDialog";
 
 interface VehicleTypeSectionProps {
   vehicleTypes: VehicleType[];
@@ -46,7 +24,10 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [isEditCategoryOpen, setIsEditCategoryOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<VehicleTypeCategory | null>(null);
-  const [newCategory, setNewCategory] = useState({ name: "", description: "" });
+  const [newCategory, setNewCategory] = useState<{ name: string; description: string }>({ 
+    name: "", 
+    description: "" 
+  });
   const [newVehicle, setNewVehicle] = useState<NewVehicle>({
     name: "",
     category: "car",
@@ -57,6 +38,10 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     price_per_km: 0,
     minimum_distance: 0,
   });
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const handleFileUpload = async (file: File, vehicleId: string) => {
     try {
@@ -111,7 +96,14 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
         .order('name');
 
       if (error) throw error;
-      setCategories(data);
+
+      const typedCategories: VehicleTypeCategory[] = data.map(category => ({
+        id: category.id,
+        name: category.name as VehicleCategory,
+        description: category.description
+      }));
+
+      setCategories(typedCategories);
     } catch (error: any) {
       console.error('Error fetching categories:', error);
       toast.error('Error loading vehicle categories');
@@ -122,7 +114,10 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     try {
       const { error } = await supabase
         .from('vehicle_categories')
-        .insert([{ name: newCategory.name, description: newCategory.description }]);
+        .insert([{ 
+          name: newCategory.name as VehicleCategory, 
+          description: newCategory.description 
+        }]);
 
       if (error) throw error;
 
@@ -142,7 +137,10 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     try {
       const { error } = await supabase
         .from('vehicle_categories')
-        .update({ name: selectedCategory.name, description: selectedCategory.description })
+        .update({ 
+          name: selectedCategory.name, 
+          description: selectedCategory.description 
+        })
         .eq('id', selectedCategory.id);
 
       if (error) throw error;
@@ -272,179 +270,6 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     }
   };
 
-  const renderVehicleDialog = (isEdit: boolean) => {
-    const dialogTitle = isEdit ? "Edit Vehicle Type" : "Add New Vehicle Type";
-    const vehicle = isEdit ? selectedVehicle : newVehicle;
-    const setVehicle = isEdit 
-      ? (updates: Partial<VehicleType>) => setSelectedVehicle(prev => prev ? { ...prev, ...updates } : null)
-      : (updates: Partial<NewVehicle>) => setNewVehicle(prev => ({ ...prev, ...updates }));
-
-    return (
-      <Dialog 
-        open={isEdit ? isEditVehicleOpen : isAddVehicleOpen} 
-        onOpenChange={isEdit ? setIsEditVehicleOpen : setIsAddVehicleOpen}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{dialogTitle}</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                value={vehicle?.name}
-                onChange={(e) => setVehicle({ name: e.target.value })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
-              <Select
-                value={vehicle?.category}
-                onValueChange={(value: VehicleCategory) => setVehicle({ category: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="bike_motorcycle">Bike/Motorcycle</SelectItem>
-                  <SelectItem value="car">Car</SelectItem>
-                  <SelectItem value="van">Van</SelectItem>
-                  <SelectItem value="light_truck">Light Truck</SelectItem>
-                  <SelectItem value="medium_truck">Medium Truck</SelectItem>
-                  <SelectItem value="heavy_truck">Heavy Truck</SelectItem>
-                  <SelectItem value="towing">Towing</SelectItem>
-                  <SelectItem value="refrigerated">Refrigerated</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <Input
-                id="description"
-                value={vehicle?.description}
-                onChange={(e) => setVehicle({ description: e.target.value })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="dimensions">Dimensions</Label>
-              <Input
-                id="dimensions"
-                value={vehicle?.dimensions}
-                onChange={(e) => setVehicle({ dimensions: e.target.value })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="max_weight">Max Weight</Label>
-              <Input
-                id="max_weight"
-                value={vehicle?.max_weight}
-                onChange={(e) => setVehicle({ max_weight: e.target.value })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="base_price">Base Price</Label>
-              <Input
-                id="base_price"
-                type="number"
-                value={vehicle?.base_price}
-                onChange={(e) => setVehicle({ base_price: Number(e.target.value) })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="price_per_km">Price per KM</Label>
-              <Input
-                id="price_per_km"
-                type="number"
-                value={vehicle?.price_per_km}
-                onChange={(e) => setVehicle({ price_per_km: Number(e.target.value) })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="minimum_distance">Minimum Distance (km)</Label>
-              <Input
-                id="minimum_distance"
-                type="number"
-                value={vehicle?.minimum_distance}
-                onChange={(e) => setVehicle({ minimum_distance: Number(e.target.value) })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label>Vehicle Icon</Label>
-              <div className="flex items-center gap-4">
-                {isEdit && selectedVehicle && (
-                  <div className="w-24 h-24">
-                    <VehicleIcon category={selectedVehicle.category} name={selectedVehicle.name} />
-                  </div>
-                )}
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
-                />
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => isEdit ? setIsEditVehicleOpen(false) : setIsAddVehicleOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={isEdit ? handleEditVehicle : handleAddVehicle}>
-              {isEdit ? "Save Changes" : "Add Vehicle"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  };
-
-  const renderCategoryDialog = (isEdit: boolean) => {
-    const dialogTitle = isEdit ? "Edit Category" : "Add New Category";
-    const category = isEdit ? selectedCategory : newCategory;
-    const setCategory = isEdit 
-      ? (updates: Partial<VehicleTypeCategory>) => setSelectedCategory(prev => prev ? { ...prev, ...updates } : null)
-      : (updates: Partial<typeof newCategory>) => setNewCategory(prev => ({ ...prev, ...updates }));
-
-    return (
-      <Dialog 
-        open={isEdit ? isEditCategoryOpen : isAddCategoryOpen}
-        onOpenChange={isEdit ? setIsEditCategoryOpen : setIsAddCategoryOpen}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{dialogTitle}</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                value={category?.name}
-                onChange={(e) => setCategory({ name: e.target.value })}
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={category?.description || ""}
-                onChange={(e) => setCategory({ description: e.target.value })}
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => isEdit ? setIsEditCategoryOpen(false) : setIsAddCategoryOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={isEdit ? handleEditCategory : handleAddCategory}>
-              {isEdit ? "Save Changes" : "Add Category"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    );
-  };
-
   return (
     <div>
       <Tabs defaultValue="vehicles" className="space-y-6">
@@ -466,60 +291,14 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
           </div>
           
           <div className="bg-white rounded-lg shadow">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Icon</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Dimensions</TableHead>
-                  <TableHead>Max Weight</TableHead>
-                  <TableHead>Base Price</TableHead>
-                  <TableHead>Price/km</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {vehicleTypes.map((vehicle) => (
-                  <TableRow key={vehicle.id}>
-                    <TableCell>
-                      <div className="w-16 h-16">
-                        <VehicleIcon category={vehicle.category} name={vehicle.name} />
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium">{vehicle.name}</TableCell>
-                    <TableCell>{vehicle.category}</TableCell>
-                    <TableCell>{vehicle.description}</TableCell>
-                    <TableCell>{vehicle.dimensions}</TableCell>
-                    <TableCell>{vehicle.max_weight}</TableCell>
-                    <TableCell>${vehicle.base_price}</TableCell>
-                    <TableCell>${vehicle.price_per_km}/km</TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => {
-                            setSelectedVehicle(vehicle);
-                            setIsEditVehicleOpen(true);
-                          }}
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="destructive" 
-                          size="sm" 
-                          onClick={() => handleDeleteVehicle(vehicle.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <VehicleList
+              vehicles={vehicleTypes}
+              onEdit={(vehicle) => {
+                setSelectedVehicle(vehicle);
+                setIsEditVehicleOpen(true);
+              }}
+              onDelete={handleDeleteVehicle}
+            />
           </div>
         </TabsContent>
 
@@ -536,52 +315,57 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
           </div>
           
           <div className="bg-white rounded-lg shadow">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {categories.map((category) => (
-                  <TableRow key={category.id}>
-                    <TableCell className="font-medium">{category.name}</TableCell>
-                    <TableCell>{category.description}</TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => {
-                            setSelectedCategory(category);
-                            setIsEditCategoryOpen(true);
-                          }}
-                        >
-                          <Edit2 className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="destructive" 
-                          size="sm" 
-                          onClick={() => handleDeleteCategory(category.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <CategoryList
+              categories={categories}
+              onEdit={(category) => {
+                setSelectedCategory(category);
+                setIsEditCategoryOpen(true);
+              }}
+              onDelete={handleDeleteCategory}
+            />
           </div>
         </TabsContent>
       </Tabs>
 
-      {renderVehicleDialog(false)}
-      {renderVehicleDialog(true)}
-      {renderCategoryDialog(false)}
-      {renderCategoryDialog(true)}
+      <VehicleDialog
+        isOpen={isAddVehicleOpen}
+        onClose={() => setIsAddVehicleOpen(false)}
+        isEdit={false}
+        vehicle={newVehicle}
+        onSave={handleAddVehicle}
+        onVehicleChange={setNewVehicle}
+        selectedFile={selectedFile}
+        onFileChange={setSelectedFile}
+      />
+
+      <VehicleDialog
+        isOpen={isEditVehicleOpen}
+        onClose={() => setIsEditVehicleOpen(false)}
+        isEdit={true}
+        vehicle={selectedVehicle || newVehicle}
+        onSave={handleEditVehicle}
+        onVehicleChange={(updates) => setSelectedVehicle(prev => prev ? { ...prev, ...updates } : null)}
+        selectedFile={selectedFile}
+        onFileChange={setSelectedFile}
+      />
+
+      <CategoryDialog
+        isOpen={isAddCategoryOpen}
+        onClose={() => setIsAddCategoryOpen(false)}
+        isEdit={false}
+        category={newCategory}
+        onSave={handleAddCategory}
+        onCategoryChange={setNewCategory}
+      />
+
+      <CategoryDialog
+        isOpen={isEditCategoryOpen}
+        onClose={() => setIsEditCategoryOpen(false)}
+        isEdit={true}
+        category={selectedCategory || newCategory}
+        onSave={handleEditCategory}
+        onCategoryChange={(updates) => setSelectedCategory(prev => prev ? { ...prev, ...updates } : null)}
+      />
     </div>
   );
 };
