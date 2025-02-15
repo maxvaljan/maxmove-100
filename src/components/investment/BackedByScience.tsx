@@ -1,5 +1,5 @@
 
-import { FileText, Download } from "lucide-react";
+import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,6 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface Report {
   id: string;
@@ -22,7 +24,25 @@ interface BackedByScienceProps {
   onDownload: (report: Report) => Promise<void>;
 }
 
-const BackedByScience = ({ reports, isAdmin, onUpload, onDownload }: BackedByScienceProps) => {
+const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) => {
+  const handleOpenReport = async (report: Report) => {
+    try {
+      const { data } = await supabase.storage
+        .from('reports')
+        .createSignedUrl(report.file_path, 60 * 60); // URL valid for 1 hour
+
+      if (data?.signedUrl) {
+        // Open in new window
+        window.open(data.signedUrl, '_blank');
+      } else {
+        toast.error("Error accessing report");
+      }
+    } catch (error) {
+      toast.error("Error accessing report");
+      console.error("Error opening report:", error);
+    }
+  };
+
   return (
     <section className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,10 +88,10 @@ const BackedByScience = ({ reports, isAdmin, onUpload, onDownload }: BackedBySci
                     <Button 
                       variant="outline" 
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                      onClick={() => onDownload(report)}
+                      onClick={() => handleOpenReport(report)}
                     >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download Report
+                      <FileText className="mr-2 h-4 w-4" />
+                      View Report
                     </Button>
                   ) : !isAdmin && (
                     <Button 
@@ -79,7 +99,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload, onDownload }: BackedBySci
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
                       disabled
                     >
-                      <Download className="mr-2 h-4 w-4" />
+                      <FileText className="mr-2 h-4 w-4" />
                       Coming Soon
                     </Button>
                   )}

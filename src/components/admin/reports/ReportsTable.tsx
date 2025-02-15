@@ -1,7 +1,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Download } from "lucide-react";
+import { FileText, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -43,24 +43,21 @@ export const ReportsTable = ({ reports, onReportsChange }: ReportsTableProps) =>
     onReportsChange();
   };
 
-  const handleDownload = async (report: Report) => {
-    const { data, error } = await supabase.storage
-      .from("reports")
-      .download(report.file_path);
+  const handleOpenReport = async (report: Report) => {
+    try {
+      const { data } = await supabase.storage
+        .from('reports')
+        .createSignedUrl(report.file_path, 60 * 60); // URL valid for 1 hour
 
-    if (error) {
-      toast.error("Error downloading file");
-      return;
+      if (data?.signedUrl) {
+        window.open(data.signedUrl, '_blank');
+      } else {
+        toast.error("Error accessing report");
+      }
+    } catch (error) {
+      toast.error("Error accessing report");
+      console.error("Error opening report:", error);
     }
-
-    const url = window.URL.createObjectURL(data);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${report.name}.${report.file_path.split(".").pop()}`;
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
   };
 
   return (
@@ -87,17 +84,17 @@ export const ReportsTable = ({ reports, onReportsChange }: ReportsTableProps) =>
                   <Button 
                     variant="outline" 
                     size="sm"
-                    onClick={() => handleDownload(report)}
+                    onClick={() => handleOpenReport(report)}
                   >
-                    <Download className="h-4 w-4 mr-1" />
-                    Download
+                    <FileText className="h-4 w-4 mr-1" />
+                    View
                   </Button>
                   <Button 
                     variant="destructive" 
                     size="sm"
                     onClick={() => handleDeleteReport(report)}
                   >
-                    Delete
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </TableCell>
