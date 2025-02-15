@@ -1,9 +1,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Report } from "@/types/admin";
-import { AddReportDialog } from "./reports/AddReportDialog";
+import { PlusCircle } from "lucide-react";
 import { ReportsTable } from "./reports/ReportsTable";
+import { AddReportDialog } from "./reports/AddReportDialog";
+import { Report } from "@/types/admin";
 
 interface ReportsSectionProps {
   reports: Report[];
@@ -11,17 +12,14 @@ interface ReportsSectionProps {
 }
 
 export const ReportsSection = ({ reports, onReportsChange }: ReportsSectionProps) => {
-  const [isAddReportOpen, setIsAddReportOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-bold text-gray-900">Reports</h3>
-        <Button
-          variant="default"
-          className="bg-maxmove-500 hover:bg-maxmove-600"
-          onClick={() => setIsAddReportOpen(true)}
-        >
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Reports</h2>
+        <Button onClick={() => setIsAddDialogOpen(true)}>
+          <PlusCircle className="h-4 w-4 mr-2" />
           Add Report
         </Button>
       </div>
@@ -29,8 +27,8 @@ export const ReportsSection = ({ reports, onReportsChange }: ReportsSectionProps
       <ReportsTable reports={reports} onReportsChange={onReportsChange} />
 
       <AddReportDialog
-        open={isAddReportOpen}
-        onOpenChange={setIsAddReportOpen}
+        open={isAddDialogOpen}
+        onOpenChange={setIsAddDialogOpen}
         onReportsChange={onReportsChange}
       />
     </div>

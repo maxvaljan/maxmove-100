@@ -10,7 +10,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -68,15 +67,11 @@ export const AddReportDialog = ({
     try {
       setIsUploading(true);
 
-      // First, create the storage bucket if it doesn't exist
-      const { error: bucketError } = await supabase.storage.getBucket('reports');
-      if (bucketError && bucketError.message.includes('does not exist')) {
-        await supabase.storage.createBucket('reports', { public: true });
-      }
-
+      // First, create a reference for the file path
       const fileExt = newReport.file.name.split(".").pop();
       const filePath = `${newReport.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.${fileExt}`;
 
+      // Upload the file to Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from("reports")
         .upload(filePath, newReport.file);
@@ -86,6 +81,7 @@ export const AddReportDialog = ({
         return;
       }
 
+      // Insert the report metadata into the database
       const { error: dbError } = await supabase
         .from("reports")
         .insert({
@@ -97,7 +93,7 @@ export const AddReportDialog = ({
 
       if (dbError) {
         toast.error("Error saving report metadata: " + dbError.message);
-        // Clean up the uploaded file
+        // Clean up the uploaded file if database insert fails
         await supabase.storage.from("reports").remove([filePath]);
         return;
       }
@@ -153,7 +149,7 @@ export const AddReportDialog = ({
           </div>
           <div className="grid gap-2">
             <Label htmlFor="file">PDF File</Label>
-            <Input
+            <input
               id="file"
               type="file"
               accept=".pdf"
@@ -163,6 +159,7 @@ export const AddReportDialog = ({
                   file: e.target.files ? e.target.files[0] : null,
                 })
               }
+              className="border p-2 rounded"
             />
           </div>
         </div>
