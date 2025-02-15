@@ -65,13 +65,6 @@ const NavbarMobileMenu = ({ session, handleSignOut, navigate }: NavbarMobileMenu
             <DollarSign className="inline-block mr-2 h-4 w-4" />
             Investment
           </Link>
-          <Link
-            to="/contact"
-            className="block px-3 py-2 text-maxmove-700 hover:text-maxmove-900 transition-colors"
-          >
-            <Contact className="inline-block mr-2 h-4 w-4" />
-            Contact
-          </Link>
         </div>
         <div className="px-3 py-2">
           {session ? (

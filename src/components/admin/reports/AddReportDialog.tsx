@@ -12,12 +12,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface AddReportDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onReportsChange: () => void;
 }
+
+const REPORT_OPTIONS = [
+  {
+    name: 'McKinsey Report',
+    description: 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'
+  },
+  {
+    name: 'Deloitte Analysis',
+    description: 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'
+  },
+  {
+    name: 'BMVI Report',
+    description: 'Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery'
+  }
+];
 
 export const AddReportDialog = ({ 
   open, 
@@ -29,6 +45,17 @@ export const AddReportDialog = ({
     description: "",
     file: null as File | null,
   });
+
+  const handleReportSelect = (reportName: string) => {
+    const selectedReport = REPORT_OPTIONS.find(r => r.name === reportName);
+    if (selectedReport) {
+      setNewReport(prev => ({
+        ...prev,
+        name: selectedReport.name,
+        description: selectedReport.description
+      }));
+    }
+  };
 
   const handleAddReport = async () => {
     if (!newReport.file || !newReport.name) {
@@ -81,23 +108,29 @@ export const AddReportDialog = ({
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="name">Report Name</Label>
-            <Input
-              id="name"
-              value={newReport.name}
-              onChange={(e) =>
-                setNewReport({ ...newReport, name: e.target.value })
-              }
-            />
+            <Label htmlFor="reportSelect">Select Report</Label>
+            <Select onValueChange={handleReportSelect}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a report" />
+              </SelectTrigger>
+              <SelectContent>
+                {REPORT_OPTIONS.map((report) => (
+                  <SelectItem key={report.name} value={report.name}>
+                    {report.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description">Description</Label>
             <Input
               id="description"
               value={newReport.description}
               onChange={(e) =>
                 setNewReport({ ...newReport, description: e.target.value })
               }
+              readOnly
             />
           </div>
           <div className="grid gap-2">
