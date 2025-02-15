@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface AddReportDialogProps {
   open: boolean;
@@ -45,6 +46,7 @@ export const AddReportDialog = ({
     description: "",
     file: null as File | null,
   });
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleReportSelect = (reportName: string) => {
     const selectedReport = REPORT_OPTIONS.find(r => r.name === reportName);
@@ -63,41 +65,57 @@ export const AddReportDialog = ({
       return;
     }
 
-    const fileExt = newReport.file.name.split(".").pop();
-    const filePath = `reports/${newReport.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.${fileExt}`;
+    try {
+      setIsUploading(true);
 
-    const { error: uploadError } = await supabase.storage
-      .from("reports")
-      .upload(filePath, newReport.file);
+      // First, create the storage bucket if it doesn't exist
+      const { error: bucketError } = await supabase.storage.getBucket('reports');
+      if (bucketError && bucketError.message.includes('does not exist')) {
+        await supabase.storage.createBucket('reports', { public: true });
+      }
 
-    if (uploadError) {
-      toast.error("Error uploading file");
-      return;
-    }
+      const fileExt = newReport.file.name.split(".").pop();
+      const filePath = `${newReport.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.${fileExt}`;
 
-    const { error: dbError } = await supabase
-      .from("reports")
-      .insert({
-        name: newReport.name,
-        description: newReport.description || null,
-        file_path: filePath,
-        file_type: newReport.file.type,
+      const { error: uploadError } = await supabase.storage
+        .from("reports")
+        .upload(filePath, newReport.file);
+
+      if (uploadError) {
+        toast.error("Error uploading file: " + uploadError.message);
+        return;
+      }
+
+      const { error: dbError } = await supabase
+        .from("reports")
+        .insert({
+          name: newReport.name,
+          description: newReport.description,
+          file_path: filePath,
+          file_type: newReport.file.type,
+        });
+
+      if (dbError) {
+        toast.error("Error saving report metadata: " + dbError.message);
+        // Clean up the uploaded file
+        await supabase.storage.from("reports").remove([filePath]);
+        return;
+      }
+
+      toast.success("Report added successfully");
+      onOpenChange(false);
+      onReportsChange();
+      setNewReport({
+        name: "",
+        description: "",
+        file: null,
       });
-
-    if (dbError) {
-      toast.error("Error saving report metadata");
-      await supabase.storage.from("reports").remove([filePath]);
-      return;
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+      console.error("Error adding report:", error);
+    } finally {
+      setIsUploading(false);
     }
-
-    toast.success("Report added successfully");
-    onOpenChange(false);
-    onReportsChange();
-    setNewReport({
-      name: "",
-      description: "",
-      file: null,
-    });
   };
 
   return (
@@ -124,13 +142,13 @@ export const AddReportDialog = ({
           </div>
           <div className="grid gap-2">
             <Label htmlFor="description">Description</Label>
-            <Input
+            <Textarea
               id="description"
               value={newReport.description}
               onChange={(e) =>
                 setNewReport({ ...newReport, description: e.target.value })
               }
-              readOnly
+              rows={3}
             />
           </div>
           <div className="grid gap-2">
@@ -152,7 +170,12 @@ export const AddReportDialog = ({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleAddReport}>Add Report</Button>
+          <Button 
+            onClick={handleAddReport} 
+            disabled={isUploading || !newReport.file || !newReport.name}
+          >
+            {isUploading ? "Uploading..." : "Add Report"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
