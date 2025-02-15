@@ -97,7 +97,7 @@ const BackedByScience = ({ reports, isAdmin, isLoading, onUpload, onDownload }: 
                   </div>
                   <Button 
                     variant="outline" 
-                    className="mt-4 w-full border-gray-700 text-[#0FA0CE] hover:bg-white/5 hover:text-[#0FA0CE]/80"
+                    className="mt-4 w-full border-gray-700 text-[#1A1F2C] hover:bg-white/5 hover:text-white hover:border-transparent transition-all duration-300"
                     onClick={() => window.open(`https://xuehdmslktlsgpoexilo.supabase.co/storage/v1/object/public${reportPath}`, '_blank')}
                   >
                     View
