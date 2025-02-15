@@ -24,13 +24,6 @@ export const AdminSidebar = ({ activeSection, onSectionChange }: AdminSidebarPro
         >
           Users
         </Button>
-        <Button
-          variant={activeSection === "reports" ? "default" : "ghost"}
-          className="w-full justify-start"
-          onClick={() => onSectionChange("reports")}
-        >
-          Reports
-        </Button>
       </nav>
     </div>
   );

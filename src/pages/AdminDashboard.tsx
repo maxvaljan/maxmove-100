@@ -6,16 +6,7 @@ import { toast } from "sonner";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { VehicleTypeSection } from "@/components/admin/VehicleTypeSection";
 import { UsersSection } from "@/components/admin/UsersSection";
-import { ReportsSection } from "@/components/admin/ReportsSection";
 import { VehicleType, UserProfile } from "@/types/admin";
-
-interface Report {
-  id: string;
-  name: string;
-  description: string | null;
-  file_path: string;
-  created_at: string;
-}
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -24,7 +15,6 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("vehicle-types");
   const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
   const [users, setUsers] = useState<UserProfile[]>([]);
-  const [reports, setReports] = useState<Report[]>([]);
 
   useEffect(() => {
     const checkAdminStatus = async () => {
@@ -116,8 +106,6 @@ const AdminDashboard = () => {
         fetchVehicleTypes();
       } else if (activeSection === "users") {
         fetchUsers();
-      } else if (activeSection === "reports") {
-        fetchReports();
       }
     }
   }, [activeSection, isAdmin, isLoading]);
@@ -150,20 +138,6 @@ const AdminDashboard = () => {
     setUsers(data || []);
   };
 
-  const fetchReports = async () => {
-    const { data, error } = await supabase
-      .from("reports")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      toast.error("Error fetching reports");
-      return;
-    }
-
-    setReports(data || []);
-  };
-
   if (isLoading || isAdmin === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -192,12 +166,6 @@ const AdminDashboard = () => {
           )}
           {activeSection === "users" && (
             <UsersSection users={users} />
-          )}
-          {activeSection === "reports" && (
-            <ReportsSection 
-              reports={reports}
-              onReportsChange={fetchReports}
-            />
           )}
         </div>
       </div>
