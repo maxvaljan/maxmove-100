@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { LayoutDashboard, User, LogOut } from "lucide-react";
+import { LayoutDashboard, User, LogOut, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,6 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface NavbarUserMenuProps {
   session: any;
@@ -20,11 +22,38 @@ interface NavbarUserMenuProps {
 
 const NavbarUserMenu = ({ session, handleSignOut, getTextColor, isHomePage, isScrolled }: NavbarUserMenuProps) => {
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (!session) return;
+      
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      setIsAdmin(profile?.role === 'admin');
+    };
+
+    checkAdminStatus();
+  }, [session]);
 
   return (
     <div className="hidden md:flex items-center space-x-4">
       {session ? (
         <div className="flex items-center space-x-4">
+          {isAdmin && (
+            <Button
+              variant="ghost"
+              className={`transition-all duration-300 font-medium px-4 py-2 rounded-full ${getTextColor()}`}
+              onClick={() => navigate("/admin")}
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              Admin
+            </Button>
+          )}
           <Button
             variant="ghost"
             className={`transition-all duration-300 font-medium px-4 py-2 rounded-full ${getTextColor()}`}
