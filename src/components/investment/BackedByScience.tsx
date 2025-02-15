@@ -71,14 +71,16 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
             const reportPath = getReportPath(reportName);
             
             return (
-              <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-white">{reportName}</CardTitle>
-                  <CardDescription className="text-gray-400">
-                    {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Government Report on the Future of Logistics in Germany'}
-                    {reportName === 'Deloitte Analysis' && 'Global Smart Last-Mile Logistics Outlook'}
-                    {reportName === 'McKinsey Report' && 'Digitizing mid- and last-mile logistics handovers to reduce waste'}
-                  </CardDescription>
+              <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300 flex flex-col">
+                <CardHeader className="flex flex-col flex-1">
+                  <div className="flex-1">
+                    <CardTitle className="text-white">{reportName}</CardTitle>
+                    <CardDescription className="text-gray-400 min-h-[3rem]">
+                      {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Government Report on the Future of Logistics in Germany'}
+                      {reportName === 'Deloitte Analysis' && 'Global Smart Last-Mile Logistics Outlook'}
+                      {reportName === 'McKinsey Report' && 'Digitizing mid- and last-mile logistics handovers to reduce waste'}
+                    </CardDescription>
+                  </div>
                   <Button 
                     variant="outline" 
                     className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
