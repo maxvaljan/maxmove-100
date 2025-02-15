@@ -10,7 +10,7 @@ const PrivacyPolicy = () => {
       <main className="flex-grow bg-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold mb-4">Privacy Policy of MaxMove</h1>
-          <p className="mb-8">Last updated: [Date]</p>
+          <p className="mb-8">Last updated: March 20, 2024</p>
 
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">1. Introduction</h2>
@@ -22,11 +22,11 @@ const PrivacyPolicy = () => {
             <h2 className="text-xl font-bold mb-4">2. Data Controller</h2>
             <p>The data controller for MaxMove is:</p>
             <p>MaxMove GmbH<br />
-            [Your Address]<br />
-            [City, Postal Code]<br />
+            Eulenbergstr.37<br />
+            51065 Köln<br />
             Germany<br />
-            Email: [Your Contact Email]<br />
-            Phone: [Your Contact Number]</p>
+            Email: contact@maxmove.com<br />
+            Phone: +49 173 4224371</p>
           </section>
 
           <section className="mb-8">
@@ -95,7 +95,7 @@ const PrivacyPolicy = () => {
               <li>Right to Object: You can object to the processing of your personal data for certain purposes, including direct marketing.</li>
               <li>Right to Withdraw Consent: If you have provided consent for data processing, you can withdraw it at any time.</li>
             </ul>
-            <p>To exercise any of these rights, please contact us at [Your Contact Email].</p>
+            <p>To exercise any of these rights, please contact us at contact@maxmove.com.</p>
           </section>
 
           <section className="mb-8">
@@ -129,9 +129,10 @@ const PrivacyPolicy = () => {
             <h2 className="text-xl font-bold mb-4">13. Contact Us</h2>
             <p>If you have any questions, concerns, or requests regarding this Privacy Policy or the processing of your personal data, please contact us at:</p>
             <p>MaxMove GmbH<br />
-            [Your Contact Information]<br />
-            Email: [Your Contact Email]<br />
-            Phone: [Your Contact Number]</p>
+            Eulenbergstr.37<br />
+            51065 Köln<br />
+            Email: contact@maxmove.com<br />
+            Phone: +49 173 4224371</p>
           </section>
         </div>
       </main>
