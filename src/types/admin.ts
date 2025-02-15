@@ -1,4 +1,3 @@
-
 export type VehicleCategory = "bike_motorcycle" | "car" | "van" | "light_truck" | "medium_truck" | "heavy_truck" | "towing" | "refrigerated";
 
 export interface VehicleType {
@@ -32,4 +31,12 @@ export interface NewVehicle {
   base_price: number;
   price_per_km: number;
   minimum_distance: number;
+}
+
+export interface Report {
+  id: string;
+  name: string;
+  description: string | null;
+  file_path: string;
+  created_at: string;
 }
