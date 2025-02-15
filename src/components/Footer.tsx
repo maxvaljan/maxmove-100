@@ -1,3 +1,4 @@
+
 import { Instagram, Linkedin, X } from "lucide-react";
 import { Link } from "react-router-dom";
 const Footer = () => {
@@ -65,17 +66,12 @@ const Footer = () => {
             <h4 className="font-semibold text-lg mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/privacy-policy" className="text-maxmove-300 hover:text-white transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms" className="text-maxmove-300 hover:text-white transition-colors">
+                <Link to="/legal/terms" className="text-maxmove-300 hover:text-white transition-colors">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link to="/cookie-policy" className="text-maxmove-300 hover:text-white transition-colors">
+                <Link to="/legal/cookies" className="text-maxmove-300 hover:text-white transition-colors">
                   Cookie Policy
                 </Link>
               </li>
