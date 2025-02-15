@@ -1,16 +1,8 @@
 
 import { Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const Footer = () => {
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (value: string) => {
-    i18n.changeLanguage(value);
-  };
-
   return <footer className="bg-maxmove-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -18,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">Maxmove</h3>
             <p className="text-maxmove-300">
-              {t('common.footer.slogan')}
+              Move anything, anytime, anywhere
             </p>
             <div className="flex space-x-4">
               <a 
@@ -30,26 +22,15 @@ const Footer = () => {
                 <Linkedin className="h-8 w-8" />
               </a>
             </div>
-            <div className="mt-4">
-              <Select onValueChange={changeLanguage} defaultValue={i18n.language}>
-                <SelectTrigger className="w-[120px] bg-transparent border-maxmove-800 text-maxmove-300">
-                  <SelectValue placeholder="Language" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="de">Deutsch</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">{t('common.footer.quickLinks')}</h4>
+            <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.home')}
+                  Home
                 </Link>
               </li>
               <li>
@@ -59,22 +40,22 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/business" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.business')}
+                  Business Solutions
                 </Link>
               </li>
               <li>
                 <Link to="/drivers" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.drivers')}
+                  Become a Driver
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.about')}
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link to="/career" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.careers')}
+                  Careers
                 </Link>
               </li>
             </ul>
@@ -82,21 +63,21 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">{t('common.footer.legal')}</h4>
+            <h4 className="font-semibold text-lg mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/legal/terms" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.terms')}
+                  Terms & Conditions
                 </Link>
               </li>
               <li>
                 <Link to="/legal/cookies" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.cookies')}
+                  Cookie Policy
                 </Link>
               </li>
               <li>
                 <Link to="/legal/privacy" className="text-maxmove-300 hover:text-white transition-colors">
-                  {t('common.privacy')}
+                  Privacy Policy
                 </Link>
               </li>
             </ul>
@@ -104,7 +85,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">{t('common.footer.contact')}</h4>
+            <h4 className="font-semibold text-lg mb-4">Contact</h4>
             <ul className="space-y-2">
               <li className="text-maxmove-300">
                 contact@maxmove.com
@@ -121,11 +102,10 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-maxmove-800">
           <p className="text-center text-maxmove-300">
-            {t('common.footer.rights')}
+            © 2024 Maxmove. All rights reserved.
           </p>
         </div>
       </div>
     </footer>;
 };
-
 export default Footer;
