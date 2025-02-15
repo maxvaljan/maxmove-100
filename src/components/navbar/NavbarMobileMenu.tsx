@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Truck, Briefcase, User, Building2, GraduationCap, Contact, LayoutDashboard, DollarSign } from "lucide-react";
+import { Truck, Briefcase, User, Building2, GraduationCap, DollarSign, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface NavbarMobileMenuProps {

@@ -54,13 +54,11 @@ function App() {
         <Route path="/investment" element={<Investment />} />
         <Route path="/roadmap" element={<Roadmap />} />
 
-        {/* Auth Routes */}
-        <Route path="/auth">
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="reset-password" element={<ResetPassword />} />
-          <Route path="update-password" element={<UpdatePassword />} />
-        </Route>
+        {/* Auth Routes - Simplified */}
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
 
         {/* Business & Career */}
         <Route path="/business" element={<Business />} />
