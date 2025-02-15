@@ -51,36 +51,51 @@ export const SignInForm = () => {
             password: values.password 
           };
 
-      const { error } = await supabase.auth.signInWithPassword(credentials);
+      const { data, error } = await supabase.auth.signInWithPassword(credentials);
 
-      if (error) throw error;
+      if (error) {
+        console.error("Sign in error:", error);
+        throw error;
+      }
 
-      // Get user profile to check role
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("No user found");
+      if (!data.user) {
+        throw new Error("No user data returned");
+      }
 
-      console.log("Fetching user profile...");
-      const { data: profile } = await supabase
+      console.log("Sign in successful, fetching user profile...");
+      
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role')
-        .eq('id', user.id)
+        .eq('id', data.user.id)
         .single();
+
+      if (profileError) {
+        console.error("Error fetching profile:", profileError);
+        throw profileError;
+      }
 
       console.log("User role:", profile?.role);
 
       // Redirect based on role
       if (profile?.role === 'driver') {
         console.log("Redirecting to driver dashboard...");
-        navigate('/driver-dashboard');
+        navigate('/driver-dashboard', { replace: true });
       } else {
         console.log("Redirecting to regular dashboard...");
-        navigate('/dashboard');
+        navigate('/dashboard', { replace: true });
       }
 
       toast.success("Successfully signed in!");
     } catch (error: any) {
       console.error("Sign in error:", error);
-      toast.error(error.message);
+      if (error.message.includes("Invalid login credentials")) {
+        toast.error("Invalid email/phone or password");
+      } else if (error.message.includes("Email not confirmed")) {
+        toast.error("Please confirm your email address before signing in");
+      } else {
+        toast.error(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
