@@ -75,9 +75,9 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                 <CardHeader>
                   <CardTitle className="text-white">{reportName}</CardTitle>
                   <CardDescription className="text-gray-400">
-                    {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery'}
-                    {reportName === 'Deloitte Analysis' && 'Global Smart Last-Mile Logistics: Strategic Market Outlook'}
-                    {reportName === 'McKinsey Report' && 'Digital Transformation in Mid and Last-Mile Logistics: Reducing Waste Through Innovation'}
+                    {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Government Report on the Future of Logistics in Germany'}
+                    {reportName === 'Deloitte Analysis' && 'Global Smart Last-Mile Logistics Outlook'}
+                    {reportName === 'McKinsey Report' && 'Digitizing mid- and last-mile logistics handovers to reduce waste'}
                   </CardDescription>
                   <Button 
                     variant="outline" 
