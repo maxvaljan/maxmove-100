@@ -53,9 +53,9 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
       case 'BMVI Report':
         return '/reports//bmvi-report-1739624146460.pdf';
       case 'Deloitte Analysis':
-        return '/reports//deloitte-analysis-1739624775879.pdf';
+        return '/reports//Deloitte Consulting Global Smart Last-Mile Logistics Outlook.pdf';
       case 'McKinsey Report':
-        return '/reports//mckinsey-report-1739623702658.pdf';
+        return '/reports//Mckinsey Digitizing mid- and last-mile logistics handovers to reduce waste.pdf';
       default:
         return '';
     }
