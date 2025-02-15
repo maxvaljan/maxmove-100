@@ -92,6 +92,7 @@ export const AddReportDialog = ({
           name: newReport.name,
           description: newReport.description,
           file_path: filePath,
+          file_type: 'application/pdf' // Adding the required file_type field
         });
 
       if (dbError) {
