@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Edit2, Trash2, Upload } from "lucide-react";
+import { Edit2, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -58,6 +57,18 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
       const fileName = `${vehicleId}.${fileExt}`;
       const filePath = `vehicle-icons/${fileName}`;
 
+      const { data: vehicleData } = await supabase
+        .from('vehicle_types')
+        .select('icon_path')
+        .eq('id', vehicleId)
+        .single();
+
+      if (vehicleData?.icon_path) {
+        await supabase.storage
+          .from('vehicles')
+          .remove([vehicleData.icon_path]);
+      }
+
       const { error: uploadError } = await supabase.storage
         .from('vehicles')
         .upload(filePath, file, {
@@ -78,10 +89,10 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
       }
 
       toast.success('Vehicle icon updated successfully');
-      onVehicleTypesChange();
     } catch (error) {
       console.error('Error uploading file:', error);
       toast.error('Error uploading vehicle icon');
+      throw error;
     }
   };
 
@@ -113,8 +124,9 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
         minimum_distance: 0,
       });
       setSelectedFile(null);
-    } catch (error) {
-      toast.error("Error adding vehicle type");
+    } catch (error: any) {
+      console.error('Error adding vehicle:', error);
+      toast.error(error.message || "Error adding vehicle type");
     }
   };
 
@@ -147,13 +159,26 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
       onVehicleTypesChange();
       setSelectedVehicle(null);
       setSelectedFile(null);
-    } catch (error) {
-      toast.error("Error updating vehicle type");
+    } catch (error: any) {
+      console.error('Error updating vehicle:', error);
+      toast.error(error.message || "Error updating vehicle type");
     }
   };
 
   const handleDeleteVehicle = async (id: string) => {
     try {
+      const { data: vehicleData } = await supabase
+        .from('vehicle_types')
+        .select('icon_path')
+        .eq('id', id)
+        .single();
+
+      if (vehicleData?.icon_path) {
+        await supabase.storage
+          .from('vehicles')
+          .remove([vehicleData.icon_path]);
+      }
+
       const { error } = await supabase
         .from("vehicle_types")
         .delete()
@@ -163,8 +188,9 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
 
       toast.success("Vehicle type deleted successfully");
       onVehicleTypesChange();
-    } catch (error) {
-      toast.error("Error deleting vehicle type");
+    } catch (error: any) {
+      console.error('Error deleting vehicle:', error);
+      toast.error(error.message || "Error deleting vehicle type");
     }
   };
 
