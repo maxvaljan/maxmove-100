@@ -92,9 +92,7 @@ function App() {
         </Route>
 
         {/* Services */}
-        <Route path="/services">
-          <Route path="personal-delivery" element={<PersonalDelivery />} />
-        </Route>
+        <Route path="/personal-delivery" element={<PersonalDelivery />} />
       </Routes>
       <Toaster />
     </Router>

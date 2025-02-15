@@ -16,7 +16,7 @@ const Navbar = () => {
   const location = useLocation();
 
   // Define dark background routes
-  const darkBackgroundRoutes = ["/", "/investment"];
+  const darkBackgroundRoutes = ["/", "/investment", "/roadmap"];
   const isDarkBackground = darkBackgroundRoutes.includes(location.pathname);
 
   useEffect(() => {
