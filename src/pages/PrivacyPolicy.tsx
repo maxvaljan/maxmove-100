@@ -9,19 +9,19 @@ const PrivacyPolicy = () => {
       
       <main className="flex-grow bg-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold mb-4">Privacy Policy of MaxMove</h1>
+          <h1 className="text-3xl font-bold mb-4">Privacy Policy of Maxmove</h1>
           <p className="mb-8">Last updated: March 20, 2024</p>
 
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">1. Introduction</h2>
-            <p className="mb-4">Welcome to MaxMove, your trusted platform for fast, efficient, and reliable logistics and delivery services. We are committed to protecting your personal data and ensuring that your privacy is respected in accordance with the applicable data protection laws, including the General Data Protection Regulation (GDPR) and the Federal Data Protection Act (BDSG) in Germany.</p>
+            <p className="mb-4">Welcome to Maxmove, your trusted platform for fast, efficient, and reliable logistics and delivery services. We are committed to protecting your personal data and ensuring that your privacy is respected in accordance with the applicable data protection laws, including the General Data Protection Regulation (GDPR) and the Federal Data Protection Act (BDSG) in Germany.</p>
             <p>This Privacy Policy explains how we collect, use, store, and protect your personal data when you use our web app and related services. By accessing or using our services, you agree to the practices described in this Privacy Policy.</p>
           </section>
 
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">2. Data Controller</h2>
-            <p>The data controller for MaxMove is:</p>
-            <p>MaxMove GmbH<br />
+            <p>The data controller for Maxmove is:</p>
+            <p>Maxmove GmbH<br />
             Eulenbergstr.37<br />
             51065 Köln<br />
             Germany<br />
@@ -46,7 +46,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-xl font-bold mb-4">4. Purpose of Processing Your Personal Data</h2>
             <p>We process your personal data for the following purposes:</p>
             <ul className="list-disc pl-8 mb-4">
-              <li>Service Delivery: To provide the MaxMove platform, including logistics, delivery services, and connecting drivers and customers.</li>
+              <li>Service Delivery: To provide the Maxmove platform, including logistics, delivery services, and connecting drivers and customers.</li>
               <li>Account Management: To create and manage your account, handle your bookings, and communicate with you about your deliveries.</li>
               <li>Payment Processing: To process payments, handle invoicing, and ensure secure transactions.</li>
               <li>Customer Support: To respond to your inquiries, complaints, and provide customer service.</li>
@@ -73,7 +73,7 @@ const PrivacyPolicy = () => {
             <ul className="list-disc pl-8 mb-4">
               <li>Service Providers: We may share your data with third-party service providers that assist us with payment processing, customer support, data analytics, and technical infrastructure.</li>
               <li>Business Partners: If you use our platform in conjunction with third-party partners (e.g., drivers, delivery service partners), we may share necessary data for the completion of the service.</li>
-              <li>Legal Compliance: We may disclose your data when required by law, such as to comply with a legal process or when necessary to protect the rights, property, or safety of MaxMove, its users, or others.</li>
+              <li>Legal Compliance: We may disclose your data when required by law, such as to comply with a legal process or when necessary to protect the rights, property, or safety of Maxmove, its users, or others.</li>
             </ul>
             <p>If any data transfers occur outside of the European Economic Area (EEA), we ensure that appropriate safeguards are in place to protect your data, such as using Standard Contractual Clauses.</p>
           </section>
@@ -128,7 +128,7 @@ const PrivacyPolicy = () => {
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-4">13. Contact Us</h2>
             <p>If you have any questions, concerns, or requests regarding this Privacy Policy or the processing of your personal data, please contact us at:</p>
-            <p>MaxMove GmbH<br />
+            <p>Maxmove GmbH<br />
             Eulenbergstr.37<br />
             51065 Köln<br />
             Email: contact@maxmove.com<br />
