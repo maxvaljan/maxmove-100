@@ -43,6 +43,11 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
   const getTextColor = () => {
     if (isDarkBackground) {
       return isScrolled ? "text-maxmove-700 hover:text-maxmove-900" : "text-white hover:text-white/80";
