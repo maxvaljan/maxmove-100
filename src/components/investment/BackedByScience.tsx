@@ -53,7 +53,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-12 text-white">Backed by Science</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {['McKinsey Report', 'Deloitte Analysis', 'BMVI Report'].map((reportName) => {
+          {['BMVI Report', 'Deloitte Analysis', 'McKinsey Report'].map((reportName) => {
             const report = reports.find(r => r.name === reportName);
             
             return (
@@ -61,9 +61,9 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                 <CardHeader>
                   <CardTitle className="text-white">{reportName}</CardTitle>
                   <CardDescription className="text-gray-400">
-                    {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
-                    {reportName === 'Deloitte Analysis' && 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'}
                     {reportName === 'BMVI Report' && 'Innovationsprogramm Logistik 2023: Future of Urban Mobility and Delivery'}
+                    {reportName === 'Deloitte Analysis' && 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'}
+                    {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
                   </CardDescription>
                   {isAdmin && !report && (
                     <div className="mt-4">
@@ -116,4 +116,3 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
 };
 
 export default BackedByScience;
-
