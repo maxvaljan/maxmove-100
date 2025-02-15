@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { LayoutDashboard, User, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -50,7 +50,6 @@ const NavbarUserMenu = ({ session, handleSignOut, getTextColor, isHomePage, isSc
               className={`transition-all duration-300 font-medium px-4 py-2 rounded-full ${getTextColor()}`}
               onClick={() => navigate("/admin")}
             >
-              <Settings className="mr-2 h-4 w-4" />
               Admin
             </Button>
           )}

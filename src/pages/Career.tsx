@@ -1,14 +1,13 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Wrench, Briefcase, Brain, LucideIcon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface JobListing {
   id: string;
   title: string;
   type: string;
   location: string;
-  icon: LucideIcon;
 }
 
 const jobListings: JobListing[] = [
@@ -17,56 +16,48 @@ const jobListings: JobListing[] = [
     title: "Full-Stack Developer",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
-    icon: Briefcase,
   },
   {
     id: "mechanical-engineer",
     title: "Mechanical Engineer",
     location: "Cologne, Germany",
     type: "Full-time",
-    icon: Wrench,
   },
   {
     id: "operations-manager",
     title: "Operations Manager",
     location: "Cologne, Germany",
     type: "Full-time",
-    icon: Briefcase,
   },
   {
     id: "ai-engineer",
     title: "AI Engineer",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
-    icon: Brain,
   },
   {
     id: "marketing-manager",
     title: "Marketing Manager",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
-    icon: Briefcase,
   },
   {
     id: "ios-dev",
     title: "IOS Developer",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
-    icon: Briefcase,
   },
   {
     id: "backend-dev",
     title: "Backend Developer",
     location: "Cologne, Germany / Remote",
     type: "Full-time",
-    icon: Briefcase,
   },
   {
     id: "eng-intern",
     title: "Software Engineering Intern",
     location: "Cologne, Germany / Remote",
     type: "Internship",
-    icon: Briefcase,
   },
 ];
 
@@ -98,14 +89,9 @@ const Career = () => {
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="text-maxmove-600">
-                          <job.icon size={20} />
-                        </div>
-                        <h3 className="text-lg font-semibold text-maxmove-900">
-                          {job.title}
-                        </h3>
-                      </div>
+                      <h3 className="text-lg font-semibold text-maxmove-900">
+                        {job.title}
+                      </h3>
                       <p className="text-sm text-maxmove-600">
                         {job.location} · {job.type}
                       </p>
