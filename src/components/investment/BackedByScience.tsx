@@ -1,5 +1,4 @@
 
-import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -60,7 +59,6 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
             return (
               <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
                 <CardHeader>
-                  <Eye className="h-12 w-12 text-blue-500 mb-4" />
                   <CardTitle className="text-white">{reportName}</CardTitle>
                   <CardDescription className="text-gray-400">
                     {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
@@ -86,7 +84,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                         className="w-full border-gray-700 text-gray-300 hover:bg-white/5"
                         onClick={() => document.getElementById(`upload-${reportName}`)?.click()}
                       >
-                        Upload PDF
+                        View
                       </Button>
                     </div>
                   )}
@@ -96,7 +94,6 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
                       onClick={() => handleOpenReport(report)}
                     >
-                      <Eye className="mr-2 h-4 w-4" />
                       View
                     </Button>
                   ) : !isAdmin && (
@@ -105,7 +102,6 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                       className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
                       disabled
                     >
-                      <Eye className="mr-2 h-4 w-4" />
                       Coming Soon
                     </Button>
                   )}
