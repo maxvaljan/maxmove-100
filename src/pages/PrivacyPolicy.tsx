@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       
       <main className="flex-grow bg-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold mb-4">Privacy Policy of Maxmove</h1>
+          <h1 className="text-3xl font-bold mb-4 mt-8">Privacy Policy of Maxmove</h1>
           <p className="mb-8">Last updated: March 20, 2024</p>
 
           <section className="mb-8">
