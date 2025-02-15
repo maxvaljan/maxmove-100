@@ -14,7 +14,10 @@ const Navbar = () => {
   const [session, setSession] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
+
+  // Define dark background routes
+  const darkBackgroundRoutes = ["/", "/investment"];
+  const isDarkBackground = darkBackgroundRoutes.includes(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,13 +43,8 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
-
   const getTextColor = () => {
-    if (isHomePage) {
+    if (isDarkBackground) {
       return isScrolled ? "text-maxmove-700 hover:text-maxmove-900" : "text-white hover:text-white/80";
     }
     return "text-maxmove-700 hover:text-maxmove-900";
@@ -55,7 +53,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled || !isHomePage
+        isScrolled
           ? "bg-white/80 backdrop-blur-md shadow-md"
           : "bg-transparent"
       }`}
@@ -66,7 +64,7 @@ const Navbar = () => {
             <Link 
               to="/" 
               className={`text-2xl font-bold transition-colors ${
-                isHomePage 
+                isDarkBackground 
                   ? isScrolled ? "text-maxmove-900" : "text-white"
                   : "text-maxmove-900"
               }`}
@@ -81,7 +79,7 @@ const Navbar = () => {
             session={session}
             handleSignOut={handleSignOut}
             getTextColor={getTextColor}
-            isHomePage={isHomePage}
+            isHomePage={isDarkBackground}
             isScrolled={isScrolled}
           />
 
@@ -90,7 +88,7 @@ const Navbar = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={isHomePage ? (isScrolled ? "text-maxmove-900" : "text-white") : "text-maxmove-900"}
+              className={isDarkBackground ? (isScrolled ? "text-maxmove-900" : "text-white") : "text-maxmove-900"}
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
