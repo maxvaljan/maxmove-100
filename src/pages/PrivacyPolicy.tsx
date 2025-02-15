@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-maxmove-900 mb-8">
 
-Privacy Policy of MaxMove</h1>
+Privacy Policy of Maxmove</h1>
             
             <div className="prose prose-maxmove">
               <p>Last updated: {new Date().toLocaleDateString()}</p>
