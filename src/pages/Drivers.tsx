@@ -1,62 +1,38 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Clock,
-  CreditCard,
-  Smartphone,
-  Shield,
-  Calendar,
-  MapPin,
-} from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Clock, CreditCard, Smartphone, Shield, Calendar, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
-
 const Drivers = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [city, setCity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   const generateVerificationCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
       const verificationCode = generateVerificationCode();
-      
-      const { error } = await supabase
-        .from("PhoneVerification")
-        .insert({
-          phone_number: phoneNumber,
-          verification_code: verificationCode,
-        });
-
+      const {
+        error
+      } = await supabase.from("PhoneVerification").insert({
+        phone_number: phoneNumber,
+        verification_code: verificationCode
+      });
       if (error) throw error;
-
       toast({
         title: "Verification code sent!",
         description: "Please check your phone for the verification code.",
-        duration: 5000,
+        duration: 5000
       });
     } catch (error) {
       console.error("Error:", error);
@@ -64,15 +40,13 @@ const Drivers = () => {
         title: "Error",
         description: "Failed to send verification code. Please try again.",
         duration: 5000,
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsLoading(false);
     }
   };
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
@@ -99,27 +73,12 @@ const Drivers = () => {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <label htmlFor="phone" className="text-sm font-medium">
-                    Phone Number
-                  </label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+49"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    required
-                  />
+                  <label htmlFor="phone" className="text-sm font-medium"></label>
+                  <Input id="phone" type="tel" placeholder="+49" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} required />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="city" className="text-sm font-medium">
-                    City
-                  </label>
-                  <Select
-                    value={city}
-                    onValueChange={setCity}
-                    required
-                  >
+                  <label htmlFor="city" className="text-sm font-medium"></label>
+                  <Select value={city} onValueChange={setCity} required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select your city" />
                     </SelectTrigger>
@@ -128,11 +87,7 @@ const Drivers = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-maxmove-800"
-                  disabled={isLoading}
-                >
+                <Button type="submit" disabled={isLoading} className="w-full bg-maxmove-800 text-slate-50">
                   {isLoading ? "Sending..." : "Get Verification Code"}
                 </Button>
               </form>
@@ -206,8 +161,6 @@ const Drivers = () => {
             </Card>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Drivers;
