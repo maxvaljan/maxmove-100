@@ -48,6 +48,19 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
     }
   };
 
+  const getReportPath = (reportName: string) => {
+    switch (reportName) {
+      case 'BMVI Report':
+        return '/reports//bmvi-report-1739624146460.pdf';
+      case 'Deloitte Analysis':
+        return '/reports//deloitte-analysis-1739624775879.pdf';
+      case 'McKinsey Report':
+        return '/reports//mckinsey-report-1739623702658.pdf';
+      default:
+        return '';
+    }
+  };
+
   return (
     <section className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,6 +68,7 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {['BMVI Report', 'Deloitte Analysis', 'McKinsey Report'].map((reportName) => {
             const report = reports.find(r => r.name === reportName);
+            const reportPath = getReportPath(reportName);
             
             return (
               <Card key={reportName} className="bg-white/5 backdrop-blur-sm border-gray-800 hover:bg-white/10 transition-all duration-300">
@@ -65,46 +79,13 @@ const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) =
                     {reportName === 'Deloitte Analysis' && 'Underground Logistics Networks: A Revolutionary Approach to Urban Delivery'}
                     {reportName === 'McKinsey Report' && 'The Future of Last-Mile Logistics: Latest Market Insights and Growth Projections'}
                   </CardDescription>
-                  {isAdmin && !report && (
-                    <div className="mt-4">
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            onUpload(file, reportName);
-                          }
-                        }}
-                        className="hidden"
-                        id={`upload-${reportName}`}
-                      />
-                      <Button 
-                        variant="outline" 
-                        className="w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                        onClick={() => document.getElementById(`upload-${reportName}`)?.click()}
-                      >
-                        View
-                      </Button>
-                    </div>
-                  )}
-                  {report ? (
-                    <Button 
-                      variant="outline" 
-                      className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                      onClick={() => handleOpenReport(report)}
-                    >
-                      View
-                    </Button>
-                  ) : !isAdmin && (
-                    <Button 
-                      variant="outline" 
-                      className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
-                      disabled
-                    >
-                      Coming Soon
-                    </Button>
-                  )}
+                  <Button 
+                    variant="outline" 
+                    className="mt-4 w-full border-gray-700 text-gray-300 hover:bg-white/5"
+                    onClick={() => window.open(`https://xuehdmslktlsgpoexilo.supabase.co/storage/v1/object/public${reportPath}`, '_blank')}
+                  >
+                    View
+                  </Button>
                 </CardHeader>
               </Card>
             );
