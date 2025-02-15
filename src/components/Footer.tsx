@@ -1,6 +1,7 @@
 
-import { Instagram, Linkedin, X } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
+
 const Footer = () => {
   return <footer className="bg-maxmove-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -12,14 +13,13 @@ const Footer = () => {
               Move anything, anytime, anywhere
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
-                <X className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-maxmove-300 hover:text-white transition-colors">
-                <Linkedin className="h-5 w-5" />
+              <a 
+                href="https://www.linkedin.com/company/maxmove" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-maxmove-300 hover:text-white transition-colors"
+              >
+                <Linkedin className="h-8 w-8" />
               </a>
             </div>
           </div>
@@ -102,7 +102,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-maxmove-800">
           <p className="text-center text-maxmove-300">
-            © {new Date().getFullYear()} Maxmove. All rights reserved.
+            © 2024 Maxmove. All rights reserved.
           </p>
         </div>
       </div>
