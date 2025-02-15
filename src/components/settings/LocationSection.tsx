@@ -1,25 +1,16 @@
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 interface LocationSectionProps {
   language: "en" | "de";
   onUpdateLanguage: (value: "en" | "de") => void;
   onSave: () => void;
 }
-
 export const LocationSection = ({
   language,
   onUpdateLanguage,
-  onSave,
+  onSave
 }: LocationSectionProps) => {
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       <h2 className="text-2xl font-semibold">Location & Language</h2>
       
       <div className="space-y-6">
@@ -46,13 +37,9 @@ export const LocationSection = ({
           </div>
         </div>
 
-        <Button 
-          onClick={onSave}
-          className="mt-4 bg-orange-500 hover:bg-orange-600"
-        >
+        <Button onClick={onSave} className="mt-4 text-slate-50 bg-slate-900 hover:bg-slate-800">
           Save Changes
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 };
