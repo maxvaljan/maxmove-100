@@ -12,34 +12,17 @@ import HyperlogisticsSection from "@/components/investment/HyperlogisticsSection
 import { useReports } from "@/hooks/useReports";
 
 const Investment = () => {
-  const { 
-    reports, 
-    isAdmin, 
-    isLoadingReports,
-    uploadReport, 
-    downloadReport, 
-    checkAdminStatus 
-  } = useReports();
+  const { checkAdminStatus } = useReports();
 
   useEffect(() => {
     checkAdminStatus();
   }, []);
 
-  const handleUpload = (file: File, reportName: string) => {
-    uploadReport({ file, reportName });
-  };
-
   return (
     <div className="min-h-screen bg-[#0d0f1a]">
       <Navbar />
       <Hero />
-      <BackedByScience 
-        reports={reports}
-        isAdmin={isAdmin}
-        onUpload={handleUpload}
-        onDownload={downloadReport}
-        isLoading={isLoadingReports}
-      />
+      <BackedByScience />
       <Info />
       <Future />
       <FundingSection />
