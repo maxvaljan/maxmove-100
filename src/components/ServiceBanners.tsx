@@ -49,7 +49,7 @@ const ServiceBanners = () => {
               </div>
             </h1>
           </div>
-          <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">Smart Logistics</p>
+          <p className="text-lg md:text-xl text-white/90 mb-12 text-center w-full">Smart logistics</p>
         </div>
 
         <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6 mt-48 md:mt-24 w-full">
