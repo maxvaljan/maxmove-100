@@ -20,39 +20,49 @@ interface ReportsTableProps {
 
 export const ReportsTable = ({ reports, onReportsChange }: ReportsTableProps) => {
   const handleDeleteReport = async (report: Report) => {
-    const { error: storageError } = await supabase.storage
-      .from("reports")
-      .remove([report.file_path]);
+    try {
+      // Delete the file from storage first
+      const { error: storageError } = await supabase.storage
+        .from("reports")
+        .remove([report.file_path]);
 
-    if (storageError) {
-      toast.error("Error deleting file");
-      return;
+      if (storageError) {
+        toast.error("Error deleting file: " + storageError.message);
+        return;
+      }
+
+      // Then delete the database record
+      const { error: dbError } = await supabase
+        .from("reports")
+        .delete()
+        .eq("id", report.id);
+
+      if (dbError) {
+        toast.error("Error deleting report metadata: " + dbError.message);
+        return;
+      }
+
+      toast.success("Report deleted successfully");
+      onReportsChange();
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+      console.error("Error deleting report:", error);
     }
-
-    const { error: dbError } = await supabase
-      .from("reports")
-      .delete()
-      .eq("id", report.id);
-
-    if (dbError) {
-      toast.error("Error deleting report metadata");
-      return;
-    }
-
-    toast.success("Report deleted successfully");
-    onReportsChange();
   };
 
   const handleOpenReport = async (report: Report) => {
     try {
-      const { data } = await supabase.storage
+      const { data, error } = await supabase.storage
         .from('reports')
-        .createSignedUrl(report.file_path, 60 * 60); // URL valid for 1 hour
+        .createSignedUrl(report.file_path, 3600); // URL valid for 1 hour
+
+      if (error) {
+        toast.error("Error accessing report: " + error.message);
+        return;
+      }
 
       if (data?.signedUrl) {
         window.open(data.signedUrl, '_blank');
-      } else {
-        toast.error("Error accessing report");
       }
     } catch (error) {
       toast.error("Error accessing report");

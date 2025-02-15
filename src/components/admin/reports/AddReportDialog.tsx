@@ -67,14 +67,19 @@ export const AddReportDialog = ({
     try {
       setIsUploading(true);
 
-      // First, create a reference for the file path
+      // Create a sanitized file path
       const fileExt = newReport.file.name.split(".").pop();
-      const filePath = `${newReport.name.toLowerCase().replace(/\s+/g, "-")}-${Date.now()}.${fileExt}`;
+      const timestamp = new Date().getTime();
+      const sanitizedName = newReport.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const filePath = `${sanitizedName}-${timestamp}.${fileExt}`;
 
       // Upload the file to Supabase Storage
       const { error: uploadError } = await supabase.storage
         .from("reports")
-        .upload(filePath, newReport.file);
+        .upload(filePath, newReport.file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
       if (uploadError) {
         toast.error("Error uploading file: " + uploadError.message);
