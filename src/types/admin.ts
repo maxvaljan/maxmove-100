@@ -14,6 +14,12 @@ export interface VehicleType {
   icon_path?: string;
 }
 
+export interface VehicleTypeCategory {
+  id: string;
+  name: VehicleCategory;
+  description: string | null;
+}
+
 export interface UserProfile {
   id: string;
   name: string | null;

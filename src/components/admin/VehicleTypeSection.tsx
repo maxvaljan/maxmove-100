@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Edit2, Trash2 } from "lucide-react";
+import { Edit2, Trash2, Plus } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -27,7 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { VehicleType, NewVehicle, VehicleCategory } from "@/types/admin";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VehicleType, NewVehicle, VehicleCategory, VehicleTypeCategory } from "@/types/admin";
 import VehicleIcon from "@/components/vehicle/VehicleIcon";
 
 interface VehicleTypeSectionProps {
@@ -40,6 +42,11 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
   const [isEditVehicleOpen, setIsEditVehicleOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleType | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [categories, setCategories] = useState<VehicleTypeCategory[]>([]);
+  const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
+  const [isEditCategoryOpen, setIsEditCategoryOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<VehicleTypeCategory | null>(null);
+  const [newCategory, setNewCategory] = useState({ name: "", description: "" });
   const [newVehicle, setNewVehicle] = useState<NewVehicle>({
     name: "",
     category: "car",
@@ -93,6 +100,77 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
       console.error('Error uploading file:', error);
       toast.error('Error uploading vehicle icon');
       throw error;
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('vehicle_categories')
+        .select('*')
+        .order('name');
+
+      if (error) throw error;
+      setCategories(data);
+    } catch (error: any) {
+      console.error('Error fetching categories:', error);
+      toast.error('Error loading vehicle categories');
+    }
+  };
+
+  const handleAddCategory = async () => {
+    try {
+      const { error } = await supabase
+        .from('vehicle_categories')
+        .insert([{ name: newCategory.name, description: newCategory.description }]);
+
+      if (error) throw error;
+
+      toast.success('Category added successfully');
+      setIsAddCategoryOpen(false);
+      fetchCategories();
+      setNewCategory({ name: "", description: "" });
+    } catch (error: any) {
+      console.error('Error adding category:', error);
+      toast.error(error.message || 'Error adding category');
+    }
+  };
+
+  const handleEditCategory = async () => {
+    if (!selectedCategory) return;
+
+    try {
+      const { error } = await supabase
+        .from('vehicle_categories')
+        .update({ name: selectedCategory.name, description: selectedCategory.description })
+        .eq('id', selectedCategory.id);
+
+      if (error) throw error;
+
+      toast.success('Category updated successfully');
+      setIsEditCategoryOpen(false);
+      fetchCategories();
+      setSelectedCategory(null);
+    } catch (error: any) {
+      console.error('Error updating category:', error);
+      toast.error(error.message || 'Error updating category');
+    }
+  };
+
+  const handleDeleteCategory = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('vehicle_categories')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast.success('Category deleted successfully');
+      fetchCategories();
+    } catch (error: any) {
+      console.error('Error deleting category:', error);
+      toast.error(error.message || 'Error deleting category');
     }
   };
 
@@ -320,77 +398,190 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     );
   };
 
+  const renderCategoryDialog = (isEdit: boolean) => {
+    const dialogTitle = isEdit ? "Edit Category" : "Add New Category";
+    const category = isEdit ? selectedCategory : newCategory;
+    const setCategory = isEdit 
+      ? (updates: Partial<VehicleTypeCategory>) => setSelectedCategory(prev => prev ? { ...prev, ...updates } : null)
+      : (updates: Partial<typeof newCategory>) => setNewCategory(prev => ({ ...prev, ...updates }));
+
+    return (
+      <Dialog 
+        open={isEdit ? isEditCategoryOpen : isAddCategoryOpen}
+        onOpenChange={isEdit ? setIsEditCategoryOpen : setIsAddCategoryOpen}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{dialogTitle}</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                value={category?.name}
+                onChange={(e) => setCategory({ name: e.target.value })}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={category?.description || ""}
+                onChange={(e) => setCategory({ description: e.target.value })}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => isEdit ? setIsEditCategoryOpen(false) : setIsAddCategoryOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={isEdit ? handleEditCategory : handleAddCategory}>
+              {isEdit ? "Save Changes" : "Add Category"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-bold text-gray-900">Vehicle Types</h3>
-        <Button
-          variant="default"
-          className="bg-maxmove-500 hover:bg-maxmove-600"
-          onClick={() => setIsAddVehicleOpen(true)}
-        >
-          Add Vehicle Type
-        </Button>
-      </div>
-      <div className="bg-white rounded-lg shadow">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Icon</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Dimensions</TableHead>
-              <TableHead>Max Weight</TableHead>
-              <TableHead>Base Price</TableHead>
-              <TableHead>Price/km</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {vehicleTypes.map((vehicle) => (
-              <TableRow key={vehicle.id}>
-                <TableCell>
-                  <div className="w-16 h-16">
-                    <VehicleIcon category={vehicle.category} name={vehicle.name} />
-                  </div>
-                </TableCell>
-                <TableCell className="font-medium">{vehicle.name}</TableCell>
-                <TableCell>{vehicle.category}</TableCell>
-                <TableCell>{vehicle.description}</TableCell>
-                <TableCell>{vehicle.dimensions}</TableCell>
-                <TableCell>{vehicle.max_weight}</TableCell>
-                <TableCell>${vehicle.base_price}</TableCell>
-                <TableCell>${vehicle.price_per_km}/km</TableCell>
-                <TableCell>
-                  <div className="flex space-x-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => {
-                        setSelectedVehicle(vehicle);
-                        setIsEditVehicleOpen(true);
-                      }}
-                    >
-                      <Edit2 className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="destructive" 
-                      size="sm" 
-                      onClick={() => handleDeleteVehicle(vehicle.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <Tabs defaultValue="vehicles" className="space-y-6">
+        <TabsList>
+          <TabsTrigger value="vehicles">Vehicles</TabsTrigger>
+          <TabsTrigger value="categories">Categories</TabsTrigger>
+        </TabsList>
 
-      {renderVehicleDialog(false)} {/* Add Vehicle Dialog */}
-      {renderVehicleDialog(true)} {/* Edit Vehicle Dialog */}
+        <TabsContent value="vehicles" className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-2xl font-bold text-gray-900">Vehicle Types</h3>
+            <Button
+              variant="default"
+              className="bg-maxmove-500 hover:bg-maxmove-600"
+              onClick={() => setIsAddVehicleOpen(true)}
+            >
+              Add Vehicle Type
+            </Button>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Icon</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead>Dimensions</TableHead>
+                  <TableHead>Max Weight</TableHead>
+                  <TableHead>Base Price</TableHead>
+                  <TableHead>Price/km</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {vehicleTypes.map((vehicle) => (
+                  <TableRow key={vehicle.id}>
+                    <TableCell>
+                      <div className="w-16 h-16">
+                        <VehicleIcon category={vehicle.category} name={vehicle.name} />
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium">{vehicle.name}</TableCell>
+                    <TableCell>{vehicle.category}</TableCell>
+                    <TableCell>{vehicle.description}</TableCell>
+                    <TableCell>{vehicle.dimensions}</TableCell>
+                    <TableCell>{vehicle.max_weight}</TableCell>
+                    <TableCell>${vehicle.base_price}</TableCell>
+                    <TableCell>${vehicle.price_per_km}/km</TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => {
+                            setSelectedVehicle(vehicle);
+                            setIsEditVehicleOpen(true);
+                          }}
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="destructive" 
+                          size="sm" 
+                          onClick={() => handleDeleteVehicle(vehicle.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="categories" className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h3 className="text-2xl font-bold text-gray-900">Vehicle Categories</h3>
+            <Button
+              variant="default"
+              className="bg-maxmove-500 hover:bg-maxmove-600"
+              onClick={() => setIsAddCategoryOpen(true)}
+            >
+              Add Category
+            </Button>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {categories.map((category) => (
+                  <TableRow key={category.id}>
+                    <TableCell className="font-medium">{category.name}</TableCell>
+                    <TableCell>{category.description}</TableCell>
+                    <TableCell>
+                      <div className="flex space-x-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => {
+                            setSelectedCategory(category);
+                            setIsEditCategoryOpen(true);
+                          }}
+                        >
+                          <Edit2 className="h-4 w-4" />
+                        </Button>
+                        <Button 
+                          variant="destructive" 
+                          size="sm" 
+                          onClick={() => handleDeleteCategory(category.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+      </Tabs>
+
+      {renderVehicleDialog(false)}
+      {renderVehicleDialog(true)}
+      {renderCategoryDialog(false)}
+      {renderCategoryDialog(true)}
     </div>
   );
 };
