@@ -42,7 +42,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/personal-delivery" element={<PersonalDelivery />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/drivers" element={<Drivers />} />
         <Route path="/book" element={<Book />} />
         <Route path="/admin" element={<AdminDashboard />} />

@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, Routes, Route } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import PlaceOrder from "@/components/PlaceOrder";
 import Settings from "@/components/Settings";
@@ -88,30 +88,6 @@ const Dashboard = () => {
     setShowSettings(false);
   };
 
-  const renderContent = () => {
-    if (showSettings) {
-      return <Settings />;
-    }
-
-    switch (activeTab) {
-      case "place-order":
-        return <PlaceOrder />;
-      case "records":
-        return <RecordsSection />;
-      case "wallet":
-        return <WalletSection />;
-      default:
-        return (
-          <div className="p-4">
-            <h2 className="text-2xl font-semibold">{
-              tabs.find(tab => tab.id === activeTab)?.label
-            }</h2>
-            <p className="text-gray-500 mt-4">This section is coming soon...</p>
-          </div>
-        );
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
       <div className="h-screen">
@@ -121,8 +97,9 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex space-x-8">
                 {tabs.map((tab) => (
-                  <button
+                  <Link
                     key={tab.id}
+                    to={`/dashboard/${tab.id}`}
                     className={`py-4 px-2 -mb-px font-medium text-sm transition-colors relative ${
                       activeTab === tab.id
                         ? "text-orange-500"
@@ -134,7 +111,7 @@ const Dashboard = () => {
                     {activeTab === tab.id && (
                       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500" />
                     )}
-                  </button>
+                  </Link>
                 ))}
               </div>
 
@@ -183,7 +160,29 @@ const Dashboard = () => {
 
         {/* Content */}
         <div className="p-4">
-          {renderContent()}
+          <Routes>
+            <Route path="place-order" element={<PlaceOrder />} />
+            <Route path="records" element={<RecordsSection />} />
+            <Route path="wallet" element={<WalletSection />} />
+            <Route path="settings" element={<Settings />} />
+            <Route
+              path="*"
+              element={
+                showSettings ? (
+                  <Settings />
+                ) : (
+                  <div className="p-4">
+                    <h2 className="text-2xl font-semibold">
+                      {tabs.find((tab) => tab.id === activeTab)?.label}
+                    </h2>
+                    <p className="text-gray-500 mt-4">
+                      This section is coming soon...
+                    </p>
+                  </div>
+                )
+              }
+            />
+          </Routes>
         </div>
       </div>
     </div>
