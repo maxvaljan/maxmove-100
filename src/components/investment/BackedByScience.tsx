@@ -27,9 +27,15 @@ interface BackedByScienceProps {
 const BackedByScience = ({ reports, isAdmin, onUpload }: BackedByScienceProps) => {
   const handleOpenReport = async (report: Report) => {
     try {
-      const { data } = await supabase.storage
+      const { data, error } = await supabase.storage
         .from('reports')
         .createSignedUrl(report.file_path, 60 * 60); // URL valid for 1 hour
+
+      if (error) {
+        toast.error("Error accessing report");
+        console.error("Error accessing report:", error);
+        return;
+      }
 
       if (data?.signedUrl) {
         // Open in new window
