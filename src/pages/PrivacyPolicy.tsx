@@ -1,8 +1,31 @@
-
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PrivacyHeader } from "@/components/privacy/PrivacyHeader";
+import { PrivacySection } from "@/components/privacy/PrivacySection";
+import { DataController } from "@/components/privacy/DataController";
+import { PersonalDataGrid } from "@/components/privacy/PersonalDataGrid";
+import { ContactSection } from "@/components/privacy/ContactSection";
 
 const PrivacyPolicy = () => {
+  const personalDataCategories = [
+    {
+      title: "Account Information",
+      items: ["Name", "Email address", "Phone number", "Profile picture", "Password"]
+    },
+    {
+      title: "Payment Information",
+      items: ["Payment method details", "Billing address", "Transaction history"]
+    },
+    {
+      title: "Location Data",
+      items: ["GPS location for pickup", "Drop-off points", "Route information"]
+    },
+    {
+      title: "Technical Data",
+      items: ["Device type", "Browser info", "IP address", "Operating system", "Usage patterns"]
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -10,16 +33,10 @@ const PrivacyPolicy = () => {
       <main className="flex-grow bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <article className="bg-white shadow-sm rounded-lg p-8">
-            {/* Header */}
-            <header className="border-b border-gray-200 pb-8 mb-8">
-              <h1 className="text-4xl font-bold text-maxmove-900">Privacy Policy of MaxMove</h1>
-              <p className="mt-4 text-gray-600">Last updated: March 20, 2024</p>
-            </header>
+            <PrivacyHeader />
 
             <div className="space-y-12">
-              {/* Introduction */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">1. Introduction</h2>
+              <PrivacySection title="1. Introduction">
                 <div className="prose prose-gray max-w-none space-y-4">
                   <p>
                     Welcome to MaxMove, your trusted platform for fast, efficient, and reliable logistics 
@@ -34,70 +51,17 @@ const PrivacyPolicy = () => {
                     agree to the practices described in this Privacy Policy.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              {/* Data Controller */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">2. Data Controller</h2>
-                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                  <p className="font-semibold text-maxmove-900 mb-2">The data controller for MaxMove is:</p>
-                  <div className="space-y-1 text-gray-700">
-                    <p>MaxMove GmbH</p>
-                    <p>[Your Address]</p>
-                    <p>[City, Postal Code]</p>
-                    <p>Germany</p>
-                    <p>Email: [Your Contact Email]</p>
-                    <p>Phone: [Your Contact Number]</p>
-                  </div>
-                </div>
-              </section>
+              <PrivacySection title="2. Data Controller">
+                <DataController />
+              </PrivacySection>
 
-              {/* Personal Data Collection */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">3. Personal Data We Collect</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h3 className="font-semibold text-maxmove-900 mb-2">Account Information</h3>
-                    <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>Name</li>
-                      <li>Email address</li>
-                      <li>Phone number</li>
-                      <li>Profile picture</li>
-                      <li>Password</li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h3 className="font-semibold text-maxmove-900 mb-2">Payment Information</h3>
-                    <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>Payment method details</li>
-                      <li>Billing address</li>
-                      <li>Transaction history</li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h3 className="font-semibold text-maxmove-900 mb-2">Location Data</h3>
-                    <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>GPS location for pickup</li>
-                      <li>Drop-off points</li>
-                      <li>Route information</li>
-                    </ul>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h3 className="font-semibold text-maxmove-900 mb-2">Technical Data</h3>
-                    <ul className="list-disc list-inside text-gray-700 space-y-1">
-                      <li>Device type</li>
-                      <li>Browser info</li>
-                      <li>IP address</li>
-                      <li>Operating system</li>
-                      <li>Usage patterns</li>
-                    </ul>
-                  </div>
-                </div>
-              </section>
+              <PrivacySection title="3. Personal Data We Collect">
+                <PersonalDataGrid categories={personalDataCategories} />
+              </PrivacySection>
 
-              {/* Purpose of Processing */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">4. Purpose of Processing</h2>
+              <PrivacySection title="4. Purpose of Processing">
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                     <h3 className="font-semibold text-maxmove-900 mb-2">Service Delivery</h3>
@@ -116,11 +80,9 @@ const PrivacyPolicy = () => {
                     <p className="text-gray-700">To respond to your inquiries, complaints, and provide customer service.</p>
                   </div>
                 </div>
-              </section>
+              </PrivacySection>
 
-              {/* Legal Basis */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">5. Legal Basis</h2>
+              <PrivacySection title="5. Legal Basis">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                     <h3 className="font-semibold text-maxmove-900 mb-2">Contractual Necessity</h3>
@@ -131,11 +93,9 @@ const PrivacyPolicy = () => {
                     <p className="text-gray-700">Processing based on your explicit consent for specific purposes like marketing.</p>
                   </div>
                 </div>
-              </section>
+              </PrivacySection>
 
-              {/* Remaining Sections */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">6. Data Sharing and Transfers</h2>
+              <PrivacySection title="6. Data Sharing and Transfers">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700 whitespace-pre-line">
                     We may share your personal data with third parties in specific circumstances:
@@ -146,10 +106,9 @@ const PrivacyPolicy = () => {
                     For transfers outside the EEA, we implement appropriate safeguards including Standard Contractual Clauses.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">7. Data Retention</h2>
+              <PrivacySection title="7. Data Retention">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700">
                     We will retain your personal data for as long as necessary to fulfill the purposes outlined in this Privacy Policy, 
@@ -157,10 +116,9 @@ const PrivacyPolicy = () => {
                     anonymize it in accordance with applicable data retention policies.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">8. Your Rights</h2>
+              <PrivacySection title="8. Your Rights">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700 mb-4">As a user in the European Union, you have the following rights:</p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
@@ -174,10 +132,9 @@ const PrivacyPolicy = () => {
                   </ul>
                   <p className="mt-4 text-gray-700">Contact us at [Your Contact Email] to exercise these rights.</p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">9. Security of Your Data</h2>
+              <PrivacySection title="9. Security of Your Data">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700">
                     We implement appropriate technical and organizational measures to protect your personal data, 
@@ -185,10 +142,9 @@ const PrivacyPolicy = () => {
                     the Internet is completely secure.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">10. Cookies and Tracking</h2>
+              <PrivacySection title="10. Cookies and Tracking">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700 mb-4">We use cookies and similar technologies for:</p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
@@ -200,43 +156,29 @@ const PrivacyPolicy = () => {
                     Manage preferences via browser settings or our cookie banner.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">11. Third-Party Links</h2>
+              <PrivacySection title="11. Third-Party Links">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700">
                     Our app may contain links to third-party websites. We are not responsible for their 
                     privacy practices. Review their policies before sharing personal data.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">12. Changes to Privacy Policy</h2>
+              <PrivacySection title="12. Changes to Privacy Policy">
                 <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                   <p className="text-gray-700">
                     We may update this Privacy Policy periodically. Changes will be posted here with a 
                     revised date. Regular review is recommended.
                   </p>
                 </div>
-              </section>
+              </PrivacySection>
 
-              {/* Contact Section */}
-              <section>
-                <h2 className="text-2xl font-semibold text-maxmove-900 mb-4">13. Contact Us</h2>
-                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                  <p className="text-gray-700 mb-4">
-                    If you have any questions about this Privacy Policy, please contact us at:
-                  </p>
-                  <div className="space-y-1 text-gray-700">
-                    <p className="font-semibold">MaxMove GmbH</p>
-                    <p>[Your Contact Information]</p>
-                    <p>Email: [Your Contact Email]</p>
-                    <p>Phone: [Your Contact Number]</p>
-                  </div>
-                </div>
-              </section>
+              <PrivacySection title="13. Contact Us">
+                <ContactSection />
+              </PrivacySection>
             </div>
           </article>
         </div>
