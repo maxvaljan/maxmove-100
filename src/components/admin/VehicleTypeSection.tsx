@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -270,6 +269,24 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
     }
   };
 
+  const handleNewVehicleChange = (updates: Partial<VehicleType | NewVehicle>) => {
+    setNewVehicle(prev => ({ ...prev, ...updates }));
+  };
+
+  const handleNewCategoryChange = (updates: Partial<VehicleTypeCategory | { name: string; description: string }>) => {
+    setNewCategory(prev => ({ ...prev, ...updates as Partial<{ name: string; description: string }> }));
+  };
+
+  const handleSelectedCategoryChange = (updates: Partial<VehicleTypeCategory | { name: string; description: string }>) => {
+    setSelectedCategory(prev => {
+      if (!prev) return null;
+      return { 
+        ...prev, 
+        ...updates as Partial<VehicleTypeCategory>
+      };
+    });
+  };
+
   return (
     <div>
       <Tabs defaultValue="vehicles" className="space-y-6">
@@ -333,7 +350,7 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
         isEdit={false}
         vehicle={newVehicle}
         onSave={handleAddVehicle}
-        onVehicleChange={setNewVehicle}
+        onVehicleChange={handleNewVehicleChange}
         selectedFile={selectedFile}
         onFileChange={setSelectedFile}
       />
@@ -355,7 +372,7 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
         isEdit={false}
         category={newCategory}
         onSave={handleAddCategory}
-        onCategoryChange={setNewCategory}
+        onCategoryChange={handleNewCategoryChange}
       />
 
       <CategoryDialog
@@ -364,7 +381,7 @@ export const VehicleTypeSection = ({ vehicleTypes, onVehicleTypesChange }: Vehic
         isEdit={true}
         category={selectedCategory || newCategory}
         onSave={handleEditCategory}
-        onCategoryChange={(updates) => setSelectedCategory(prev => prev ? { ...prev, ...updates } : null)}
+        onCategoryChange={handleSelectedCategoryChange}
       />
     </div>
   );
