@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
 const Roadmap = () => {
   return <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
       <Navbar />
@@ -37,7 +36,7 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Development & Market Entry</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Launch operations in Rhein-Ruhr metropolitan regionDevelop scalable state of the art applications, with integrated AI-route optimization, -matching and -agents </li>
+                      <li>Launch operations in Rhein-Ruhr metropolitan region. Develop scalable applications, with integrated AI-route optimization, -matching and -agents</li>
                       <li>Launch operations in Rhein-Ruhr metropolitan region</li>
                       <li>Secure EXIST Grant Funding and recruit team</li>
                       <li>Start prototyping and planning autonomous underground delivery robot and network.</li>
@@ -106,7 +105,7 @@ const Roadmap = () => {
                   <CardTitle className="text-white text-2xl">Future Vision</CardTitle>
                   <CardDescription className="text-gray-300 text-lg">
                     <ul className="list-disc pl-5 space-y-3 mt-4">
-                      <li>Scale underground logistics networks across Europe</li>
+                      <li>Scale autonomous logistics networks across Europe</li>
                       <li>Achieve full automation of delivery operations</li>
                       <li>Establish Maxmove as one of Europe's leading logistics platform</li>
                       <li>Drive innovation in sustainable urban logistics</li>
